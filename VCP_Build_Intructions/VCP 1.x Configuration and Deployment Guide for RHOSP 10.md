@@ -490,7 +490,7 @@ You should see the following at the bottom of each entry
 
 Check the Virtual Functions (VF's)  
 
-__Note:__ You should have 28 entries returned, seven for each x520 physical port  
+__Note:__ You should have 28 entries returned, seven VF's for each x520 physical port  
 
 ```
 lspci -v | grep -A 15 "82599 Ethernet Controller Virtual Function"
