@@ -3,6 +3,7 @@
 - This deployment is meant for SR-IOV only on the Intel x520 NIC  
 - This guide builds everything using the admin tenant  
 - This deployment consists of one controller node and two compute nodes all of which are  Dell PowerEdge R640 servers  
+-  This procedure is performed as the root user.  
 
 ## Enable SR-IOV in the BIOS on the PowerEdge R640 using iDRAC (Compute Nodes Only)  
 
@@ -109,7 +110,7 @@ DNS = 10.144.31.146
 
 10. Once you have successfully installed RHEL 7.7 and rebooted be sure to unmap the image you mapped above.
 
-## Preparing RHEL servers for Openstack Installation  
+## Preparing RHEL servers for OpenStack Installation  
 
 Configure the /etc/hosts file  
 ```
@@ -177,6 +178,85 @@ Verify SELinux has been disabled
 ```
 sestatus
 ``` 
+
+We need to make sure none of the NICs used for this procedure will be controller by the RHEL Network Manager.  To do so each NIC ifcfg file will need to have "NM_CONTROLLED" set to no.  
+- The NICs used for this procedure are EM1, p3p1, p3p2, and p2p1.  
+- EM1 is the management interface, and the "p" interfaces are the SR-IOV interfaces  
+
+For example
+```
+vi /etc/sysconfig/network-scripts/ifcfg-em1
+```  
+```
+TYPE="Ethernet"
+BOOTPROTO="none"
+NAME="em1"
+DEVICE="em1"
+ONBOOT="yes"
+NM_CONTROLLED="no"
+```  
+__NOTE:__ You also need to make sure you have "ONBOOT" set to yes and "BOOTPROTO" set to none for each of the NICs above. 
+
+Disable RHEL Network Manager on all Nodes (Controller and Compute) 
+```
+systemctl disable NetworkManager
+systemctl stop NetworkManager
+```
+Verify Network Manager is inactive
+```
+systemctl status NetworkManager
+``` 
+
+Enable RHEL Network to replace Network Manager on all Nodes (Controller and Compute) 
+
+```
+systemctl enable network
+systemctl start network
+``` 
+Verify RHEL Network is active  
+```
+systemctl status network
+```  
+
+We now need to connect our RHEL server to the Redhat Subscription Service.  This steps requires an Active RHEL account.  You will need an active username and password.  
+
+This must be performed on all Nodes (Controller and Compute)  
+
+```
+subscription-manager register  --force
+```  
+```
+subscription-manager attach
+```  
+If any of the two steps fails above you have an issue with your Redhat account.  
+
+We now need to set our Redhat subscription to RHEL 7.7 to ensure the kernel does not get upgrade during a yum update.
+
+```
+[root@newton3 ~]# subscription-manager release --list
++-------------------------------------------+
+          Available Releases
++-------------------------------------------+
+7.0
+7.1
+7.2
+7.3
+7.4
+7.5
+7.6
+7.7
+7.8
+7Server
+``` 
+```
+[root@newton3 ~]# subscription-manager release --set=7.7
+Release set to: 7.7
+```
+
+
+
+
+
 
 
 
