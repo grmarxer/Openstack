@@ -416,7 +416,7 @@ vi /etc/default/grub
 
 Add the following to the end of "GRUB_CMDLINE_LINUX"  
 
-__NOTE:___ DO NOT REMOVE ANYTHING from "GRUB_CMDLINE_LINUX"
+__NOTE:__ DO NOT REMOVE ANYTHING from "GRUB_CMDLINE_LINUX"
 ```
 intel_iommu=on iommu=pt
 ```
@@ -432,6 +432,40 @@ grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
 ```
 reboot
 ```
+
+### Verify Virtualization and SR-IOV is configured properly  
+
+Once the server has rebooted we need to ensure virtualization and SR-IOV has been configured properly.  If your output varies from what I have below a step did not complete.
+
+Verify the VF's have been enabled for each PF.
+
+Run this command for each port: p3p1, p3p2, and p2p1  
+```
+[root@newton2 ~]# ip l show dev p3p1
+8: p3p1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
+    link/ether f8:f2:1e:88:e2:bc brd ff:ff:ff:ff:ff:ff
+    vf 0 MAC 00:00:00:00:00:00, spoof checking on, link-state auto, trust off, query_rss off
+    vf 1 MAC 00:00:00:00:00:00, spoof checking on, link-state auto, trust off, query_rss off
+    vf 2 MAC 00:00:00:00:00:00, spoof checking on, link-state auto, trust off, query_rss off
+    vf 3 MAC 00:00:00:00:00:00, spoof checking on, link-state auto, trust off, query_rss off
+    vf 4 MAC 00:00:00:00:00:00, spoof checking on, link-state auto, trust off, query_rss off
+    vf 5 MAC 00:00:00:00:00:00, spoof checking on, link-state auto, trust off, query_rss off
+    vf 6 MAC 00:00:00:00:00:00, spoof checking on, link-state auto, trust off, query_rss off
+```  
+
+You should see 7 VF's were created for each PF.  
+
+Verify that virtualization has been enable on the Compute host
+
+```
+[root@newton2 ~]# virt-host-validate
+  QEMU: Checking for hardware virtualization                                 : PASS
+  QEMU: Checking if device /dev/kvm exists                                   : PASS
+  ...
+  ...
+  QEMU: Checking if IOMMU is enabled by kernel                               : PASS
+  ...
+``` 
 
 
 
