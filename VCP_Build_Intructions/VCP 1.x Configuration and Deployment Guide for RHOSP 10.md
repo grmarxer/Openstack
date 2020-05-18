@@ -11,14 +11,28 @@
 3.  Choose the power button and select Reset System (warm boot)  
 4.  Enter the System Setup - BIOS configuration by pressing F2  
 5.  Select System BIOS > Processor Settings and enable Virtual Technology  
+
+<br/>  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/BIOS-ProcessorSettings.PNG)  
+
 6.  Click Back  
 7.  Select Integrated Devices and enable SR-IOV Global Enable  
+<br/>  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/BIOS-IntegratedDevices.PNG)  
+
+
 8.  Click Back then Finish  
 9.  From the System Setup Main Menu - select Device Settings  
 10. For each NIC Card that is recognized by the Dell BIOS that will be used for SRIOV select that NIC here.  
     __NOTE:__  For this lab only the Intel x520's will be used.  Since the x520's in these servers are not Dell branded they are not recognized by the BIOS so the following steps are not required.  Since there are also Intel x710 NIC cards in these servers that are Dell branded and recognized by the BIOS I have included the steps below for completeness.  
 11. Navigate to the Device Level Configuration  
 12. For Virtualization Mode choose SR-IOV from the drop down menu  
+<br/>  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/BIOS-DeviceLevelSetting.PNG)  
+
 13. Select Back, then Finish, then Finish again, and Finish again  
 14. Select Yes to exit and boot.  
 
