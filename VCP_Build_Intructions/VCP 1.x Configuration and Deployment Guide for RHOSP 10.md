@@ -252,7 +252,7 @@ We now need to set our Redhat subscription to RHEL 7.7 to ensure the kernel does
 Release set to: 7.7
 ```
 
-Next we need to attach the RHEL Openstack subcription to our nodes (Controller and Compute).  This is done by using a Pool ID.  
+Next we need to attach the RHEL Openstack subscription to our nodes (Controller and Compute).  This is done by using a Pool ID.  
 
 To find the Openstack Pool ID for your subscription use the following
 
@@ -327,6 +327,63 @@ Once the step above completes
 ```
 yum update -y
 ```
+```
+reboot
+```  
+
+### Enabling SR-IOV Virtual Functions (Compute Nodes Only) 
+
+In the following steps will be enabling the Virtual Functions (VF's) for intel x520 NICs.
+In this procedure the x520's are installed in server slots two and three.  Each x520 NIC has two ports, thus we are using p3p1, p3p2, and p2p1.  
+
+__NOTE:__ Since the x520 uses the same driver across all ports we only need to perform these steps for a single port, in this example p3p1.  
+
+__NOTE:__ SR-IOV VF's are only enabled on the Compute Nodes.  
+
+Run this command to determine the driver being used by the x520 NIC  
+```
+[root@newton2 ~]# ethtool -i p3p1 | grep ^driver
+driver: ixgbe
+```
+
+Next we will use "modprobe" to add the VF's  
+```
+modprobe -r ixgbe
+``` 
+This will create seven VF's per x520 port.  
+```
+modprobe ixgbe max_vfs=7
+```  
+```
+echo "options ixgbe max_vfs=7" >>/etc/modprobe.d/ixgbe.conf
+```
+
+Next we need to create a "modprobe" blacklist so the correct drivers load on the physical NIC (PF) and not the VF's
+
+Create the following file and add the contents below.  
+```
+vi /etc/modprobe.d/blacklist-intel_virtual.conf
+```  
+```
+# These drivers take over Intel nic virtual-functions, making them
+# unavailable for direct assignment to virtual-machines
+
+blacklist ixgbevf
+blacklist i40evf
+blacklist iavf
+``` 
+
+Next we need to rebuild the RHEL ramdisk image to accomidate the changes we made above.  
+
+```
+cp /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).bak.$(date +%m-%d-%H%M%S).img
+```  
+```
+dracut -f -v
+``` 
+
+
+
 
 
 
