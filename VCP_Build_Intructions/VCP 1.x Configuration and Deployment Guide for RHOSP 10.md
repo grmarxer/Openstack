@@ -161,7 +161,6 @@ systemctl status firewalld.service
 
 Disable SELinux (requires reboot)  
 
-Disable permanently   
 ```
 vi /etc/selinux/config
 ```  
@@ -253,6 +252,81 @@ We now need to set our Redhat subscription to RHEL 7.7 to ensure the kernel does
 Release set to: 7.7
 ```
 
+Next we need to attach the RHEL Openstack subcription to our nodes (Controller and Compute).  This is done by using a Pool ID.  
+
+To find the Openstack Pool ID for your subscription use the following
+
+```
+subscription-manager list --available --all | grep -i -A 50 "Red Hat OpenStack Platform, Standard Support"
+``` 
+
+In this example the Pool ID: 8a85f99c71eff3f4017219e2ebca5c3b
+
+```
+[root@newton2 ~]# subscription-manager list --available --all | grep -i -A 50 "Red Hat OpenStack Platform, Standard Support"
+Subscription Name:   Red Hat OpenStack Platform, Standard Support (4 Sockets, NFR, Partner Only)
+Provides:            dotNET on RHEL Beta (for RHEL Server)
+                     Red Hat CodeReady Linux Builder for x86_64
+                     Red Hat Enterprise Linux FDIO Early Access (RHEL 7 Server)
+                     Red Hat Ansible Engine
+                     Red Hat Ceph Storage
+                     Red Hat OpenStack Certification Test Suite
+                     Red Hat Software Collections (for RHEL Server for IBM Power LE)
+                     Red Hat Enterprise Linux Atomic Host Beta
+                     Red Hat Enterprise Linux Fast Datapath
+                     Red Hat OpenStack Beta
+                     Red Hat CloudForms
+                     Red Hat Software Collections Beta (for RHEL Server for IBM Power LE)
+                     Red Hat Enterprise Linux Load Balancer (for RHEL Server)
+                     Red Hat Enterprise Linux Advanced Virtualization Beta
+                     Red Hat Beta
+                     Red Hat Enterprise Linux Fast Datapath (for RHEL Server for IBM Power LE)
+                     Red Hat Enterprise Linux High Availability for Power, little endian
+                     Red Hat Enterprise Linux High Availability for x86_64
+                     Red Hat Single Sign-On
+                     dotNET on RHEL (for RHEL Server)
+                     Red Hat Certification (for RHEL Server)
+                     Red Hat Ceph Storage Calamari
+                     Red Hat Developer Tools (for RHEL Server for IBM Power LE)
+                     Red Hat OpenStack Beta Certification Test Suite
+                     Red Hat Enterprise Linux Advanced Virtualization
+                     Red Hat CloudForms Beta
+                     Red Hat Developer Tools Beta (for RHEL Server for IBM Power LE)
+                     Red Hat Enterprise Linux High Availability (for IBM Power LE) - Extended Update Support
+                     Red Hat OpenStack Beta for IBM Power LE
+                     Red Hat Enterprise Linux Fast Datapath Beta for Power, little endian
+                     Red Hat Software Collections (for RHEL Server)
+                     Red Hat OpenStack
+                     Red Hat Enterprise Linux Server (for IBM Power LE) - Update Services for SAP Solutions
+                     Red Hat Enterprise Linux for Power 9
+                     Red Hat Enterprise Linux Atomic Host
+                     Red Hat OpenStack for IBM Power
+                     Red Hat Enterprise Linux for Real Time for NFV
+                     Red Hat Enterprise Linux Fast Datapath Beta for x86_64
+                     Red Hat Enterprise MRG Messaging
+                     Red Hat Software Collections Beta (for RHEL Server)
+                     Red Hat Enterprise Linux Server
+                     Red Hat Enterprise Linux for x86_64
+                     Red Hat Ceph Storage MON
+                     Red Hat Enterprise Linux FDIO (RHEL 7 Server)
+SKU:                 SER0505
+Contract:            12213256
+Pool ID:             8a85f99c71eff3f4017219e2ebca5c3b
+Provides Management: No
+Available:           75
+Suggested:           1
+```  
+
+To attach the "Red Hat OpenStack Platform, Standard Support" subscription apply the following based on the above "Pool ID"  
+
+```
+subscription-manager attach --pool=8a85f99c71eff3f4017219e2ebca5c3b
+``` 
+
+Once the step above completes
+```
+yum update -y
+```
 
 
 
