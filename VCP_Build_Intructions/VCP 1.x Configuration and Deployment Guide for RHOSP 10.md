@@ -108,3 +108,77 @@ DNS = 10.144.31.146
 ```  
 
 10. Once you have successfully installed RHEL 7.7 and rebooted be sure to unmap the image you mapped above.
+
+## Preparing RHEL servers for Openstack Installation  
+
+Configure the /etc/hosts file  
+```
+vi /etc/hosts
+```  
+Add the following to /etc/hosts
+```
+# Controller
+10.144.19.242 newton1
+10.144.19.242 newton1.pl.pdsea.f5net.com
+
+# Compute Nodes
+10.144.19.240 newton2
+10.144.19.240 newton2.pl.pdsea.f5net.com
+10.144.19.238 newton3
+10.144.19.238 newton3.pl.pdsea.f5net.com
+```  
+Setup NTP  
+```
+vi /etc/chrony.conf
+``` 
+
+Remove the existing servers and replace with the following.  
+```
+server ntp.pdsea.f5net.com
+```  
+
+Enable and Start the chronyd.service  
+```
+systemctl enable chronyd.service
+systemctl start chronyd.service
+``` 
+Verify NTP is working properly  
+```
+chronyc sources
+```  
+
+Stop and Disable the firewalld.service  
+```
+systemctl stop firewalld.service
+systemctl disable firewalld.service
+```
+
+Verify the firewalld.service is inactive  
+```
+systemctl status firewalld.service
+```  
+
+Disable SELinux (requires reboot)  
+
+Disable permanently   
+```
+vi /etc/selinux/config
+```  
+
+Set the following to disabled  
+```
+SELINUX=disabled
+```  
+```
+reboot
+```  
+
+Verify SELinux has been disabled  
+```
+sestatus
+``` 
+
+
+
+
+
