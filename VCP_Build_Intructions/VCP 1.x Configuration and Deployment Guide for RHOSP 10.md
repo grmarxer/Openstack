@@ -7,6 +7,19 @@
 ## Enable SR-IOV in the BIOS on the PowerEdge R640 using iDRAC (Compute Nodes Only)  
 
 1.  Log into iDRAC using the IPMI IP address  
+```
+#Controller Node
+newton1.pl.pdsea.f5net.com
+IPMI = 10.144.19.243
+
+# Compute Nodes
+newton2.pl.pdsea.f5net.com
+IPMI = 10.144.19.241
+ 
+newton3.pl.pdsea.f5net.com
+IPMI = 10.144.19.239  
+```
+
 2.  Navigate to Virtual Console and Open it (bottom right hand side of iDRAC screen)  
 3.  Choose the power button and select Reset System (warm boot)  
 4.  Enter the System Setup - BIOS configuration by pressing F2  
@@ -57,5 +70,33 @@
 
 7.  iDRAC will ask you to confirm that you want to boot from Virtual CD/DVD/ISO - Select Yes
 8.  Choose the power button and select Reset System (warm boot)  
-9.  The RHEL Installer UI will begin
+9.  The RHEL Installer UI will begin  
+    - Use infastructure server for all nodes  
+    - Each server has two virtual disks  
+        - For the Controller node use the 446 GB Virtual Disk  
+        - For the Compute Nodes use the 3575 GB Virtual Disk  
+    - Configure EM1 on each server as the management NIC
+    - Use the information below for the server naming convention and IP addressing  
+```
+#Controller Node
+newton1.pl.pdsea.f5net.com
+MGMT = 10.144.19.242
+Netmask = 255.255.240.0
+Gateway = 10.144.31.254
+DNS = 10.144.31.146
+
+#Compute Nodes
+newton2.pl.pdsea.f5net.com
+MGMT = 10.144.19.240
+Netmask = 255.255.240.0
+Gateway = 10.144.31.254
+DNS = 10.144.31.146
+ 
+newton3.pl.pdsea.f5net.com
+MGMT = 10.144.19.238
+Netmask = 255.255.240.0
+Gateway = 10.144.31.254
+DNS = 10.144.31.146 
+```  
+
 10. Once you have successfully installed RHEL 7.7 and rebooted be sure to unmap the image you mapped above.
