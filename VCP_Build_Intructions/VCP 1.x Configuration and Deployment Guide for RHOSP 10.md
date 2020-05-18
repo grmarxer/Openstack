@@ -382,6 +382,62 @@ cp /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).bak.$(date +%m-%d
 dracut -f -v
 ``` 
 
+You will need to parse the following out of the "dracut" command run above.  This is the last line of output.  
+
+__NOTE:___ This output will vary so you need to make sure you do this step precisely.  
+
+```
+*** Creating initramfs image file '/boot/initramfs-3.10.0-1062.18.1.el7.x86_64.img' done ***
+```  
+
+You now need to take the output from above and create the following entry.  
+
+__NOTE:__ This step involves adding "3.10.0-1062.18.1.el7.x86_64" to the end of the command  
+```
+dracut -f /boot/initramfs-3.10.0-1062.18.1.el7.x86_64.img 3.10.0-1062.18.1.el7.x86_64
+```
+
+Once the step above completes remake the grub config  
+
+```
+grub2-mkconfig -o /boot/grub2/grub.cfg
+```
+```
+grubby --update-kernel=ALL --args="intel_iommu=pt ixgbe.max_vfs=7"
+```  
+
+Next we need to enable virutalization passthrough on the Compute host.  This is done by enabling IOMMU by editing the grub configuration file.
+
+Edit the following file  
+
+```
+vi /etc/default/grub
+```
+
+Add the following to the end of "GRUB_CMDLINE_LINUX"  
+
+__NOTE:___ DO NOT REMOVE ANYTHING from "GRUB_CMDLINE_LINUX"
+```
+intel_iommu=on iommu=pt
+```
+
+When complete your "GRUB_CMDLINE_LINUX" line should look something like this.  
+```
+GRUB_CMDLINE_LINUX="crashkernel=auto spectre_v2=retpoline rd.lvm.lv=rhel00/root rd.lvm.lv=rhel00/swap rhgb quiet default_hugepagesz=1GB hugepagesz=1G hugepages=12 intel_iommu=on iommu=pt"
+```  
+Refresh the grub.cfg file and reboot the host for these changes to take effect  
+```
+grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
+```  
+```
+reboot
+```
+
+
+
+
+
+
 
 
 
