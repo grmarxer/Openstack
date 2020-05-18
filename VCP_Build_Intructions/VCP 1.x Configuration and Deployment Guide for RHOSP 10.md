@@ -39,3 +39,23 @@
 
 
 ## Install RHEL 7.7 using Dell idrac  
+
+1.  Download rhel-server-7.7-x86_64-dvd.iso from Redhat to your local machine
+2.  Log into iDRAC using the IPMI IP address  
+3.  Navigate to Virtual Console and Open it (bottom right hand side of iDRAC screen)  
+4.  Select Connect Virtual Media and map the image downloaded above to MAP CD/DVD  
+
+<br/>  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/iDRAC_VirtualMedia.PNG)  
+
+5.  Select Close
+6.  Select Boot and double click on Virtual CD/DVD/ISO
+<br/>  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/iDRAC_BootControl.PNG) 
+
+7.  iDRAC will ask you to confirm that you want to boot from Virtual CD/DVD/ISO - Select Yes
+8.  Choose the power button and select Reset System (warm boot)  
+9.  The RHEL Installer UI will begin
+10. Once you have successfully installed RHEL 7.7 and rebooted be sure to unmap the image you mapped above.
