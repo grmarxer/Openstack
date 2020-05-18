@@ -453,7 +453,7 @@ Run this command for each port: p3p1, p3p2, and p2p1
     vf 6 MAC 00:00:00:00:00:00, spoof checking on, link-state auto, trust off, query_rss off
 ```  
 
-You should see 7 VF's were created for each PF.  
+You should see 7 VF's were created for each PF (vf0-vf6)  
 
 Verify that virtualization has been enable on the Compute host
 
@@ -465,7 +465,45 @@ Verify that virtualization has been enable on the Compute host
   ...
   QEMU: Checking if IOMMU is enabled by kernel                               : PASS
   ...
-``` 
+```  
+
+The only item that should fail above is the following:  
+```
+LXC: Checking if device /sys/fs/fuse/connections exists
+```
+
+We will now make sure the appropriate drivers were installed for both the PF's and the VF's  
+
+Check the Physical Functions (PF's)  
+
+__Note:__ You should have 4 entries returned, one for each x520 physical port  
+
+```
+lspci -v | grep -A 15 "Intel Corporation 82599ES 10-Gigabit SFI/SFP+ Network Connection"
+```  
+You should see the following at the bottom of each entry  
+
+```
+        Kernel driver in use: ixgbe
+        Kernel modules: ixgbe
+```  
+
+Check the Virtual Functions (VF's)  
+
+__Note:__ You should have 28 entries returned, seven for each x520 physical port  
+
+```
+lspci -v | grep -A 15 "82599 Ethernet Controller Virtual Function"
+```  
+
+You should see the following at the bottom of each entry 
+
+```
+        Capabilities: [150] Alternative Routing-ID Interpretation (ARI)
+        Kernel modules: ixgbevf
+```  
+__NOTICE:__ The VF's do not have a "Kernel driver in use"  
+
 
 
 
