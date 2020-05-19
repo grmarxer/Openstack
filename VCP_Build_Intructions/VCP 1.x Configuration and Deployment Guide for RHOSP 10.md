@@ -134,6 +134,8 @@ Add the following to /etc/hosts
 
 ### Setup NTP  
 
+#### Setup NTP  
+
 __Setup NTP__  
 ```
 vi /etc/chrony.conf
