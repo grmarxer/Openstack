@@ -646,11 +646,24 @@ packstack --answer-file=
 
 
 
+##  Fine Tuning the Openstack-packstack Installation  
 
-To use right disk for building instances (done on each compute)
+We need to modify the Compute nodes to use the right directory for instance creation.  
+__Note:__ Compute nodes only  
+
+```
 vi /etc/nova/nova.conf
+```  
+
+Change the instances_path inside nova.conf to match the following  
+
+```
 instances_path=/home
+```
+```
 chmod 777 /home
+```  
+
 
 
 
