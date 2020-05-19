@@ -531,7 +531,25 @@ yum update -y
 reboot
 ```
 
-## Install the following Repositories and Packages on the Controller Only  
+## Install Packstack on the Controller Only  
+
+We will use openstack-packstack to install Openstack Newton (RHOSP 10) for simplicity sake.  Openstack-Packstack will get the configuration about 90% complete.  Once we deploy the "answer-file" and the openstack-packstack installation is complete we will have to make a few minor chnages.  The opentack-packstack "answer-file" is used to push the configuration objects we want to use to the openstack-packstack installer.  
+
+__Note:__ Packstack and its answer file are only used on the Controller node.
+
+```
+yum install -y openstack-packstack
+```  
+
+Generate the openstack packstack answer file.  The openstack-packstack "answer-file" will be generated in the root directory with the name "packstack-answer"  
+
+```
+packstack --gen-answer-file=packstack-answer
+```  
+
+We will not use the "packstack-answer" file created above.  I have a configured "packstack-answer" file that has been configured with the settings to use in this lab.  If you wish you can do a diff on the two files to note the changes.  
+
+
 
 
 
