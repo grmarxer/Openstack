@@ -114,7 +114,7 @@ DNS = 10.144.31.146
 
 ## Preparing RHEL servers for OpenStack Installation  
 
-__Configure the /etc/hosts file__  
+### Configure the /etc/hosts file  
 ```
 vi /etc/hosts
 ```  
@@ -225,30 +225,40 @@ OVS_BRIDGE=br-mgmt
 
 <br/>
 
-### Update NC Settings --  ALL Nodes  
+### Update NIC Settings --  ALL Nodes  
 
+We need to ensure that we fine tune the settings for all of the NIC cards we will be using in this solution.  We have already updated EM2 on the Compute nodes.  
+We now need to update EM1 on the Controller Node and EM1, p3p1, p3p2, p2p1 on the Compute nodes  
 
-We need to make sure none of the NICs used for this procedure will be controlled by the RHEL Network Manager.  To do so each NIC ifcfg file will need to have "NM_CONTROLLED" set to no.  
-- The NICs used for this procedure are EM1, EM2, p3p1, p3p2, and p2p1.  
-- EM1 and EM2 will be used for management, EM2 will only be used on the Compute nodes.
-- The "p" interfaces are the SR-IOV interfaces and will only be configured on the Compute nodes.
-- The Controller node will only have interface EM1 configured.
+Summary of changes required: 
+- Disable RHEL Network Manager  - NM_CONTROLLED=no
+- Change "onboot" to yes - ONBOOT=yes
+- Change "boot" protocol to none - BOOTPROTO="none"
 
-For example
+Controller Node (NIC - EM1 Only)
 ```
 vi /etc/sysconfig/network-scripts/ifcfg-em1
 ```  
 ```
-TYPE="Ethernet"
 BOOTPROTO="none"
-NAME="em1"
-DEVICE="em1"
 ONBOOT="yes"
 NM_CONTROLLED="no"
 ```  
-__NOTE:__ You also need to make sure you have "ONBOOT" set to yes and "BOOTPROTO" set to none for each of the NICs above. 
 
-Disable RHEL Network Manager on all Nodes (Controller and Compute) 
+Compute Nodes (NIC - EM1, p3p1, p3p2, p2p1)  
+
+```
+vi /etc/sysconfig/network-scripts/ifcfg-xxx
+```  
+```
+BOOTPROTO=none
+ONBOOT=yes
+NM_CONTROLLED=no
+```  
+
+
+
+### Disable RHEL Network Manager on all Nodes (Controller and Compute) 
 ```
 systemctl disable NetworkManager
 systemctl stop NetworkManager
@@ -258,7 +268,7 @@ Verify Network Manager is inactive
 systemctl status NetworkManager
 ``` 
 
-Enable RHEL Network to replace Network Manager on all Nodes (Controller and Compute) 
+### Enable RHEL Network to replace Network Manager on all Nodes (Controller and Compute) 
 
 ```
 systemctl enable network
@@ -268,6 +278,8 @@ Verify RHEL Network is active
 ```
 systemctl status network
 ```  
+
+### Enable Redhat Subscription Service  
 
 We now need to connect our RHEL server to the Redhat Subscription Service.  This steps requires an Active RHEL account.  You will need an active username and password.  
 
