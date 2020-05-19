@@ -183,7 +183,46 @@ sestatus
 ``` 
 <br/>  
 
-__Create the bridge interface to be used by the Compute Nodes for bridging the Lab Management Network to the BIG-IP instances inside the tenant__  
+__Create Bridge Interface -- Compute Nodes Only__
+
+Although we will use EM1 to manage the Compute and Controller nodes directly, we need a mechanism for passing that same management network into an Openstack tenant so it can be assigned to the mgmt interface of a BIG-IP instance.  
+
+The way we will do that is by creating a bridge interface on each of the compute nodes and linking that bridge interface to EM2.  EM2 will be a layer 2 connection only into the same switch vlan that is connected to EM1.  Thus when we assign the mgmt network to a BIG-IP instance it will bridge through br-mgmt > EM2 allowing connectivity.  
+
+Build the bridge interface on both Compute Nodes  
+
+```
+vi /etc/sysconfig/network-scripts/ifcfg-br-mgmt
+``` 
+
+```
+DEVICE=br-mgmt
+TYPE=OVSBridge
+DEVICETYPE=ovs
+ONBOOT=yes
+NM_CONTROLLED=no
+BOOTPROTO=none
+```  
+
+Update the EM2 ifcfg file on both compute nodes to make sure the setting below are included  
+
+```
+vi  /etc/sysconfig/network-scripts/ifcfg-em2
+```  
+```
+TYPE=Ethernet
+BOOTPROTO=none
+NAME=em2
+ONBOOT=yes
+NM_CONTROLLED=no
+TYPE=OVSPort
+DEVICETYPE=ovs
+OVS_BRIDGE=br-mgmt
+```  
+
+
+__Update NC Settings --  ALL Nodes__  
+
 
 We need to make sure none of the NICs used for this procedure will be controlled by the RHEL Network Manager.  To do so each NIC ifcfg file will need to have "NM_CONTROLLED" set to no.  
 - The NICs used for this procedure are EM1, EM2, p3p1, p3p2, and p2p1.  
@@ -340,7 +379,7 @@ yum update -y
 reboot
 ```  
 
-### Enabling SR-IOV Virtual Functions (Compute Nodes Only) 
+### Enabling SR-IOV Virtual Functions (Compute Nodes Only)  
 
 In the following steps will be enabling the Virtual Functions (VF's) for intel x520 NICs.
 In this procedure the x520's are installed in server slots two and three.  Each x520 NIC has two ports, thus we are using p3p1, p3p2, and p2p1.  
@@ -559,10 +598,19 @@ packstack --gen-answer-file=packstack-answer
 We will not use the "packstack-answer" file created above.  I have a configured "packstack-answer" file that has been configured with the settings to use in this lab.  If you wish you can do a diff on the two files to note the changes.  
 
 
+Use this command to deploy the openstack-packstack "answer-file"
+
+```
+packstack --answer-file=
+```  
 
 
 
 
+To use right disk for building instances (done on each compute)
+vi /etc/nova/nova.conf
+instances_path=/home
+chmod 777 /home
 
 
 
