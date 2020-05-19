@@ -234,7 +234,8 @@ Summary of changes required:
 - Change "boot" protocol to none - BOOTPROTO="none"
 
 <br/>  
-Controller Node (NIC - EM1 Only)  
+Controller Node (NIC - EM1 Only) 
+ 
 ```
 vi /etc/sysconfig/network-scripts/ifcfg-em1
 ```  
