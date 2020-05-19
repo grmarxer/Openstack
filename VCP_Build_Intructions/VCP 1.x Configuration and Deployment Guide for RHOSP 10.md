@@ -142,7 +142,7 @@ Remove the existing servers and replace with the following.
 server ntp.pdsea.f5net.com
 ```  
 
-Enable and Start the chronyd.service  
+    Enable and Start the chronyd.service  
 ```
 systemctl enable chronyd.service
 systemctl start chronyd.service
