@@ -128,7 +128,7 @@ Add the following to /etc/hosts
 10.144.19.238 newton3
 10.144.19.238 newton3.pl.pdsea.f5net.com
 ```  
-Setup NTP  
+__Setup NTP__  
 ```
 vi /etc/chrony.conf
 ``` 
@@ -148,7 +148,7 @@ Verify NTP is working properly
 chronyc sources
 ```  
 
-Stop and Disable the firewalld.service  
+__Stop and Disable the firewalld.service__  
 ```
 systemctl stop firewalld.service
 systemctl disable firewalld.service
@@ -159,7 +159,7 @@ Verify the firewalld.service is inactive
 systemctl status firewalld.service
 ```  
 
-Disable SELinux (requires reboot)  
+__Disable SELinux (requires reboot)__  
 
 ```
 vi /etc/selinux/config
@@ -173,14 +173,18 @@ SELINUX=disabled
 reboot
 ```  
 
-Verify SELinux has been disabled  
+__Verify SELinux has been disabled__  
 ```
 sestatus
 ``` 
 
-We need to make sure none of the NICs used for this procedure will be controller by the RHEL Network Manager.  To do so each NIC ifcfg file will need to have "NM_CONTROLLED" set to no.  
-- The NICs used for this procedure are EM1, p3p1, p3p2, and p2p1.  
-- EM1 is the management interface, and the "p" interfaces are the SR-IOV interfaces  
+__Create the bridge interface to be used by the Compute Nodes for bridging the Lab Management Network to the BIG-IP instances inside the tenant__  
+
+We need to make sure none of the NICs used for this procedure will be controlled by the RHEL Network Manager.  To do so each NIC ifcfg file will need to have "NM_CONTROLLED" set to no.  
+- The NICs used for this procedure are EM1, EM2, p3p1, p3p2, and p2p1.  
+- EM1 and EM2 will be used for management, EM2 will only be used on the Compute nodes.
+- The "p" interfaces are the SR-IOV interfaces and will only be configured on the Compute nodes.
+- The Controller node will only have interface EM1 configured.
 
 For example
 ```
@@ -531,9 +535,9 @@ yum update -y
 reboot
 ```
 
-## Install Packstack on the Controller Only  
+## Install Openstack-Packstack on the Controller Only  
 
-We will use openstack-packstack to install Openstack Newton (RHOSP 10) for simplicity sake.  Openstack-Packstack will get the configuration about 90% complete.  Once we deploy the "answer-file" and the openstack-packstack installation is complete we will have to make a few minor chnages.  The opentack-packstack "answer-file" is used to push the configuration objects we want to use to the openstack-packstack installer.  
+We will use openstack-packstack to install Openstack Newton (RHOSP 10) for simplicity sake.  Openstack-packstack is a utility that will perform approximately 90% of the necessary Openstack Configuration.  It's a much less painless process then attempting a manual installtion of Openstack.  Once we deploy the "answer-file" and the openstack-packstack installation is complete we will have to make a few minor chnages.  The opentack-packstack "answer-file" is used to push the configuration objects we want to use to the openstack-packstack installer.  
 
 __Note:__ Packstack and its answer file are only used on the Controller node.
 
