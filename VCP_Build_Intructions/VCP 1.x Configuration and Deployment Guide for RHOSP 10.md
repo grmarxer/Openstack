@@ -189,7 +189,8 @@ Although we will use EM1 to manage the Compute and Controller nodes directly, we
 
 The way we will do that is by creating a bridge interface on each of the compute nodes and linking that bridge interface to EM2.  EM2 will be a layer 2 connection only into the same switch vlan that is connected to EM1.  Thus when we assign the mgmt network to a BIG-IP instance it will bridge through br-mgmt > EM2 allowing connectivity.  
 
-Build the bridge interface on both Compute Nodes  
+<br/>
+Create the bridge interface on both Compute Nodes.
 
 ```
 vi /etc/sysconfig/network-scripts/ifcfg-br-mgmt
@@ -204,7 +205,7 @@ NM_CONTROLLED=no
 BOOTPROTO=none
 ```  
 
-Update the EM2 ifcfg file on both compute nodes to make sure the setting below are included  
+Update the EM2 ifcfg file on both Compute nodes to make sure the settings below are included  
 
 ```
 vi  /etc/sysconfig/network-scripts/ifcfg-em2
@@ -220,6 +221,7 @@ DEVICETYPE=ovs
 OVS_BRIDGE=br-mgmt
 ```  
 
+<br/>
 
 __Update NC Settings --  ALL Nodes__  
 
