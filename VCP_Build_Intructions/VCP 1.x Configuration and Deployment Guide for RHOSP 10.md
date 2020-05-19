@@ -164,8 +164,7 @@ __Disable SELinux (requires reboot)__
 ```
     vi /etc/selinux/config
 ```  
-
-    Set the following to disabled  
+Set the following to disabled  
 ```
     SELINUX=disabled
 ```  
