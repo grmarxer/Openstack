@@ -644,13 +644,14 @@ Use this command to deploy the openstack-packstack "answer-file"
 packstack --answer-file=
 ```  
 
-
+<br/>  
 
 ##  Fine Tuning the Openstack-packstack Installation  
 
-We need to modify the Compute nodes to use the right directory for instance creation.  
-__Note:__ Compute nodes only  
+__Compute nodes only__ 
 
+We need to modify the Compute nodes to use the right directory for instance creation.  
+  
 ```
 vi /etc/nova/nova.conf
 ```  
