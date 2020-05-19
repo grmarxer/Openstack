@@ -158,21 +158,22 @@ Verify the firewalld.service is inactive
 ```
 systemctl status firewalld.service
 ```  
+<br/>  
 
 __Disable SELinux (requires reboot)__  
 
 ```
-    vi /etc/selinux/config
+vi /etc/selinux/config
 ```  
 Set the following to disabled  
 ```
-    SELINUX=disabled
+SELINUX=disabled
 ```  
 ```
-    reboot
+reboot
 ```  
 
-__Verify SELinux has been disabled__  
+Verify SELinux has been disabled  
 ```
 sestatus
 ``` 
