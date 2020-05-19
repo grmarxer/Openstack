@@ -134,9 +134,6 @@ Add the following to /etc/hosts
 
 ### Setup NTP  
 
-#### Setup NTP  
-
-__Setup NTP__  
 ```
 vi /etc/chrony.conf
 ``` 
@@ -156,7 +153,7 @@ chronyc sources
 ```  
 <br/>  
 
-__Stop and Disable the firewalld.service__  
+### Stop and Disable the firewalld.service  
 ```
 systemctl stop firewalld.service
 systemctl disable firewalld.service
@@ -168,7 +165,7 @@ systemctl status firewalld.service
 ```  
 <br/>  
 
-__Disable SELinux (requires reboot)__  
+### Disable SELinux (requires reboot)  
 
 ```
 vi /etc/selinux/config
@@ -187,7 +184,7 @@ sestatus
 ``` 
 <br/>  
 
-__Create Bridge Interface -- Compute Nodes Only__
+### Create Bridge Interface -- Compute Nodes Only  
 
 Although we will use EM1 to manage the Compute and Controller nodes directly, we need a mechanism for passing that same management network into an Openstack tenant so it can be assigned to the mgmt interface of a BIG-IP instance.  
 
@@ -228,7 +225,7 @@ OVS_BRIDGE=br-mgmt
 
 <br/>
 
-__Update NC Settings --  ALL Nodes__  
+### Update NC Settings --  ALL Nodes  
 
 
 We need to make sure none of the NICs used for this procedure will be controlled by the RHEL Network Manager.  To do so each NIC ifcfg file will need to have "NM_CONTROLLED" set to no.  
