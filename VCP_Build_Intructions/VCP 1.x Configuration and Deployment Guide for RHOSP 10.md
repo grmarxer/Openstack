@@ -744,7 +744,6 @@ neutron port-create mirroring --name mirror-sriov-p2 --binding:vnic-type direct
 
 ```
 openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
-openstack flavor create bigip.1G --ram 4096 --disk 100 --vcpus 2
 ```  
 
 
