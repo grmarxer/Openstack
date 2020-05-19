@@ -231,11 +231,12 @@ We now need to update EM1 on the Controller Node and EM1, p3p1, p3p2, p2p1 on th
 Summary of changes required: 
 - Disable RHEL Network Manager  - NM_CONTROLLED=no
 - Change "onboot" to yes - ONBOOT=yes
-- Change "boot" protocol to none - BOOTPROTO="none"
+- Change "boot protocol" to none - BOOTPROTO="none"
 
 <br/>  
-Controller Node (NIC - EM1 Only) 
- 
+
+__Controller Node (NIC - EM1 Only)__ 
+
 ```
 vi /etc/sysconfig/network-scripts/ifcfg-em1
 ```  
@@ -246,7 +247,8 @@ NM_CONTROLLED="no"
 ```  
 
 <br/>  
-Compute Nodes (NIC - EM1, p3p1, p3p2, p2p1)  
+
+__Compute Nodes (NIC - EM1, p3p1, p3p2, p2p1)__ 
 
 ```
 vi /etc/sysconfig/network-scripts/ifcfg-xxx
