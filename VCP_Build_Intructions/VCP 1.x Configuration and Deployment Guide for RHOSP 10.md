@@ -505,9 +505,33 @@ You should see the following at the bottom of each entry
 __NOTICE:__ The VF's do not have a "Kernel driver in use"  
 
 
+## Install the following Repositories and Packages (Controller and Compute Nodes)
 
+```
+subscription-manager repos --enable=rhel-7-server-rh-common-rpms
+subscription-manager repos --enable=rhel-7-server-extras-rpms
+subscription-manager repos --enable=rhel-7-server-openstack-10-rpms
+subscription-manager repos --enable=rhel-7-server-openstack-10-devtools-rpms
+``` 
 
+```
+yum install yum-utils
+```
 
+```
+yum install -y openstack-heat-* python-heatclient openstack-utils
+```
+```
+yum install python-setuptools
+```
+```
+yum update -y
+```
+```
+reboot
+```
+
+## Install the following Repositories and Packages on the Controller Only  
 
 
 
