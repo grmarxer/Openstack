@@ -519,6 +519,7 @@ reboot
 Once the server has rebooted we need to ensure virtualization and SR-IOV has been configured properly.  If your output varies from what I have below a step did not complete.
 
 Verify the VF's have been enabled for each PF.
+<br/>  
 
 Run this command for each port: p3p1, p3p2, and p2p1  
 ```
@@ -535,8 +536,9 @@ Run this command for each port: p3p1, p3p2, and p2p1
 ```  
 
 You should see 7 VF's were created for each PF (vf0-vf6)  
+<br/>  
 
-Verify that virtualization has been enable on the Compute host
+Verify that virtualization has been enable on the Compute hosts
 
 ```
 [root@newton2 ~]# virt-host-validate
@@ -552,8 +554,10 @@ The only item that should fail above is the following:
 ```
 LXC: Checking if device /sys/fs/fuse/connections exists
 ```
+<br/>  
 
 We will now make sure the appropriate drivers were installed for both the PF's and the VF's  
+<br/> 
 
 Check the Physical Functions (PF's)  
 
@@ -568,6 +572,7 @@ You should see the following at the bottom of each entry
         Kernel driver in use: ixgbe
         Kernel modules: ixgbe
 ```  
+<br/>  
 
 Check the Virtual Functions (VF's)  
 
@@ -585,6 +590,7 @@ You should see the following at the bottom of each entry
 ```  
 __NOTICE:__ The VF's do not have a "Kernel driver in use"  
 
+<br/>  
 
 ## Install the following Repositories and Packages (Controller and Compute Nodes)
 
@@ -611,6 +617,7 @@ yum update -y
 ```
 reboot
 ```
+<br/>  
 
 ## Install Openstack-Packstack on the Controller Only  
 
