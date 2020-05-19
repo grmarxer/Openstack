@@ -259,7 +259,7 @@ ONBOOT=yes
 NM_CONTROLLED=no
 ```  
 
-
+<br/>  
 
 ### Disable RHEL Network Manager on all Nodes (Controller and Compute) 
 ```
@@ -270,6 +270,7 @@ Verify Network Manager is inactive
 ```
 systemctl status NetworkManager
 ``` 
+<br/>   
 
 ### Enable RHEL Network to replace Network Manager on all Nodes (Controller and Compute) 
 
@@ -281,12 +282,13 @@ Verify RHEL Network is active
 ```
 systemctl status network
 ```  
+<br/>   
 
 ### Enable Redhat Subscription Service  
 
 We now need to connect our RHEL server to the Redhat Subscription Service.  This steps requires an Active RHEL account.  You will need an active username and password.  
 
-This must be performed on all Nodes (Controller and Compute)  
+__This must be performed on all Nodes (Controller and Compute)__  
 
 ```
 subscription-manager register  --force
@@ -294,7 +296,8 @@ subscription-manager register  --force
 ```
 subscription-manager attach
 ```  
-If any of the two steps fails above you have an issue with your Redhat account.  
+If any of the two steps above fail you have an issue with your Redhat account.  
+<br/>  
 
 We now need to set our Redhat subscription to RHEL 7.7 to ensure the kernel does not get upgrade during a yum update.
 
@@ -318,6 +321,7 @@ We now need to set our Redhat subscription to RHEL 7.7 to ensure the kernel does
 [root@newton3 ~]# subscription-manager release --set=7.7
 Release set to: 7.7
 ```
+<br/>  
 
 Next we need to attach the RHEL Openstack subscription to our nodes (Controller and Compute).  This is done by using a Pool ID.  
 
@@ -397,6 +401,7 @@ yum update -y
 ```
 reboot
 ```  
+<br/>  
 
 ### Enabling SR-IOV Virtual Functions (Compute Nodes Only)  
 
