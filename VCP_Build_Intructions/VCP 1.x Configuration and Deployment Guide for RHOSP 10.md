@@ -132,6 +132,8 @@ Add the following to /etc/hosts
 ```  
 <br/>  
 
+### Setup NTP  
+
 __Setup NTP__  
 ```
 vi /etc/chrony.conf
@@ -204,6 +206,7 @@ ONBOOT=yes
 NM_CONTROLLED=no
 BOOTPROTO=none
 ```  
+<br/>
 
 Update the EM2 ifcfg file on both Compute nodes to make sure the settings below are included  
 
