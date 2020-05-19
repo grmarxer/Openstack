@@ -411,12 +411,14 @@ In this procedure the x520's are installed in server slots two and three.  Each 
 __NOTE:__ Since the x520 uses the same driver across all ports we only need to perform these steps for a single port, in this example p3p1.  
 
 __NOTE:__ SR-IOV VF's are only enabled on the Compute Nodes.  
+<br/> 
 
 Run this command to determine the driver being used by the x520 NIC  
 ```
 [root@newton2 ~]# ethtool -i p3p1 | grep ^driver
 driver: ixgbe
 ```
+<br/> 
 
 Next we will use "modprobe" to add the VF's  
 ```
@@ -429,6 +431,7 @@ modprobe ixgbe max_vfs=7
 ```
 echo "options ixgbe max_vfs=7" >>/etc/modprobe.d/ixgbe.conf
 ```
+<br/> 
 
 Next we need to create a "modprobe" blacklist so the correct drivers load on the physical NIC (PF) and not the VF's
 
@@ -444,6 +447,7 @@ blacklist ixgbevf
 blacklist i40evf
 blacklist iavf
 ``` 
+<br/> 
 
 Next we need to rebuild the RHEL ramdisk image to accomidate the changes we made above.  
 
@@ -453,14 +457,16 @@ cp /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).bak.$(date +%m-%d
 ```
 dracut -f -v
 ``` 
+<br/> 
 
 You will need to parse the following out of the "dracut" command run above.  This is the last line of output.  
 
-__NOTE:___ This output will vary so you need to make sure you do this step precisely.  
+__NOTE:__ This output will vary so you need to make sure you do this step precisely.  
 
 ```
 *** Creating initramfs image file '/boot/initramfs-3.10.0-1062.18.1.el7.x86_64.img' done ***
 ```  
+<br/> 
 
 You now need to take the output from above and create the following entry.  
 
@@ -468,6 +474,7 @@ __NOTE:__ This step involves adding "3.10.0-1062.18.1.el7.x86_64" to the end of 
 ```
 dracut -f /boot/initramfs-3.10.0-1062.18.1.el7.x86_64.img 3.10.0-1062.18.1.el7.x86_64
 ```
+<br/> 
 
 Once the step above completes remake the grub config  
 
@@ -477,6 +484,7 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 grubby --update-kernel=ALL --args="intel_iommu=pt ixgbe.max_vfs=7"
 ```  
+<br/> 
 
 Next we need to enable virutalization passthrough on the Compute host.  This is done by enabling IOMMU by editing the grub configuration file.
 
@@ -504,6 +512,7 @@ grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
 ```
 reboot
 ```
+<br/>  
 
 ### Verify Virtualization and SR-IOV is configured properly  
 
