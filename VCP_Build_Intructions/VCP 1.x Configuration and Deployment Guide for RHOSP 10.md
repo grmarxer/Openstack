@@ -108,11 +108,13 @@ Gateway = 10.144.31.254
 DNS = 10.144.31.146 
 ```  
 
-10. Once you have successfully installed RHEL 7.7 and rebooted be sure to unmap the image you mapped above.
+10. Once you have successfully installed RHEL 7.7 and rebooted be sure to unmap the image you mapped above.  
+
+<br/>  
 
 ## Preparing RHEL servers for OpenStack Installation  
 
-Configure the /etc/hosts file  
+__Configure the /etc/hosts file__  
 ```
 vi /etc/hosts
 ```  
@@ -128,6 +130,8 @@ Add the following to /etc/hosts
 10.144.19.238 newton3
 10.144.19.238 newton3.pl.pdsea.f5net.com
 ```  
+<br/>  
+
 __Setup NTP__  
 ```
 vi /etc/chrony.conf
@@ -147,6 +151,7 @@ Verify NTP is working properly
 ```
 chronyc sources
 ```  
+<br/>  
 
 __Stop and Disable the firewalld.service__  
 ```
@@ -177,6 +182,7 @@ Verify SELinux has been disabled
 ```
 sestatus
 ``` 
+<br/>  
 
 __Create the bridge interface to be used by the Compute Nodes for bridging the Lab Management Network to the BIG-IP instances inside the tenant__  
 
