@@ -687,10 +687,10 @@ systemctl restart openstack-nova-*
 
 <br/>  
 
-##  Create the Openstack Neutron Network  
+##  Configuring Openstack Nova, Neutron, and Glance  
 
 In this solution we will create everything in the admin tenant.  The demo tenant will not be used.  Also we do not need to create a neutron router as it is not required for this environment  
-
+<br/> 
 
 ### Log into the Controller Node and source the admin credentials  
 
