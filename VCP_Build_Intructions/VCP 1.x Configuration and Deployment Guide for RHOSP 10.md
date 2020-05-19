@@ -188,7 +188,7 @@ sestatus
 
 Although we will use EM1 to manage the Compute and Controller nodes directly, we need a mechanism for passing that same management network into an Openstack tenant so it can be assigned to the mgmt interface of a BIG-IP instance.  
 
-The way we will do that is by creating a bridge interface on each of the compute nodes and linking that bridge interface to EM2.  EM2 will be a layer 2 connection only into the same switch vlan that is connected to EM1.  Thus when we assign the mgmt network to a BIG-IP instance it will bridge through br-mgmt > EM2 allowing connectivity.  
+The way we will do that is by creating a bridge interface on each of the compute nodes and linking that bridge interface to EM2.  EM2 will be a layer 2 connection only to the same switch vlan that is connected to EM1.  Thus when we assign the mgmt network to a BIG-IP instance it will bridge through OVS > br-mgmt > EM2.  
 
 <br/>
 Create the bridge interface on both Compute Nodes.
@@ -213,9 +213,7 @@ Update the EM2 ifcfg file on both Compute nodes to make sure the settings below 
 vi  /etc/sysconfig/network-scripts/ifcfg-em2
 ```  
 ```
-TYPE=Ethernet
 BOOTPROTO=none
-NAME=em2
 ONBOOT=yes
 NM_CONTROLLED=no
 TYPE=OVSPort
@@ -227,7 +225,7 @@ OVS_BRIDGE=br-mgmt
 
 ### Update NIC Settings --  ALL Nodes  
 
-We need to ensure that we fine tune the settings for all of the NIC cards we will be using in this solution.  We have already updated EM2 on the Compute nodes.  
+We need to ensure that we fine tune the settings for all of the NIC cards we will be using in this solution.  We have already updated EM2 on the Compute nodes.    
 We now need to update EM1 on the Controller Node and EM1, p3p1, p3p2, p2p1 on the Compute nodes  
 
 Summary of changes required: 
@@ -235,6 +233,7 @@ Summary of changes required:
 - Change "onboot" to yes - ONBOOT=yes
 - Change "boot" protocol to none - BOOTPROTO="none"
 
+<br/>  
 Controller Node (NIC - EM1 Only)
 ```
 vi /etc/sysconfig/network-scripts/ifcfg-em1
@@ -244,7 +243,7 @@ BOOTPROTO="none"
 ONBOOT="yes"
 NM_CONTROLLED="no"
 ```  
-
+<br/>  
 Compute Nodes (NIC - EM1, p3p1, p3p2, p2p1)  
 
 ```
