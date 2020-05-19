@@ -647,8 +647,9 @@ packstack --answer-file=
 <br/>  
 
 ##  Fine Tuning the Openstack-packstack Installation  
+<br/>  
 
-__Compute nodes only__ 
+__Compute Nodes only__ 
 
 We need to modify the Compute nodes to use the right directory for instance creation.  
   
@@ -664,9 +665,87 @@ instances_path=/home
 ```
 chmod 777 /home
 ```  
+```
+systemctl restart openstack-nova-*
+``` 
+
+<br/>  
+
+__Controller Node only__ 
+
+Configure SR-IOV on the Controller Node   
+vi /etc/nova/nova.conf  
+
+On every controller node running the nova-scheduler service, add PciPassthroughFilter to the scheduler_default_filters parameter and add a new line for scheduler_available_filters parameter under the [DEFAULT] section in nova.conf:
+
+[DEFAULT]
+scheduler_default_filters = RetryFilter, AvailabilityZoneFilter, RamFilter, ComputeFilter, ComputeCapabilitiesFilter, ImagePropertiesFilter, ServerGroupAntiAffinityFilter, ServerGroupAffinityFilter, PciPassthroughFilter
+scheduler_available_filters = nova.scheduler.filters.all_filters
+scheduler_available_filters = nova.scheduler.filters.pci_passthrough_filter.PciPassthroughFilter
+
+systemctl restart openstack-nova-*
+
+<br/>  
+
+##  Create the Openstack Neutron Network  
+
+In this solution we will create everything in the admin tenant.  The demo tenant will not be used.  Also we do not need to create a neutron router as it is not required for this environment  
 
 
+### Log into the Controller Node and source the admin credentials  
 
+```
+source keystone_admin
+```
+
+<br/>  
+
+### Set the openstack nova quota for cores  
+
+```
+openstack quota set --cores 80 demo
+```  
+<br/>  
+
+### Create the openstack neutron networks  
+```
+openstack network create --share --project demo --external --provider-network-type flat --provider-physical-network public public
+openstack network create --share --project demo --internal --provider-network-type flat --provider-physical-network private private
+openstack network create --share --project demo --internal --provider-network-type flat --provider-physical-network mirroring mirroring
+openstack network create --share --project demo --internal --provider-network-type flat --provider-physical-network management management
+```  
+<br/>  
+
+### Create the openstack neutron subnets
+
+__Note:__ Use the IP addressing, DHCP ranges below as this was what assigned to this project from lab management
+
+```
+openstack subnet create --project demo --subnet-range 10.20.0.0/16 --dhcp --ip-version 4 --allocation-pool start=10.20.255.245,end=10.20.255.252 --dns-nameserver 8.8.8.8 --network public public-subnet
+openstack subnet create --project demo --subnet-range 10.10.30.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.30.245,end=10.10.30.252 --dns-nameserver 8.8.8.8 --network private private-subnet
+openstack subnet create --project demo --subnet-range 10.10.40.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.40.10,end=10.10.40.200 --dns-nameserver 8.8.8.8 --network mirroring mirroring-subnet
+openstack subnet create --project demo --subnet-range 10.144.16.0/20 --dhcp --ip-version 4 --allocation-pool start=10.144.20.24,end=10.144.20.33 --dns-nameserver 10.144.31.146 --gateway 10.144.31.254 --network management management-subnet
+```  
+<br/>  
+
+### Create the openstack neutron sr-iov ports
+
+```
+neutron port-create public --name public-sriov-p1 --binding:vnic-type direct
+neutron port-create public --name public-sriov-p2 --binding:vnic-type direct
+neutron port-create private --name private-sriov-p1 --binding:vnic-type direct
+neutron port-create private --name private-sriov-p2 --binding:vnic-type direct
+neutron port-create mirroring --name mirror-sriov-p1 --binding:vnic-type direct
+neutron port-create mirroring --name mirror-sriov-p2 --binding:vnic-type direct
+```
+<br/>  
+
+### Create the openstack nova flavors
+
+```
+openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
+openstack flavor create bigip.1G --ram 4096 --disk 100 --vcpus 2
+```  
 
 
 
