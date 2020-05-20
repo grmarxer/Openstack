@@ -687,7 +687,7 @@ systemctl restart openstack-nova-*
 
 __Controller Node only__ 
 
-Configure SR-IOV on the Controller Node 
+Configure the `nova.conf` file to support SR-IOV on the Controller Node 
 ```  
 vi /etc/nova/nova.conf  
 ```  
