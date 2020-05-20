@@ -671,11 +671,14 @@ vcpu_pin_set=7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39
 ```
 wq!
 ```  
+<br/>  
 
 We now need to change the permission on the /home directory  
 ```
 chmod 777 /home
 ```  
+__Note:__ For future troubleshooting and tracking please recall that all instances will be created in the /home directory on the compute nodes.  
+<br/>  
 
 We need to restart nova for the change above to take effect  
 
