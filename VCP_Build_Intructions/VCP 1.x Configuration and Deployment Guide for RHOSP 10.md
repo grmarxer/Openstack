@@ -669,6 +669,14 @@ chmod 777 /home
 systemctl restart openstack-nova-*
 ``` 
 
+
+
+
+vcpu_pin_set=7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39
+
+
+
+
 <br/>  
 
 __Controller Node only__ 
@@ -751,4 +759,34 @@ openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
 
 
 
+```
+[root@newton1 ~(keystone_admin)]# neutron port-list
++--------------------------------------+------------------+-------------------+--------------------------------------------------------------------------------------+
+| id                                   | name             | mac_address       | fixed_ips                                                                            |
++--------------------------------------+------------------+-------------------+--------------------------------------------------------------------------------------+
+| 055b78cf-b3c8-43ee-9c34-fa16f58c742a |                  | fa:16:3e:9d:7e:4a | {"subnet_id": "179c6604-b613-40b9-92bc-d0a88300ff00", "ip_address": "10.20.255.245"} |
+| 3480c209-a158-421a-8741-636fa2aaf8fd | public-sriov-p1  | fa:16:3e:d5:1c:a8 | {"subnet_id": "179c6604-b613-40b9-92bc-d0a88300ff00", "ip_address": "10.20.255.246"} |
+| 5403cfb8-a1eb-44b3-948d-fca921956f42 |                  | fa:16:3e:4a:8a:be | {"subnet_id": "8d3fbb08-2881-43c8-a795-30e344886b06", "ip_address": "10.144.20.24"}  |
+| 5ffd2600-8313-4f05-b281-eab6b94c232b |                  | fa:16:3e:9f:02:18 | {"subnet_id": "7f5929c1-53ec-4bee-973b-c66f743607ca", "ip_address": "10.10.40.10"}   |
+| 60e1c955-288d-4530-a491-358cc8848607 | private-sriov-p1 | fa:16:3e:f7:12:ff | {"subnet_id": "6368afb8-a25c-4a76-8341-5858705bce08", "ip_address": "10.10.30.249"}  |
+| b4209819-4bff-4689-896a-ef66d11a628c |                  | fa:16:3e:e0:ca:bd | {"subnet_id": "6368afb8-a25c-4a76-8341-5858705bce08", "ip_address": "10.10.30.245"}  |
+| cc20b5e7-52af-4da4-ad75-bd73aea795ed | mirror-sriov-p2  | fa:16:3e:eb:74:ee | {"subnet_id": "7f5929c1-53ec-4bee-973b-c66f743607ca", "ip_address": "10.10.40.23"}   |
+| d109110e-d36c-421c-9589-1f21272d1c70 | private-sriov-p2 | fa:16:3e:ce:78:8f | {"subnet_id": "6368afb8-a25c-4a76-8341-5858705bce08", "ip_address": "10.10.30.246"}  |
+| d285ef67-607e-4f15-9e64-3229d95d7d68 | public-sriov-p2  | fa:16:3e:02:31:10 | {"subnet_id": "179c6604-b613-40b9-92bc-d0a88300ff00", "ip_address": "10.20.255.247"} |
+| e56c198e-7d97-4fe1-9b21-fcf16ada657a | mirror-sriov-p1  | fa:16:3e:e2:41:7f | {"subnet_id": "7f5929c1-53ec-4bee-973b-c66f743607ca", "ip_address": "10.10.40.13"}   |
++--------------------------------------+------------------+-------------------+--------------------------------------------------------------------------------------+
+```  
 
+
+
+
+
+
+```
+nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.0.3 \
+  --nic net-name=management --nic port-id=60e1c955-288d-4530-a491-358cc8848607 \
+  --nic port-id=3480c209-a158-421a-8741-636fa2aaf8fd --nic port-id=e56c198e-7d97-4fe1-9b21-fcf16ada657a    bigip.1
+```  
+
+
+nova isntances are built in /home
