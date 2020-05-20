@@ -657,14 +657,28 @@ We need to modify the Compute nodes to use the right directory for instance crea
 vi /etc/nova/nova.conf
 ```  
 
-Change the instances_path inside nova.conf to match the following  
+Change the instances_path to match the following  
 
 ```
 instances_path=/home
 ```
+
+Since NIC p3p1 and P3p2 (the public and private interfaces) are on NUMA 1 we want to make sure BIG-IP instances are spawned to the CPU's that are on NUMA 1.  To do that we need to add the the following 'vcpu_pin_set'.  
+
+```
+vcpu_pin_set=7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39
+```  
+```
+wq!
+```  
+
+We now need to change the permission on the /home directory  
 ```
 chmod 777 /home
 ```  
+
+We need to restart nova for the change above to take effect  
+
 ```
 systemctl restart openstack-nova-*
 ``` 
@@ -672,7 +686,7 @@ systemctl restart openstack-nova-*
 
 
 
-vcpu_pin_set=7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39
+
 
 
 
