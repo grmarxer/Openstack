@@ -700,7 +700,7 @@ scheduler_default_filters = scheduler_default_filters=RetryFilter,AvailabilityZo
 ```
 <br/>  
 
- We also need to add another entry for 'scheduler_available_filters' for the parameter `PciPassthroughFilter`.  Be sure your `scheduler_available_filters` matches the example below.  
+ We also need to add another entry for 'scheduler_available_filters' for the `PciPassthroughFilter` parameter.  Be sure your `scheduler_available_filters` matches the example below.  
 ``` 
 scheduler_available_filters = nova.scheduler.filters.all_filters
 scheduler_available_filters = nova.scheduler.filters.pci_passthrough_filter.PciPassthroughFilter
