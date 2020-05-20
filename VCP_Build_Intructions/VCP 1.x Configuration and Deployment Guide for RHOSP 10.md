@@ -687,12 +687,15 @@ systemctl restart openstack-nova-*
 
 __Controller Node only__ 
 
-Configure SR-IOV on the Controller Node   
+Configure SR-IOV on the Controller Node 
+```  
 vi /etc/nova/nova.conf  
+```  
 
 On every controller node which is running the nova-scheduler service, we need to make sure we have the correct `scheduler_default_filters` configured.  Make sure your `scheduler_default_filters` matches the example below.     
 
-```scheduler_default_filters = scheduler_default_filters=RetryFilter,AvailabilityZoneFilter,RamFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter,PciPassthroughFilter,NUMATopologyFilter,AggregateInstanceExtraSpecsFilter,CoreFilter,DiskFilter
+```
+scheduler_default_filters = scheduler_default_filters=RetryFilter,AvailabilityZoneFilter,RamFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter,PciPassthroughFilter,NUMATopologyFilter,AggregateInstanceExtraSpecsFilter,CoreFilter,DiskFilter
 ```
 
  We also need to add another entry for 'scheduler_available_filters' for the parameter `PciPassthroughFilter`.  Be sure your `scheduler_available_filters` matches the example below.  
