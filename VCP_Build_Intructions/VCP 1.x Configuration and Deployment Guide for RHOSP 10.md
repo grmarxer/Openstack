@@ -787,7 +787,18 @@ __Note:__ For those of you familiar with openstack, the next step is usually ass
 openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
 ```  
 
+### Create the openstack glance image
 
+In order to build an openstack BIG-IP instance we need to build a openstack glance image.  To do so I recommend you download a BIG-IP VE qcow2 image to the controller.  Once the image is on the controller you can run the following command to load it into glance.
+
+```
+openstack image create "BIG-IP LTM 1-slot 15.1.0.3" \
+  --file BIGIP-15.1.0.3-0.0.12-1slot.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+```  
+
+In this example we are using BIG-IP image `BIGIP-15.1.0.3-0.0.12-1slot.qcow2`, the name of this image inside glance will be `BIG-IP LTM 1-slot 15.1.0.3` and we have made the image using the `public` property.  
 
 
 
