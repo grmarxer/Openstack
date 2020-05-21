@@ -662,16 +662,16 @@ Change the `instances_path` to match the following
 ```
 instances_path=/home
 ```
-
+```
+wq!
+``` 
 <br/>  
 
 We now need to change the permission on the /home directory  
 ```
 chmod 777 /home
 ```  
-```
-wq!
-```  
+
 
 __Note:__ For future troubleshooting and tracking please recall that all instances will be created in the /home directory on the compute nodes.  
 <br/>  
