@@ -766,6 +766,19 @@ neutron port-create mirroring --name mirror-sriov-p2 --binding:vnic-type direct
 ```
 <br/>  
 
+### Create the openstack fixed IP's that will be used by a VIP
+
+In order for openstack to function properly you need to tell it about each IP address you want to use.  In this case we want to assign a VIP to IP address `10.20.40.200`.  Thus we need to create a fixed IP using the command below and assign it to the public network.
+
+```
+neutron port-create --fixed-ip ip_address=10.20.40.200  public
+```
+
+__Note:__ For those of you familiar with openstack, the next step is usually assigned the fixed-ip we created above as an allowed-address pair.  We do not need to do that step in this environment as we are not using security-groups.  
+
+
+
+
 ### Create the openstack nova flavors
 
 ```
@@ -797,7 +810,7 @@ openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
 
 
 
-
+__Note:__ We are purposely not using security groups, as you can see below we are not attaching a security group to this instance.  Since SR-IOV bypasses the openstack security groups there is no reason to apply one.  In addition if you attempt to apply a security group instance creation will error out.  
 
 
 ```
