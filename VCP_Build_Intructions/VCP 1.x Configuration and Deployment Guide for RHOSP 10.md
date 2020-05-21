@@ -826,7 +826,7 @@ Using the following command we can see what numa node p3p1 and p3p2 is attached 
 1
 ```
 
-Using the following command we can now see what CPU's are linked to NUMA 1
+Using the following command we can now see what CPU's are linked to NUMA node 1
 
 ```
 [root@newton3 ~]# lscpu
@@ -860,15 +860,22 @@ In our example we can see the following CPU's are attached to NUMA node 1
 ```
 NUMA node1 CPU(s):     1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59,61,63,65,67,69,71,73,75,77,79
 ``` 
-Although the odd numbers are listed 1-79 we cannot use all of these to pin because the numbers greater than 39 represent hyerthreads.  For optimal performance you never want TMM sharing sibling CPU's.  Thus when we assign the CPU's to pin we will use  
+Although all the odd numbers are listed (1-79) we cannot use all of these to pin because the numbers greater than 39 represent hyerthreads.  Based on the output of the lscpu command above we know we have 2 sockets with 20 cores each for a total of 80 CPU's 
+
+```
+CPU(s):                80
+Thread(s) per core:    2
+Core(s) per socket:    20
+Socket(s):             2
+```  
+
+
+ For optimal performance you never want TMM sharing sibling CPU's.  Thus when we assign the CPU's we want to pin we will use the following:    
 ```
 7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39
 ```
-The reason we do not use 1,3, or 5 is that we want those reserved for the hosts linux operating system.  If we attempt to pin those CPU's we could step ontop of host linux processes that will decrease the performance of BIG-IP and the Host system.  The host system in this example is newton3.
+The reason we do not use CPU 1,3, or 5 is that we want those reserved for the hosts linux operating system.  If we attempt to pin those CPU's we could step ontop of host linux processes that will decrease the performance of BIG-IP and the Host system.  The host system in this example is newton3.
 
 
 
-```  
-```
-wq!
-```  
+ 
