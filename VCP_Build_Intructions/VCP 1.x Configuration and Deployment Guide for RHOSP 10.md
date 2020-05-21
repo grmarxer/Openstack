@@ -770,6 +770,8 @@ neutron port-create mirroring --name mirror-sriov-p2 --binding:vnic-type direct
 
 In order for openstack to function properly you need to tell it about each IP address you want to use.  In this case we want to assign a VIP to IP address `10.20.40.200`.  Thus we need to create a fixed IP using the command below and assign it to the public network.
 
+__Note:__ Since we are using automap in this environment we do not need to create fixed-ip's for the SNAT IP's.  If you do plan to use a SNAT pool you will need to create fixed IP's for each address in the SNAT Pool and assign them to the private network.  
+
 ```
 neutron port-create --fixed-ip ip_address=10.20.40.200  public
 ```
