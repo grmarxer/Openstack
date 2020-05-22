@@ -16,13 +16,10 @@
 
 1.  Log into iDRAC using the IPMI IP address  
 
-
-| Compute Node                 | iDRAC IP       |  
-| ------------                 | --------       | 
-| newton2.pl.pdsea.f5net.com   | 10.144.19.241  | 
-| newton3.pl.pdsea.f5net.com   | 10.144.19.239  |  
-
-
+| Compute Node               | iDRAC IP      |
+|----------------------------|---------------|
+| newton2.pl.pdsea.f5net.com | 10.144.19.241 |
+| newton3.pl.pdsea.f5net.com | 10.144.19.239 |  
 
 2.  Navigate to Virtual Console and Open it (bottom right hand side of iDRAC screen)  
 3.  Choose the power button and select Reset System (warm boot)  
