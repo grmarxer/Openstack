@@ -835,7 +835,7 @@ nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.0.3 \
   --nic port-id=3480c209-a158-421a-8741-636fa2aaf8fd --nic port-id=e56c198e-7d97-4fe1-9b21-fcf16ada657a    bigip.1
 ```  
 
-<br\>
+<br/>
 
 ## CPU Pinning and NUMA Node Affinity
 
