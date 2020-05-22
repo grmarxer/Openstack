@@ -57,7 +57,7 @@
 
 ## Install RHEL 7.7 using Dell idrac  
 
-1.  Download rhel-server-7.7-x86_64-dvd.iso from Redhat to your local machine
+1.  Download `rhel-server-7.7-x86_64-dvd.iso` from Redhat to your local machine
 2.  Log into iDRAC using the IPMI IP address  
 <br/>  
 
@@ -355,7 +355,7 @@ subscription-manager attach --pool=8a85f99c71eff3f4017219e2ebca5c3b
 Once the step above completes
 ```
 yum update -y
-```
+```  
 ```
 reboot
 ```  
@@ -466,6 +466,8 @@ When complete your "GRUB_CMDLINE_LINUX" line should look something like this.
 ```
 GRUB_CMDLINE_LINUX="crashkernel=auto spectre_v2=retpoline rd.lvm.lv=rhel00/root rd.lvm.lv=rhel00/swap rhgb quiet default_hugepagesz=1GB hugepagesz=1G hugepages=12 intel_iommu=on iommu=pt"
 ```  
+# check this my starting point was GRUB_CMDLINE_LINUX="crashkernel=auto spectre_v2=retpoline rd.lvm.lv=rhel00/root rd.lvm.lv=rhel00/swap rhgb quiet... missing hugepages etc.
+
 Refresh the grub.cfg file and reboot the host for these changes to take effect  
 ```
 grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
@@ -498,6 +500,9 @@ Run this command for each port: p3p1, p3p2, and p2p1
 
 You should see 7 VF's were created for each PF (vf0-vf6)  
 <br/>  
+
+Prior to running the next verification step you will need to load the following package to enable virt commands on the compute nodes 
+___``` yum install libvirt-client -y```  ___
 
 Verify that virtualization has been enable on the Compute hosts
 
