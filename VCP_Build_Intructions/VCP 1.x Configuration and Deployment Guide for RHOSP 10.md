@@ -835,6 +835,7 @@ nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.0.3 \
   --nic port-id=3480c209-a158-421a-8741-636fa2aaf8fd --nic port-id=e56c198e-7d97-4fe1-9b21-fcf16ada657a    bigip.1
 ```  
 
+<br\>
 
 ## CPU Pinning and NUMA Node Affinity
 
@@ -982,7 +983,9 @@ Based on this information we now know that we want to run the `virsh' commands o
  1     instance-00000079              running
 ```  
 
+In this step we will use the `virsh` commands below to assign the CPU ranges we want to be used for each of the 8 TMM interfaces (0-7)  
 
+__Note:__ The BIG-IP instance needs to be running for you to assign the `virsh vcpupin`.  You DO NOT need to reboot BIG-IP for these changes to take effect.
 
 ```
 virsh vcpupin instance-00000079 0 7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39
@@ -994,6 +997,8 @@ virsh vcpupin instance-00000079 5 7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,
 virsh vcpupin instance-00000079 6 7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39
 virsh vcpupin instance-00000079 7 7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39
 ```  
+
+Using this command we can ensure that the virsh commands executed above we applied properly 
 
 ```
 [root@newton2 ~]# virsh vcpupin instance-00000079
@@ -1010,6 +1015,7 @@ VCPU: CPU Affinity
 
 ```  
 
+Using this command you can see exactly which CPU was assigned to each of the TMM's (0-7).  
 
 ```
 [root@newton2 ~]# virsh vcpuinfo instance-00000079
