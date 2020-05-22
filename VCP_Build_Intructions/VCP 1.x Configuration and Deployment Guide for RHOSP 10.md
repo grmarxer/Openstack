@@ -462,7 +462,7 @@ Edit the following file
 ```
 vi /etc/default/grub
 ```
-
+<br/> 
 Add the following to the end of "GRUB_CMDLINE_LINUX"  
 
 __NOTE:__ DO NOT REMOVE ANYTHING from "GRUB_CMDLINE_LINUX"
