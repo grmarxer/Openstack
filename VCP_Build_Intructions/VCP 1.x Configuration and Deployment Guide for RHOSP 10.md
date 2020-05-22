@@ -108,7 +108,7 @@
 
 ## Preparing RHEL servers for OpenStack Installation  
 
-### Configure the /etc/hosts file  
+### Configure the /etc/hosts file (ALL Nodes)  
 ```
 vi /etc/hosts
 ```  
@@ -126,7 +126,7 @@ Add the following to /etc/hosts
 ```  
 <br/>  
 
-### Setup NTP  
+### Setup NTP  (ALL Nodes)  
 
 ```
 vi /etc/chrony.conf
@@ -147,7 +147,7 @@ chronyc sources
 ```  
 <br/>  
 
-### Stop and Disable the firewalld.service  
+### Stop and Disable the firewalld.service  (ALL Nodes)  
 ```
 systemctl stop firewalld.service
 systemctl disable firewalld.service
@@ -159,7 +159,7 @@ systemctl status firewalld.service
 ```  
 <br/>  
 
-### Disable SELinux (requires reboot)  
+### Disable SELinux (requires reboot)  (ALL Nodes)  
 
 ```
 vi /etc/selinux/config
@@ -217,7 +217,7 @@ OVS_BRIDGE=br-mgmt
 
 <br/>
 
-### Update NIC Settings --  ALL Nodes  
+### Update NIC Settings --  (ALL Nodes)  
 
 We need to ensure that we fine tune the settings for all of the NIC cards we will be using in this solution.  We have already updated EM2 on the Compute nodes.    
 We now need to update EM1 on the Controller Node and EM1, p3p1, p3p2, p2p1 on the Compute nodes  
@@ -255,7 +255,7 @@ NM_CONTROLLED=no
 
 <br/>  
 
-### Disable RHEL Network Manager on all Nodes (Controller and Compute) 
+### Disable RHEL Network Manager (ALL Nodes)  
 ```
 systemctl disable NetworkManager
 systemctl stop NetworkManager
@@ -266,7 +266,7 @@ systemctl status NetworkManager
 ``` 
 <br/>   
 
-### Enable RHEL Network to replace Network Manager on all Nodes (Controller and Compute) 
+### Enable RHEL Network to replace Network Manager (ALL Nodes)   
 
 ```
 systemctl enable network
@@ -278,12 +278,11 @@ systemctl status network
 ```  
 <br/>   
 
-### Enable Redhat Subscription Service  
+### Enable Redhat Subscription Service  (ALL Nodes)  
 
 We now need to connect our RHEL server to the Redhat Subscription Service.  This steps requires an Active RHEL account.  You will need an active username and password.  
 <br/> 
 
-__This must be performed on all Nodes (Controller and Compute)__  
 ```
 subscription-manager register  --force
 ```  
