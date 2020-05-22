@@ -780,9 +780,6 @@ neutron port-create --fixed-ip ip_address=10.20.40.200  public
 ```
 
 __Note:__ For those of you familiar with openstack, the next step is usually assigned the fixed-ip we created above as an allowed-address pair.  We do not need to do that step in this environment as we are not using security-groups.  
-
-
-
 <br/>   
 
 ### Create the openstack nova flavors
