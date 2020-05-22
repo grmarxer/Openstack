@@ -716,11 +716,14 @@ Log in as the demo user
 username: demo
 password: default
 
-Naivate to Network > Routers > router1, then select interfaces and delete the internal interface
+Naivate to Network > Routers > router1, then select interfaces and delete the internal interface  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/router-interface-delete.PNG)  
 
-Naivate to Network > Routers > check router1 and delete
+Naivate to Network > Routers > check router1 and delete  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/delete-router-demo.PNG)  
 
-Naivate to Network > Networks, check the private network and select delete
+Naivate to Network > Networks, check the private network and select delete  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/delete-private-network.PNG)  
 
 
 logout of Horizon and log back in using the admin credentials
@@ -728,7 +731,8 @@ logout of Horizon and log back in using the admin credentials
 username: admin
 password: default
 
-Navigate to Project > Network > Networks, check the public network and delete 
+Navigate to Project > Network > Networks, check the public network and delete  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/delete-public-net-admin.PNG)  
 
 
 All Networks and Routers created by the openstack-packstack installation should now be deleted.  
