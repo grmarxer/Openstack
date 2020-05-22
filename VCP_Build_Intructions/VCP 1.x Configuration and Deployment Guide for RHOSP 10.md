@@ -4,6 +4,7 @@
 - This guide builds everything using the admin tenant  
 - This deployment consists of one controller node and two compute nodes all of which are  Dell PowerEdge R640 servers  
 -  This procedure is performed as the root user.  
+-  This procedure will show you how to enable SRIOV and CPU Pinning with NUMA node Affinity
 
 ## Enable SR-IOV in the BIOS on the PowerEdge R640 using iDRAC (Compute Nodes Only)  
 
@@ -633,13 +634,11 @@ instances_path=/home
 ```
 wq!
 ``` 
-<br/>  
 
 We now need to change the permission on the /home directory  
 ```
 chmod 777 /home
 ```  
-
 
 __Note:__ For future troubleshooting and tracking please recall that all instances will be created in the /home directory on the compute nodes.  
 <br/>  
