@@ -911,7 +911,7 @@ In order to determine what instance we want to apply CPU pinning an NUMA node Af
 
 To determine which compute node is running the BIG-IP instance running the following command from the controller.  
 
-The name of the instance we built earlier above is `bigip.1`  
+The name of the instance we built above earlier was `bigip.1`  
 
 ```
 [root@newton1 ~(keystone_admin)]# nova show bigip.1
@@ -930,7 +930,7 @@ The name of the instance we built earlier above is `bigip.1`
 +--------------------------------------+------------------------------------------------------------------+
 ```  
 
-From this output we can see that this instance was built on compute node ```newton2.pl.pdsea.f5net.com``` with a virsh instance ID of `instance-00000079 `.  Now that we have this information we move over to '`newton2.pl.pdsea.f5net.com`
+From this output we can see that this instance was built on compute node `newton2.pl.pdsea.f5net.com` with a virsh instance ID of `instance-00000079 `.  Now that we have this information we move over to newton2
 
 To verify the information above is correct run this `virsh` commands on newton2.
 
