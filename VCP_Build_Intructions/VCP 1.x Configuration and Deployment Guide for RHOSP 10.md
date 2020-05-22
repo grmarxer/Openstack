@@ -47,7 +47,7 @@ IPMI = 10.144.19.239
 14. Select Yes to exit and boot.  
 
 
-
+<br/> 
 ## Install RHEL 7.7 using Dell idrac  
 
 1.  Download rhel-server-7.7-x86_64-dvd.iso from Redhat to your local machine
