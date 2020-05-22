@@ -287,6 +287,7 @@ systemctl status network
 ### Enable Redhat Subscription Service  
 
 We now need to connect our RHEL server to the Redhat Subscription Service.  This steps requires an Active RHEL account.  You will need an active username and password.  
+<br/> 
 
 __This must be performed on all Nodes (Controller and Compute)__  
 
@@ -352,7 +353,7 @@ Provides Management: No
 Available:           75
 Suggested:           1
 ```  
-
+<br/> 
 To attach the "Red Hat OpenStack Platform, Standard Support" subscription apply the following based on the above "Pool ID"  
 
 ```
