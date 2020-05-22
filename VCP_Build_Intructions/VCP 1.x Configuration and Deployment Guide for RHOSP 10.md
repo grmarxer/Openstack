@@ -477,7 +477,7 @@ reboot
 ```
 <br/>  
 
-### Verify Virtualization and SR-IOV is configured properly  
+### Verify Virtualization and SR-IOV is configured properly (Compute Nodes Only)  
 
 Once the server has rebooted we need to ensure virtualization and SR-IOV has been configured properly.  If your output varies from what I have below a step did not complete.
 
