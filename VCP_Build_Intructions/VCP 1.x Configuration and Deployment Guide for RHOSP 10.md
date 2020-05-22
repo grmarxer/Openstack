@@ -290,7 +290,6 @@ We now need to connect our RHEL server to the Redhat Subscription Service.  This
 <br/> 
 
 __This must be performed on all Nodes (Controller and Compute)__  
-<br/> 
 ```
 subscription-manager register  --force
 ```  
@@ -390,6 +389,7 @@ Next we will use "modprobe" to add the VF's
 ```
 modprobe -r ixgbe
 ``` 
+<br/> 
 This will create seven VF's per x520 port.  
 ```
 modprobe ixgbe max_vfs=7
