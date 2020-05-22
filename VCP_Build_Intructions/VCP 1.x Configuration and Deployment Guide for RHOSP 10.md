@@ -526,9 +526,8 @@ LXC: Checking if device /sys/fs/fuse/connections exists
 <br/>  
 
 We will now make sure the appropriate drivers were installed for both the PF's and the VF's  
-<br/> 
 
-Check the Physical Functions (PF's)  
+__Check the Physical Functions (PF's)__ 
 
 __Note:__ You should have 4 entries returned, one for each x520 physical port  
 
@@ -543,7 +542,7 @@ You should see the following at the bottom of each entry
 ```  
 <br/>  
 
-Check the Virtual Functions (VF's)  
+__Check the Virtual Functions (VF's)__  
 
 __Note:__ You should have 28 entries returned, seven VF's for each x520 physical port  
 
