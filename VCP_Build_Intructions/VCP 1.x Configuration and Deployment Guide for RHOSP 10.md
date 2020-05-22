@@ -783,13 +783,14 @@ __Note:__ For those of you familiar with openstack, the next step is usually ass
 
 
 
+<br/>   
 
 ### Create the openstack nova flavors
 
 ```
 openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
 ```  
-
+<br/> 
 ### Create the openstack glance image
 
 In order to build an openstack BIG-IP instance we need to build a openstack glance image.  To do so I recommend you download a BIG-IP VE qcow2 image to the controller.  Once the image is on the controller you can run the following command to load it into glance.
