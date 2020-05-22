@@ -290,7 +290,7 @@ We now need to connect our RHEL server to the Redhat Subscription Service.  This
 <br/> 
 
 __This must be performed on all Nodes (Controller and Compute)__  
-
+<br/> 
 ```
 subscription-manager register  --force
 ```  
@@ -331,7 +331,7 @@ To find the Openstack Pool ID for your subscription use the following
 ```
 subscription-manager list --available --all | grep -i -A 50 "Red Hat OpenStack Platform, Standard Support"
 ``` 
-
+<br/> 
 In this example the Pool ID: 8a85f99c71eff3f4017219e2ebca5c3b
 
 ```
