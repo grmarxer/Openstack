@@ -87,27 +87,8 @@
         - For the Compute Nodes use the 3575 GB Virtual Disk  
     - Configure EM1 on each server as the management NIC
     - Use the information below for the server naming convention and IP addressing  
-```
-#Controller Node
-newton1.pl.pdsea.f5net.com
-MGMT = 10.144.19.242
-Netmask = 255.255.240.0
-Gateway = 10.144.31.254
-DNS = 10.144.31.146
 
-#Compute Nodes
-newton2.pl.pdsea.f5net.com
-MGMT = 10.144.19.240
-Netmask = 255.255.240.0
-Gateway = 10.144.31.254
-DNS = 10.144.31.146
- 
-newton3.pl.pdsea.f5net.com
-MGMT = 10.144.19.238
-Netmask = 255.255.240.0
-Gateway = 10.144.31.254
-DNS = 10.144.31.146 
-```  
+  
 | **Controller Node**        | **EM1 IP Address**  |  **Netmask**   | **Gateway**   | **DNS**       |  
 | :---------------------:    | :----------:        |  :----------:  | :----------:  | :----------:  |  
 | newton1.pl.pdsea.f5net.com | 10.144.19.242       |  255.255.240.0 | 10.144.31.254 | 10.144.31.146 |  
