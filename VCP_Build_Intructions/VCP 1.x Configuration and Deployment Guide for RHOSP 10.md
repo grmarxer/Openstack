@@ -340,43 +340,8 @@ Provides:            dotNET on RHEL Beta (for RHEL Server)
                      Red Hat CodeReady Linux Builder for x86_64
                      Red Hat Enterprise Linux FDIO Early Access (RHEL 7 Server)
                      Red Hat Ansible Engine
-                     Red Hat Ceph Storage
-                     Red Hat OpenStack Certification Test Suite
-                     Red Hat Software Collections (for RHEL Server for IBM Power LE)
-                     Red Hat Enterprise Linux Atomic Host Beta
-                     Red Hat Enterprise Linux Fast Datapath
-                     Red Hat OpenStack Beta
-                     Red Hat CloudForms
-                     Red Hat Software Collections Beta (for RHEL Server for IBM Power LE)
-                     Red Hat Enterprise Linux Load Balancer (for RHEL Server)
-                     Red Hat Enterprise Linux Advanced Virtualization Beta
-                     Red Hat Beta
-                     Red Hat Enterprise Linux Fast Datapath (for RHEL Server for IBM Power LE)
-                     Red Hat Enterprise Linux High Availability for Power, little endian
-                     Red Hat Enterprise Linux High Availability for x86_64
-                     Red Hat Single Sign-On
-                     dotNET on RHEL (for RHEL Server)
-                     Red Hat Certification (for RHEL Server)
-                     Red Hat Ceph Storage Calamari
-                     Red Hat Developer Tools (for RHEL Server for IBM Power LE)
-                     Red Hat OpenStack Beta Certification Test Suite
-                     Red Hat Enterprise Linux Advanced Virtualization
-                     Red Hat CloudForms Beta
-                     Red Hat Developer Tools Beta (for RHEL Server for IBM Power LE)
-                     Red Hat Enterprise Linux High Availability (for IBM Power LE) - Extended Update Support
-                     Red Hat OpenStack Beta for IBM Power LE
-                     Red Hat Enterprise Linux Fast Datapath Beta for Power, little endian
-                     Red Hat Software Collections (for RHEL Server)
-                     Red Hat OpenStack
-                     Red Hat Enterprise Linux Server (for IBM Power LE) - Update Services for SAP Solutions
-                     Red Hat Enterprise Linux for Power 9
-                     Red Hat Enterprise Linux Atomic Host
-                     Red Hat OpenStack for IBM Power
-                     Red Hat Enterprise Linux for Real Time for NFV
-                     Red Hat Enterprise Linux Fast Datapath Beta for x86_64
-                     Red Hat Enterprise MRG Messaging
-                     Red Hat Software Collections Beta (for RHEL Server)
-                     Red Hat Enterprise Linux Server
+...
+...
                      Red Hat Enterprise Linux for x86_64
                      Red Hat Ceph Storage MON
                      Red Hat Enterprise Linux FDIO (RHEL 7 Server)
@@ -628,13 +593,13 @@ __Note:__ Packstack and its answer file are only used on the Controller node.
 ```
 yum install -y openstack-packstack
 ```  
-
+<br/> 
 Generate the openstack packstack answer file.  The openstack-packstack "answer-file" will be generated in the root directory with the name "packstack-answer"  
 
 ```
 packstack --gen-answer-file=packstack-answer
 ```  
-
+<br/> 
 We will not use the "packstack-answer" file created above.  I have a configured "packstack-answer" file that has been configured with the settings to use in this lab.  If you wish you can do a diff on the two files to note the changes.  
 
 
