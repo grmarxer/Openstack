@@ -392,12 +392,14 @@ modprobe -r ixgbe
 ``` 
 <br/> 
 This will create seven VF's per x520 port.  
+
 ```
 modprobe ixgbe max_vfs=7
 ```  
+
 ```
 echo "options ixgbe max_vfs=7" >>/etc/modprobe.d/ixgbe.conf
-```
+```  
 <br/> 
 
 Next we need to create a "modprobe" blacklist so the correct drivers load on the physical NIC (PF) and not the VF's
