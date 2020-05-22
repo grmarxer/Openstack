@@ -87,7 +87,7 @@
         - For the Compute Nodes use the 3575 GB Virtual Disk  
     - Configure EM1 on each server as the management NIC
     - Use the information below for the server naming convention and IP addressing  
-
+<br/>  
   
 | **Controller Node**        | **EM1 IP Address**  |  **Netmask**   | **Gateway**   | **DNS**       |  
 | :---------------------:    | :----------:        |  :----------:  | :----------:  | :----------:  |  
@@ -95,7 +95,7 @@
 | **Compute Nodes**          | **EM1 IP Address**  |   **Netmask**  | **Gateway**   | **DNS**       |  
 | newton2.pl.pdsea.f5net.com | 10.144.19.240       |  255.255.240.0 | 10.144.31.254 | 10.144.31.146 |  
 | newton3.pl.pdsea.f5net.com | 10.144.19.238       |  255.255.240.0 | 10.144.31.254 | 10.144.31.146 |  
-
+<br/>  
 10. Once you have successfully installed RHEL 7.7 and rebooted be sure to unmap the image you mapped above.  
 
 <br/>  
