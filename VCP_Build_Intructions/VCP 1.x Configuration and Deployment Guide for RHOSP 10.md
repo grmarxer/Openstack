@@ -7,7 +7,7 @@
 -  This procedure will show you how to enable SRIOV and CPU Pinning with NUMA node Affinity
 
 ### Credentials
-- The server credentials are root/HereWeGoAgain  
+- The server credentials are root/ 
 - The admin user credentials for Openstack are admin/default  
 - The admin token for Openstack can be found in /root  
 <br/> 
