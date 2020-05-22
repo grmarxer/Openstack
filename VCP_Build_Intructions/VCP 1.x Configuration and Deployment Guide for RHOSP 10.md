@@ -613,6 +613,22 @@ Use this command to deploy the openstack-packstack "answer-file"
 packstack --answer-file=
 ```  
 
+
+
+```
+
+ **** Installation completed successfully ******
+
+Additional information:
+ * Time synchronization installation was skipped. Please note that unsynchronized time on server instances might be problem for some OpenStack components.
+ * File /root/keystonerc_admin has been created on OpenStack client host 10.144.19.242. To use the command line tools you need to source the file.
+ * To access the OpenStack Dashboard browse to http://10.144.19.242/dashboard .
+Please, find your login credentials stored in the keystonerc_admin in your home directory.
+ * The installation log file is available at: /var/tmp/packstack/20200522-133712-SM4wxd/openstack-setup.log
+ * The generated manifests are available at: /var/tmp/packstack/20200522-133712-SM4wxd/manifests
+```  
+
+
 <br/>  
 
 ##  Fine Tuning the Openstack-packstack Installation  
@@ -683,15 +699,78 @@ systemctl restart openstack-nova-*
 
 <br/>  
 
+## Openstack-packstack Clean UP  
+
+The first thing we need to do is delete the default networks that the openstack-packstack configuration created.  This networks are irrlevant to what we want to configure and need to be removed.
+
+Unfortunately these initial networks cannot be deleted in the command line due to the way they were created in packstack.  In this instance it is easier to delete these initial networks in the GUI
+
+Log into the Openstack Horizon Dashboard which is on the Contoller Node.
+
+```
+http://10.144.19.242/dashboard
+
+```
+Log in as the demo user
+
+username: demo
+password: default
+
+Naivate to Network > Routers > router1, then select interfaces and delete the internal interface
+
+Naivate to Network > Routers > check router1 and delete
+
+Naivate to Network > Networks, check the private network and select delete
+
+
+logout of Horizon and log back in using the admin credentials
+
+username: admin
+password: default
+
+Navigate to Project > Network > Networks, check the public network and delete 
+
+
+All Networks and Routers created by the openstack-packstack installation should now be deleted.  
+
+Verify this by sourcing the admin token credntials from the Controllers command line
+
+```
+source keystonerc_admin
+``` 
+
+Execute each of the following commands, if the steps above were completely correctly no information will be returned.
+
+```
+neutron router-list
+```  
+```
+neutron net-list
+```  
+```
+neutron port-list
+```  
+
+
+
+
+
+
+
+
+
+
 ##  Configuring Openstack Nova, Neutron, and Glance  
 
 In this solution we will create everything in the admin tenant.  The demo tenant will not be used.  Also we do not need to create a neutron router as it is not required for this environment  
 <br/> 
 
+
+
 ### Log into the Controller Node and source the admin credentials  
 
 ```
-source keystone_admin
+source keystonerc_admin  
 ```
 
 <br/>  
