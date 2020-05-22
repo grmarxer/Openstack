@@ -501,8 +501,12 @@ Run this command for each port: p3p1, p3p2, and p2p1
 You should see 7 VF's were created for each PF (vf0-vf6)  
 <br/>  
 
-Prior to running the next verification step you will need to load the following package to enable virt commands on the compute nodes 
-___``` yum install libvirt-client -y```  ___
+Prior to running the next verification step you will need to load the following package to enable virt commands on the compute nodes  
+
+```
+yum install libvirt-client -y
+```  
+
 
 Verify that virtualization has been enable on the Compute hosts
 
