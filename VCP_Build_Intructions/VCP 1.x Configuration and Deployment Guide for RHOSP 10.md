@@ -15,11 +15,13 @@
 ## Enable SR-IOV in the BIOS on the PowerEdge R640 using iDRAC (Compute Nodes Only)  
 
 1.  Log into iDRAC using the IPMI IP address  
-<br/> 
+<br/>  
+
 | **Compute Node**           | **iDRAC IP**  |  
 | :---------------------:    | :----------:  |  
 | newton2.pl.pdsea.f5net.com | 10.144.19.241 |  
 | newton3.pl.pdsea.f5net.com | 10.144.19.239 |  
+
 <br/> 
 2.  Navigate to Virtual Console and Open it (bottom right hand side of iDRAC screen)  
 3.  Choose the power button and select Reset System (warm boot)  
@@ -57,13 +59,15 @@
 
 1.  Download rhel-server-7.7-x86_64-dvd.iso from Redhat to your local machine
 2.  Log into iDRAC using the IPMI IP address  
-<br/> 
+<br/>  
+
 | **Controller Node**        | **iDRAC IP**  |  
 | :---------------------:    | :----------:  |  
 | newton1.pl.pdsea.f5net.com | 10.144.19.243 |  
 | **Compute Nodes**          | **iDRAC IP**  |  
 | newton2.pl.pdsea.f5net.com | 10.144.19.241 |  
 | newton3.pl.pdsea.f5net.com | 10.144.19.239 |  
+
 <br/> 
 3.  Navigate to Virtual Console and Open it (bottom right hand side of iDRAC screen)  
 4.  Select Connect Virtual Media and map the image downloaded above to MAP CD/DVD  
