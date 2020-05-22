@@ -925,56 +925,14 @@ The name of the instance we built earlier above is `bigip.1`
 | OS-EXT-SRV-ATTR:hypervisor_hostname  | newton2.pl.pdsea.f5net.com                                       |
 | OS-EXT-SRV-ATTR:instance_name        | instance-00000079                                                |
 | OS-EXT-SRV-ATTR:kernel_id            |                                                                  |
-| OS-EXT-SRV-ATTR:launch_index         | 0                                                                |
-| OS-EXT-SRV-ATTR:ramdisk_id           |                                                                  |
-| OS-EXT-SRV-ATTR:reservation_id       | r-jitk5so9                                                       |
-| OS-EXT-SRV-ATTR:root_device_name     | /dev/vda                                                         |
-| OS-EXT-SRV-ATTR:user_data            | -                                                                |
-| OS-EXT-STS:power_state               | 1                                                                |
-| OS-EXT-STS:task_state                | -                                                                |
-| OS-EXT-STS:vm_state                  | active                                                           |
-| OS-SRV-USG:launched_at               | 2020-05-21T23:18:35.000000                                       |
-| OS-SRV-USG:terminated_at             | -                                                                |
-| accessIPv4                           |                                                                  |
-| accessIPv6                           |                                                                  |
-| config_drive                         |                                                                  |
-| created                              | 2020-05-21T23:18:26Z                                             |
-| description                          | -                                                                |
-| flavor                               | bigip.10G (f6c900f0-90f3-4da6-b024-768030abe226)                 |
-| hostId                               | 2bf7e38934de370d834c0ae91cce70553a9a8d4d93e28b4384d10ddf         |
-| host_status                          | UP                                                               |
-| id                                   | bcca10a1-8551-4ba9-a8a1-866c675c457f                             |
-| image                                | bigip.ltm.1-slot.15.1.0.3 (12db7981-4b2a-4306-ac3f-8be48891f8f8) |
-| key_name                             | -                                                                |
-| locked                               | False                                                            |
-| management network                   | 10.144.20.27                                                     |
-| metadata                             | {}                                                               |
-| mirroring network                    | 10.10.40.13                                                      |
-| name                                 | bigip.1                                                          |
-| os-extended-volumes:volumes_attached | []                                                               |
-| private network                      | 10.10.30.249                                                     |
-| progress                             | 0                                                                |
-| public network                       | 10.20.255.246                                                    |
-| status                               | ACTIVE                                                           |
-| tags                                 | []                                                               |
-| tenant_id                            | 25040f3eb32f48638914d1107352d6f2                                 |
-| updated                              | 2020-05-21T23:18:35Z                                             |
-| user_id                              | 260a5d0804d64b91a75075969e0b90d2                                 |
+...
+...
 +--------------------------------------+------------------------------------------------------------------+
 ```  
 
-From this output we can see the ID of this instance is `bcca10a1-8551-4ba9-a8a1-866c675c457f`.  Now that we have this information we can go look in the `/home` directory on each of our compute nodes to see where this instance was built.
+From this output we can see that this instance was built on compute node ```newton2.pl.pdsea.f5net.com``` with a virsh instance ID of `instance-00000079 `.  Now that we have this information we move over to '`newton2.pl.pdsea.f5net.com`
 
-```
-[root@newton2 ~]# ll /home
-total 4
-drwxr-xr-x 2 nova nova 54 May 19 13:50 _base
-drwxr-xr-x 2 nova nova 54 May 21 16:18 bcca10a1-8551-4ba9-a8a1-866c675c457f
--rw-r--r-- 1 nova nova 49 May 21 09:52 compute_nodes
-drwxr-xr-x 2 nova nova 93 May 19 13:49 locks
-```  
-
-Based on this information we now know that we want to run the `virsh` commands on newton2.
+To verify the information above is correct run this `virsh` commands on newton2.
 
 ```
 [root@newton2 ~]# virsh list
@@ -982,8 +940,6 @@ Based on this information we now know that we want to run the `virsh` commands o
 ----------------------------------------------------
  1     instance-00000079              running
 ```  
-
-Based on this information we know that instance `bcca10a1-8551-4ba9-a8a1-866c675c457f` is virsh instance `instance-00000079 `  
 
 In this step we will use the `virsh` commands below to assign the CPU ranges we want to be used for each of the 8 TMM interfaces (0-7)  
 
