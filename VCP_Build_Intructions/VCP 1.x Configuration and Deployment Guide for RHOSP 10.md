@@ -974,7 +974,7 @@ drwxr-xr-x 2 nova nova 54 May 21 16:18 bcca10a1-8551-4ba9-a8a1-866c675c457f
 drwxr-xr-x 2 nova nova 93 May 19 13:49 locks
 ```  
 
-Based on this information we now know that we want to run the `virsh' commands on newton2.
+Based on this information we now know that we want to run the `virsh` commands on newton2.
 
 ```
 [root@newton2 ~]# virsh list
@@ -1067,6 +1067,21 @@ State:          running
 CPU time:       1341.9s
 CPU Affinity:   -----------------------------y--------------------------------------------------
 ```  
+
+If you wish to remove CPU pinning it is as simple as appling a new `virsh vcpupin`.  These commands will remove all CPU pinning and NUMA node Affinity.  Once again remember that the image must be running and you do not need to reboot for these changes to take effect.
+
+```
+virsh vcpupin instance-00000079 0 0-79
+virsh vcpupin instance-00000079 1 0-79
+virsh vcpupin instance-00000079 2 0-79
+virsh vcpupin instance-00000079 3 0-79
+virsh vcpupin instance-00000079 4 0-79
+virsh vcpupin instance-00000079 5 0-79
+virsh vcpupin instance-00000079 6 0-79
+virsh vcpupin instance-00000079 7 0-79
+```  
+
+You can verify that the changes were executed properly using the commands above.  
 
 
 
