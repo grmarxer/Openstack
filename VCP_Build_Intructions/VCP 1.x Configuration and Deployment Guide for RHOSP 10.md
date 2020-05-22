@@ -15,18 +15,13 @@
 ## Enable SR-IOV in the BIOS on the PowerEdge R640 using iDRAC (Compute Nodes Only)  
 
 1.  Log into iDRAC using the IPMI IP address  
-```
-# Compute Nodes
-newton2.pl.pdsea.f5net.com
-IPMI = 10.144.19.241
- 
-newton3.pl.pdsea.f5net.com
-IPMI = 10.144.19.239  
-```  
+
+
 | Compute Node                 | iDRAC IP       |  
 | ---------                    | -------        | 
 | newton2.pl.pdsea.f5net.com   | 10.144.19.241  | 
-| newton3.pl.pdsea.f5net.com   | 10.144.19.239  | 
+| newton3.pl.pdsea.f5net.com   | 10.144.19.239  |  
+
 
 2.  Navigate to Virtual Console and Open it (bottom right hand side of iDRAC screen)  
 3.  Choose the power button and select Reset System (warm boot)  
