@@ -811,12 +811,8 @@ In this example we are using BIG-IP image `BIGIP-15.1.0.3-0.0.12-1slot.qcow2`, t
 +--------------------------------------+------------------+-------------------+--------------------------------------------------------------------------------------+
 | id                                   | name             | mac_address       | fixed_ips                                                                            |
 +--------------------------------------+------------------+-------------------+--------------------------------------------------------------------------------------+
-| 055b78cf-b3c8-43ee-9c34-fa16f58c742a |                  | fa:16:3e:9d:7e:4a | {"subnet_id": "179c6604-b613-40b9-92bc-d0a88300ff00", "ip_address": "10.20.255.245"} |
 | 3480c209-a158-421a-8741-636fa2aaf8fd | public-sriov-p1  | fa:16:3e:d5:1c:a8 | {"subnet_id": "179c6604-b613-40b9-92bc-d0a88300ff00", "ip_address": "10.20.255.246"} |
-| 5403cfb8-a1eb-44b3-948d-fca921956f42 |                  | fa:16:3e:4a:8a:be | {"subnet_id": "8d3fbb08-2881-43c8-a795-30e344886b06", "ip_address": "10.144.20.24"}  |
-| 5ffd2600-8313-4f05-b281-eab6b94c232b |                  | fa:16:3e:9f:02:18 | {"subnet_id": "7f5929c1-53ec-4bee-973b-c66f743607ca", "ip_address": "10.10.40.10"}   |
 | 60e1c955-288d-4530-a491-358cc8848607 | private-sriov-p1 | fa:16:3e:f7:12:ff | {"subnet_id": "6368afb8-a25c-4a76-8341-5858705bce08", "ip_address": "10.10.30.249"}  |
-| b4209819-4bff-4689-896a-ef66d11a628c |                  | fa:16:3e:e0:ca:bd | {"subnet_id": "6368afb8-a25c-4a76-8341-5858705bce08", "ip_address": "10.10.30.245"}  |
 | cc20b5e7-52af-4da4-ad75-bd73aea795ed | mirror-sriov-p2  | fa:16:3e:eb:74:ee | {"subnet_id": "7f5929c1-53ec-4bee-973b-c66f743607ca", "ip_address": "10.10.40.23"}   |
 | d109110e-d36c-421c-9589-1f21272d1c70 | private-sriov-p2 | fa:16:3e:ce:78:8f | {"subnet_id": "6368afb8-a25c-4a76-8341-5858705bce08", "ip_address": "10.10.30.246"}  |
 | d285ef67-607e-4f15-9e64-3229d95d7d68 | public-sriov-p2  | fa:16:3e:02:31:10 | {"subnet_id": "179c6604-b613-40b9-92bc-d0a88300ff00", "ip_address": "10.20.255.247"} |
@@ -828,6 +824,7 @@ In this example we are using BIG-IP image `BIGIP-15.1.0.3-0.0.12-1slot.qcow2`, t
 
 __Note:__ We are purposely not using security groups, as you can see below we are not attaching a security group to this instance.  Since SR-IOV bypasses the openstack security groups there is no reason to apply one.  In addition if you attempt to apply a security group instance creation will error out.  
 
+<br/>
 
 ```
 nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.0.3 \
@@ -846,6 +843,7 @@ This way we can easily add and remove CPU pinning at will.
 In order to know what cores to pin the BIG-IP instance to you must first determine which numa node your public and private networks is attached to.  
 
 In this example we are using `p3p1` for public and `p3p2` for private.  
+<br/>
 
 Using the following command we can see what numa node p3p1 and p3p2 is attached to
 
@@ -855,6 +853,7 @@ Using the following command we can see what numa node p3p1 and p3p2 is attached 
 [root@newton3 ~]# cat /sys/class/net/p3p2/device/numa_node
 1
 ```
+<br/>  
 
 Using the following command we can now see what CPU's are linked to NUMA node 1
 
@@ -884,12 +883,15 @@ L3 cache:              28160K
 NUMA node0 CPU(s):     0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78
 NUMA node1 CPU(s):     1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59,61,63,65,67,69,71,73,75,77,79
 ```  
+<br/>  
 
 In our example we can see the following CPU's are attached to NUMA node 1
 
 ```
 NUMA node1 CPU(s):     1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59,61,63,65,67,69,71,73,75,77,79
 ``` 
+<br/>
+
 Although all the odd numbers are listed (1-79) we cannot use all of these to pin because the numbers greater than 39 represent hyerthreads.  Based on the output of the lscpu command above we know we have 2 sockets with 20 cores each for a total of 80 CPU's 
 
 ```
@@ -898,18 +900,22 @@ Thread(s) per core:    2
 Core(s) per socket:    20
 Socket(s):             2
 ```  
-
+<br/>  
 
  For optimal performance you never want TMM sharing sibling CPU's.  Thus when we assign the CPU's we want to pin we will use the following:    
 ```
 7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39
 ```
+
+<br/>  
+
 The reason we do not use CPU 1,3, or 5 is that we want those reserved for the hosts linux operating system.  If we attempt to pin those CPU's we could step ontop of host linux processes that will decrease the performance of BIG-IP and the Host system.  The host system in this example is newton3.
 
 
 In order to determine what instance we want to apply CPU pinning an NUMA node Affinity to we will use the `virsh` comamnd on the compute node that is running the BIG-IP instance in question.
 
 To determine which compute node is running the BIG-IP instance running the following command from the controller.  
+<br/> 
 
 The name of the instance we built above earlier was `bigip.1`  
 
@@ -930,7 +936,8 @@ The name of the instance we built above earlier was `bigip.1`
 +--------------------------------------+------------------------------------------------------------------+
 ```  
 
-From this output we can see that this instance was built on compute node `newton2.pl.pdsea.f5net.com` with a virsh instance ID of `instance-00000079 `.  Now that we have this information we move over to newton2
+From this output we can see that this instance was built on compute node `newton2.pl.pdsea.f5net.com` with a virsh instance ID of `instance-00000079 `.  Now that we have this information we move over to newton2  
+<br/>
 
 To verify the information above is correct run this `virsh` commands on newton2.
 
@@ -940,6 +947,7 @@ To verify the information above is correct run this `virsh` commands on newton2.
 ----------------------------------------------------
  1     instance-00000079              running
 ```  
+<br/>
 
 In this step we will use the `virsh` commands below to assign the CPU ranges we want to be used for each of the 8 TMM interfaces (0-7)  
 
@@ -955,6 +963,7 @@ virsh vcpupin instance-00000079 5 7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,
 virsh vcpupin instance-00000079 6 7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39
 virsh vcpupin instance-00000079 7 7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39
 ```  
+<br/>  
 
 Using this command we can ensure that the virsh commands executed above we applied properly 
 
@@ -972,6 +981,7 @@ VCPU: CPU Affinity
    7: 7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39
 
 ```  
+<br/>
 
 Using this command you can see exactly which CPU was assigned to each of the TMM's (0-7).  
 
@@ -1025,6 +1035,7 @@ State:          running
 CPU time:       1341.9s
 CPU Affinity:   -----------------------------y--------------------------------------------------
 ```  
+<br/>
 
 If you wish to remove CPU pinning it is as simple as appling a new `virsh vcpupin`.  These commands will remove all CPU pinning and NUMA node Affinity.  Once again remember that the image must be running and you do not need to reboot for these changes to take effect.
 
@@ -1038,6 +1049,7 @@ virsh vcpupin instance-00000079 5 0-79
 virsh vcpupin instance-00000079 6 0-79
 virsh vcpupin instance-00000079 7 0-79
 ```  
+<br/>
 
 You can verify that the changes were executed properly using the commands above.  
 
