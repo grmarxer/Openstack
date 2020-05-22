@@ -1,10 +1,15 @@
 # VCP 1.x Configuration and Deployment Guide for Openstack Newton (RHOSP 10) on RHEL 7.7
 - RHEL 7.7 is required to match VCP environment  
-- This deployment is meant for SR-IOV only on the Intel x520 NIC  
-- This guide builds everything using the admin tenant  
+- This deployment is built using the Intel x520 NIC for the tenant networks
+- This guide builds everything using the admin user in the demo tenant
 - This deployment consists of one controller node and two compute nodes all of which are  Dell PowerEdge R640 servers  
--  This procedure is performed as the root user.  
--  This procedure will show you how to enable SRIOV and CPU Pinning with NUMA node Affinity  
+-  All host/server configuration is performed as the root user.  
+-  This procedure will show you how to enable SRIOV and CPU Pinning with NUMA node Affinity
+
+### Credentials
+- The server credentials are root/HereWeGoAgain  
+- The admin user credentials for Openstack are admin/default  
+- The admin token for Openstack can be found in /root  
 <br/> 
 
 ## Enable SR-IOV in the BIOS on the PowerEdge R640 using iDRAC (Compute Nodes Only)  
