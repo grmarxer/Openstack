@@ -845,7 +845,7 @@ This way we can easily add and remove CPU pinning at will.
 
 In order to know what cores to pin the BIG-IP instance to you must first determine which numa node your public and private networks is attached to.  
 
-In this example we are using `p3p1` for public and '`p3p2` for private.  
+In this example we are using `p3p1` for public and `p3p2` for private.  
 
 Using the following command we can see what numa node p3p1 and p3p2 is attached to
 
