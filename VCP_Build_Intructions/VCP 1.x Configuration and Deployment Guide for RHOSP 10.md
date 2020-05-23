@@ -459,7 +459,7 @@ Add the following to the end of "GRUB_CMDLINE_LINUX"
 
 __NOTE:__ DO NOT REMOVE ANYTHING from "GRUB_CMDLINE_LINUX"
 ```
-intel_iommu=on iommu=pt
+default_hugepagesz=1GB hugepagesz=1G hugepages=12 intel_iommu=on iommu=pt
 ```
 
 When complete your "GRUB_CMDLINE_LINUX" line should look something like this.  
@@ -837,6 +837,17 @@ openstack quota set --cores 80 demo
 ```  
 <br/>  
 
+## Create the following neutron security-group
+
+Note: security groups will only apply to virtio interfaces but are required for the management network.
+
+```
+neutron security-group-create permit.all
+neutron security-group-rule-create --direction ingress --ethertype IPv4 --protocol icmp permit.all
+neutron security-group-rule-create --direction ingress --ethertype IPv4 --protocol tcp permit.all  
+neutron security-group-rule-create --direction ingress --ethertype IPv4 --protocol udp permit.all
+```  
+
 ### Create the openstack neutron networks  
 ```
 openstack network create --share --project demo --external --provider-network-type flat --provider-physical-network public public
@@ -940,7 +951,7 @@ This will create a new BIG-IP instance named `bigip.1`, using the flavor `bigip.
 ```
 nova boot --flavor bigip.10G --image BIG-IP.LTM.1-slot.15.1.0.3 \
   --nic net-name=management --nic port-id=60e1c955-288d-4530-a491-358cc8848607 \
-  --nic port-id=3480c209-a158-421a-8741-636fa2aaf8fd --nic port-id=e56c198e-7d97-4fe1-9b21-fcf16ada657a    bigip.1
+  --nic port-id=3480c209-a158-421a-8741-636fa2aaf8fd --nic port-id=e56c198e-7d97-4fe1-9b21-fcf16ada657a --security-group permit.all  bigip.1
 ```  
 __Note:__ We are purposely not using security groups, as you can see above we are not attaching a security group to this instance.  Since SR-IOV bypasses the openstack security groups there is no reason to apply one.  In addition if you attempt to apply a security group the instance creation will error out.  
 <br/>  
