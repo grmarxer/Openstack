@@ -742,7 +742,9 @@ Navigate to Project > Network > Networks, check the public network and delete
 All Networks and Routers created by the openstack-packstack installation should now be deleted.  
 <br/>   
 
-Verify this by sourcing the admin token credntials from the Controllers command line  
+Verify this by sourcing the admin token credentials from the Controllers command line  
+
+__Note:__ You need to be in `/root` to source these credentials  
 
 ```
 source keystonerc_admin
