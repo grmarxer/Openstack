@@ -749,7 +749,10 @@ __Note:__ You need to be in `/root` to source these credentials
 ```
 source keystonerc_admin
 ``` 
-
+```
+[root@newton1 ~]# source keystonerc_admin  
+[root@newton1 ~(keystone_admin)]#  
+```  
 Execute each of the following commands, if the steps above were completely correctly no information will be returned.
 
 ```
@@ -761,22 +764,13 @@ neutron net-list
 ```
 neutron port-list
 ```  
-
-
-
-
-
-
-
-
+<br/>   
 
 
 ##  Configuring Openstack Nova, Neutron, and Glance  
 
-In this solution we will create everything in the admin tenant.  The demo tenant will not be used.  Also we do not need to create a neutron router as it is not required for this environment  
-<br/> 
-
-
+In this solution we will create everything using the admin token credentials.  The demo users credentials will not be used.  In addition we will use the opentack command line to perform all of these steps as it is much quicker then using Horison.  
+<br/>  
 
 ### Log into the Controller Node and source the admin credentials  
 
