@@ -618,7 +618,7 @@ packstack --answer-file=packstack-answer.pdsea.vcp.sriov.lab.0522202.final
 If your Openstack-packstack installation completed successfully all line items will be green and you will see this output.  
 <br/> 
 
-__Note:__ It typically takes ~ 30 minutes for the installation to complete.  
+__Note:__ It typically takes ~30 minutes for the installation to complete.  
 
 
 ```
