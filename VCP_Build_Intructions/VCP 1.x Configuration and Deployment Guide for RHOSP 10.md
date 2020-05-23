@@ -858,8 +858,10 @@ In this example we are using BIG-IP image `BIGIP-15.1.0.3-0.0.12-1slot.qcow2`, t
 
 We are now ready to launch a new instance.  We are building this instance with the management network which is virtio and three SR-IOV ports (public, private, and mirroring).  Mirroring is the name used for the BIG-IP HA network.  
 Unfortunately we need to extract the neutron port ID's for the SR-IOV interaces in question and apply them to the `NOVA` boot command.  `NOVA` does not allow you to use common names when applying neutron ports to an instance.
+<br/>  
 
 __NOTE:__ The order in which you list the Neutron networks and Neutron ports inside the `NOVA` boot statement is the way in which they will be applied to the instance.  In this example I will apply the management network, then private-sriov-p1 (int 1.1), then public-sriov-p1 (int 1.2), and finally mirror-sriov-p1 (int 1.3)  
+<br/>  
 
 You will need to use the neutron port-list command to determine the neutron port ID's for each of the SR-IOV ports.
 
