@@ -605,8 +605,7 @@ packstack --gen-answer-file=packstack-answer
 ```  
 <br/> 
 We will not use the "packstack-answer" file created above.  I have a configured "packstack-answer" file that has been configured with the settings to use in this lab.  If you wish, you can do a diff on the two files to note the changes.  
-
-
+<br/> 
 <br/>   
 
 Use this command to deploy the openstack-packstack "answer-file"
