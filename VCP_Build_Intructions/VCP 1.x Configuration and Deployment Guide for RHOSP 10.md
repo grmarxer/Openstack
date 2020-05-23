@@ -622,7 +622,8 @@ __Note:__ It typically takes ~30 minutes for the installation to complete.
 
 
 ```
-
+...
+...
  **** Installation completed successfully ******
 
 Additional information:
