@@ -907,7 +907,9 @@ In this example we are using BIG-IP image `BIGIP-15.1.0.3-0.0.12-1slot.qcow2`, t
 
 ### Instantiate a BIG-IP Openstack Instance  
 
-We are now ready to launch a new instance.  We are building this instance with the management network which is virtio and three SR-IOV ports (public, private, and mirroring).  Mirroring is the name used for the BIG-IP HA network.  
+We are now ready to launch a new BIG-IP instance.  We are building this instance with the management network which is virtio and three SR-IOV ports (public, private, and mirroring).   Mirroring is the name used for the BIG-IP HA network. 
+<br/>  
+ 
 Unfortunately we need to extract the neutron port ID's for the SR-IOV interaces in question and apply them to the `NOVA` boot command.  `NOVA` does not allow you to use common names when applying neutron ports to an instance.
 <br/>  
 
