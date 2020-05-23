@@ -604,13 +604,14 @@ Generate the openstack packstack answer file.  The openstack-packstack "answer-f
 packstack --gen-answer-file=packstack-answer
 ```  
 <br/> 
-We will not use the "packstack-answer" file created above.  I have a configured "packstack-answer" file that has been configured with the settings to use in this lab.  If you wish you can do a diff on the two files to note the changes.  
+We will not use the "packstack-answer" file created above.  I have a configured "packstack-answer" file that has been configured with the settings to use in this lab.  If you wish, you can do a diff on the two files to note the changes.  
 
+[The answer-file to be used for this deployment can be found here](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/openstack-packstack_answer-file/packstack-answer.pdsea.vcp.sriov.lab.0522202.final)  
 
 Use this command to deploy the openstack-packstack "answer-file"
 
 ```
-packstack --answer-file=
+packstack --answer-file=packstack-answer.pdsea.vcp.sriov.lab.0522202.final
 ```  
 
 
