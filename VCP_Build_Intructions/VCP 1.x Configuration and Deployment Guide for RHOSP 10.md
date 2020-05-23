@@ -766,6 +766,50 @@ neutron port-list
 ```  
 <br/>   
 
+## Verify Neutron and Nova are running properly  
+
+Before we proceed we should confirm that our NOVA service and Neutron Agents are running properly.
+<br/> 
+
+Execute the commands below and verify that your output matches what I have below.  
+<br/> 
+
+```  
+[root@newton1 ~(keystone_admin)]# nova service-list
++----+------------------+----------------------------+----------+---------+-------+----------------------------+-----------------+
+| Id | Binary           | Host                       | Zone     | Status  | State | Updated_at                 | Disabled Reason |
++----+------------------+----------------------------+----------+---------+-------+----------------------------+-----------------+
+| 1  | nova-cert        | newton1.pl.pdsea.f5net.com | internal | enabled | up    | 2020-05-23T00:45:13.000000 | -               |
+| 2  | nova-consoleauth | newton1.pl.pdsea.f5net.com | internal | enabled | up    | 2020-05-23T00:45:14.000000 | -               |
+| 6  | nova-scheduler   | newton1.pl.pdsea.f5net.com | internal | enabled | up    | 2020-05-23T00:45:20.000000 | -               |
+| 7  | nova-conductor   | newton1.pl.pdsea.f5net.com | internal | enabled | up    | 2020-05-23T00:45:13.000000 | -               |
+| 8  | nova-compute     | newton2.pl.pdsea.f5net.com | nova     | enabled | up    | 2020-05-23T00:45:15.000000 | -               |
+| 9  | nova-compute     | newton3.pl.pdsea.f5net.com | nova     | enabled | up    | 2020-05-23T00:45:17.000000 | -               |
++----+------------------+----------------------------+----------+---------+-------+----------------------------+-----------------+
+```  
+<br/>   
+
+```  
+[root@newton1 ~(keystone_admin)]# neutron agent-list
++--------------------------------------+--------------------+----------------------------+-------------------+-------+----------------+---------------------------+
+| id                                   | agent_type         | host                       | availability_zone | alive | admin_state_up | binary                    |
++--------------------------------------+--------------------+----------------------------+-------------------+-------+----------------+---------------------------+
+| 01ec361e-52bd-44bc-8c7a-651d51309af1 | DHCP agent         | newton2.pl.pdsea.f5net.com | nova              | :-)   | True           | neutron-dhcp-agent        |
+| 07841ecd-24b0-412a-8338-9f8d380e6385 | Metering agent     | newton3.pl.pdsea.f5net.com |                   | :-)   | True           | neutron-metering-agent    |
+| 3a5bf7ec-e9d8-4ffb-b514-44c8cc50cab4 | DHCP agent         | newton3.pl.pdsea.f5net.com | nova              | :-)   | True           | neutron-dhcp-agent        |
+| 3f78a0ee-544e-4acc-9913-b6a87cd95eed | L3 agent           | newton3.pl.pdsea.f5net.com | nova              | :-)   | True           | neutron-l3-agent          |
+| 474dba2b-77d1-4459-9cc7-b43a3e1d2c84 | Metadata agent     | newton2.pl.pdsea.f5net.com |                   | :-)   | True           | neutron-metadata-agent    |
+| 7b85dcb9-00d5-46ac-b871-2275e7939e95 | Metering agent     | newton2.pl.pdsea.f5net.com |                   | :-)   | True           | neutron-metering-agent    |
+| 7bfbf40b-1204-4d32-90e2-782acb2baef3 | NIC Switch agent   | newton2.pl.pdsea.f5net.com |                   | :-)   | True           | neutron-sriov-nic-agent   |
+| 952df894-26c9-4dfc-81bb-fcaeedcdca85 | L3 agent           | newton2.pl.pdsea.f5net.com | nova              | :-)   | True           | neutron-l3-agent          |
+| 9952ee9b-0d02-43d2-a11f-832d0e17a35a | Open vSwitch agent | newton3.pl.pdsea.f5net.com |                   | :-)   | True           | neutron-openvswitch-agent |
+| d4b757b2-4663-44cc-8d63-814b9ed95e77 | Metadata agent     | newton3.pl.pdsea.f5net.com |                   | :-)   | True           | neutron-metadata-agent    |
+| e159fc0f-12bd-41c4-866d-f30f167c791d | NIC Switch agent   | newton3.pl.pdsea.f5net.com |                   | :-)   | True           | neutron-sriov-nic-agent   |
+| fb0dc85c-d6fb-4632-b3fc-ee1ebb30d6c9 | Open vSwitch agent | newton2.pl.pdsea.f5net.com |                   | :-)   | True           | neutron-openvswitch-agent |
++--------------------------------------+--------------------+----------------------------+-------------------+-------+----------------+---------------------------+
+```  
+
+<br/>  
 
 ##  Configuring Openstack Nova, Neutron, and Glance  
 
