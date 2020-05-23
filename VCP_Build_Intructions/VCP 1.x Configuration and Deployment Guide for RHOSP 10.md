@@ -769,15 +769,14 @@ neutron port-list
 
 ##  Configuring Openstack Nova, Neutron, and Glance  
 
-In this solution we will create everything using the admin token credentials.  The demo users credentials will not be used.  In addition we will use the opentack command line to perform all of these steps as it is much quicker then using Horison.  
+In this solution we will create everything using the admin token credentials.  The demo users credentials will not be used.  In addition, we will use the opentack command line to perform all of these steps as it is much quicker then using Horison.  
 <br/>  
 
 ### Log into the Controller Node and source the admin credentials  
 
 ```
 source keystonerc_admin  
-```
-
+```  
 <br/>  
 
 ### Set the openstack nova quota for cores  
@@ -842,7 +841,7 @@ openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
 
 ### Create the openstack glance image
 
-In order to build an openstack BIG-IP instance we need to build a openstack glance image.  To do so I recommend you download a BIG-IP VE qcow2 image to the controller.  Once the image is on the controller you can run the following command to load it into glance.
+In order to build an openstack BIG-IP instance we need to build a openstack glance image.  To do so I recommend you scp a BIG-IP VE qcow2 image to the controller `/root` directory.  Once the image is on the controller you can run the following command to load it into glance.
 
 ```
 openstack image create "BIG-IP LTM 1-slot 15.1.0.3" \
@@ -851,9 +850,15 @@ openstack image create "BIG-IP LTM 1-slot 15.1.0.3" \
   --public
 ```  
 
-In this example we are using BIG-IP image `BIGIP-15.1.0.3-0.0.12-1slot.qcow2`, the name of this image inside glance will be `BIG-IP LTM 1-slot 15.1.0.3` and we have made the image using the `public` property.  
+In this example we are using BIG-IP image `BIGIP-15.1.0.3-0.0.12-1slot.qcow2`, the name of this image inside glance will be `BIG-IP LTM 1-slot 15.1.0.3`  
 
+<br/>  
 
+We are now ready to launch a new instance.  We are building this instance with the management network which is virtio and three SR-IOV ports (public, private, and mirroring).  Mirroring is the name used for the BIG-IP HA network.  Unfortunately we need to extract the neutron port ID's for the SR-IOV interaces in question and apply them to the `NOVA` boot command.  `NOVA` does not allow you to use common names when applying neutron ports to an instance.
+
+__NOTE:__ The order in which you list the Neutron networks and Neutron ports inside the `NOVA` boot statement is the way in which they will be applied to the instance.  In this example I will apply the management network, then private-sriov-p1 (int 1.1), then public-sriov-p1 (int 1.2), and finally mirror-sriov-p1 (int 1.3)  
+
+You will need to use the neutron port-list command to determine the neutron port ID's for each of the SR-IOV ports.
 
 
 ```
@@ -869,18 +874,18 @@ In this example we are using BIG-IP image `BIGIP-15.1.0.3-0.0.12-1slot.qcow2`, t
 | e56c198e-7d97-4fe1-9b21-fcf16ada657a | mirror-sriov-p1  | fa:16:3e:e2:41:7f | {"subnet_id": "7f5929c1-53ec-4bee-973b-c66f743607ca", "ip_address": "10.10.40.13"}   |
 +--------------------------------------+------------------+-------------------+--------------------------------------------------------------------------------------+
 ```  
-
-
-
-__Note:__ We are purposely not using security groups, as you can see below we are not attaching a security group to this instance.  Since SR-IOV bypasses the openstack security groups there is no reason to apply one.  In addition if you attempt to apply a security group instance creation will error out.  
-
 <br/>
+
+This will create a new BIG-IP instance named `bigip.1`, using the flavor `bigip.10G`, the image `bigip.ltm.1-slot.15.1.0.3` along with the networks and ports outlined above.
+<br/>  
 
 ```
 nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.0.3 \
   --nic net-name=management --nic port-id=60e1c955-288d-4530-a491-358cc8848607 \
   --nic port-id=3480c209-a158-421a-8741-636fa2aaf8fd --nic port-id=e56c198e-7d97-4fe1-9b21-fcf16ada657a    bigip.1
 ```  
+__Note:__ We are purposely not using security groups, as you can see above we are not attaching a security group to this instance.  Since SR-IOV bypasses the openstack security groups there is no reason to apply one.  In addition if you attempt to apply a security group the instance creation will error out.  
+
 
 <br/>
 
