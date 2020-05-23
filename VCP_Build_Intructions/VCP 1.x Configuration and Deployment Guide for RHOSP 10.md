@@ -608,9 +608,7 @@ We will not use the "packstack-answer" file created above.  I have a configured 
 <br/> 
 <br/>   
 
-Use this command to deploy the openstack-packstack "answer-file"
-
-[packstack-answer.pdsea.vcp.sriov.lab.0522202.final](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/openstack-packstack_answer-file/packstack-answer.pdsea.vcp.sriov.lab.0522202.final)
+Use the following command to deploy this openstack-packstack "answer-file":  [packstack-answer.pdsea.vcp.sriov.lab.0522202.final](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/openstack-packstack_answer-file/packstack-answer.pdsea.vcp.sriov.lab.0522202.final)
 
 ```
 packstack --answer-file=packstack-answer.pdsea.vcp.sriov.lab.0522202.final
