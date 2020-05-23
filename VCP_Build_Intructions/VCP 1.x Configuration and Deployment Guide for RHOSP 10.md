@@ -706,7 +706,7 @@ The first thing we need to do is delete the default networks that the openstack-
 Unfortunately these initial networks cannot be deleted in the command line, without unnecessary intervention, due to the way they were created in packstack.  In this instance it is easier to delete these initial networks in the GUI.  
 <br/>  
 
-Log into the Openstack Horizon Dashboard which is on the Contoller Node.
+Log into the __Openstack Horizon Dashboard__ which is on the Contoller Node.
 
 http://10.144.19.242/dashboard  
 
