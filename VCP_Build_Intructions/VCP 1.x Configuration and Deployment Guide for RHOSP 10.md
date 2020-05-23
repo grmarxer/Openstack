@@ -711,28 +711,27 @@ Log into the Openstack Horizon Dashboard which is on the Contoller Node.
 http://10.144.19.242/dashboard  
 
 Log in with the demo users credentials  
-
 username: demo  
 password: default  
 <br/>  
 
-Naivate to Network > Routers > router1, then select interfaces and delete the internal interface  
+Navigate to Network > Routers > router1, then select interfaces and delete the internal interface  
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/router-interface-delete.PNG)  
 <br/>  
 
-Naivate to Network > Routers > check router1 and delete  
+Navigatge to Network > Routers > check router1 and delete  
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/delete-router-demo.PNG)  
 <br/>  
 
-Naivate to Network > Networks, check the private network and select delete  
+Navigate to Network > Networks, check the private network and select delete  
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/delete-private-network.PNG)  
 
 <br/>  
 
-logout of Horizon and log back in using the admin users credentials
-
+Lgout of Horizon and log back in using the admin users credentials  
 username: admin  
 password: default  
+
 <br/>  
 
 Navigate to Project > Network > Networks, check the public network and delete  
