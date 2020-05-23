@@ -934,7 +934,9 @@ nova boot --flavor bigip.10G --image BIG-IP.LTM.1-slot.15.1.0.3 \
   --nic port-id=3480c209-a158-421a-8741-636fa2aaf8fd --nic port-id=e56c198e-7d97-4fe1-9b21-fcf16ada657a    bigip.1
 ```  
 __Note:__ We are purposely not using security groups, as you can see above we are not attaching a security group to this instance.  Since SR-IOV bypasses the openstack security groups there is no reason to apply one.  In addition if you attempt to apply a security group the instance creation will error out.  
+<br/>  
 
+__Note:__ If any of the physical interfaces are down on the server with networks we have applied to our instance (EM2, p3p1, p3p2, or p2p1) the instance will not spawn and will error out  
 
 <br/>
 
