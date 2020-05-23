@@ -723,12 +723,12 @@ Navigatge to Network > Routers > check router1 and delete
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/delete-router-demo.PNG)  
 <br/>  
 
-Navigate to Network > Networks, check the private network and select delete  
+Navigate to Network > Networks, check the private network and delete  
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/delete-private-network.PNG)  
 
 <br/>  
 
-Lgout of Horizon and log back in using the admin users credentials  
+Logout of Horizon and log back in using the admin users credentials  
 username: admin  
 password: default  
 
@@ -740,6 +740,7 @@ Navigate to Project > Network > Networks, check the public network and delete
 <br/>   
 
 All Networks and Routers created by the openstack-packstack installation should now be deleted.  
+<br/>   
 
 Verify this by sourcing the admin token credntials from the Controllers command line  
 
