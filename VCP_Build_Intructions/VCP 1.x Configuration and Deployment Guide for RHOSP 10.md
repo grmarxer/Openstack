@@ -888,13 +888,13 @@ openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
 In order to build an openstack BIG-IP instance we need to build a openstack glance image.  To do so I recommend you scp a BIG-IP VE qcow2 image to the controller `/root` directory.  Once the image is on the controller you can run the following command to load it into glance.
 
 ```
-openstack image create "BIG-IP LTM 1-slot 15.1.0.3" \
+openstack image create "BIG-IP.LTM.1-slot.15.1.0.3" \
   --file BIGIP-15.1.0.3-0.0.12-1slot.qcow2 \
   --disk-format qcow2 --container-format bare \
   --public
 ```  
 
-In this example we are using BIG-IP image `BIGIP-15.1.0.3-0.0.12-1slot.qcow2`, the name of this image inside glance will be `BIG-IP LTM 1-slot 15.1.0.3`  
+In this example we are using BIG-IP image `BIGIP-15.1.0.3-0.0.12-1slot.qcow2`, the name of this image inside glance will be `BIG-IP.LTM.1-slot.15.1.0.3`  
 
 <br/>  
 
@@ -925,11 +925,11 @@ You will need to use the neutron port-list command to determine the neutron port
 ```  
 <br/>
 
-This will create a new BIG-IP instance named `bigip.1`, using the flavor `bigip.10G`, the image `bigip.ltm.1-slot.15.1.0.3` along with the networks and ports outlined above.
+This will create a new BIG-IP instance named `bigip.1`, using the flavor `bigip.10G`, the image `BIG-IP.LTM.1-slot.15.1.0.3` along with the networks and ports outlined above.
 <br/>  
 
 ```
-nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.0.3 \
+nova boot --flavor bigip.10G --image BIG-IP.LTM.1-slot.15.1.0.3 \
   --nic net-name=management --nic port-id=60e1c955-288d-4530-a491-358cc8848607 \
   --nic port-id=3480c209-a158-421a-8741-636fa2aaf8fd --nic port-id=e56c198e-7d97-4fe1-9b21-fcf16ada657a    bigip.1
 ```  
