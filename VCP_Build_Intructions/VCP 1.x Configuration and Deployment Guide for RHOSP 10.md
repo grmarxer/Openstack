@@ -466,7 +466,6 @@ When complete your "GRUB_CMDLINE_LINUX" line should look something like this.
 ```
 GRUB_CMDLINE_LINUX="crashkernel=auto spectre_v2=retpoline rd.lvm.lv=rhel00/root rd.lvm.lv=rhel00/swap rhgb quiet default_hugepagesz=1GB hugepagesz=1G hugepages=12 intel_iommu=on iommu=pt"
 ```  
-# check this my starting point was GRUB_CMDLINE_LINUX="crashkernel=auto spectre_v2=retpoline rd.lvm.lv=rhel00/root rd.lvm.lv=rhel00/swap rhgb quiet... missing hugepages etc.
 
 Refresh the grub.cfg file and reboot the host for these changes to take effect  
 ```
