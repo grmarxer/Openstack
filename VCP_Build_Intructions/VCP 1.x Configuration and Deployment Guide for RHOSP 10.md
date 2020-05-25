@@ -445,7 +445,8 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 grubby --update-kernel=ALL --args="intel_iommu=pt ixgbe.max_vfs=7"
 ```  
-<br/> 
+<br/>   
+
 
 Next we need to enable virutalization passthrough on the Compute host.  This is done by enabling IOMMU by editing the grub configuration file.
 
@@ -454,7 +455,7 @@ Edit the following file
 ```
 vi /etc/default/grub
 ```
-<br/> 
+<br/>  
 Add the following to the end of "GRUB_CMDLINE_LINUX"  
 
 __NOTE:__ DO NOT REMOVE ANYTHING from "GRUB_CMDLINE_LINUX"
