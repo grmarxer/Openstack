@@ -10,7 +10,8 @@
 - The admin user credentials for Openstack are admin/default  
 - The demo user credentials for Openstack are demo/default  
 - The admin token for Openstack keystone can be found in /root  
-<br/> 
+<br/>  
+<br/>  
 
 ## Enable SR-IOV in the BIOS on the PowerEdge R640 using iDRAC (Compute Nodes Only)  
 
@@ -54,6 +55,7 @@
 
 
 <br/> 
+<br/>  
 
 ## Install RHEL 7.7 using Dell idrac  
 
@@ -560,6 +562,7 @@ You should see the following at the bottom of each entry
 __NOTICE:__ The VF's do not have a "Kernel driver in use"  
 
 <br/>  
+<br/>  
 
 ## Install the following Repositories and Packages (Controller and Compute Nodes)
 
@@ -586,6 +589,7 @@ yum update -y
 ```
 reboot
 ```
+<br/>  
 <br/>  
 
 ## Install Openstack-Packstack on the Controller Only  
@@ -636,6 +640,7 @@ Please, find your login credentials stored in the keystonerc_admin in your home 
 ```  
 
 
+<br/>  
 <br/>  
 
 ##  Fine Tuning the Openstack-packstack Installation  
@@ -706,6 +711,7 @@ systemctl restart openstack-nova-*
 ```  
 
 <br/>  
+<br/>  
 
 ## Cleaning up the Openstack-packstack installation defaults  
 
@@ -773,6 +779,7 @@ neutron net-list
 neutron port-list
 ```  
 <br/>   
+<br/>  
 
 ## Verify Neutron and Nova are running properly  
 
@@ -818,6 +825,7 @@ Execute the commands below and verify that your output matches what I have below
 ```  
 
 <br/>  
+<br/>  
 
 ##  Configuring Openstack Nova, Neutron, and Glance  
 
@@ -836,6 +844,7 @@ source keystonerc_admin
 ```
 openstack quota set --cores 80 demo
 ```  
+<br/>  
 <br/>  
 
 ## Create the following neutron security-group
@@ -958,6 +967,7 @@ nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.0.3 \
 __Note:__ If any of the physical interfaces are down on the server with networks we have applied to our instance (EM2, p3p1, p3p2, or p2p1) the instance will not spawn and will error out  
 
 <br/>
+<br/>  
 
 ## CPU Pinning and NUMA Node Affinity
 
