@@ -86,7 +86,7 @@
 7.  iDRAC will ask you to confirm that you want to boot from Virtual CD/DVD/ISO - Select Yes
 8.  Choose the power button and select Reset System (warm boot)  
 9.  The RHEL Installer UI will begin  
-    - Use infastructure server for all nodes  
+    - Use infrastructure server for all nodes  
     - Each server has two virtual disks  
         - For the Controller node use the 446 GB Virtual Disk  
         - For the Compute Nodes use the 3575 GB Virtual Disk  
@@ -410,7 +410,7 @@ blacklist iavf
 ``` 
 <br/> 
 
-Next we need to rebuild the RHEL ramdisk image to accomidate the changes we made above.  
+Next we need to rebuild the RHEL ramdisk image to accommodate the changes we made above.  
 
 ```
 cp /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).bak.$(date +%m-%d-%H%M%S).img
@@ -448,7 +448,7 @@ grubby --update-kernel=ALL --args="intel_iommu=pt ixgbe.max_vfs=7"
 <br/>   
 
 
-Next we need to enable virutalization passthrough on the Compute host.  This is done by enabling IOMMU by editing the grub configuration file.
+Next we need to enable virtualization passthrough on the Compute host.  This is done by enabling IOMMU by editing the grub configuration file.
 
 Edit the following file  
 
@@ -590,7 +590,7 @@ reboot
 
 ## Install Openstack-Packstack on the Controller Only  
 
-We will use openstack-packstack to install Openstack Newton (RHOSP 10) for simplicity sake.  Openstack-packstack is a utility that will perform approximately 90% of the necessary Openstack Configuration.  It's a much less painless process then attempting a manual installtion of Openstack.  Once we deploy the "answer-file" and the openstack-packstack installation is complete we will have to make a few minor chnages.  The opentack-packstack "answer-file" is used to push the configuration objects we want to use to the openstack-packstack installer.  
+We will use openstack-packstack to install Openstack Newton (RHOSP 10) for simplicity sake.  Openstack-packstack is a utility that will perform approximately 90% of the necessary Openstack Configuration.  It's a much less painless process then attempting a manual installation of Openstack.  Once we deploy the "answer-file" and the openstack-packstack installation is complete we will have to make a few minor changes.  The opentack-packstack "answer-file" is used to push the configuration objects we want to use to the openstack-packstack installer.  
 
 __Note:__ Packstack and its answer file are only used on the Controller node.
 
@@ -658,12 +658,13 @@ instances_path=/home
 wq!
 ``` 
 
-We now need to change the permission on the /home directory  
+We now need to change the permission on the /home directory 
 ```
 chmod 777 /home
 ```  
 
-__Note:__ For future troubleshooting and tracking please recall that all instances will be created in the /home directory on the compute nodes.  
+__Note:__ For future troubleshooting and tracking please recall that all instances will be created in the /home directory on the compute nodes.
+
 <br/>  
 
 We need to restart nova for the change above to take effect  
@@ -708,12 +709,12 @@ systemctl restart openstack-nova-*
 
 ## Cleaning up the Openstack-packstack installation defaults  
 
-The first thing we need to do is delete the default networks that the openstack-packstack configuration created.  These networks are irrlevant to what we want to configure and need to be removed.
+The first thing we need to do is delete the default networks that the openstack-packstack configuration created.  These networks are irrelevant to what we want to configure and need to be removed.
 
 Unfortunately these initial networks cannot be deleted in the command line, without unnecessary intervention, due to the way they were created in packstack.  In this instance it is easier to delete these initial networks in the GUI.  
 <br/>  
 
-Log into the __Openstack Horizon Dashboard__ which is on the Contoller Node.
+Log into the __Openstack Horizon Dashboard__ which is on the Controller Node.
 
 http://10.144.19.242/dashboard  
 
@@ -820,7 +821,7 @@ Execute the commands below and verify that your output matches what I have below
 
 ##  Configuring Openstack Nova, Neutron, and Glance  
 
-In this solution we will create everything using the admin token credentials.  The demo users credentials will not be used.  In addition, we will use the opentack command line to perform all of these steps as it is much quicker then using Horison.  
+In this solution we will create everything using the admin token credentials.  The demo users credentials will not be used.  In addition, we will use the opentack command line to perform all of these steps as it is much quicker then using Horizon.  
 <br/>  
 
 ### Log into the Controller Node and source the admin credentials  
@@ -921,7 +922,7 @@ In this example we are using BIG-IP image `BIGIP-15.1.0.3-0.0.12-1slot.qcow2`, t
 We are now ready to launch a new BIG-IP instance.  We are building this instance with the management network which is virtio and three SR-IOV ports (public, private, and mirroring).   Mirroring is the name used for the BIG-IP HA network. 
 <br/>  
  
-Unfortunately we need to extract the neutron port ID's for the SR-IOV interaces in question and apply them to the `NOVA` boot command.  `NOVA` does not allow you to use common names when applying neutron ports to an instance.
+Unfortunately we need to extract the neutron port ID's for the SR-IOV interfaces in question and apply them to the `NOVA` boot command.  `NOVA` does not allow you to use common names when applying neutron ports to an instance.
 <br/>  
 
 __NOTE:__ The order in which you list the Neutron networks and Neutron ports inside the `NOVA` boot statement is the way in which they will be applied to the instance.  In this example I will apply the management network, then private-sriov-p1 (int 1.1), then public-sriov-p1 (int 1.2), and finally mirror-sriov-p1 (int 1.3)  
@@ -1007,7 +1008,7 @@ NUMA node1 CPU(s):     1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41
 ``` 
 <br/>
 
-Although all the odd numbers are listed (1-79) we cannot use all of these to pin because the numbers greater than 39 represent hyerthreads.  Based on the output of the lscpu command above we know we have 2 sockets with 20 cores each for a total of 80 CPU's 
+Although all the odd numbers are listed (1-79) we cannot use all of these to pin because the numbers greater than 39 represent hyperthreads.  Based on the output of the lscpu command above we know we have 2 sockets with 20 cores each for a total of 80 CPU's 
 
 ```
 CPU(s):                80
@@ -1027,9 +1028,9 @@ Socket(s):             2
 The reason we do not use CPU 1,3, or 5 is that we want those reserved for the hosts linux operating system.  If we attempt to pin those CPU's we could step ontop of host linux processes that will decrease the performance of BIG-IP and the Host system.  The host system in this example is newton3.
 
 
-In order to determine what instance we want to apply CPU pinning an NUMA node Affinity to we will use the `virsh` comamnd on the compute node that is running the BIG-IP instance in question.
+In order to determine what instance we want to apply CPU pinning an NUMA node Affinity to we will use the `virsh` command on the compute node that is running the BIG-IP instance in question. 
 
-To determine which compute node is running the BIG-IP instance running the following command from the controller.  
+To determine which compute node is running the BIG-IP instance running the following command from the controller. 
 <br/> 
 
 The name of the instance we built above earlier was `bigip.1`  
@@ -1152,7 +1153,7 @@ CPU Affinity:   -----------------------------y----------------------------------
 ```  
 <br/>
 
-If you wish to remove CPU pinning it is as simple as appling a new `virsh vcpupin`.  These commands will remove all CPU pinning and NUMA node Affinity.  Once again remember that the image must be running and you do not need to reboot for these changes to take effect.
+If you wish to remove CPU pinning it is as simple as applying a new `virsh vcpupin`.  These commands will remove all CPU pinning and NUMA node Affinity.  Once again remember that the image must be running and you do not need to reboot for these changes to take effect.
 
 ```
 virsh vcpupin instance-00000079 0 0-79
