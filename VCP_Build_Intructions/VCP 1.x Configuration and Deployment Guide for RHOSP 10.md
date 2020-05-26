@@ -839,7 +839,7 @@ openstack quota set --cores 80 demo
 
 ## Create the following neutron security-group
 
-Note: security groups will only apply to virtio interfaces but are required for the management network.
+__Note:__ `security-groups` only apply to virtio interfaces but are required for the management network.  SR-IOV ports bypass security-groups because the NIC talks directly to the guest.
 
 ```
 neutron security-group-create permit.all
@@ -891,7 +891,7 @@ __Note:__ Since we are using automap in this environment we do not need to creat
 neutron port-create --fixed-ip ip_address=10.20.40.200  public
 ```
 
-__Note:__ For those of you familiar with openstack, the next step is usually assigned the fixed-ip we created above as an allowed-address pair.  We do not need to do that step in this environment as we are not using security-groups.  
+__Note:__ For those of you familiar with openstack, the next step is usually assigned the fixed-ip we created above as an allowed-address pair.  We do not need to do that step in this environment as SR-IOV ports bypass security-groups.  
 <br/>   
 
 ### Create the openstack nova flavors
@@ -906,13 +906,13 @@ openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
 In order to build an openstack BIG-IP instance we need to build a openstack glance image.  To do so I recommend you scp a BIG-IP VE qcow2 image to the controller `/root` directory.  Once the image is on the controller you can run the following command to load it into glance.
 
 ```
-openstack image create "BIG-IP.LTM.1-slot.15.1.0.3" \
+openstack image create "bigip.ltm.1-slot.15.1.0.3" \
   --file BIGIP-15.1.0.3-0.0.12-1slot.qcow2 \
   --disk-format qcow2 --container-format bare \
   --public
 ```  
 
-In this example we are using BIG-IP image `BIGIP-15.1.0.3-0.0.12-1slot.qcow2`, the name of this image inside glance will be `BIG-IP.LTM.1-slot.15.1.0.3`  
+In this example we are using BIG-IP image `BIGIP-15.1.0.3-0.0.12-1slot.qcow2`, the name of this image inside glance will be `bigip.ltm.1-slot.15.1.0.3`  
 
 <br/>  
 
@@ -945,16 +945,14 @@ You will need to use the neutron port-list command to determine the neutron port
 ```  
 <br/>
 
-This will create a new BIG-IP instance named `bigip.1`, using the flavor `bigip.10G`, the image `BIG-IP.LTM.1-slot.15.1.0.3` along with the networks and ports outlined above.
+This will create a new BIG-IP instance named `bigip.1`, using the flavor `bigip.10G`, the image `bigip.ltm.1-slot.15.1.0.3`, the security-group `permit.all` along with the networks and ports outlined above.
 <br/>  
 
 ```
-nova boot --flavor bigip.10G --image BIG-IP.LTM.1-slot.15.1.0.3 \
+nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.0.3 \
   --nic net-name=management --nic port-id=60e1c955-288d-4530-a491-358cc8848607 \
   --nic port-id=3480c209-a158-421a-8741-636fa2aaf8fd --nic port-id=e56c198e-7d97-4fe1-9b21-fcf16ada657a --security-group permit.all  bigip.1
 ```  
-__Note:__ We are purposely not using security groups, as you can see above we are not attaching a security group to this instance.  Since SR-IOV bypasses the openstack security groups there is no reason to apply one.  In addition if you attempt to apply a security group the instance creation will error out.  
-<br/>  
 
 __Note:__ If any of the physical interfaces are down on the server with networks we have applied to our instance (EM2, p3p1, p3p2, or p2p1) the instance will not spawn and will error out  
 
