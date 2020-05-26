@@ -13,6 +13,10 @@
 <br/>  
 <br/>  
 
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/lab_diagram.png)  
+<br/>  
+<br/>  
+
 ## Enable SR-IOV in the BIOS on the PowerEdge R640 using iDRAC (Compute Nodes Only)  
 
 1.  Log into iDRAC using the IPMI IP address  
