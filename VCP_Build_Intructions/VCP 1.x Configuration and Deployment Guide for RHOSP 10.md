@@ -846,7 +846,7 @@ source keystonerc_admin
 ### Set the openstack nova quota for cores  
 
 ```
-openstack quota set --cores 80 demo
+openstack quota set --cores 80 admin
 ```  
 <br/>  
 <br/>  
