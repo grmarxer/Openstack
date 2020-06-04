@@ -367,7 +367,7 @@ reboot
 ```  
 <br/>  
 
-### Enabling SR-IOV Virtual Functions (Compute Nodes Only)  
+### Enabling SR-IOV Virtual Functions and virtualization passthrough (Compute Nodes Only)  
 
 In the following steps will be enabling the Virtual Functions (VF's) for intel x520 NICs.
 In this procedure the x520's are installed in server slots two and three.  Each x520 NIC has two ports, thus we are using p3p1, p3p2, and p2p1.  
