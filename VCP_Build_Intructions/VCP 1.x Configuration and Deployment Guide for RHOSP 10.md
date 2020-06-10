@@ -849,7 +849,7 @@ source keystonerc_admin
 openstack quota set --cores 80 admin
 ```  
 <br/>  
-<br/>  
+ 
 
 ### Create the following neutron security-group
 
