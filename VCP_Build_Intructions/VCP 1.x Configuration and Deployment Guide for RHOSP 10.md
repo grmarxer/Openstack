@@ -862,7 +862,7 @@ neutron security-group-rule-create --direction ingress --ethertype IPv4 --protoc
 neutron security-group-rule-create --direction ingress --ethertype IPv4 --protocol udp permit.all
 ```  
 
-Verify the security-group `permit.all` was created properly using the following commands  
+Verify the security-group `permit.all` was created properly using the following commands   
 
 ```
 neutron security-group-list
