@@ -851,7 +851,7 @@ openstack quota set --cores 80 admin
 <br/>  
 <br/>  
 
-## Create the following neutron security-group
+### Create the following neutron security-group
 
 __Note:__ `security-groups` only apply to virtio interfaces but are required for the management network.  SR-IOV ports bypass security-groups because the NIC talks directly to the guest.
 
@@ -870,7 +870,7 @@ neutron security-group-list
 ```
 neutron security-group-show permit.all
 ```  
-
+<br/>  
 
 ### Create the openstack neutron networks  
 ```
