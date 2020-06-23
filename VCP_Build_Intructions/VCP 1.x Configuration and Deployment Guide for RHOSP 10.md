@@ -327,14 +327,14 @@ Next we need to attach the RHEL Openstack subscription to our nodes (Controller 
 To find the Openstack Pool ID for your subscription use the following
 
 ```
-subscription-manager list --available --all | grep -i -A 50 "Red Hat OpenStack Platform, Standard Support"
+subscription-manager list --available --all | awk '/Red Hat OpenStack Platform/,/^$/'
 ``` 
 <br/> 
 In this example the Pool ID: 8a85f99c71eff3f4017219e2ebca5c3b
 
 ```
-[root@newton2 ~]# subscription-manager list --available --all | grep -i -A 50 "Red Hat OpenStack Platform, Standard Support"
-Subscription Name:   Red Hat OpenStack Platform, Standard Support (4 Sockets, NFR, Partner Only)
+[root@newton2 ~]# subscription-manager list --available --all | awk '/Red Hat OpenStack Platform/,/^$/'
+Subscription Name:   Red Hat OpenStack Platform, Self-Support (4 Sockets, NFR, Partner Only)
 Provides:            dotNET on RHEL Beta (for RHEL Server)
                      Red Hat CodeReady Linux Builder for x86_64
                      Red Hat Enterprise Linux FDIO Early Access (RHEL 7 Server)
@@ -352,7 +352,7 @@ Available:           75
 Suggested:           1
 ```  
 <br/> 
-To attach the "Red Hat OpenStack Platform, Standard Support" subscription apply the following based on the above "Pool ID"  
+To attach the "Red Hat OpenStack Platform, Self-Support" subscription apply the following based on the above "Pool ID"  
 
 ```
 subscription-manager attach --pool=8a85f99c71eff3f4017219e2ebca5c3b
