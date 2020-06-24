@@ -149,7 +149,11 @@ systemctl start chronyd.service
 ``` 
 Verify NTP is working properly  
 ```
-chronyc sources
+[root@newton1 ~]# chronyc sources
+210 Number of sources = 1
+MS Name/IP address         Stratum Poll Reach LastRx Last sample
+===============================================================================
+^* time.pd.f5net.com             4   6   377    60   -155us[ -167us] +/-   53ms
 ```  
 <br/>  
 
