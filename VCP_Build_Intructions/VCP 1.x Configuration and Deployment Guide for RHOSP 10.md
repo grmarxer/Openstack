@@ -252,7 +252,9 @@ NM_CONTROLLED="no"
 
 <br/>  
 
-__Compute Nodes (NIC - EM1, p3p1, p3p2, p2p1)__ 
+__Compute Nodes (NIC - EM1, p3p1, p3p2, p2p1)__  
+
+Perform this step for each interface specifically -- ifcfg-EM1, ifcfg-p3p1, etc.  
 
 ```
 vi /etc/sysconfig/network-scripts/ifcfg-xxx
@@ -333,6 +335,8 @@ To find the Openstack Pool ID for your subscription use the following
 ```
 subscription-manager list --available --all | awk '/Red Hat OpenStack Platform/,/^$/'
 ``` 
+__Note:__ If the above command provides no output, run `subscription-manager list --available --all` first, then try again.  For some reason Red Hat can be flakey  
+
 <br/> 
 In this example the Pool ID: 8a85f99c71eff3f4017219e2ebca5c3b
 
@@ -1132,52 +1136,52 @@ Using this command you can see exactly which CPU was assigned to each of the TMM
 ```
 [root@newton2 ~]# virsh vcpuinfo instance-00000079
 VCPU:           0
-CPU:            7
+CPU:            27
 State:          running
-CPU time:       1382.9s
-CPU Affinity:   -------y------------------------------------------------------------------------
+CPU time:       1164.0s
+CPU Affinity:   -------y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y----------------------------------------
 
 VCPU:           1
-CPU:            9
-State:          running
-CPU time:       1345.7s
-CPU Affinity:   ---------y----------------------------------------------------------------------
-
-VCPU:           2
-CPU:            33
-State:          running
-CPU time:       1347.9s
-CPU Affinity:   ---------------------------------y----------------------------------------------
-
-VCPU:           3
 CPU:            13
 State:          running
-CPU time:       1338.1s
-CPU Affinity:   -------------y------------------------------------------------------------------
+CPU time:       1163.9s
+CPU Affinity:   -------y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y----------------------------------------
 
-VCPU:           4
-CPU:            31
+VCPU:           2
+CPU:            19
 State:          running
-CPU time:       1341.5s
-CPU Affinity:   -------------------------------y------------------------------------------------
+CPU time:       1170.5s
+CPU Affinity:   -------y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y----------------------------------------
 
-VCPU:           5
-CPU:            17
-State:          running
-CPU time:       1344.2s
-CPU Affinity:   -----------------y--------------------------------------------------------------
-
-VCPU:           6
+VCPU:           3
 CPU:            21
 State:          running
-CPU time:       1347.9s
-CPU Affinity:   ---------------------y----------------------------------------------------------
+CPU time:       1156.3s
+CPU Affinity:   -------y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y----------------------------------------
+
+VCPU:           4
+CPU:            39
+State:          running
+CPU time:       1147.1s
+CPU Affinity:   -------y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y----------------------------------------
+
+VCPU:           5
+CPU:            35
+State:          running
+CPU time:       1139.2s
+CPU Affinity:   -------y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y----------------------------------------
+
+VCPU:           6
+CPU:            15
+State:          running
+CPU time:       1138.9s
+CPU Affinity:   -------y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y----------------------------------------
 
 VCPU:           7
-CPU:            29
+CPU:            17
 State:          running
-CPU time:       1341.9s
-CPU Affinity:   -----------------------------y--------------------------------------------------
+CPU time:       1152.7s
+CPU Affinity:   -------y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y----------------------------------------
 ```  
 <br/>
 
