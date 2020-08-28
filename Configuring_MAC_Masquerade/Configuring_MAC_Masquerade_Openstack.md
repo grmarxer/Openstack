@@ -1,4 +1,22 @@
 # Configuring MAC Masquerade for BIG-IP Inside Openstack
+<br/>  
+
+## Summary  
+In this procedure we will provide the steps necessary to configure Openstack to support a BIG-IP MAC Masquerade configuration.  
+
+In this example we have a single standard Virtual server configured on port 80 to demonstrate http traffic (external side).  We will not configure a floating self-ip on the external side.  We have a single web server in our pool, also on port 80 (internal side).  We will configure a floating self-ip on the internal side.  On the VIP we are using SNAT auto-map.  
+<br/>  
+
+##  Diagram of the lab configuration  
+
+<br/>  
+
+![lab diagram](https://github.com/grmarxer/Openstack/blob/master/Configuring_MAC_Masquerade/diagrams/MAC-Masquerade-lab.png)  
+
+<br/>  
+
+##  Configuration Steps
+
 
 1. Assign the MAC Masquerade Address you wish to use to BIG-IP.  In this example the MAC Masquerade Address is `fa:16:3e:ae:00:00`  
 
@@ -207,4 +225,8 @@
 
 8.  Be sure to create the VIP and floating self-ip on the BIG-IP itself  
 
-9.  You have completed this procedure
+9.  tcpdumps taken from BIG-IP 1 and BIG-IP 2 for this example  
+
+    - [BIG-IP 1 tcpdump](https://github.com/grmarxer/Openstack/blob/master/Configuring_MAC_Masquerade/tcpdumps/mac-masq-flow-BIG-IP1.pcap)  
+
+    - [BIG-IP 2 tcpdump](https://github.com/grmarxer/Openstack/blob/master/Configuring_MAC_Masquerade/tcpdumps/mac-masq-flow-BIG-IP2.pcap)  
