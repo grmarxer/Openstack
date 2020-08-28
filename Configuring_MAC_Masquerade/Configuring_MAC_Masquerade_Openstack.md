@@ -8,7 +8,7 @@
         mac fa:16:3e:ae:00:00
     }
     ```  
-2. On the external side create the OpenStack Fixed IP that you will use for your VIP.  In this example the VIP IP is `172.16.3.50`  
+2. On the external side create the OpenStack Fixed IP that you will use for your BIG-IP VIP.  In this example the VIP IP is `172.16.3.50`  
     ```
     neutron port-create --fixed-ip ip_address=172.16.3.50  --security-group demo network3
     ```  
@@ -106,7 +106,7 @@
     +-----------------------+-------------------------------------------------------------------------------------+
     ```  
 
-5.  On the internal side create the OpenStack Fixed IP that you will use for your BIG-IP floating self-ip.  In this example the VIP IP is `172.16.4.100`  
+5.  On the internal side create the OpenStack Fixed IP that you will use for your BIG-IP floating self-ip.  In this example the floating self-ip is `172.16.4.100`  
 
     ```
     neutron port-create --fixed-ip ip_address=172.16.4.100  --security-group demo network4
