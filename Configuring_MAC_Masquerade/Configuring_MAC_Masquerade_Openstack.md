@@ -3,7 +3,7 @@
 1. Assign the MAC Masquerade Address you wish to use to BIG-IP.  In this example the MAC Masquerade Address is `fa:16:3e:ae:00:00`  
 
     ```
-    root@(host-172)(cfg-sync In Sync)(Active)(/Common)(tmos)# list cm traffic-group traffic-group-1 mac
+    [root@host-172:Active:In Sync] config # tmsh list cm traffic-group traffic-group-1 mac
     cm traffic-group traffic-group-1 {
         mac fa:16:3e:ae:00:00
     }
