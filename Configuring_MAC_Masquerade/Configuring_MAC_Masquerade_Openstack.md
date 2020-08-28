@@ -4,7 +4,9 @@
 ## Summary  
 In this procedure we will provide the steps necessary to configure Openstack to support a BIG-IP MAC Masquerade configuration.  
 
-In this example we have a single standard Virtual server configured on port 80 to demonstrate http traffic (external side).  We will not configure a floating self-ip on the external side.  We have a single web server in our pool, also on port 80 (internal side).  We will configure a floating self-ip on the internal side.  On the VIP we are using SNAT auto-map.  
+In this example we have a single standard Virtual server configured on port 80 to demonstrate http traffic (external side).  We will not configure a floating self-ip on the external side.  
+
+We have a single web server in our pool, also on port 80 (internal side).  We will configure a floating self-ip on the internal side.  On the VIP we are using SNAT auto-map.  
 <br/>  
 
 ##  Diagram of the lab configuration  
