@@ -229,6 +229,6 @@ We have a single web server in our pool, also on port 80 (internal side).  We wi
 
 9.  tcpdumps taken from BIG-IP 1 and BIG-IP 2 for this example  
 
-    - [BIG-IP 1 tcpdump](https://github.com/grmarxer/Openstack/blob/master/Configuring_MAC_Masquerade/tcpdumps/mac-masq-flow-BIG-IP1.pcap)  
+    - [BIG-IP 1 tcpdump -- select download on this link](https://github.com/grmarxer/Openstack/blob/master/Configuring_MAC_Masquerade/tcpdumps/mac-masq-flow-BIG-IP1.pcap)  
 
-    - [BIG-IP 2 tcpdump](https://github.com/grmarxer/Openstack/blob/master/Configuring_MAC_Masquerade/tcpdumps/mac-masq-flow-BIG-IP2.pcap)  
+    - [BIG-IP 2 tcpdump -- select download on this link](https://github.com/grmarxer/Openstack/blob/master/Configuring_MAC_Masquerade/tcpdumps/mac-masq-flow-BIG-IP2.pcap)  
