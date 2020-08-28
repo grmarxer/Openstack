@@ -10,7 +10,7 @@
     ```  
 2. On the external side create the OpenStack Fixed IP that you will use for your VIP.  In this example the VIP IP is `172.16.3.50`  
     ```
-    [root@controller ~]# neutron port-create --fixed-ip ip_address=172.16.3.50  --security-group demo network3
+    neutron port-create --fixed-ip ip_address=172.16.3.50  --security-group demo network3
     ```  
     ```
     [root@controller ~]# neutron port-show d5f91327-d7e8-4b3d-9d26-5d9a5567b1bc
@@ -39,10 +39,10 @@
     | updated_at            | 2020-08-28T21:01:57Z                                                               |
     +-----------------------+------------------------------------------------------------------------------------+
     ```  
-3.  Update the Openstack fixed IP that is BIG-IP1's external self IP with an allowed address pair of that of the VIP IP and the MAC Masquerade Address  
+3.  Update the Openstack fixed IP that is BIG-IP1's external self IP with the allowed address pair of that of the VIP IP and the MAC Masquerade Address  
 
     ```
-    [root@controller ~]# neutron port-update a3a65777-238d-452c-a885-c7bd48a53182 --allowed_address_pairs list=true type=dict ip_address=172.16.3.50,mac_address=fa:16:3e:ae:00:00
+    neutron port-update a3a65777-238d-452c-a885-c7bd48a53182 --allowed_address_pairs list=true type=dict ip_address=172.16.3.50,mac_address=fa:16:3e:ae:00:00
     ```  
     ```
     [root@controller ~]# neutron port-show a3a65777-238d-452c-a885-c7bd48a53182
@@ -72,10 +72,10 @@
     | updated_at            | 2020-08-28T21:34:31Z                                                                |
     +-----------------------+-------------------------------------------------------------------------------------+
     ```  
-4. Update the Openstack fixed IP that is BIG-IP2's external self IP with an allowed address pair of that of the VIP IP and the MAC Masquerade Address 
+4. Update the Openstack fixed IP that is BIG-IP2's external self IP with the allowed address pair of that of the VIP IP and the MAC Masquerade Address 
 
     ```
-    [root@controller ~]#neutron port-update ad791a04-5b61-451d-959c-69f7208443d6 --allowed_address_pairs list=true type=dict ip_address=172.16.3.50,mac_address=fa:16:3e:ae:00:00
+    neutron port-update ad791a04-5b61-451d-959c-69f7208443d6 --allowed_address_pairs list=true type=dict ip_address=172.16.3.50,mac_address=fa:16:3e:ae:00:00
     ```  
     ```
     [root@controller ~]# neutron port-show ad791a04-5b61-451d-959c-69f7208443d6
@@ -109,7 +109,7 @@
 5.  On the internal side create the OpenStack Fixed IP that you will use for your BIG-IP floating self-ip.  In this example the VIP IP is `172.16.4.100`  
 
     ```
-    [root@controller ~]# neutron port-create --fixed-ip ip_address=172.16.4.100  --security-group demo network4
+    neutron port-create --fixed-ip ip_address=172.16.4.100  --security-group demo network4
     ```  
     ```
     [root@controller ~]# neutron port-show a1504786-9529-45a1-b4f8-480dc4583c83
@@ -138,9 +138,9 @@
     | updated_at            | 2020-08-28T19:18:00Z                                                                |
     +-----------------------+-------------------------------------------------------------------------------------+
     ```  
-6. Update the Openstack fixed IP that is BIG-IP1's internal self IP with an allowed address pair of that of the floating self-ip and the MAC Masquerade Address  
+6. Update the Openstack fixed IP that is BIG-IP1's internal self IP with the allowed address pair of that of the floating self-ip and the MAC Masquerade Address  
     ```
-    [root@controller ~]# neutron port-update be37f8c3-d8af-44a9-90f2-aa4534cdd0bc --allowed_address_pairs list=true type=dict ip_address=172.16.4.100,mac_address=fa:16:3e:ae:00:00
+    neutron port-update be37f8c3-d8af-44a9-90f2-aa4534cdd0bc --allowed_address_pairs list=true type=dict ip_address=172.16.4.100,mac_address=fa:16:3e:ae:00:00
     ```  
     ```
     [root@controller ~]# neutron port-show be37f8c3-d8af-44a9-90f2-aa4534cdd0bc
@@ -174,7 +174,7 @@
 7. Update the Openstack fixed IP that is BIG-IP2's internal self IP with the allowed address pair of that of the floating self-ip and the MAC Masquerade Address 
 
     ```
-    [root@controller ~]# neutron port-update 467e2dbc-d599-42a8-8445-f921d0d8abe3 --allowed_address_pairs list=true type=dict ip_address=172.16.4.100,mac_address=fa:16:3e:ae:00:00
+    neutron port-update 467e2dbc-d599-42a8-8445-f921d0d8abe3 --allowed_address_pairs list=true type=dict ip_address=172.16.4.100,mac_address=fa:16:3e:ae:00:00
     ```
     ```
     [root@controller ~]# neutron port-show 467e2dbc-d599-42a8-8445-f921d0d8abe3
