@@ -8,7 +8,9 @@ In this example we have a single standard Virtual server configured on port 80 t
 
 We have a single web server in our pool, also on port 80 (internal side).  We will configure a floating self-ip on the internal side.  On the VIP we are using SNAT auto-map.  
 
-This procedure assumes you have a good understanding of how to configure BIG-IP.  This procedure does not have step by step instructions for the BIG-IP configuration.  
+All self-ip's and floating self-ips have port lockdown set to `allow none`  
+
+This procedure assumes you have a good understanding of how to configure BIG-IP.  This procedure does not provide step by step instructions for the BIG-IP configuration.  
 
 <br/>  
 
