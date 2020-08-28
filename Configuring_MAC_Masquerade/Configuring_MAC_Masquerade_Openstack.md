@@ -7,6 +7,9 @@ In this procedure we will provide the steps necessary to configure Openstack to 
 In this example we have a single standard Virtual server configured on port 80 to demonstrate http traffic (external side).  We will not configure a floating self-ip on the external side.  
 
 We have a single web server in our pool, also on port 80 (internal side).  We will configure a floating self-ip on the internal side.  On the VIP we are using SNAT auto-map.  
+
+This procedure assumes you have a good understanding of how to configure BIG-IP.  This procedure does not have step by step instructions for the BIG-IP configuration.  
+
 <br/>  
 
 ##  Diagram of the lab configuration  
@@ -232,3 +235,5 @@ We have a single web server in our pool, also on port 80 (internal side).  We wi
     - [BIG-IP 1 tcpdump -- select download on this link](https://github.com/grmarxer/Openstack/blob/master/Configuring_MAC_Masquerade/tcpdumps/mac-masq-flow-BIG-IP1.pcap)  
 
     - [BIG-IP 2 tcpdump -- select download on this link](https://github.com/grmarxer/Openstack/blob/master/Configuring_MAC_Masquerade/tcpdumps/mac-masq-flow-BIG-IP2.pcap)  
+
+10.  You have completed this procedure.
