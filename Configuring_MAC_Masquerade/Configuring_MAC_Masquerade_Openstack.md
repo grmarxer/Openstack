@@ -14,6 +14,12 @@ This procedure assumes you have a good understanding of how to configure BIG-IP.
 
 <br/>  
 
+__NOTE:__ This procedure assumes that the database key tm.macmasqaddr_per_vlan is set to false, its default value.  If you are using per-VLAN MAC masquerade this procedure will not work as written.  The MAC addresses assigned as allowed address pairs will be different with a per-VLAN MAC masquerade configuration.
+
+[K35390915: Overview of the per-VLAN MAC masquerade feature](https://support.f5.com/csp/article/K35390915)  
+
+<br/>  
+
 ##  Diagram of the lab configuration  
 
 <br/>  
