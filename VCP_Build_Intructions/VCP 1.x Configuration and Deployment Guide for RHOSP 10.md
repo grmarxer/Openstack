@@ -859,6 +859,13 @@ source keystonerc_admin
 openstack quota set --cores 80 admin
 ```  
 <br/>  
+
+### Set the openstack nova quota for RAM    
+
+```
+openstack quota set --ram 102400 admin
+```  
+<br/>  
  
 
 ### Create the following neutron security-group
