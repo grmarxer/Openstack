@@ -863,7 +863,7 @@ openstack quota set --cores 80 admin
 ### Set the openstack nova quota for RAM    
 
 ```
-openstack quota set --ram 102400 admin
+openstack quota set --ram 196608 admin
 ```  
 <br/>  
  
