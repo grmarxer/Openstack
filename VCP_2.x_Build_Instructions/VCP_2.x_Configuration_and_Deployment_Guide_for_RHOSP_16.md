@@ -1,32 +1,32 @@
-RHEL 8.2
-Train 16.1
+RHEL 8.2  
+Train 16.1  
 
-rhosp 16.1 is openstack rel 15 train
+rhosp 16.1 is openstack rel 15 train   
 
-10.144.19.233 - openshift
-10.144.19.235 - centos 7.8 root/default
-10.144.19.237
-idrac root/calvin
+10.144.19.233 - openshift  
+10.144.19.235 - centos 7.8 root/default  
+10.144.19.237  
+idrac root/calvin  
 
-lspci -v | grep Ethernet -A 1
-lspci | egrep -i --color 'network|ethernet'
+lspci -v | grep Ethernet -A 1  
+lspci | egrep -i --color 'network|ethernet'  
 
-sudo lshw -class disk
+sudo lshw -class disk  
 
-train1.pl.pdsea.f5net.com
-IPMI = 10.144.19.237
-MGMT = 10.144.19.236
-Netmask = 255.255.240.0
-Gateway = 10.144.31.254
-DNS = 10.144.31.146
-
- 
-train2.pl.pdsea.f5net.com
-IPMI = 10.144.19.235
-MGMT = 10.144.19.234
-Netmask = 255.255.240.0
-Gateway = 10.144.31.254
-DNS = 10.144.31.146
+train1.pl.pdsea.f5net.com  
+IPMI = 10.144.19.237  
+MGMT = 10.144.19.236  
+Netmask = 255.255.240.0  
+Gateway = 10.144.31.254  
+DNS = 10.144.31.146  
+  
+   
+train2.pl.pdsea.f5net.com  
+IPMI = 10.144.19.235  
+MGMT = 10.144.19.234  
+Netmask = 255.255.240.0  
+Gateway = 10.144.31.254  
+DNS = 10.144.31.146  
  
  
 train3.pl.pdsea.f5net.com  
