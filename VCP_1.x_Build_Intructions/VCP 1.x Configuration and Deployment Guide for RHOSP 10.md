@@ -13,7 +13,7 @@
 <br/>  
 <br/>  
 
-![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/lab_diagram.png)  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_1.x_Build_Intructions/illustrations/lab_diagram.png)  
 <br/>  
 <br/>  
 
@@ -37,13 +37,13 @@
 
 <br/>  
 
-![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/BIOS-ProcessorSettings.PNG)  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_1.x_Build_Intructions/illustrations/BIOS-ProcessorSettings.PNG)  
 
 6.  Click Back  
 7.  Select Integrated Devices and enable SR-IOV Global Enable  
 <br/>  
 
-![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/BIOS-IntegratedDevices.PNG)  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_1.x_Build_Intructions/illustrations/BIOS-IntegratedDevices.PNG)  
 
 
 8.  Click Back then Finish  
@@ -54,7 +54,7 @@
 12. For Virtualization Mode choose SR-IOV from the drop down menu  
 <br/>  
 
-![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/BIOS-DeviceLevelSetting.PNG)  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_1.x_Build_Intructions/illustrations/BIOS-DeviceLevelSetting.PNG)  
 
 13. Select Back, then Finish, then Finish again, and Finish again  
 14. Select Yes to exit and boot.  
@@ -83,13 +83,13 @@
 
 <br/>  
 
-![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/iDRAC_VirtualMedia.PNG)  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_1.x_Build_Intructions/illustrations/iDRAC_VirtualMedia.PNG)  
 
 5.  Select Close
 6.  Select Boot and double click on Virtual CD/DVD/ISO
 <br/>  
 
-![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/iDRAC_BootControl.PNG) 
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_1.x_Build_Intructions/illustrations/iDRAC_BootControl.PNG) 
 
 7.  iDRAC will ask you to confirm that you want to boot from Virtual CD/DVD/ISO - Select Yes
 8.  Choose the power button and select Reset System (warm boot)  
@@ -626,7 +626,7 @@ We will not use the "packstack-answer" file created above.  I have a configured 
 <br/> 
 <br/>   
 
-Use the following command to deploy this openstack-packstack "answer-file":  [packstack-answer.pdsea.vcp.sriov.lab.0522202.final](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/openstack-packstack_answer-file/packstack-answer.pdsea.vcp.sriov.lab.0522202.final)
+Use the following command to deploy this openstack-packstack "answer-file":  [packstack-answer.pdsea.vcp.sriov.lab.0522202.final](https://github.com/grmarxer/Openstack/blob/master/VCP_1.x_Build_Intructions/openstack-packstack_answer-file/packstack-answer.pdsea.vcp.sriov.lab.0522202.final)
 
 ```
 packstack --answer-file=packstack-answer.pdsea.vcp.sriov.lab.0522202.final
@@ -744,15 +744,15 @@ password: default
 <br/>  
 
 Navigate to Network > Routers > router1, then select interfaces and delete the internal interface  
-![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/router-interface-delete.PNG)  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_1.x_Build_Intructions/illustrations/router-interface-delete.PNG)  
 <br/>  
 
 Navigatge to Network > Routers > check router1 and delete  
-![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/delete-router-demo.PNG)  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_1.x_Build_Intructions/illustrations/delete-router-demo.PNG)  
 <br/>  
 
 Navigate to Network > Networks, check the private network and delete  
-![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/delete-private-network.PNG)  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_1.x_Build_Intructions/illustrations/delete-private-network.PNG)  
 
 <br/>  
 
@@ -763,7 +763,7 @@ password: default
 <br/>  
 
 Navigate to Project > Network > Networks, check the public network and delete  
-![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_Build_Intructions/illustrations/delete-public-net-admin.PNG)  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_1.x_Build_Intructions/illustrations/delete-public-net-admin.PNG)  
 
 <br/>   
 
