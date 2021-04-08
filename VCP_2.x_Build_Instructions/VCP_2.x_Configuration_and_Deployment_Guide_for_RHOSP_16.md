@@ -6,7 +6,7 @@ rhosp 16.1 is openstack rel 15 train
 10.144.19.233 - openshift  
 10.144.19.235 - centos 7.8 root/default  
 10.144.19.237  
-idrac root/calvin  
+
 
 lspci -v | grep Ethernet -A 1  
 lspci | egrep -i --color 'network|ethernet'  
