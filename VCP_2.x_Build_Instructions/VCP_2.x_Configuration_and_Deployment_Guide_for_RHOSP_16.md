@@ -13,7 +13,7 @@ lspci | egrep -i --color 'network|ethernet'
 
 sudo lshw -class disk  
 
-train1.pl.pdsea.f5net.com  
+osp16-undercloud.pl.pdsea.f5net.com  
 IPMI = 10.144.19.237  
 MGMT = 10.144.19.236  
 Netmask = 255.255.240.0  
@@ -37,17 +37,6 @@ Gateway = 10.144.31.254
 DNS = 10.144.31.146   
 
 
-# Controller  
-10.144.19.236 train1  
-10.144.19.236 train1.pl.pdsea.f5net.com  
-  
-# Compute Nodes  
-10.144.19.234 train2  
-10.144.19.234 train2.pl.pdsea.f5net.com  
-10.144.19.232 train3  
-10.144.19.232 train3.pl.pdsea.f5net.com  
-  
-
 2: eno1np0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
     link/ether b0:26:28:45:fd:80 brd ff:ff:ff:ff:ff:ff
     inet 10.144.19.232/20 brd 10.144.31.255 scope global dynamic noprefixroute eno1np0
@@ -62,17 +51,43 @@ train2.pl.pdsea.f5net.com	10.144.19.234	255.255.240.0	10.144.31.254	10.144.31.14
 train1.pl.pdsea.f5net.com	10.144.19.236	255.255.240.0	10.144.31.254	10.144.31.146  
 
 
-https://www.rdoproject.org/install/packstack/  
-
-sudo dnf install -y https://www.rdoproject.org/repos/rdo-release.el8.rpm  
-sudo dnf update -y  
-subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms  
-sudo dnf install -y openstack-packstack  
 
 
+# Undercloud OSP16 Machine
+10.144.19.236 osp16-undercloud  
+10.144.19.236 osp16-undercloud.pl.pdsea.f5net.com  
+
+# Controller  
+
+# Compute Nodes  
+10.144.19.234 train2  
+10.144.19.234 train2.pl.pdsea.f5net.com  
+10.144.19.232 train3  
+10.144.19.232 train3.pl.pdsea.f5net.com  
 
 
 
 
+vi /etc/chrony.conf  
+server ntp.pdsea.f5net.com  
+systemctl enable chronyd.service  
+systemctl start chronyd.service  
+chronyc sources  
 
 
+systemctl stop firewalld.service  
+systemctl disable firewalld.service  
+systemctl status firewalld.service  
+
+
+vi /etc/selinux/config
+Set the following to disabled  
+SELINUX=disabled  
+  
+reboot  
+  
+Verify SELinux has been disabled  
+sestatus  
+
+
+https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/preparing-for-director-installation  
