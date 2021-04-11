@@ -1,5 +1,7 @@
 RHEL 8.2  
-Train 16.1  
+Train 16.1
+
+2X@@agDTaGpUBvc
 
 rhosp 16.1 is openstack rel 15 train   
 
@@ -52,7 +54,7 @@ train1.pl.pdsea.f5net.com	10.144.19.236	255.255.240.0	10.144.31.254	10.144.31.14
 
 
 
-
+```  
 # Undercloud OSP16 Machine
 10.144.19.236 osp16-undercloud  
 10.144.19.236 osp16-undercloud.pl.pdsea.f5net.com  
@@ -64,7 +66,7 @@ train1.pl.pdsea.f5net.com	10.144.19.236	255.255.240.0	10.144.31.254	10.144.31.14
 10.144.19.234 train2.pl.pdsea.f5net.com  
 10.144.19.232 train3  
 10.144.19.232 train3.pl.pdsea.f5net.com  
-
+```   
 
 
 
@@ -91,3 +93,24 @@ sestatus
 
 
 https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/preparing-for-director-installation  
+
+stack default
+
+
+sudo subscription-manager register
+sudo subscription-manager list --available --all --matches="Red Hat OpenStack"
+
+sudo subscription-manager attach --pool=8a85f99c71eff3f4017219e2ebca5c3b
+sudo subscription-manager release --set=8.2
+
+
+sudo subscription-manager repos --disable=*
+
+sudo subscription-manager repos --enable=rhel-8-for-x86_64-baseos-eus-rpms --enable=rhel-8-for-x86_64-appstream-eus-rpms --enable=rhel-8-for-x86_64-highavailability-eus-rpms --enable=ansible-2.9-for-rhel-8-x86_64-rpms --enable=openstack-16.1-for-rhel-8-x86_64-rpms --enable=fast-datapath-for-rhel-8-x86_64-rpms --enable=advanced-virt-for-rhel-8-x86_64-rpms
+
+sudo dnf module disable -y container-tools:rhel8
+sudo dnf module enable -y container-tools:2.0
+
+sudo dnf module disable -y virt:rhel
+sudo dnf module enable -y virt:8.2
+
