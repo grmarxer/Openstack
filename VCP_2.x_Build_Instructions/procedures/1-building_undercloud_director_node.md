@@ -138,4 +138,12 @@ Install packages relevant to Red Hat OpenStack Platform director.
 1. Install the command line tools for director installation and configuration:  
     ```
     [stack@director ~]$ sudo dnf install -y python3-tripleoclient
-    ```
+    ```  
+
+## Preparing container images  
+
+The undercloud installation requires an environment file to determine where to obtain container images and how to store them. Generate and customize this environment file that you can use to prepare your container images.  
+
+### Procedure
+
+1.  This file has already been created and modified for this specific environment.  Copy this file `containers-prepare-parameter.yaml` into the `/home/stack/` directory on the undercloud director node.
