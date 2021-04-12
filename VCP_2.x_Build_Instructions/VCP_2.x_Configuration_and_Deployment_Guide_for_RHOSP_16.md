@@ -55,17 +55,19 @@ train1.pl.pdsea.f5net.com	10.144.19.236	255.255.240.0	10.144.31.254	10.144.31.14
 
 
 ```  
-# Undercloud OSP16 Machine
-10.144.19.236 osp16-undercloud  
-10.144.19.236 osp16-undercloud.pl.pdsea.f5net.com  
+# Undercloud Director OSP16.1 Machine
+10.144.19.236 osp16-undercloud
+10.144.19.236 osp16-undercloud.pl.pdsea.f5net.com
 
-# Controller  
+# Controller
+10.144.19.236 train1  
+10.144.19.236 train1.pl.pdsea.f5net.com
 
-# Compute Nodes  
-10.144.19.234 train2  
-10.144.19.234 train2.pl.pdsea.f5net.com  
-10.144.19.232 train3  
-10.144.19.232 train3.pl.pdsea.f5net.com  
+# Compute Nodes
+10.144.19.234 train2
+10.144.19.234 train2.pl.pdsea.f5net.com
+10.144.19.232 train3
+10.144.19.232 train3.pl.pdsea.f5net.com
 ```   
 
 
