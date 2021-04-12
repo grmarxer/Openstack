@@ -81,7 +81,7 @@ systemctl stop firewalld.service
 systemctl disable firewalld.service  
 systemctl status firewalld.service  
 
-
+You have to leave selinux on for undercloud controller to install properly  "openstack undercloud install"  
 vi /etc/selinux/config
 Set the following to disabled  
 SELINUX=disabled  
