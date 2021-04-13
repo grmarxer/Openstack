@@ -181,10 +181,10 @@ The director installation process requires certain settings in the undercloud.co
 
 <br/> 
 
+
 ### Configuring the undercloud with environment files  
 
 You configure the main parameters for the undercloud through the undercloud.conf file. You can also perform additional undercloud configuration with an environment file that contains heat parameters.  This file has been created and modified for this specific Vz VCP 2.x environment  
-
 
 
 #### Procedure  
@@ -192,3 +192,5 @@ You configure the main parameters for the undercloud through the undercloud.conf
 1. Copy [this file](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/config_files/custom-undercloud-params.yaml) `custom-undercloud-params.yaml` into the `/home/stack/templates` directory on the undercloud director node.  
 
     __Note:__ If you wish to make any additions to this file, follow this procedure as a reference -- [link](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/installing-the-undercloud#director-configuration-parameters)  
+
+    __Note:__ Do not change the name of this file  
