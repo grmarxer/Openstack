@@ -171,3 +171,5 @@ The director installation process requires certain settings in the undercloud.co
 ### Procedure
 
 1.  This file has already been created and modified for this specific environment.  Copy [this file](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/config_files/undercloud.04122021.final.conf) `undercloud.04122021.final.conf` into the `/home/stack/` directory on the undercloud director node.  
+
+    __Note:__ For your reference this is the [link](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/config_files/undercloud.conf.original) to the unedited original undercloud.conf file.  Use this file and follow the procedure [here](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/installing-the-undercloud#director-configuration-parameters) if you wish to modify this deployment.  
