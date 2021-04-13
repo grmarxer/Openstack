@@ -226,3 +226,52 @@ Complete the following steps to install director and perform some basic post-ins
     ```  
 
     The director installation is complete. You can now use the director command line tools.  
+
+<br/> 
+
+## Obtaining images for overcloud nodes  
+
+Director requires several disk images to provision overcloud nodes:  
+
+- An introspection kernel and ramdisk for bare metal system introspection over PXE boot.  
+
+- A deployment kernel and ramdisk for system provisioning and deployment.  
+
+- An overcloud kernel, ramdisk, and full image, which form a base overcloud system that is written to the hard disk of the node.  
+
+These images and procedures are necessary for deployment of the overcloud with the default CPU architecture, x86-64.  
+
+#### Procedure  
+
+1. Source the stackrc file to enable the director command line tools:  
+    ```
+    [stack@director ~]$ source ~/stackrc
+    ```  
+
+2. Install the rhosp-director-images and rhosp-director-images-ipa packages:  
+    ```
+    (undercloud) [stack@director ~]$ sudo dnf install rhosp-director-images rhosp-director-images-ipa
+    ```  
+
+3. Extract the images archives to the images directory in the home directory of the stack user (/home/stack/images):  
+    ```
+    (undercloud) [stack@director ~]$ cd ~/images
+    ```  
+    ```
+    (undercloud) [stack@director images]$ for i in /usr/share/rhosp-director-images/overcloud-full-latest-16.1.tar /usr/share/rhosp-director-images/ironic-python-agent-latest-16.1.tar; do tar -xvf $i; done
+    ```  
+
+4. Import these images into director:  
+    ```
+    (undercloud) [stack@director images]$ openstack overcloud image upload --image-path /home/stack/images/
+    ```  
+
+    This script uploads the following images into director:  
+
+    - overcloud-full  
+    - overcloud-full-initrd  
+    - overcloud-full-vmlinuz  
+
+    The script also installs the introspection images on the director PXE server.  
+
+
