@@ -335,3 +335,21 @@ We need to set the nameserver in this step so the overcloud can resolve external
     | updated_at        | 2021-04-13T21:00:16Z                                         |
     +-------------------+--------------------------------------------------------------+
     ```  
+
+    <br/> 
+
+## Undercloud container registry  
+
+Red Hat Enterprise Linux 8.2 no longer includes the docker-distribution package, which installed a Docker Registry v2. To maintain the compatibility and the same level of feature, the director installation creates an Apache web server with a vhost called image-serve to provide a registry. This registry also uses port 8787/TCP with SSL disabled. The Apache-based registry is not containerized, which means that you must run the following command to restart the registry:  
+
+```
+$ sudo systemctl restart httpd
+```  
+
+You can find the container registry logs in the following locations:  
+
+- /var/log/httpd/image_serve_access.log  
+- /var/log/httpd/image_serve_error.log  
+
+The image content is served from /var/lib/image-serve. This location uses a specific directory layout and apache configuration to implement the pull function of the registry REST API.  
+
