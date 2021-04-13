@@ -11,7 +11,7 @@ https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/ht
 Before you can install director, you must complete some basic configuration on the host machine.  
 
 
-### Procedure  
+#### Procedure  
 
 1. Log in to your undercloud as the root user.  
 
@@ -60,7 +60,7 @@ Before you can install director, you must complete some basic configuration on t
 Before you can install director, you must run subscription-manager to register the undercloud and attach a valid Red Hat OpenStack Platform subscription.  
 
 
-### Procedure  
+#### Procedure  
 
 1. Log in to your undercloud as the stack user.  
 
@@ -91,7 +91,7 @@ Before you can install director, you must run subscription-manager to register t
 
 Enable the repositories that are required for the undercloud, and update the system packages to the latest versions.  
 
-### Procedure  
+#### Procedure  
 
 1.  Log in to your undercloud as the stack user.  
 
@@ -126,7 +126,7 @@ Enable the repositories that are required for the undercloud, and update the sys
 
 Install packages relevant to Red Hat OpenStack Platform director.
 
-### Procedure
+#### Procedure
 
 1. Install the command line tools for director installation and configuration:  
     ```
@@ -139,7 +139,7 @@ Install packages relevant to Red Hat OpenStack Platform director.
 
 The undercloud installation requires an environment file to determine where to obtain container images and how to store them. Generate and customize this environment file that you can use to prepare your container images.  
 
-### Procedure
+#### Procedure
 
 1.  This file has already been created and modified for this specific environment.  Copy [this file](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/config_files/containers-prepare-parameter.yaml) `containers-prepare-parameter.yaml` into the `/home/stack/` directory on the undercloud director node.  
 
