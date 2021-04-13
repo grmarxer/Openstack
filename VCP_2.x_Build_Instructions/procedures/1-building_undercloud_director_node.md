@@ -207,15 +207,19 @@ Complete the following steps to install director and perform some basic post-ins
 
     - stackrc - A set of initialization variables to help you access the director command line tools.  
 
+
 2. The script also starts all OpenStack Platform service containers automatically. You can check the enabled containers with the following command:  
     ```
     [stack@director ~]$ sudo podman ps
     ```  
+    
+
 
 3. To initialize the stack user to use the command line tools, run the following command:  
     ```
     [stack@director ~]$ source ~/stackrc
     ```  
+
 
 4. The prompt now indicates that OpenStack commands authenticate and execute against the undercloud;  
     ```
