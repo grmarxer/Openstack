@@ -162,7 +162,7 @@ __Note:__ This file is currently configured to install OSP 16.1
 <br/>  
 
 
-## INSTALLING DIRECTOR  
+## Installing Director  
 
 The director installation process requires certain settings in the undercloud.conf configuration file, which director reads from the home directory of the stack user. 
 
