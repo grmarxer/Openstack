@@ -286,6 +286,8 @@ These images and procedures are necessary for deployment of the overcloud with t
     | cf06afa0-39d9-41f6-80ad-c38ff812ea45 | overcloud-full-vmlinuz | active |
     +--------------------------------------+------------------------+--------+
     ```  
+    <br/> 
+
 
     This list does not show the introspection PXE images. Director copies these files to /var/lib/ironic/httpboot.  
 
