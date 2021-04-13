@@ -153,7 +153,7 @@ __Note:__ This file is currently configured to install OSP 16.1
 <br/>  
 
 
-## Installing Director  
+## Installing Director Steps
 
 The director installation process requires certain settings in the undercloud.conf configuration file, which director reads from the home directory of the stack user. 
 
@@ -166,7 +166,7 @@ The director installation process requires certain settings in the undercloud.co
 
 #### Procedure  
 
-1. Copy [this file](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/config_files/undercloud.04122021.final.conf) `undercloud.04122021.final.conf` into the `/home/stack/` directory on the undercloud director node.  
+1. Copy [this file](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/config_files/undercloud.final.conf) `undercloud.final.conf` into the `/home/stack/` directory on the undercloud director node and rename it to `undercloud.conf`.  
 
     __Note:__ For your reference this is the [link](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/config_files/undercloud.conf.original) to the unedited original undercloud.conf file.  Use this file and follow the procedure [here](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/installing-the-undercloud#director-configuration-parameters) if you wish to modify this deployment.  
 
@@ -185,3 +185,24 @@ You configure the main parameters for the undercloud through the undercloud.conf
     __Note:__ If you wish to make any additions to this file, follow this procedure as a reference -- [link](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/installing-the-undercloud#director-configuration-parameters)  
 
     __Note:__ Do not change the name of this file  
+
+
+<br/> 
+
+### Install director  
+
+Complete the following steps to install director and perform some basic post-installation tasks.  
+
+#### Procedure  
+
+1. Run the following command to install director on the undercloud:  
+    ```
+    [stack@director ~]$ openstack undercloud install
+    ```  
+
+    This command launches the director configuration script. Director installs additional packages and configures its services according to the configuration in the undercloud.conf. This script takes several minutes to complete.  
+
+    The script generates two files:  
+    - undercloud-passwords.conf - A list of all passwords for the director services.  
+
+    - stackrc - A set of initialization variables to help you access the director command line tools.
