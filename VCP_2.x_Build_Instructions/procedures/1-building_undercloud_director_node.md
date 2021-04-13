@@ -172,7 +172,6 @@ The director installation process requires certain settings in the undercloud.co
 
 The director installation process requires certain settings in the undercloud.conf configuration file, which director reads from the home directory of the stack user. This file has been created and modified for this specific Vz VCP 2.x environment  
 
-<br/>  
 
 #### Procedure  
 
@@ -186,7 +185,7 @@ The director installation process requires certain settings in the undercloud.co
 
 You configure the main parameters for the undercloud through the undercloud.conf file. You can also perform additional undercloud configuration with an environment file that contains heat parameters.  This file has been created and modified for this specific Vz VCP 2.x environment  
 
-<br/>  
+
 
 #### Procedure  
 
