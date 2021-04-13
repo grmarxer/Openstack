@@ -301,5 +301,37 @@ These images and procedures are necessary for deployment of the overcloud with t
     ```  
 
 
+<br/> 
 
+## Setting a nameserver for the control plane  
 
+We need to set the nameserver in this step so the overcloud can resolve external hostnames, such as cdn.redhat.com. Complete the following procedure to define the nameserver for this environment.  
+
+#### Procedure  
+
+1.  Source the stackrc file to enable the director command line tools:  
+    ```
+    [stack@director ~]$ source ~/stackrc
+    ```  
+
+2. Set the nameservers for the ctlplane-subnet subnet:  
+    ```
+    (undercloud) [stack@director images]$ openstack subnet set --dns-nameserver 8.8.8.8 --dns-nameserver 8.8.4.4 ctlplane-subnet
+    ```  
+
+3. View the subnet to verify the nameserver:  
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$  openstack subnet show ctlplane-subnet  
+    +-------------------+--------------------------------------------------------------+
+    | Field             | Value                                                        |
+    +-------------------+--------------------------------------------------------------+
+    | allocation_pools  | 192.168.255.10-192.168.255.24                                |
+    | cidr              | 192.168.255.0/24                                             |
+    | created_at        | 2021-04-12T19:04:06Z                                         |
+    | description       |                                                              |
+    | dns_nameservers   | 10.144.31.146, 8.8.4.4, 8.8.8.8                              |
+    | ...               | <snippet removed>                                            |
+    | tags              |                                                              |
+    | updated_at        | 2021-04-13T21:00:16Z                                         |
+    +-------------------+--------------------------------------------------------------+
+    ```  
