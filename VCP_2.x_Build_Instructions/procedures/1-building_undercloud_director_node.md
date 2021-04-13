@@ -200,9 +200,26 @@ Complete the following steps to install director and perform some basic post-ins
     [stack@director ~]$ openstack undercloud install
     ```  
 
-    This command launches the director configuration script. Director installs additional packages and configures its services according to the configuration in the undercloud.conf. This script takes several minutes to complete.  
+    This command launches the director configuration script. Director installs additional packages and configures its services according to the configuration in the undercloud.conf. This script takes ~10-15 minutes to complete.  
 
     The script generates two files:  
     - undercloud-passwords.conf - A list of all passwords for the director services.  
 
-    - stackrc - A set of initialization variables to help you access the director command line tools.
+    - stackrc - A set of initialization variables to help you access the director command line tools.  
+
+2. The script also starts all OpenStack Platform service containers automatically. You can check the enabled containers with the following command:  
+    ```
+    [stack@director ~]$ sudo podman ps
+    ```  
+
+3. To initialize the stack user to use the command line tools, run the following command:  
+    ```
+    [stack@director ~]$ source ~/stackrc
+    ```  
+
+4. The prompt now indicates that OpenStack commands authenticate and execute against the undercloud;  
+    ```
+    (undercloud) [stack@director ~]$
+    ```  
+
+    The director installation is complete. You can now use the director command line tools.  
