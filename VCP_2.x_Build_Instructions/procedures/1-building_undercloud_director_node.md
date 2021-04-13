@@ -273,6 +273,7 @@ These images and procedures are necessary for deployment of the overcloud with t
     - overcloud-full-vmlinuz  
 
     The script also installs the introspection images on the director PXE server.  
+    <br/> 
 
 5. Verify that the images uploaded successfully:  
     ```
@@ -287,7 +288,7 @@ These images and procedures are necessary for deployment of the overcloud with t
     ```  
 
     This list does not show the introspection PXE images. Director copies these files to /var/lib/ironic/httpboot.  
-    
+
     ```
     (undercloud) [stack@osp16-undercloud templates]$ ls -l /var/lib/ironic/httpboot
     total 559132
