@@ -274,4 +274,29 @@ These images and procedures are necessary for deployment of the overcloud with t
 
     The script also installs the introspection images on the director PXE server.  
 
+5. Verify that the images uploaded successfully:  
+    ```
+    (undercloud) [stack@osp16-undercloud templates]$ openstack image list
+    +--------------------------------------+------------------------+--------+
+    | ID                                   | Name                   | Status |
+    +--------------------------------------+------------------------+--------+
+    | 9bdf5e4f-5f70-43bd-8649-765848b29207 | overcloud-full         | active |
+    | 53b061ef-36a1-4229-bca4-e7bf689d0c32 | overcloud-full-initrd  | active |
+    | cf06afa0-39d9-41f6-80ad-c38ff812ea45 | overcloud-full-vmlinuz | active |
+    +--------------------------------------+------------------------+--------+
+    ```  
+
+    This list does not show the introspection PXE images. Director copies these files to /var/lib/ironic/httpboot.  
+    
+    ```
+    (undercloud) [stack@osp16-undercloud templates]$ ls -l /var/lib/ironic/httpboot
+    total 559132
+    -rwxr-xr-x. 1 root  root    8924528 Apr 12 16:19 agent.kernel
+    -rw-r--r--. 1 root  root  563615353 Apr 12 16:19 agent.ramdisk
+    -rw-r--r--. 1 42422 42422       758 Apr 12 15:02 boot.ipxe
+    -rw-r--r--. 1 42422 42422       473 Apr 12 14:53 inspector.ipxe
+    ```  
+
+
+
 
