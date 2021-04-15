@@ -54,6 +54,20 @@ train1.pl.pdsea.f5net.com	10.144.19.236	255.255.240.0	10.144.31.254	10.144.31.14
 
 
 
+nmcli con mod eno3 ipv4.addresses 10.144.16.59/20
+nmcli con mod eno3 ipv4.gateway 10.144.31.254
+nmcli con mod eno3 ipv4.dns “10.144.31.146”
+nmcli con mod eno3 ipv4.method manual
+nmcli con up eno3
+
+
+nmcli con mod eno4 ipv4.addresses 192.168.255.20/24
+nmcli con mod eno4 ipv4.gateway 192.168.255.1
+nmcli con down eno4
+nmcli con up eno4
+
+
+
 ```  
 # Undercloud Director OSP16.1 Machine
 10.144.16.59 osp16-undercloud
