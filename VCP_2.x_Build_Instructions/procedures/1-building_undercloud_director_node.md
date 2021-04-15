@@ -74,10 +74,43 @@ Before you can install director, you must run subscription-manager to register t
     ```
     sudo subscription-manager list --available --all --matches="Red Hat OpenStack"
     ```  
+    ```
+    [stack@osp16-undercloud ~]$ sudo subscription-manager list --available --all --matches="Red Hat OpenStack"
+    +-------------------------------------------+
+        Available Subscriptions
+    +-------------------------------------------+
+    Subscription Name:   Red Hat OpenStack Platform, Standard Support (4 Sockets, NFR, Partner Only)
+    Provides:            Red Hat Enterprise Linux FDIO Early Access (RHEL 7 Server)
+                        Red Hat Ansible Engine
+                        Red Hat OpenStack Certification Test Suite
+                        Red Hat CodeReady Linux Builder for Power, little endian
+                        Red Hat Enterprise Linux Fast Datapath
+                        Red Hat CloudForms
+                        Red Hat Software Collections Beta (for RHEL Server for IBM Power LE)
+
+    ... <snippet removed>  
+
+    SKU:                 SER0505
+    Contract:            12213256
+    Pool ID:             8a85f99c71eff3f4017219e2ebca5c3b
+    Provides Management: No
+    Available:           56
+    Suggested:           1
+    Service Type:        L1-L3
+    Roles:
+    Service Level:       Standard
+    Usage:
+    Add-ons:
+    Subscription Type:   Standard
+    Starts:              05/15/2020
+    Ends:                05/15/2021
+    Entitlement Type:    Physical
+    ```  
+
 
 4.  Locate the Pool ID value and attach the Red Hat OpenStack Platform 16.1 entitlement:  
     ```
-    [stack@osp16-undercloud ~]$ sudo subscription-manager attach --pool=Valid-Pool-Number-123456
+    [stack@osp16-undercloud ~]$ sudo subscription-manager attach --pool=8a85f99c71eff3f4017219e2ebca5c3b
     ```  
 
 5. Lock the undercloud to Red Hat Enterprise Linux 8.2:  
