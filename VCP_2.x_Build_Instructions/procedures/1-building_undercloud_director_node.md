@@ -34,21 +34,21 @@ Before you can install director, you must complete some basic configuration on t
 5. Switch to the new stack user:  
     ```
     [root@director ~]# su - stack
-    [stack@director ~]$
+    [stack@osp16-undercloud ~]$
     ```  
 
 6. Create directories for system images and heat templates:  
     ```
-    [stack@director ~]$ mkdir ~/images
-    [stack@director ~]$ mkdir ~/templates
+    [stack@osp16-undercloud ~]$ mkdir ~/images
+    [stack@osp16-undercloud ~]$ mkdir ~/templates
     ```  
 
     Director uses system images and heat templates to create the overcloud environment. Red Hat recommends creating these directories to help you organize your local file system.  
 
 7.  Check the base and full hostname of the undercloud:  
     ```
-    [stack@director ~]$ hostname
-    [stack@director ~]$ hostname -f
+    [stack@osp16-undercloud ~]$ hostname
+    [stack@osp16-undercloud ~]$ hostname -f
     ```  
     If either of the previous commands do not report the correct fully-qualified hostname `osp16-undercloud.pl.pdsea.f5net.com` go back and correct your etc/hosts file.
 
@@ -66,7 +66,7 @@ Before you can install director, you must run subscription-manager to register t
 
 2. Register your system either with the Red Hat Content Delivery Network or with a Red Hat Satellite. For example, run the following command to register the system to the Content Delivery Network. Enter your Customer Portal user name and password when prompted:
     ```
-    [stack@director ~]$ sudo subscription-manager register
+    [stack@osp16-undercloud ~]$ sudo subscription-manager register
     ```  
 
 3. Find the entitlement pool ID for Red Hat OpenStack Platform (RHOSP) director:  
@@ -77,12 +77,12 @@ Before you can install director, you must run subscription-manager to register t
 
 4.  Locate the Pool ID value and attach the Red Hat OpenStack Platform 16.1 entitlement:  
     ```
-    [stack@director ~]$ sudo subscription-manager attach --pool=Valid-Pool-Number-123456
+    [stack@osp16-undercloud ~]$ sudo subscription-manager attach --pool=Valid-Pool-Number-123456
     ```  
 
 5. Lock the undercloud to Red Hat Enterprise Linux 8.2:  
     ```
-    [stack@director ~]$ sudo subscription-manager release --set=8.2
+    [stack@osp16-undercloud ~]$ sudo subscription-manager release --set=8.2
     ```  
 
 <br/>  
@@ -97,28 +97,28 @@ Enable the repositories that are required for the undercloud, and update the sys
 
 2. Disable all default repositories, and enable the required Red Hat Enterprise Linux repositories:  
     ```
-    [stack@director ~]$ sudo subscription-manager repos --disable=*
-    [stack@director ~]$ sudo subscription-manager repos --enable=rhel-8-for-x86_64-baseos-eus-rpms --enable=rhel-8-for-x86_64-appstream-eus-rpms --enable=rhel-8-for-x86_64-highavailability-eus-rpms --enable=ansible-2.9-for-rhel-8-x86_64-rpms --enable=openstack-16.1-for-rhel-8-x86_64-rpms --enable=fast-datapath-for-rhel-8-x86_64-rpms --enable=advanced-virt-for-rhel-8-x86_64-rpms
+    [stack@osp16-undercloud ~]$ sudo subscription-manager repos --disable=*
+    [stack@osp16-undercloud ~]$ sudo subscription-manager repos --enable=rhel-8-for-x86_64-baseos-eus-rpms --enable=rhel-8-for-x86_64-appstream-eus-rpms --enable=rhel-8-for-x86_64-highavailability-eus-rpms --enable=ansible-2.9-for-rhel-8-x86_64-rpms --enable=openstack-16.1-for-rhel-8-x86_64-rpms --enable=fast-datapath-for-rhel-8-x86_64-rpms --enable=advanced-virt-for-rhel-8-x86_64-rpms
     ```  
 
     These repositories contain packages that the director installation requires.  
 
 3. Set the container-tools repository module to version 2.0:  
     ```
-    [stack@director ~]$ sudo dnf module disable -y container-tools:rhel8
-    [stack@director ~]$ sudo dnf module enable -y container-tools:2.0
+    [stack@osp16-undercloud ~]$ sudo dnf module disable -y container-tools:rhel8
+    [stack@osp16-undercloud ~]$ sudo dnf module enable -y container-tools:2.0
     ```  
 
 4. Set the virt repository module to version 8.2:  
     ```
-    [stack@director ~]$ sudo dnf module disable -y virt:rhel
-    [stack@director ~]$ sudo dnf module enable -y virt:8.2
+    [stack@osp16-undercloud ~]$ sudo dnf module disable -y virt:rhel
+    [stack@osp16-undercloud ~]$ sudo dnf module enable -y virt:8.2
     ```  
 
 5. Perform an update on your system to ensure that you have the latest base system packages:  
     ```
-    [stack@director ~]$ sudo dnf update -y
-    [stack@director ~]$ sudo reboot
+    [stack@osp16-undercloud ~]$ sudo dnf update -y
+    [stack@osp16-undercloud ~]$ sudo reboot
     ```  
 <br/>  
 
@@ -130,7 +130,7 @@ Install packages relevant to Red Hat OpenStack Platform director.
 
 1. Install the command line tools for director installation and configuration:  
     ```
-    [stack@director ~]$ sudo dnf install -y python3-tripleoclient
+    [stack@osp16-undercloud ~]$ sudo dnf install -y python3-tripleoclient
     ```  
 
 <br/>  
@@ -197,7 +197,7 @@ Complete the following steps to install director and perform some basic post-ins
 
 1. Run the following command to install director on the undercloud:  
     ```
-    [stack@director ~]$ openstack undercloud install
+    [stack@osp16-undercloud ~]$ openstack undercloud install
     ```  
 
     This command launches the director configuration script. Director installs additional packages and configures its services according to the configuration in the undercloud.conf. This script takes ~10-15 minutes to complete.  
@@ -211,18 +211,18 @@ Complete the following steps to install director and perform some basic post-ins
 
 2. The script also starts all OpenStack Platform service containers automatically. You can check the enabled containers with the following command:  
     ```
-    [stack@director ~]$ sudo podman ps
+    [stack@osp16-undercloud ~]$ sudo podman ps
     ```  
 
 
 3. To initialize the stack user to use the command line tools, run the following command:  
     ```
-    [stack@director ~]$ source ~/stackrc
+    [stack@osp16-undercloud ~]$ source ~/stackrc
     ```  
 
 4. The prompt now indicates that OpenStack commands authenticate and execute against the undercloud;  
     ```
-    (undercloud) [stack@director ~]$
+    (undercloud) [stack@osp16-undercloud ~]$
     ```  
 
     The director installation is complete. You can now use the director command line tools.  
@@ -245,25 +245,25 @@ These images and procedures are necessary for deployment of the overcloud with t
 
 1. Source the stackrc file to enable the director command line tools:  
     ```
-    [stack@director ~]$ source ~/stackrc
+    [stack@osp16-undercloud ~]$ source ~/stackrc
     ```  
 
 2. Install the rhosp-director-images and rhosp-director-images-ipa packages:  
     ```
-    (undercloud) [stack@director ~]$ sudo dnf install rhosp-director-images rhosp-director-images-ipa
+    (undercloud) [stack@osp16-undercloud ~]$ sudo dnf install rhosp-director-images rhosp-director-images-ipa
     ```  
 
 3. Extract the images archives to the images directory in the home directory of the stack user (/home/stack/images):  
     ```
-    (undercloud) [stack@director ~]$ cd ~/images
+    (undercloud) [stack@osp16-undercloud ~]$ cd ~/images
     ```  
     ```
-    (undercloud) [stack@director images]$ for i in /usr/share/rhosp-director-images/overcloud-full-latest-16.1.tar /usr/share/rhosp-director-images/ironic-python-agent-latest-16.1.tar; do tar -xvf $i; done
+    (undercloud) [stack@osp16-undercloud images]$ for i in /usr/share/rhosp-director-images/overcloud-full-latest-16.1.tar /usr/share/rhosp-director-images/ironic-python-agent-latest-16.1.tar; do tar -xvf $i; done
     ```  
 
 4. Import these images into director:  
     ```
-    (undercloud) [stack@director images]$ openstack overcloud image upload --image-path /home/stack/images/
+    (undercloud) [stack@osp16-undercloud images]$ openstack overcloud image upload --image-path /home/stack/images/
     ```  
 
     This script uploads the following images into director:  
@@ -311,12 +311,12 @@ We need to set the nameserver in this step so the overcloud can resolve external
 
 1.  Source the stackrc file to enable the director command line tools:  
     ```
-    [stack@director ~]$ source ~/stackrc
+    [stack@osp16-undercloud ~]$ source ~/stackrc
     ```  
 
 2. Set the nameservers for the ctlplane-subnet subnet:  
     ```
-    (undercloud) [stack@director images]$ openstack subnet set --dns-nameserver 8.8.8.8 --dns-nameserver 8.8.4.4 ctlplane-subnet
+    (undercloud) [stack@osp16-undercloud images]$ openstack subnet set --dns-nameserver 8.8.8.8 --dns-nameserver 8.8.4.4 ctlplane-subnet
     ```  
 
 3. View the subnet to verify the nameserver:  
