@@ -88,7 +88,7 @@ Before you can install director, you must run subscription-manager to register t
                         Red Hat CloudForms
                         Red Hat Software Collections Beta (for RHEL Server for IBM Power LE)
 
-    ... <snippet removed>  
+    <snippet removed>  ...
 
     SKU:                 SER0505
     Contract:            12213256
