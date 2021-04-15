@@ -17,23 +17,23 @@ Before you can install director, you must complete some basic configuration on t
 
 2. Create the stack user:   
     ```
-    [root@director ~]# useradd stack
+    [root@osp16-undercloud ~]# useradd stack
     ```  
 
 3. Set a password for the user:  
     ```
-    [root@director ~]# passwd stack
+    [root@osp16-undercloud ~]# passwd stack
     ```  
 
 4. Disable password requirements when using sudo:  
     ```
-    [root@director ~]# echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
-    [root@director ~]# chmod 0440 /etc/sudoers.d/stack
+    [root@osp16-undercloud ~]# echo "stack ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/stack
+    [root@osp16-undercloud ~]# chmod 0440 /etc/sudoers.d/stack
     ``` 
 
 5. Switch to the new stack user:  
     ```
-    [root@director ~]# su - stack
+    [root@osp16-undercloud ~]# su - stack
     [stack@osp16-undercloud ~]$
     ```  
 
