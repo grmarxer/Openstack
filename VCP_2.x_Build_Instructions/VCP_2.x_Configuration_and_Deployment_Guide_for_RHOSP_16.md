@@ -1,5 +1,7 @@
 RHEL 8.2  
-Train 16.1
+Train 16.1  
+
+rhel-8.2-x86_64-dvd.iso  
 
 2X@@agDTaGpUBvc
 
