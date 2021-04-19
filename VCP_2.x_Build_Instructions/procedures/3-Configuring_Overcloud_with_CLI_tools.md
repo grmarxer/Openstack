@@ -2,6 +2,9 @@
 # Configuring the Overcloud with CLI Tools
 
 
+<br/> 
+
+
 ## Registering nodes for the overcloud  
 
 Director requires a node definition template, which you create manually. This template uses a JSON or YAML format, and contains the hardware and power management details for your nodes.
