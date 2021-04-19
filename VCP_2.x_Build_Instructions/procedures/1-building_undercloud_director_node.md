@@ -318,7 +318,7 @@ These images and procedures are necessary for deployment of the overcloud with t
 
 2. Install the rhosp-director-images and rhosp-director-images-ipa packages:  
     ```
-    (undercloud) [stack@osp16-undercloud ~]$ sudo dnf install rhosp-director-images rhosp-director-images-ipa
+    (undercloud) [stack@osp16-undercloud ~]$ sudo dnf install rhosp-director-images rhosp-director-images-ipa -y
     ```  
 
 3. Extract the images archives to the images directory in the home directory of the stack user (/home/stack/images):  
