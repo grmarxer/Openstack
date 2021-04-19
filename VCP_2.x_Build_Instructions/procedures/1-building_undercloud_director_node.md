@@ -267,6 +267,21 @@ Complete the following steps to install director and perform some basic post-ins
     [stack@osp16-undercloud ~]$ sudo podman ps
     ```  
 
+    ```
+    [stack@osp16-undercloud ~]$ sudo podman ps
+    CONTAINER ID  IMAGE                                                                                            COMMAND               CREATED         STATUS             PORTS  NAMES
+    46dcd4654e87  osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-neutron-dhcp-agent:16.1         /usr/sbin/dnsmasq...  3 minutes ago   Up 3 minutes ago          neutron-dnsmasq-qdhcp-b0447c90-be4d-48a9-b1c2-71d254907c32
+    ab656a46d3dc  osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-nova-compute-ironic:16.1        kolla_start           4 minutes ago   Up 4 minutes ago          nova_compute
+    9115225aba54  osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-ironic-inspector:16.1           kolla_start           5 minutes ago   Up 5 minutes ago          ironic_inspector
+    063e425ab735  osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-ironic-pxe:16.1                 kolla_start           5 minutes ago   Up 5 minutes ago          ironic_pxe_http
+    5cf02a65e2ae  osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-ironic-pxe:16.1                 /bin/bash -c BIND...  5 minutes ago   Up 5 minutes ago          ironic_pxe_tftp
+    90ae14b0cb4d  osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-ironic-neutron-agent:16.1       kolla_start           5 minutes ago   Up 5 minutes ago          ironic_neutron_agent
+    4878e1b78d17  osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-ironic-conductor:16.1           kolla_start           5 minutes ago   Up 5 minutes ago          ironic_conductor
+    efceb88b1be1  osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-mistral-api:16.1                kolla_start           5 minutes ago   Up 5 minutes ago          mistral_api
+    df68399c6cff  osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-neutron-openvswitch-agent:16.1  kolla_start           5 minutes ago   Up 5 minutes ago          neutron_ovs_agent
+    ... <snippet removed> ...
+    ```  
+
 
 3. To initialize the stack user to use the command line tools, run the following command:  
     ```
