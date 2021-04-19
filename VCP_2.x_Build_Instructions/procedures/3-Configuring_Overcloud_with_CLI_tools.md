@@ -18,6 +18,12 @@ Director requires a node definition template, which you create manually. This te
     ```
     (undercloud) $ openstack overcloud node import --validate-only ~/nodes.yaml
     ```  
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node import --validate-only ~/nodes.yaml
+    Waiting for messages on queue 'tripleo' with no timeout.
+
+    Successfully validated environment file
+    ```  
 
 3. Run the following commands to import the template to director:  
     ```
