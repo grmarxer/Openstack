@@ -240,9 +240,10 @@ Complete the following steps to install director and perform some basic post-ins
 
     - stackrc - A set of initialization variables to help you access the director command line tools.  
 
+    <br/> 
 
-    Installation is complete when you see the following:  
-     
+    __Installation is complete when you see the following:__  
+
     ```
     ##########################################################
 
