@@ -1,0 +1,36 @@
+{
+	"nodes": [{
+			"ports": [{
+				"address": "b0:26:28:44:91:41",
+				"physical_network": "ctlplane"
+			}],
+			"name": "controller",
+			"pm_type": "ipmi",
+			"pm_user": "root",
+			"pm_password": "calvin",
+			"pm_addr": "10.144.19.237"
+		},
+		{
+			"ports": [{
+				"address": "b0:26:28:3e:73:11",
+				"physical_network": "ctlplane"
+			}],
+			"name": "compute1",
+			"pm_type": "ipmi",
+			"pm_user": "root",
+			"pm_password": "calvin",
+			"pm_addr": "10.144.19.235"
+		},
+		{
+			"ports": [{
+				"address": "b0:26:28:45:fd:81",
+				"physical_network": "ctlplane"
+			}],
+			"name": "compute2",
+			"pm_type": "ipmi",
+			"pm_user": "root",
+			"pm_password": "calvin",
+			"pm_addr": "10.144.19.233"
+		}
+	]
+}
