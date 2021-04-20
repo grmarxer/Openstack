@@ -118,4 +118,4 @@ Director can run an introspection process on each node. This process boots an in
     (undercloud) $ sudo tail -f /var/log/containers/ironic-inspector/ironic-inspector.log
     ```  
 
-    __IMPORTANT__ Ensure that this process runs to completion. This process usually takes 15 minutes for bare metal nodes.  After the introspection completes, all nodes change to an available state.
+    __IMPORTANT__ Ensure that this process runs to completion. This process usually takes 30 minutes for bare metal nodes.  After the introspection completes, all nodes change to an available state.
