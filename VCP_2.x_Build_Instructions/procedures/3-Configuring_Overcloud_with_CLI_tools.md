@@ -94,4 +94,27 @@ Run the pre-introspection validation group to check the introspection requiremen
     ```  
 
 IMPORTANT
-A FAILED validation does not prevent you from deploying or running Red Hat OpenStack Platform. However, a FAILED validation can indicate a potential issue with a production environment.
+A FAILED validation does not prevent you from deploying or running Red Hat OpenStack Platform. However, a FAILED validation can indicate a potential issue with a production environment.  
+
+<br/> 
+
+## Inspecting the hardware of nodes for IPv4 provisioning  
+
+Director can run an introspection process on each node. This process boots an introspection agent over PXE on each node. The introspection agent collects hardware data from the node and sends the data back to director. Director then stores this introspection data in the OpenStack Object Storage (swift) service running on director. Director uses hardware information for various purposes such as profile tagging, benchmarking, and manual root disk assignment.  
+
+#### Procedure  
+
+1. Run the following command to inspect the hardware attributes of each node:  
+    ```
+    (undercloud) $ openstack overcloud node introspect --all-manageable --provide
+    ```  
+
+    - Use the --all-manageable option to introspect only the nodes that are in a managed state. In this example, all nodes are in a managed state.  
+    - Use the --provide option to reset all nodes to an available state after introspection.  
+
+2. Monitor the introspection progress logs in a separate terminal window:  
+    ```
+    (undercloud) $ sudo tail -f /var/log/containers/ironic-inspector/ironic-inspector.log
+    ```  
+
+    __IMPORTANT__ Ensure that this process runs to completion. This process usually takes 15 minutes for bare metal nodes.  After the introspection completes, all nodes change to an available state.
