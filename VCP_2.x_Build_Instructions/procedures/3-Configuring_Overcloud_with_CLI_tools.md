@@ -11,7 +11,7 @@ Director requires a node definition template, which you create manually. This te
 
 #### Procedure  
 
-1. Create the following template named `nodes.yaml` in the `/home/stack` directory which identifies your Overcloud nodes. This template has been created for you and is specific to this environment.  The `nodes.yaml` file can be found [here](https://github.com/grmarxer/Openstack/tree/master/VCP_2.x_Build_Instructions/config_files)  
+1. Create the following template named `nodes.json` in the `/home/stack` directory which identifies your Overcloud nodes. This template has been created for you and is specific to this environment.  The `nodes.json` file can be found [here](https://github.com/grmarxer/Openstack/tree/master/VCP_2.x_Build_Instructions/config_files)  
 
 
 2. After you create the template, run the following commands to verify the formatting and syntax:  
@@ -19,10 +19,10 @@ Director requires a node definition template, which you create manually. This te
     $ source ~/stackrc
     ```  
     ```
-    (undercloud) $ openstack overcloud node import --validate-only ~/nodes.yaml
+    (undercloud) $ openstack overcloud node import --validate-only ~/nodes.json
     ```  
     ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node import --validate-only ~/nodes.yaml
+    (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node import --validate-only ~/nodes.json
     Waiting for messages on queue 'tripleo' with no timeout.
 
     Successfully validated environment file
@@ -30,7 +30,7 @@ Director requires a node definition template, which you create manually. This te
 
 3. Run the following commands to import the template to director:  
     ```
-    (undercloud) $ openstack overcloud node import ~/nodes.yaml
+    (undercloud) $ openstack overcloud node import ~/nodes.json
     ```  
 
     This command registers each node from the template into director.  
@@ -39,6 +39,16 @@ Director requires a node definition template, which you create manually. This te
     ```
     (undercloud) $ openstack baremetal node list
     ```  
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node list
+    +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
+    | UUID                                 | Name       | Instance UUID | Power State | Provisioning State | Maintenance |
+    +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
+    | cd518d86-b003-49f1-9a73-d23009cbb7a6 | controller | None          | power on    | manageable         | False       |
+    | 2e3e9a7a-ff26-4a69-8951-2aa6348048c3 | compute1   | None          | power on    | manageable         | False       |
+    | 109a3162-a312-4eb7-96d7-9f25f61d9b75 | compute2   | None          | power on    | manageable         | False       |
+    +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
+    ```
 
 <br/> 
 
