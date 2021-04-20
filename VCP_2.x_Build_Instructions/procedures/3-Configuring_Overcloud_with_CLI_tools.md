@@ -111,6 +111,7 @@ Director can run an introspection process on each node. This process boots an in
 
     - Use the --all-manageable option to introspect only the nodes that are in a managed state. In this example, all nodes are in a managed state.  
     - Use the --provide option to reset all nodes to an available state after introspection.  
+    <br/> 
 
 2. Monitor the introspection progress logs in a separate terminal window:  
     ```
