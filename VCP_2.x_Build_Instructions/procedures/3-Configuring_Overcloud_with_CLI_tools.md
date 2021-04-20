@@ -67,6 +67,26 @@ Run the pre-introspection validation group to check the introspection requiremen
     ```
     $ openstack tripleo validator run --group pre-introspection
     ```  
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack tripleo validator run --group pre-introspection
+    Running Validations without Overcloud settings.
+    WARNING:tripleo_common.inventory:Stack not found: overcloud. Only the undercloud will be added to the inventory.
+    +--------------------------------------+---------------------------------+--------+------------+----------------+-------------------+-------------+
+    |                 UUID                 |           Validations           | Status | Host_Group | Status_by_Host | Unreachable_Hosts |   Duration  |
+    +--------------------------------------+---------------------------------+--------+------------+----------------+-------------------+-------------+
+    | 352d85d4-ba61-4d6f-81af-e2e76618301a |            check-cpu            | PASSED |    all     |                |                   |             |
+    | 6895a8ad-351c-49de-805d-3983f5e07aea |         check-disk-space        | PASSED |    all     |                |                   |             |
+    | dac3a1d6-87fc-4761-9074-a0ae4b60904c |            check-ram            | PASSED |    all     |                |                   |             |
+    | 7c221a87-27b4-43e4-8211-b577e6471530 |        check-selinux-mode       | PASSED |    all     |                |                   |             |
+    | 6183a73d-e7e1-494b-acac-dcfe23cdacd1 |      check-network-gateway      | PASSED | undercloud |   undercloud   |                   | 0:00:01.752 |
+    | d3f52d85-a71b-4884-97fa-ee9488087da6 |        ctlplane-ip-range        | FAILED | undercloud |   undercloud   |                   | 0:00:01.594 |
+    | 6050c6cd-29c6-4cf0-bb84-3a1ec953708e |        dhcp-introspection       | PASSED | undercloud |   undercloud   |                   | 0:00:06.095 |
+    | 146aafe8-2a3c-496c-a8dc-2b9434ebc3e4 |      undercloud-disk-space      | PASSED | undercloud |   undercloud   |                   | 0:00:02.700 |
+    | 25dc55d9-be5d-48ea-b71a-f5ea98d355bb |      undercloud-tokenflush      | PASSED | undercloud |   undercloud   |                   | 0:00:00.754 |
+    | d76a0f4c-4ae6-4235-9aef-6bb356a76e98 | undercloud-neutron-sanity-check | PASSED | undercloud |   undercloud   |                   | 0:00:05.863 |
+    +--------------------------------------+---------------------------------+--------+------------+----------------+-------------------+-------------+
+    ```  
+    ### add new scrape  to fixed failed ip-range
 
 3. Review the results of the validation report. To view detailed output from a specific validation, run the openstack tripleo validator show run command against the UUID of the specific validation from the report:  
     ```
