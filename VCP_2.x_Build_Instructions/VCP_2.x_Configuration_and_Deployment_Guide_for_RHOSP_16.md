@@ -21,7 +21,7 @@ lspci | egrep -i --color 'network|ethernet'
 
 sudo lshw -class disk  
 
-osp16-undercloud.pl.pdsea.f5net.com  
+train1.pl.pdsea.f5net.com  
 IPMI = 10.144.19.237  
 MGMT = 10.144.19.236  
 Netmask = 255.255.240.0  
@@ -67,10 +67,31 @@ nmcli con mod eno3 ipv4.method manual
 nmcli con up eno3  
   
 
-nmcli con mod eno4 ipv4.addresses 192.168.255.20/24  
-nmcli con mod eno4 ipv4.gateway 192.168.255.1  
-nmcli con down eno4  
-nmcli con up eno4  
+nmcli con mod eno2np1 ipv4.method manual
+nmcli con mod eno2np1 ipv4.addresses 172.16.10.10/24
+nmcli con mod eno2np1 ipv4.gateway 
+nmcli con down eno2np1
+nmcli con up eno2np1
+
+
+nmcli con mod eno2np1 ipv4.method manual
+nmcli con mod eno2np1 ipv4.addresses 172.16.10.20/24
+nmcli con mod eno2np1 ipv4.gateway 
+nmcli con down eno2np1
+nmcli con up eno2np1
+
+
+nmcli con mod eno2np1 ipv4.method manual
+nmcli con mod eno2np1 ipv4.addresses 172.16.10.30/24
+nmcli con mod eno2np1 ipv4.gateway 
+nmcli con down eno2np1
+nmcli con up eno2np1
+
+nmcli con mod eno4 ipv4.method manual
+nmcli con mod eno4 ipv4.addresses 172.16.10.40/24
+nmcli con mod eno4 ipv4.gateway 
+nmcli con down eno4
+nmcli con up eno4
 
 
 
