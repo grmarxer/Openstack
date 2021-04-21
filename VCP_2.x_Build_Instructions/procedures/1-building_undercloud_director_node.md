@@ -176,11 +176,11 @@ The undercloud installation requires an environment file to determine where to o
 
 1.  This file has already been created and modified for this specific environment.  Copy [this file](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/config_files/containers-prepare-parameter.yaml) `containers-prepare-parameter.yaml` into the `/home/stack/` directory on the undercloud director node.  
 
-__Note:__ Do not change this files name.  
+    __Note:__ Do not change this files name.  
 
-__Note:__ This file requires a redhat login username and password.   
+    __Note:__ This file requires a redhat login username and password.   
 
-__Note:__ This file is currently configured to install OSP 16.1  
+    __Note:__ This file is currently configured to install OSP 16.1  
 
 
 <br/>  

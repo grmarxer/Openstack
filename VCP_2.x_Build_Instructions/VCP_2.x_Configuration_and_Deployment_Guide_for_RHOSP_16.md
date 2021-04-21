@@ -5,9 +5,11 @@ rhel-8.2-x86_64-dvd.iso
 
 2X@@agDTaGpUBvc
 
-NIC.PxeDevice.2-1
+NIC.PxeDevice.1-1
 NIC.Slot.1-1,NIC.Slot.1-2,NIC.Slot.2-1,NIC.Slot.2-2
 HardDisk.List.1-1
+
+RAID.Integrated.1-1,NIC.PxeDevice.1-1,RAID.Integrated.1-1
 
 rhosp 16.1 is openstack rel 15 train   
 
@@ -21,7 +23,7 @@ lspci | egrep -i --color 'network|ethernet'
 
 sudo lshw -class disk  
 
-train1.pl.pdsea.f5net.com  
+osp16-undercloud.pl.pdsea.f5net.com  
 IPMI = 10.144.19.237  
 MGMT = 10.144.19.236  
 Netmask = 255.255.240.0  
@@ -67,31 +69,10 @@ nmcli con mod eno3 ipv4.method manual
 nmcli con up eno3  
   
 
-nmcli con mod eno2np1 ipv4.method manual
-nmcli con mod eno2np1 ipv4.addresses 172.16.10.10/24
-nmcli con mod eno2np1 ipv4.gateway 
-nmcli con down eno2np1
-nmcli con up eno2np1
-
-
-nmcli con mod eno2np1 ipv4.method manual
-nmcli con mod eno2np1 ipv4.addresses 172.16.10.20/24
-nmcli con mod eno2np1 ipv4.gateway 
-nmcli con down eno2np1
-nmcli con up eno2np1
-
-
-nmcli con mod eno2np1 ipv4.method manual
-nmcli con mod eno2np1 ipv4.addresses 172.16.10.30/24
-nmcli con mod eno2np1 ipv4.gateway 
-nmcli con down eno2np1
-nmcli con up eno2np1
-
-nmcli con mod eno4 ipv4.method manual
-nmcli con mod eno4 ipv4.addresses 172.16.10.40/24
-nmcli con mod eno4 ipv4.gateway 
-nmcli con down eno4
-nmcli con up eno4
+nmcli con mod eno4 ipv4.addresses 192.168.255.20/24  
+nmcli con mod eno4 ipv4.gateway 192.168.255.1  
+nmcli con down eno4  
+nmcli con up eno4  
 
 
 
