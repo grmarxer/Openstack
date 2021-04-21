@@ -5,6 +5,10 @@ rhel-8.2-x86_64-dvd.iso
 
 2X@@agDTaGpUBvc
 
+NIC.PxeDevice.2-1
+NIC.Slot.1-1,NIC.Slot.1-2,NIC.Slot.2-1,NIC.Slot.2-2
+HardDisk.List.1-1
+
 rhosp 16.1 is openstack rel 15 train   
 
 10.144.19.233 - openshift  

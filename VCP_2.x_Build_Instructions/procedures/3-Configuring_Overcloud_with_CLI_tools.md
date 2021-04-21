@@ -104,6 +104,8 @@ Director can run an introspection process on each node. This process boots an in
 
 #### Procedure  
 
+1. Make sure all the Overcloud Compute and Controller nodes are power off
+
 1. Run the following command to inspect the hardware attributes of each node:  
     ```
     (undercloud) $ openstack overcloud node introspect --all-manageable --provide
@@ -112,6 +114,10 @@ Director can run an introspection process on each node. This process boots an in
     - Use the --all-manageable option to introspect only the nodes that are in a managed state. In this example, all nodes are in a managed state.  
     - Use the --provide option to reset all nodes to an available state after introspection.  
     <br/> 
+
+
+openstack baremetal introspection start
+
 
 2. Monitor the introspection progress logs in a separate terminal window:  
     ```
