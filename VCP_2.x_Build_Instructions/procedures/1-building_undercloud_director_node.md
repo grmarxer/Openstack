@@ -233,7 +233,7 @@ Complete the following steps to install director and perform some basic post-ins
     [stack@osp16-undercloud ~]$ openstack undercloud install
     ```  
 
-    This command launches the director configuration script. Director installs additional packages and configures its services according to the configuration in the undercloud.conf. This script takes ~40 minutes to complete.  
+    This command launches the director configuration script. Director installs additional packages and configures its services according to the configuration in the undercloud.conf. This script takes __~ 40__ minutes to complete.  
 
     The script generates two files:  
     - undercloud-passwords.conf - A list of all passwords for the director services.  
