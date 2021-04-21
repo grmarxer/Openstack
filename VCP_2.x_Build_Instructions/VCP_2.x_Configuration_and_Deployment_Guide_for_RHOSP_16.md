@@ -69,12 +69,6 @@ nmcli con mod eno3 ipv4.method manual
 nmcli con up eno3  
   
 ```
-nmcli con mod eno4 ipv4.addresses 192.168.255.20/24  
-nmcli con mod eno4 ipv4.gateway 192.168.255.1  
-nmcli con down eno4  
-nmcli con up eno4  
-
-
 nmcli con mod eno2np1 ipv4.method manual
 nmcli con mod eno2np1 ipv4.addresses 172.16.10.10/24
 nmcli con mod eno2np1 ipv4.gateway 
