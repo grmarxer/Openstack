@@ -230,6 +230,16 @@ Default profile flavors compute, control, swift-storage, ceph-storage, and block
     ```
     (undercloud) $ openstack overcloud profiles list
     ```  
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud profiles list
+    +--------------------------------------+------------+-----------------+-----------------+-------------------+
+    | Node UUID                            | Node Name  | Provision State | Current Profile | Possible Profiles |
+    +--------------------------------------+------------+-----------------+-----------------+-------------------+
+    | 146bb426-2a52-4cba-b12b-b3f46749462b | controller | available       | control         |                   |
+    | 86da6986-443c-4135-9bc6-bc00653502b8 | compute1   | available       | compute         |                   |
+    | 96eb9d6f-e52e-4388-90cb-b793c39dc588 | compute2   | available       | compute         |                   |
+    +--------------------------------------+------------+-----------------+-----------------+-------------------+
+    ```  
 
 
 
