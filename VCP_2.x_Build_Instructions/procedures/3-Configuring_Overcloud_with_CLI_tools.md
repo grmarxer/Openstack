@@ -121,7 +121,6 @@ Director can run an introspection process on each node. This process boots an in
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start 70edb09e-7338-48b0-9707-edfdf8e115b9
     ```  
-    <br/> 
 
     This command won’t poll for the introspection result, use the following command to check the current introspection state:  
 
