@@ -86,15 +86,14 @@ Run the pre-introspection validation group to check the introspection requiremen
     | 57897b6c-3a0c-4d2f-8b36-f225a11b708a | undercloud-neutron-sanity-check | PASSED | undercloud |   undercloud   |                   | 0:00:05.664 |
     +--------------------------------------+---------------------------------+--------+------------+----------------+-------------------+-------------+
     ```  
-    
+    <br/> 
 
 3. Review the results of the validation report. To view detailed output from a specific validation, run the openstack tripleo validator show run command against the UUID of the specific validation from the report:  
     ```
     $ openstack tripleo validator show run <UUID>
     ```  
 
-IMPORTANT
-A FAILED validation does not prevent you from deploying or running Red Hat OpenStack Platform. However, a FAILED validation can indicate a potential issue with a production environment.  
+__IMPORTANT__  All validations should have a status of `passed`  
 
 <br/> 
 
