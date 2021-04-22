@@ -155,7 +155,7 @@ Director can run an introspection process on each node. This process boots an in
     <br/> 
 
 
-3. Monitor the introspection progress logs in a separate terminal window:  
+3. Monitor the introspection progress logs in a separate terminal window:  The logs are not real helpful in telling you if something failed.  I have found they are only good at telling you if it was successful.  Monitoring IDRAC is the best method to see what is going on.  
 
     ```
     (undercloud) $ sudo tail -f /var/log/containers/ironic-inspector/ironic-inspector.log
