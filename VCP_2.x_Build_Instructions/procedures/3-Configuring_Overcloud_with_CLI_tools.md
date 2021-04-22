@@ -294,8 +294,8 @@ By default, director deploys an overcloud with 1 Controller node and 1 Compute n
 
     ```
     parameter_defaults:
-    OvercloudControllerFlavor: control
-    OvercloudComputeFlavor: compute
-    ControllerCount: 1
-    ComputeCount: 2
+      OvercloudControllerFlavor: control
+      OvercloudComputeFlavor: compute
+      ControllerCount: 1
+      ComputeCount: 2
     ```  
