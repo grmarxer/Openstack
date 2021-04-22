@@ -115,11 +115,13 @@ Director can run an introspection process on each node. This process boots an in
     | 73716eb2-791d-4f03-a9d5-aeb49acc89ce | compute2   | None          | power off   | manageable         | False       |
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
     ```  
+    <br/> 
 
 2. Run the following command, one at a time, to inspect the hardware attributes of each node using the Nodes `UUID`:  
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start 70edb09e-7338-48b0-9707-edfdf8e115b9
     ```  
+    <br/> 
 
     This command won’t poll for the introspection result, use the following command to check the current introspection state:  
 
@@ -136,8 +138,10 @@ Director can run an introspection process on each node. This process boots an in
     | uuid        | 70edb09e-7338-48b0-9707-edfdf8e115b9 |
     +-------------+--------------------------------------+
     ```  
+    <br/> 
 
     Repeat it for every node until you see __True__ in the finished field. The error field will contain an error message if introspection failed, or __None__ if introspection succeeded for this node.  
+    <br/> 
 
 
 3.  Once the introspection has completely successfully for each of the nodes above, we need to make those nodes available for deployment using the following command  
@@ -147,6 +151,8 @@ Director can run an introspection process on each node. This process boots an in
     openstack baremetal node provide b6f8faac-0b35-4ee2-8680-62223349c61e
     openstack baremetal node provide 73716eb2-791d-4f03-a9d5-aeb49acc89ce
     ```  
+    <br/> 
+
 
 4. Monitor the introspection progress logs in a separate terminal window:  
 
