@@ -138,7 +138,6 @@ Director can run an introspection process on each node. This process boots an in
     | uuid        | 70edb09e-7338-48b0-9707-edfdf8e115b9 |
     +-------------+--------------------------------------+
     ```  
-    <br/> 
 
     Repeat it for every node until you see __True__ in the finished field. The error field will contain an error message if introspection failed, or __None__ if introspection succeeded for this node.  
     <br/> 
