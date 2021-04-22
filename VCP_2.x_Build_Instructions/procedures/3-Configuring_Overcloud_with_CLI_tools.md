@@ -44,9 +44,9 @@ Director requires a node definition template, which you create manually. This te
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
     | UUID                                 | Name       | Instance UUID | Power State | Provisioning State | Maintenance |
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
-    | cd518d86-b003-49f1-9a73-d23009cbb7a6 | controller | None          | power on    | manageable         | False       |
-    | 2e3e9a7a-ff26-4a69-8951-2aa6348048c3 | compute1   | None          | power on    | manageable         | False       |
-    | 109a3162-a312-4eb7-96d7-9f25f61d9b75 | compute2   | None          | power on    | manageable         | False       |
+    | 70edb09e-7338-48b0-9707-edfdf8e115b9 | controller | None          | power off   | manageable         | False       |
+    | b6f8faac-0b35-4ee2-8680-62223349c61e | compute1   | None          | power off   | manageable         | False       |
+    | 73716eb2-791d-4f03-a9d5-aeb49acc89ce | compute2   | None          | power off   | manageable         | False       |
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
     ```
 
