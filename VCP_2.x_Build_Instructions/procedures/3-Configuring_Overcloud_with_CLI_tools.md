@@ -225,6 +225,12 @@ Default profile flavors compute, control, swift-storage, ceph-storage, and block
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute2
     ```  
 
+2.  After you complete node tagging, check the assigned profiles or possible profiles:
+
+    ```
+    (undercloud) $ openstack overcloud profiles list
+    ```  
+
 
 
 
