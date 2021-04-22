@@ -68,7 +68,7 @@ Run the pre-introspection validation group to check the introspection requiremen
     $ openstack tripleo validator run --group pre-introspection
     ```  
     ```
-        (undercloud) [stack@osp16-undercloud ~]$ openstack tripleo validator run --group pre-introspection
+    (undercloud) [stack@osp16-undercloud ~]$ openstack tripleo validator run --group pre-introspection
     Running Validations without Overcloud settings.
     WARNING:tripleo_common.inventory:Stack not found: overcloud. Only the undercloud will be added to the inventory.
     +--------------------------------------+---------------------------------+--------+------------+----------------+-------------------+-------------+
@@ -86,7 +86,7 @@ Run the pre-introspection validation group to check the introspection requiremen
     | 57897b6c-3a0c-4d2f-8b36-f225a11b708a | undercloud-neutron-sanity-check | PASSED | undercloud |   undercloud   |                   | 0:00:05.664 |
     +--------------------------------------+---------------------------------+--------+------------+----------------+-------------------+-------------+
     ```  
-    ### add new scrape  to fixed failed ip-range
+    
 
 3. Review the results of the validation report. To view detailed output from a specific validation, run the openstack tripleo validator show run command against the UUID of the specific validation from the report:  
     ```
