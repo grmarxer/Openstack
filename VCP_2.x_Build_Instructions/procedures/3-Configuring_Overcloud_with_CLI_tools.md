@@ -280,7 +280,7 @@ By default, director deploys an overcloud with 1 Controller node and 1 Compute n
 
 #### Procedure  
 
-1.  Create a node-info.yaml file in the /home/stack/templates/ directory:  
+1.  Create a `node-info.yaml` file in the /home/stack/templates/ directory:  
     ```
     (undercloud) $ vi /home/stack/templates/node-info.yaml
     ```  
