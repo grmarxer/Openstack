@@ -139,6 +139,14 @@ Director can run an introspection process on each node. This process boots an in
     ```  
 
     Repeat it for every node until you see __True__ in the finished field. The error field will contain an error message if introspection failed, or __None__ if introspection succeeded for this node.  
+
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start b6f8faac-0b35-4ee2-8680-62223349c61e
+    ```  
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start 73716eb2-791d-4f03-a9d5-aeb49acc89ce
+    ```  
+
     <br/> 
 
 
