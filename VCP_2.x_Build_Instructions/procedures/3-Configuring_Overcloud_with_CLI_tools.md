@@ -132,7 +132,9 @@ Director can run an introspection process on each node. This process boots an in
     ```  
     <br/>
 
-    The above command won’t poll for the introspection result, use the following command to check the current introspection state:  You should also monitor the console from each nodes IDRAC interface during this process.  This will help you know in real time if something has failed.  
+    The above command won’t poll for the introspection result, use the following command to check the current introspection state:  
+    
+    __Note:__  You should also monitor the console from each nodes IDRAC interface during this process.  This will help you know in real time if something has failed.  
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection status 70edb09e-7338-48b0-9707-edfdf8e115b9
