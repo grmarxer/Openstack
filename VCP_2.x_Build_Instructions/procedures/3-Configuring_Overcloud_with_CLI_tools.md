@@ -123,7 +123,7 @@ Director can run an introspection process on each node. This process boots an in
     
     During my testing I found that the PXE boot fails because the PXE client (Controller and Compute nodes) do not send the TCP SYN to start the TCP connection required to perform the `HTTP GET /inspector.ipxe HTTP/1.1\r\n`, full URL `http://192.168.255.1:8088/inspector.ipxe` from the PXE server (undercloud director).  Why this occurs I have no idea, but without it the PXE boot fails and the node boots to the hard disk.  
     
-    If this issue occurs just try and try again until it works by reissuing the `openstack baremetal introspection start` command for the node in question.  You do not need to do anything else other than issue the `openstack baremetal introspection start` command `(example -- openstack baremetal introspection start 70edb09e-7338-48b0-9707-edfdf8e115b9)` to restart the process.
+    If this issue occurs just try and try again until it works by reissuing the `openstack baremetal introspection start` command for the node in question.  You do not need to do anything else other than reissue the `openstack baremetal introspection start` command `(example -- openstack baremetal introspection start 70edb09e-7338-48b0-9707-edfdf8e115b9)` to restart the process.
     
     The best way to know if this is working or not is to watch the IDRAC console for the node in question.  If it fails the PXE boot, the boot cycle will be short as the image on the hard disk is loaded.  If you see a ton of information scrolling across the screen for a minute or two the PXE boot worked.  Wait for one node to finish completely before starting the introspection on the next node.  __GOOD LUCK!__  
     <br/> 
