@@ -169,7 +169,7 @@ Director can run an introspection process on each node. This process boots an in
     2021-04-22 08:32:02.839 7 INFO ironic_inspector.process [-] [node: 70edb09e-7338-48b0-9707-edfdf8e115b9 state finished MAC b0:26:28:44:91:41 BMC 10.144.19.237] Introspection finished successfully
     ```
 
-    __IMPORTANT__ Ensure that this process runs to completion. This process usually takes __~10__ minutes per node.  After the introspection completes, all nodes change to an available state.  
+    __IMPORTANT__ Ensure that this process runs to completion. This process usually takes __~10__ minutes per node.    
     <br/> 
 
 4.  Once the introspection has completely successfully for each of the nodes above, we need to make those nodes available for deployment using the following command  

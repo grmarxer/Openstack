@@ -69,30 +69,33 @@ nmcli con mod eno3 ipv4.method manual
 nmcli con up eno3  
   
 ```
-nmcli con mod eno2np1 ipv4.method manual
 nmcli con mod eno2np1 ipv4.addresses 172.16.10.10/24
-nmcli con mod eno2np1 ipv4.gateway 
+nmcli con mod eno2np1 ipv4.method manual
+nmcli con mod eno2np1 ipv4.gateway 0.0.0.0
 nmcli con down eno2np1
 nmcli con up eno2np1
 
 
-nmcli con mod eno2np1 ipv4.method manual
+
 nmcli con mod eno2np1 ipv4.addresses 172.16.10.20/24
-nmcli con mod eno2np1 ipv4.gateway 
-nmcli con down eno2np1
-nmcli con up eno2np1
-
-
 nmcli con mod eno2np1 ipv4.method manual
-nmcli con mod eno2np1 ipv4.addresses 172.16.10.30/24
-nmcli con mod eno2np1 ipv4.gateway 
+nmcli con mod eno2np1 ipv4.gateway 0.0.0.0
 nmcli con down eno2np1
 nmcli con up eno2np1
 
 
-nmcli con mod eno4 ipv4.method manual
+
+nmcli con mod eno2np1 ipv4.addresses 172.16.10.30/24
+nmcli con mod eno2np1 ipv4.method manual
+nmcli con mod eno2np1 ipv4.gateway 0.0.0.0
+nmcli con down eno2np1
+nmcli con up eno2np1
+
+
+
 nmcli con mod eno4 ipv4.addresses 172.16.10.40/24
-nmcli con mod eno4 ipv4.gateway 
+nmcli con mod eno4 ipv4.method manual
+nmcli con mod eno4 ipv4.gateway 0.0.0.0
 nmcli con down eno4
 nmcli con up eno4
 ```  
