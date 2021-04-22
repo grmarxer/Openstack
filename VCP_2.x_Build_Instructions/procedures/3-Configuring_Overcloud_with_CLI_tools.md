@@ -132,7 +132,7 @@ Director can run an introspection process on each node. This process boots an in
     ```  
     <br/>
 
-    The above command won’t poll for the introspection result, use the following command to check the current introspection state:  
+    The above command won’t poll for the introspection result, use the following command to check the current introspection state:  You should also monitor the console from each nodes IDRAC interface during this process.  This will help you know in real time if something has failed.  
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection status 70edb09e-7338-48b0-9707-edfdf8e115b9
@@ -153,7 +153,24 @@ Director can run an introspection process on each node. This process boots an in
     <br/> 
 
 
-3.  Once the introspection has completely successfully for each of the nodes above, we need to make those nodes available for deployment using the following command  
+3. Monitor the introspection progress logs in a separate terminal window:  
+
+    ```
+    (undercloud) $ sudo tail -f /var/log/containers/ironic-inspector/ironic-inspector.log
+    ```  
+
+    This is the log message you will see when the `Introspection finished successfully` for each UUID  
+
+
+    ```
+    2021-04-22 08:32:02.763 7 DEBUG ironic_inspector.node_cache [-] [node: 70edb09e-7338-48b0-9707-edfdf8e115b9 state finished] Committing fields: {'finished_at': datetime.datetime(2021, 4, 22, 15, 32, 2, 734703), 'error': None} _commit /usr/lib/python3.6/site-packages/ironic_inspector/node_cache.py:150
+    2021-04-22 08:32:02.839 7 INFO ironic_inspector.process [-] [node: 70edb09e-7338-48b0-9707-edfdf8e115b9 state finished MAC b0:26:28:44:91:41 BMC 10.144.19.237] Introspection finished successfully
+    ```
+
+    __IMPORTANT__ Ensure that this process runs to completion. This process usually takes __~10__ minutes per node.  After the introspection completes, all nodes change to an available state.  
+    <br/> 
+
+4.  Once the introspection has completely successfully for each of the nodes above, we need to make those nodes available for deployment using the following command  
 
     ```
     openstack baremetal node provide 70edb09e-7338-48b0-9707-edfdf8e115b9
@@ -161,12 +178,3 @@ Director can run an introspection process on each node. This process boots an in
     openstack baremetal node provide 73716eb2-791d-4f03-a9d5-aeb49acc89ce
     ```  
     <br/> 
-
-
-4. Monitor the introspection progress logs in a separate terminal window:  
-
-    ```
-    (undercloud) $ sudo tail -f /var/log/containers/ironic-inspector/ironic-inspector.log
-    ```  
-
-    __IMPORTANT__ Ensure that this process runs to completion. This process usually takes __~10__ minutes per node.  After the introspection completes, all nodes change to an available state.
