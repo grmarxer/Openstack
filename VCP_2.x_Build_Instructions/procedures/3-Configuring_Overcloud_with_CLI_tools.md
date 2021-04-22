@@ -163,8 +163,8 @@ Director can run an introspection process on each node. This process boots an in
 
     This is the log message you will see when the `Introspection finished successfully` for each UUID  
 
-    ```
-    cat ironic-inspector.log | egrep -i "70edb09e-7338-48b0-9707-edfdf8e115b9 state finished"
+    ```    
+    [root@osp16-undercloud ironic-inspector]#  cat ironic-inspector.log | egrep -i "70edb09e-7338-48b0-9707-edfdf8e115b9 state finished"
     ```  
 
     ```
