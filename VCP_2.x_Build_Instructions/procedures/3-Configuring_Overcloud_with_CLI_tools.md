@@ -116,7 +116,7 @@ Director can run an introspection process on each node. This process boots an in
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
     ```  
 
-2. Run the following command, one at a time, to inspect the hardware attributes of each node using the UUID:  
+2. Run the following command, one at a time, to inspect the hardware attributes of each node using the Nodes `UUID`:  
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start 70edb09e-7338-48b0-9707-edfdf8e115b9
     ```  
