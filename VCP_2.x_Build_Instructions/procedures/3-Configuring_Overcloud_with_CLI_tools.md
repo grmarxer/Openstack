@@ -119,7 +119,7 @@ Director can run an introspection process on each node. This process boots an in
 
 2. Run the following command, one at a time, to inspect the hardware attributes of each node using the Nodes `UUID`:  
 
-    __IMPORTANT__ Wait for one node to finish completely before starting the introspection on the next node  
+    __IMPORTANT:__ Wait for one node to finish completely before starting the introspection on the next node  
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start 70edb09e-7338-48b0-9707-edfdf8e115b9
@@ -130,8 +130,9 @@ Director can run an introspection process on each node. This process boots an in
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start 73716eb2-791d-4f03-a9d5-aeb49acc89ce
     ```  
+    <br/>
 
-    This command won’t poll for the introspection result, use the following command to check the current introspection state:  
+    The above command won’t poll for the introspection result, use the following command to check the current introspection state:  
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection status 70edb09e-7338-48b0-9707-edfdf8e115b9
