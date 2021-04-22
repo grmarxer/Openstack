@@ -68,22 +68,22 @@ Run the pre-introspection validation group to check the introspection requiremen
     $ openstack tripleo validator run --group pre-introspection
     ```  
     ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack tripleo validator run --group pre-introspection
+        (undercloud) [stack@osp16-undercloud ~]$ openstack tripleo validator run --group pre-introspection
     Running Validations without Overcloud settings.
     WARNING:tripleo_common.inventory:Stack not found: overcloud. Only the undercloud will be added to the inventory.
     +--------------------------------------+---------------------------------+--------+------------+----------------+-------------------+-------------+
     |                 UUID                 |           Validations           | Status | Host_Group | Status_by_Host | Unreachable_Hosts |   Duration  |
     +--------------------------------------+---------------------------------+--------+------------+----------------+-------------------+-------------+
-    | 352d85d4-ba61-4d6f-81af-e2e76618301a |            check-cpu            | PASSED |    all     |                |                   |             |
-    | 6895a8ad-351c-49de-805d-3983f5e07aea |         check-disk-space        | PASSED |    all     |                |                   |             |
-    | dac3a1d6-87fc-4761-9074-a0ae4b60904c |            check-ram            | PASSED |    all     |                |                   |             |
-    | 7c221a87-27b4-43e4-8211-b577e6471530 |        check-selinux-mode       | PASSED |    all     |                |                   |             |
-    | 6183a73d-e7e1-494b-acac-dcfe23cdacd1 |      check-network-gateway      | PASSED | undercloud |   undercloud   |                   | 0:00:01.752 |
-    | d3f52d85-a71b-4884-97fa-ee9488087da6 |        ctlplane-ip-range        | FAILED | undercloud |   undercloud   |                   | 0:00:01.594 |
-    | 6050c6cd-29c6-4cf0-bb84-3a1ec953708e |        dhcp-introspection       | PASSED | undercloud |   undercloud   |                   | 0:00:06.095 |
-    | 146aafe8-2a3c-496c-a8dc-2b9434ebc3e4 |      undercloud-disk-space      | PASSED | undercloud |   undercloud   |                   | 0:00:02.700 |
-    | 25dc55d9-be5d-48ea-b71a-f5ea98d355bb |      undercloud-tokenflush      | PASSED | undercloud |   undercloud   |                   | 0:00:00.754 |
-    | d76a0f4c-4ae6-4235-9aef-6bb356a76e98 | undercloud-neutron-sanity-check | PASSED | undercloud |   undercloud   |                   | 0:00:05.863 |
+    | 5a155cb7-e5de-43d7-8593-8d5617ceca22 |            check-cpu            | PASSED |    all     |                |                   |             |
+    | cfb02f75-3f64-4e6c-814b-f71c6459b1d4 |         check-disk-space        | PASSED |    all     |                |                   |             |
+    | aff39015-1c74-4adb-a772-e72d3153e7a8 |            check-ram            | PASSED |    all     |                |                   |             |
+    | 670b9025-4ac0-4dab-a5a4-2fbb40f0eb68 |        check-selinux-mode       | PASSED |    all     |                |                   |             |
+    | aa469cb6-036a-4f0c-bb59-4336d7060e26 |      check-network-gateway      | PASSED | undercloud |   undercloud   |                   | 0:00:01.902 |
+    | a1f84261-85ae-41ca-a898-fd545299976d |        ctlplane-ip-range        | PASSED | undercloud |   undercloud   |                   | 0:00:01.591 |
+    | c6a6f226-9a63-4d01-9f50-ae223c44bb15 |        dhcp-introspection       | PASSED | undercloud |   undercloud   |                   | 0:00:05.940 |
+    | 29cb898e-1ab5-4921-aa8e-4cadff6e2a28 |      undercloud-disk-space      | PASSED | undercloud |   undercloud   |                   | 0:00:02.495 |
+    | 206da79d-ef07-4d10-8fb9-162c5544f18e |      undercloud-tokenflush      | PASSED | undercloud |   undercloud   |                   | 0:00:00.752 |
+    | 57897b6c-3a0c-4d2f-8b36-f225a11b708a | undercloud-neutron-sanity-check | PASSED | undercloud |   undercloud   |                   | 0:00:05.664 |
     +--------------------------------------+---------------------------------+--------+------------+----------------+-------------------+-------------+
     ```  
     ### add new scrape  to fixed failed ip-range
