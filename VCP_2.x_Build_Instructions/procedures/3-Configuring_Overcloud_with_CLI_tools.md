@@ -125,7 +125,8 @@ Director can run an introspection process on each node. This process boots an in
     
     If this issue occurs just try and try again until it works by reissuing the `openstack baremetal introspection start` command for the node in question.  You do not need to anything else other than issue the `openstack baremetal introspection start` (example -- openstack baremetal introspection start 70edb09e-7338-48b0-9707-edfdf8e115b9) command to restart the process.
     
-    The best way to know if this is working or not is to watch the IDRAC console for the node in question.  If it fails the PXE boot, the boot cycle will be short as the image on the hard disk is laoded.  If you see a ton of information scrolling across the screen for a minute or two the PXE boot worked.  Wait for one node to finish completely before starting the introspection on the next node.  __GOOD LUCK!__  
+    The best way to know if this is working or not is to watch the IDRAC console for the node in question.  If it fails the PXE boot, the boot cycle will be short as the image on the hard disk is loaded.  If you see a ton of information scrolling across the screen for a minute or two the PXE boot worked.  Wait for one node to finish completely before starting the introspection on the next node.  __GOOD LUCK!__  
+    <br/> 
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start 70edb09e-7338-48b0-9707-edfdf8e115b9
