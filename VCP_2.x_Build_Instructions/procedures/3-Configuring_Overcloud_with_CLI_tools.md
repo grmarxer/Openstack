@@ -110,7 +110,7 @@ Director can run an introspection process on each node. This process boots an in
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
     | UUID                                 | Name       | Instance UUID | Power State | Provisioning State | Maintenance |
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
-    | 70edb09e-7338-48b0-9707-edfdf8e115b9 | controller | None          | power on    | manageable         | False       |
+    | 70edb09e-7338-48b0-9707-edfdf8e115b9 | controller | None          | power off   | manageable         | False       |
     | b6f8faac-0b35-4ee2-8680-62223349c61e | compute1   | None          | power off   | manageable         | False       |
     | 73716eb2-791d-4f03-a9d5-aeb49acc89ce | compute2   | None          | power off   | manageable         | False       |
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
