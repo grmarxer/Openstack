@@ -292,7 +292,7 @@ By default, director deploys an overcloud with 1 Controller node and 1 Compute n
     vi touch /home/stack/templates/node-info.yaml
     ```  
 
-    ```
+    ```yaml
     parameter_defaults:
       OvercloudControllerFlavor: control
       OvercloudComputeFlavor: compute
