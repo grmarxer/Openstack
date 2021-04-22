@@ -93,7 +93,7 @@ Run the pre-introspection validation group to check the introspection requiremen
     $ openstack tripleo validator show run <UUID>
     ```  
 
-__IMPORTANT__  All validations should have a status of `passed`  
+    __IMPORTANT__  All validations should have a status of `passed`  
 
 <br/> 
 
