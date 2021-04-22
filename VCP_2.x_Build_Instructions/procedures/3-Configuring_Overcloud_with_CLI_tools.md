@@ -103,24 +103,55 @@ Director can run an introspection process on each node. This process boots an in
 
 #### Procedure  
 
-1. Make sure all the Overcloud Compute and Controller nodes are power off
+1. Make sure all the Overcloud Compute and Controller nodes are powered off  
 
-1. Run the following command to inspect the hardware attributes of each node:  
     ```
-    (undercloud) $ openstack overcloud node introspect --all-manageable --provide
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node list
+    +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
+    | UUID                                 | Name       | Instance UUID | Power State | Provisioning State | Maintenance |
+    +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
+    | 70edb09e-7338-48b0-9707-edfdf8e115b9 | controller | None          | power on    | manageable         | False       |
+    | b6f8faac-0b35-4ee2-8680-62223349c61e | compute1   | None          | power off   | manageable         | False       |
+    | 73716eb2-791d-4f03-a9d5-aeb49acc89ce | compute2   | None          | power off   | manageable         | False       |
+    +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
     ```  
 
-    - Use the --all-manageable option to introspect only the nodes that are in a managed state. In this example, all nodes are in a managed state.  
-    - Use the --provide option to reset all nodes to an available state after introspection.  
-    <br/> 
+2. Run the following command, one at a time, to inspect the hardware attributes of each node using the UUID:  
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start 70edb09e-7338-48b0-9707-edfdf8e115b9
+    ```  
+
+    This command won’t poll for the introspection result, use the following command to check the current introspection state:  
+
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection status 70edb09e-7338-48b0-9707-edfdf8e115b9
+    +-------------+--------------------------------------+
+    | Field       | Value                                |
+    +-------------+--------------------------------------+
+    | error       | None                                 |
+    | finished    | True                                 |
+    | finished_at | 2021-04-22T15:32:02                  |
+    | started_at  | 2021-04-22T15:24:52                  |
+    | state       | finished                             |
+    | uuid        | 70edb09e-7338-48b0-9707-edfdf8e115b9 |
+    +-------------+--------------------------------------+
+    ```  
+
+    Repeat it for every node until you see __True__ in the finished field. The error field will contain an error message if introspection failed, or __None__ if introspection succeeded for this node.  
 
 
-openstack baremetal introspection start
+3.  Once the introspection has completely successfully for each of the nodes above, we need to make those nodes available for deployment using the following command  
 
+    ```
+    openstack baremetal node provide 70edb09e-7338-48b0-9707-edfdf8e115b9
+    openstack baremetal node provide b6f8faac-0b35-4ee2-8680-62223349c61e
+    openstack baremetal node provide 73716eb2-791d-4f03-a9d5-aeb49acc89ce
+    ```  
 
-2. Monitor the introspection progress logs in a separate terminal window:  
+4. Monitor the introspection progress logs in a separate terminal window:  
+
     ```
     (undercloud) $ sudo tail -f /var/log/containers/ironic-inspector/ironic-inspector.log
     ```  
 
-    __IMPORTANT__ Ensure that this process runs to completion. This process usually takes 30 minutes for bare metal nodes.  After the introspection completes, all nodes change to an available state.
+    __IMPORTANT__ Ensure that this process runs to completion. This process usually takes __~10__ minutes per node.  After the introspection completes, all nodes change to an available state.
