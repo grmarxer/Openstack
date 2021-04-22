@@ -182,8 +182,22 @@ Director can run an introspection process on each node. This process boots an in
 4.  Once the introspection has completely successfully for each of the nodes above, we need to make those nodes available for deployment using the following command  
 
     ```
-    openstack baremetal node provide 146bb426-2a52-4cba-b12b-b3f46749462b
-    openstack baremetal node provide 86da6986-443c-4135-9bc6-bc00653502b8
-    openstack baremetal node provide 96eb9d6f-e52e-4388-90cb-b793c39dc588
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node provide 146bb426-2a52-4cba-b12b-b3f46749462b
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node provide 86da6986-443c-4135-9bc6-bc00653502b8
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node provide 96eb9d6f-e52e-4388-90cb-b793c39dc588
     ```  
     <br/> 
+
+5.  Issue the `openstack baremetal node list` command again.  This is the desired result.  Provisioning state will transition to `clean failed`, that is expected.  
+
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node list
+    +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
+    | UUID                                 | Name       | Instance UUID | Power State | Provisioning State | Maintenance |
+    +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
+    | 146bb426-2a52-4cba-b12b-b3f46749462b | controller | None          | power on    | clean wait         | False       |
+    | 86da6986-443c-4135-9bc6-bc00653502b8 | compute1   | None          | power on    | clean wait         | False       |
+    | 96eb9d6f-e52e-4388-90cb-b793c39dc588 | compute2   | None          | power on    | clean wait         | False       |
+    +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
+    ```  
+
