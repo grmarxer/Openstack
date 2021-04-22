@@ -201,3 +201,30 @@ Director can run an introspection process on each node. This process boots an in
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
     ```  
 
+<br/> 
+
+##  Tagging nodes into profiles  
+
+After you register and inspect the hardware of each node, tag the nodes into specific profiles. These profile tags match your nodes to flavors, which assigns the flavors to deployment roles.  
+
+Default profile flavors compute, control, swift-storage, ceph-storage, and block-storage are created during undercloud installation and are usable without modification in most environments.  
+
+#### Procedure  
+
+1.  To tag a node into a specific profile, add a profile option to the properties/capabilities parameter for each node. For example, to tag a specific node to use a specific profile.  The commands below are specific to this environment.  
+
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node set --property capabilities="profile:control,boot_option:local" controller
+    ```  
+
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute1
+    ```  
+
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute2
+    ```  
+
+
+
+
