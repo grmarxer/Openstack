@@ -289,7 +289,7 @@ By default, director deploys an overcloud with 1 Controller node and 1 Compute n
 2. Edit the file to include the node counts and flavors that you need. This specific environment contains 1 Controller node and 2 Compute nodes:
 
     ```
-    vi touch /home/stack/templates/node-info.yaml
+    vi /home/stack/templates/node-info.yaml
     ```  
 
     ```yaml
