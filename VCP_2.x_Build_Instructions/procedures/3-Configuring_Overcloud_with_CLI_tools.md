@@ -110,9 +110,9 @@ Director can run an introspection process on each node. This process boots an in
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
     | UUID                                 | Name       | Instance UUID | Power State | Provisioning State | Maintenance |
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
-    | 70edb09e-7338-48b0-9707-edfdf8e115b9 | controller | None          | power off   | manageable         | False       |
-    | b6f8faac-0b35-4ee2-8680-62223349c61e | compute1   | None          | power off   | manageable         | False       |
-    | 73716eb2-791d-4f03-a9d5-aeb49acc89ce | compute2   | None          | power off   | manageable         | False       |
+    | 146bb426-2a52-4cba-b12b-b3f46749462b | controller | None          | power off   | manageable         | False       |
+    | 86da6986-443c-4135-9bc6-bc00653502b8 | compute1   | None          | power off   | manageable         | False       |
+    | 96eb9d6f-e52e-4388-90cb-b793c39dc588 | compute2   | None          | power off   | manageable         | False       |
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
     ```  
     <br/> 
@@ -123,37 +123,35 @@ Director can run an introspection process on each node. This process boots an in
     
     During my testing I found that the PXE boot fails because the PXE client (Controller and Compute nodes) do not send the TCP SYN to start the TCP connection required to perform the `HTTP GET /inspector.ipxe HTTP/1.1\r\n`, full URL `http://192.168.255.1:8088/inspector.ipxe` from the PXE server (undercloud director).  Why this occurs I have no idea, but without it the PXE boot fails and the node boots to the hard disk.  
     
-    If this issue occurs just try and try again until it works by reissuing the `openstack baremetal introspection start` command for the node in question.  You do not need to do anything else other than reissue the `openstack baremetal introspection start` command `(example -- openstack baremetal introspection start 70edb09e-7338-48b0-9707-edfdf8e115b9)` to restart the process.
+    If this issue occurs just try and try again until it works by reissuing the `openstack baremetal introspection start` command for the node in question.  You do not need to do anything else other than reissue the `openstack baremetal introspection start` command `(example -- openstack baremetal introspection start 146bb426-2a52-4cba-b12b-b3f46749462b)` to restart the process.
     
     The best way to know if this is working or not is to watch the IDRAC console for the node in question.  If it fails the PXE boot, the boot cycle will be short as the image on the hard disk is loaded.  If you see a ton of information scrolling across the screen for a minute or two the PXE boot worked.  Wait for one node to finish completely before starting the introspection on the next node.  __GOOD LUCK!__  
     <br/> 
 
     ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start 70edb09e-7338-48b0-9707-edfdf8e115b9
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start 146bb426-2a52-4cba-b12b-b3f46749462b
     ```  
     ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start b6f8faac-0b35-4ee2-8680-62223349c61e
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start 86da6986-443c-4135-9bc6-bc00653502b8
     ```  
     ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start 73716eb2-791d-4f03-a9d5-aeb49acc89ce
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection start 96eb9d6f-e52e-4388-90cb-b793c39dc588
     ```  
     <br/>
 
     The above command won’t poll for the introspection result, use the following command to check the current introspection state:  
-    
-    __Note:__  You should also monitor the console from each nodes IDRAC interface during this process.  This will help you know in real time if something has failed.  
 
     ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection status 70edb09e-7338-48b0-9707-edfdf8e115b9
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection status 146bb426-2a52-4cba-b12b-b3f46749462b
     +-------------+--------------------------------------+
     | Field       | Value                                |
     +-------------+--------------------------------------+
     | error       | None                                 |
     | finished    | True                                 |
-    | finished_at | 2021-04-22T15:32:02                  |
-    | started_at  | 2021-04-22T15:24:52                  |
+    | finished_at | 2021-04-22T18:51:30                  |
+    | started_at  | 2021-04-22T18:44:04                  |
     | state       | finished                             |
-    | uuid        | 70edb09e-7338-48b0-9707-edfdf8e115b9 |
+    | uuid        | 146bb426-2a52-4cba-b12b-b3f46749462b |
     +-------------+--------------------------------------+
     ```  
 
@@ -171,12 +169,11 @@ Director can run an introspection process on each node. This process boots an in
     This is the log message you will see when the `Introspection finished successfully` for each UUID  
 
     ```    
-    [root@osp16-undercloud ironic-inspector]#  cat ironic-inspector.log | egrep -i "70edb09e-7338-48b0-9707-edfdf8e115b9 state finished"
+    [root@osp16-undercloud containers]# cat /var/log/containers/ironic-inspector/ironic-inspector.log | egrep -i "146bb426-2a52-4cba-b12b-b3f46749462b state finished"
     ```  
-
     ```
-    2021-04-22 08:32:02.763 7 DEBUG ironic_inspector.node_cache [-] [node: 70edb09e-7338-48b0-9707-edfdf8e115b9 state finished] Committing fields: {'finished_at': datetime.datetime(2021, 4, 22, 15, 32, 2, 734703), 'error': None} _commit /usr/lib/python3.6/site-packages/ironic_inspector/node_cache.py:150
-    2021-04-22 08:32:02.839 7 INFO ironic_inspector.process [-] [node: 70edb09e-7338-48b0-9707-edfdf8e115b9 state finished MAC b0:26:28:44:91:41 BMC 10.144.19.237] Introspection finished successfully
+    2021-04-22 11:51:30.867 7 DEBUG ironic_inspector.node_cache [-] [node: 146bb426-2a52-4cba-b12b-b3f46749462b state finished] Committing fields: {'finished_at': datetime.datetime(2021, 4, 22, 18, 51, 30, 803571), 'error': None} _commit /usr/lib/python3.6/site-packages/ironic_inspector/node_cache.py:150
+    2021-04-22 11:51:31.008 7 INFO ironic_inspector.process [-] [node: 146bb426-2a52-4cba-b12b-b3f46749462b state finished MAC b0:26:28:44:91:41 BMC 10.144.19.237] Introspection finished successfully
     ```
 
     __IMPORTANT__ Ensure that this process runs to completion. This process usually takes __~10__ minutes per node.    
@@ -185,8 +182,8 @@ Director can run an introspection process on each node. This process boots an in
 4.  Once the introspection has completely successfully for each of the nodes above, we need to make those nodes available for deployment using the following command  
 
     ```
-    openstack baremetal node provide 70edb09e-7338-48b0-9707-edfdf8e115b9
-    openstack baremetal node provide b6f8faac-0b35-4ee2-8680-62223349c61e
-    openstack baremetal node provide 73716eb2-791d-4f03-a9d5-aeb49acc89ce
+    openstack baremetal node provide 146bb426-2a52-4cba-b12b-b3f46749462b
+    openstack baremetal node provide 86da6986-443c-4135-9bc6-bc00653502b8
+    openstack baremetal node provide 96eb9d6f-e52e-4388-90cb-b793c39dc588
     ```  
     <br/> 
