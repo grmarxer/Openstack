@@ -119,7 +119,7 @@ Director can run an introspection process on each node. This process boots an in
 
 2. Run the following command, one at a time, to inspect the hardware attributes of each node using the Nodes `UUID`:  
 
-    __IMPORTANT READ THIS:__   This process is incredibly unreliable.  Sometimes it works and sometimes it doesn't.  
+    __IMPORTANT READ THIS:__   This process is incredibly unreliable, sometimes it works and sometimes it doesn't.  
     
     During my testing I found that the PXE boot fails because the PXE client (Controller and Compute nodes) do not send the TCP SYN to start the TCP connection required to perform the `HTTP GET /inspector.ipxe HTTP/1.1\r\n`, full URL `http://192.168.255.1:8088/inspector.ipxe` from the PXE server (undercloud director).  Why this occurs I have no idea, but without it the PXE boot fails and the node boots to the hard disk.  
     
