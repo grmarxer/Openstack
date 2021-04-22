@@ -163,6 +163,9 @@ Director can run an introspection process on each node. This process boots an in
 
     This is the log message you will see when the `Introspection finished successfully` for each UUID  
 
+    ```
+    cat ironic-inspector.log | egrep -i "70edb09e-7338-48b0-9707-edfdf8e115b9 state finished"
+    ```  
 
     ```
     2021-04-22 08:32:02.763 7 DEBUG ironic_inspector.node_cache [-] [node: 70edb09e-7338-48b0-9707-edfdf8e115b9 state finished] Committing fields: {'finished_at': datetime.datetime(2021, 4, 22, 15, 32, 2, 734703), 'error': None} _commit /usr/lib/python3.6/site-packages/ironic_inspector/node_cache.py:150
