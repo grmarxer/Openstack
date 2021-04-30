@@ -180,7 +180,7 @@ Director can run an introspection process on each node. This process boots an in
   
     <br/>
 
-    The above command `openstack overcloud node introspect --all-manageable --provide'  won’t poll for the introspection result, use the following command to check the current introspection state:  
+    The initial command above `openstack overcloud node introspect --all-manageable --provide`  won’t poll for the introspection result, use the following command to check the current introspection state:  
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection status 146bb426-2a52-4cba-b12b-b3f46749462b
