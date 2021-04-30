@@ -148,7 +148,7 @@ Director can run an introspection process on each node. This process boots an in
     systemctl status tripleo_ironic_inspector_dnsmasq.service
     ```   
     <br/> 
-    
+
     I recommend opening a new terminal window and starting a tcpdump on interface `eno4` to ensure the openstack director is answering the BOOTP requests  
     ```
     tcpdump -s0 -nni eno4 port 67 or port 68
@@ -169,7 +169,7 @@ Director can run an introspection process on each node. This process boots an in
 
     <br/> 
 
-    The `openstack overcloud node introspect --all-manageable --provide`  command won’t poll for the introspection result, use the following command to check the current introspection state:  
+    The `openstack overcloud node introspect --all-manageable --provide`  command won’t poll for the introspection result, use the following command to check the current introspection state for each UUID:  
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection status 146bb426-2a52-4cba-b12b-b3f46749462b
@@ -193,11 +193,9 @@ Director can run an introspection process on each node. This process boots an in
 
     The PXE boot can fail because the PXE client (Controller and Compute nodes) does not send the TCP SYN to start the TCP connection required to perform the `HTTP GET /inspector.ipxe HTTP/1.1\r\n`, full URL `http://192.168.255.1:8088/inspector.ipxe` from the PXE server (undercloud director).   
 
-    If issue two occurs the PXE client should keep trying, after timing out, and eventually correct itself.  
+    If this occurs the PXE client should keep trying, after timing out, and eventually correct itself.  The best way to know if this is working or not is to watch the IDRAC console for the node in question.  If it fails the PXE boot, the boot cycle will be short and it will either try to load the image from the hard disk or go into a restart state after timing out.        
     
-    - The best way to know if this is working or not is to watch the IDRAC console for the node in question.  If it fails the PXE boot, the boot cycle will be short and it will either try to load the image from the hard disk or go into a restart state after timing out.        
-    
-    - If this issue occurs and either the process does not restart or you just don't want to wait for it to timeout, you can force the process to start again by issuing  the `openstack baremetal introspection start` command for the node in question.  You do not need to do anything else other than issue the `openstack baremetal introspection start` command `(example for the controller node -- openstack baremetal introspection start 146bb426-2a52-4cba-b12b-b3f46749462b)` to restart the process.
+    If this issue occurs and either the process does not restart or you just don't want to wait for it to timeout, you can force the process to start again by issuing  the `openstack baremetal introspection start` command for the node in question.  You do not need to do anything else other than issue the `openstack baremetal introspection start` command `(example for the controller node -- openstack baremetal introspection start 146bb426-2a52-4cba-b12b-b3f46749462b)` to restart the process.
     
   
     <br/>
