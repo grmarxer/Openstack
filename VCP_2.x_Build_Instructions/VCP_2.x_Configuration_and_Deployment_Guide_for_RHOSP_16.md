@@ -1,17 +1,14 @@
 RHEL 8.2  
 Train 16.1  
+rhosp 16.1 is openstack rel 15 train 
 
 rhel-8.2-x86_64-dvd.iso  
 
 2X@@agDTaGpUBvc
 
-NIC.PxeDevice.1-1
-NIC.Slot.1-1,NIC.Slot.1-2,NIC.Slot.2-1,NIC.Slot.2-2
-HardDisk.List.1-1
 
-RAID.Integrated.1-1,NIC.PxeDevice.1-1,RAID.Integrated.1-1
 
-rhosp 16.1 is openstack rel 15 train   
+  
 
 10.144.19.233 - openshift  
 10.144.19.235 - centos 7.8 root/default  
@@ -47,9 +44,6 @@ Gateway = 10.144.31.254
 DNS = 10.144.31.146   
 
 
-2: eno1np0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
-    link/ether b0:26:28:45:fd:80 brd ff:ff:ff:ff:ff:ff
-    inet 10.144.19.232/20 brd 10.144.31.255 scope global dynamic noprefixroute eno1np0
 
 
 
@@ -130,15 +124,7 @@ systemctl stop firewalld.service
 systemctl disable firewalld.service  
 systemctl status firewalld.service  
 
-You have to leave selinux on for undercloud controller to install properly  "openstack undercloud install"  
-vi /etc/selinux/config
-Set the following to disabled  
-SELINUX=disabled  
-  
-reboot  
-  
-Verify SELinux has been disabled  
-sestatus  
+
 
 
 https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/preparing-for-director-installation  
@@ -146,20 +132,5 @@ https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/ht
 stack default
 
 
-sudo subscription-manager register
-sudo subscription-manager list --available --all --matches="Red Hat OpenStack"
 
-sudo subscription-manager attach --pool=8a85f99c71eff3f4017219e2ebca5c3b
-sudo subscription-manager release --set=8.2
-
-
-sudo subscription-manager repos --disable=*
-
-sudo subscription-manager repos --enable=rhel-8-for-x86_64-baseos-eus-rpms --enable=rhel-8-for-x86_64-appstream-eus-rpms --enable=rhel-8-for-x86_64-highavailability-eus-rpms --enable=ansible-2.9-for-rhel-8-x86_64-rpms --enable=openstack-16.1-for-rhel-8-x86_64-rpms --enable=fast-datapath-for-rhel-8-x86_64-rpms --enable=advanced-virt-for-rhel-8-x86_64-rpms
-
-sudo dnf module disable -y container-tools:rhel8
-sudo dnf module enable -y container-tools:2.0
-
-sudo dnf module disable -y virt:rhel
-sudo dnf module enable -y virt:8.2
 
