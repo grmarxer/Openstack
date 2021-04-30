@@ -149,7 +149,7 @@ Director can run an introspection process on each node. This process boots an in
     ```   
     <br/> 
 
-    I recommend opening a new terminal window and starting a tcpdump on interface `eno4` to ensure the openstack director is answering the BOOTP requests  
+3.  (Optional) I recommend opening a new terminal window and starting a tcpdump on interface `eno4` to ensure the openstack director is answering the BOOTP requests  
     ```
     tcpdump -s0 -nni eno4 port 67 or port 68
     ```  
@@ -157,7 +157,7 @@ Director can run an introspection process on each node. This process boots an in
     <br/> 
 
 
-3. Run the following command to inspect the hardware attributes of each node: 
+4. Run the following command to inspect the hardware attributes of each node: 
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node introspect --all-manageable --provide
@@ -205,7 +205,7 @@ Director can run an introspection process on each node. This process boots an in
 
 
 
-4. Monitor the introspection progress logs in a separate terminal window:  The logs are not real helpful in telling you if something failed.  I have found they are only good at telling you if it was successful.  Monitoring IDRAC is the best method to see what is going on.  
+5. Monitor the introspection progress logs in a separate terminal window:  The logs are not real helpful in telling you if something failed.  I have found they are only good at telling you if it was successful.  Monitoring IDRAC is the best method to see what is going on.  
 
     ```
     (undercloud) $ sudo tail -f /var/log/containers/ironic-inspector/ironic-inspector.log
@@ -225,7 +225,7 @@ Director can run an introspection process on each node. This process boots an in
     __Note:__ This process usually takes __~10__ minutes per node.    
     <br/> 
 
-5.  Issue the `openstack baremetal node list` command again.  This is the desired result.  Provisioning state will transition to `clean failed`, that is expected.  
+6.  Issue the `openstack baremetal node list` command again.  This is the desired result.  Provisioning state will transition to `clean failed`, that is expected.  
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node list
