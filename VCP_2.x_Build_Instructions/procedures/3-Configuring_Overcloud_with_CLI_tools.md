@@ -206,8 +206,9 @@ Director can run an introspection process on each node. This process boots an in
     ```
     (undercloud) $ sudo tail -f /var/log/containers/ironic-inspector/ironic-inspector.log
     ```  
+    <br/> 
 
-    These are the log messages you will see when the `Introspection finished successfully` for each UUID  
+    These are the log messages you will see when the `Introspection finished successfully` for each __UUID__    
 
     ```    
     cat /var/log/containers/ironic-inspector/ironic-inspector.log | egrep -i "146bb426-2a52-4cba-b12b-b3f46749462b state finished"
