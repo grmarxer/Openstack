@@ -210,7 +210,7 @@ Director can run an introspection process on each node. This process boots an in
     These are the log messages you will see when the `Introspection finished successfully` for each UUID  
 
     ```    
-    [root@osp16-undercloud containers]# cat /var/log/containers/ironic-inspector/ironic-inspector.log | egrep -i "146bb426-2a52-4cba-b12b-b3f46749462b state finished"
+    cat /var/log/containers/ironic-inspector/ironic-inspector.log | egrep -i "146bb426-2a52-4cba-b12b-b3f46749462b state finished"
     ```  
     ```
     2021-04-22 11:51:30.867 7 DEBUG ironic_inspector.node_cache [-] [node: 146bb426-2a52-4cba-b12b-b3f46749462b state finished] Committing fields: {'finished_at': datetime.datetime(2021, 4, 22, 18, 51, 30, 803571), 'error': None} _commit /usr/lib/python3.6/site-packages/ironic_inspector/node_cache.py:150
