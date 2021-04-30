@@ -130,7 +130,7 @@ Director can run an introspection process on each node. This process boots an in
     ```  
     <br/> 
 
-    If the `tripleo_ironic_inspector_dnsmasq.service`  has failed complete the following steps to resolve the issue.  
+    __ONLY IF__ the `tripleo_ironic_inspector_dnsmasq.service`  has failed complete the following steps to resolve the issue.  
   
     __Note:__  Must be logged in as root to issue netstat and kill commands  
 
