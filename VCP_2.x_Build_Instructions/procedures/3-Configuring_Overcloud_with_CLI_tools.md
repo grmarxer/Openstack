@@ -149,9 +149,9 @@ Director can run an introspection process on each node. This process boots an in
     
     During this process open a terminal window and start a tcpdump on interface `eno4` to ensure the openstack director is answering the BOOTP requests  
 
-        ```
-        tcpdump -s0 -nni eno4 port 67 or port 68
-        ```  
+    ```
+    tcpdump -s0 -nni eno4 port 67 or port 68
+    ```  
 
     If the openstack director is not answering the bootp requests most likely the `tripleo_ironic_inspector_dnsmasq.service` has failed.  Run the following commands to verify `tripleo_ironic_inspector_dnsmasq.service` has failed and to fix the issue.  You need to be root to complete these steps.  
 
