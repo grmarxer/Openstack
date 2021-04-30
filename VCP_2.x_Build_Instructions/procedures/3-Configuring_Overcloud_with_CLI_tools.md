@@ -118,37 +118,37 @@ Director can run an introspection process on each node. This process boots an in
     <br/> 
 
 2.  Make sure the `tripleo_ironic_inspector_dnsmasq.service` is running and not in a failed state.  This service is required for the Openstack Director to answer the PXE client's BOOTP requests.  
-```
-systemctl status tripleo_ironic_inspector_dnsmasq.service
-```   
-```
-[stack@osp16-undercloud ~]$ systemctl status tripleo_ironic_inspector_dnsmasq.service
-● tripleo_ironic_inspector_dnsmasq.service - ironic_inspector_dnsmasq container
-Loaded: loaded (/etc/systemd/system/tripleo_ironic_inspector_dnsmasq.service; enabled; vendor preset: disabled)
-Active: active (running) since Fri 2021-04-30 09:58:42 PDT; 1h 30min ago
-```  
+    ```
+    systemctl status tripleo_ironic_inspector_dnsmasq.service
+    ```   
+    ```
+    [stack@osp16-undercloud ~]$ systemctl status tripleo_ironic_inspector_dnsmasq.service
+    ● tripleo_ironic_inspector_dnsmasq.service - ironic_inspector_dnsmasq container
+    Loaded: loaded (/etc/systemd/system/tripleo_ironic_inspector_dnsmasq.service; enabled; vendor preset: disabled)
+    Active: active (running) since Fri 2021-04-30 09:58:42 PDT; 1h 30min ago
+    ```  
 
-If the `tripleo_ironic_inspector_dnsmasq.service`  has failed complete the following steps to resolve
+    If the `tripleo_ironic_inspector_dnsmasq.service`  has failed complete the following steps to resolve
 
-__Note:__  Must be logged in as root to issue netstat and kill commands  
+    __Note:__  Must be logged in as root to issue netstat and kill commands  
 
-```
-[root@osp16-undercloud stack]# netstat -anup | grep :67
-udp        0      0 0.0.0.0:67              0.0.0.0:*                           29922/dnsmasq
-```  
-```
-kill 29922
-```  
-```
-systemctl restart tripleo_ironic_inspector_dnsmasq.service
-```  
-```
-systemctl status tripleo_ironic_inspector_dnsmasq.service
-```   
-I recommend opening a new terminal window and starting a tcpdump on interface `eno4` to ensure the openstack director is answering the BOOTP requests  
-```
-tcpdump -s0 -nni eno4 port 67 or port 68
-```  
+    ```
+    [root@osp16-undercloud stack]# netstat -anup | grep :67
+    udp        0      0 0.0.0.0:67              0.0.0.0:*                           29922/dnsmasq
+    ```  
+    ```
+    kill 29922
+    ```  
+    ```
+    systemctl restart tripleo_ironic_inspector_dnsmasq.service
+    ```  
+    ```
+    systemctl status tripleo_ironic_inspector_dnsmasq.service
+    ```   
+    I recommend opening a new terminal window and starting a tcpdump on interface `eno4` to ensure the openstack director is answering the BOOTP requests  
+    ```
+    tcpdump -s0 -nni eno4 port 67 or port 68
+    ```  
 
 
 3. Run the following command to inspect the hardware attributes of each node: 
