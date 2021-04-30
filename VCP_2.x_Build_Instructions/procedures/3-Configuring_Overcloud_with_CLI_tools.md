@@ -118,6 +118,7 @@ Director can run an introspection process on each node. This process boots an in
     <br/> 
 
 2.  Make sure the `tripleo_ironic_inspector_dnsmasq.service` is running and not in a failed state.  This service is required for the Openstack Director to answer the PXE client's BOOTP requests.  
+
     ```
     systemctl status tripleo_ironic_inspector_dnsmasq.service
     ```   
@@ -127,9 +128,10 @@ Director can run an introspection process on each node. This process boots an in
     Loaded: loaded (/etc/systemd/system/tripleo_ironic_inspector_dnsmasq.service; enabled; vendor preset: disabled)
     Active: active (running) since Fri 2021-04-30 09:58:42 PDT; 1h 30min ago
     ```  
+    <br/> 
 
-    If the `tripleo_ironic_inspector_dnsmasq.service`  has failed complete the following steps to resolve
-
+    If the `tripleo_ironic_inspector_dnsmasq.service`  has failed complete the following steps to resolve the issue.  
+  
     __Note:__  Must be logged in as root to issue netstat and kill commands  
 
     ```
