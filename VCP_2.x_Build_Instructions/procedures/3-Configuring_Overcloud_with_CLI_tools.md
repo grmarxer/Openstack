@@ -225,15 +225,15 @@ Director can run an introspection process on each node. This process boots an in
     __Note:__ This process usually takes __~10__ minutes per node.    
     <br/> 
 
-6.  When complete you should see this output from the initial `openstack overcloud node introspect --all-manageable --provide` command
+6.  When complete you should see this output from the initial `openstack overcloud node introspect --all-manageable --provide` command:
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node introspect --all-manageable --provide
     Waiting for introspection to finish...
     Waiting for messages on queue 'tripleo' with no timeout.
-    Introspection of node completed:09c4f563-18cc-4cbd-ac3e-031fbbedc923. Status:SUCCESS. Errors:None
-    Introspection of node completed:9a7b2e05-05f5-4e2f-95d5-61a4c503f6b6. Status:SUCCESS. Errors:None
-    Introspection of node completed:d87348fb-b34e-4923-b6ba-624c995d557b. Status:SUCCESS. Errors:None
+    Introspection of node completed:146bb426-2a52-4cba-b12b-b3f46749462b. Status:SUCCESS. Errors:None
+    Introspection of node completed:86da6986-443c-4135-9bc6-bc00653502b8. Status:SUCCESS. Errors:None
+    Introspection of node completed:96eb9d6f-e52e-4388-90cb-b793c39dc588. Status:SUCCESS. Errors:None
 
     Introspection completed.
     Waiting for messages on queue 'tripleo' with no timeout.
