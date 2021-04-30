@@ -118,6 +118,24 @@ Director can run an introspection process on each node. This process boots an in
     <br/> 
 
 2. Run the following command to inspect the hardware attributes of each node:  
+
+
+    __IMPORTANT READ THIS:__   This process is incredibly unreliable, sometimes it works and sometimes it doesn't.  There are two main failure points:  
+    
+    1. The Openstack Director does not answer the server PXE boot's BOOTP Request  
+
+    2. The PXE boot fails because the PXE client (Controller and Compute nodes) do not send the TCP SYN to start the TCP connection required to perform the `HTTP GET /inspector.ipxe HTTP/1.1\r\n`, full URL `http://192.168.255.1:8088/inspector.ipxe` from the PXE server (undercloud director).  Why this occurs I have no idea, but without it the PXE boot fails and the node boots to the hard disk.  
+    
+    If issue one occurs follow the steps below called __Fixing Issue #1__  
+
+    If issue two occurs the PXE client should keep trying, after timing out, and eventually correct itself.  
+    
+    - The best way to know if this is working or not is to watch the IDRAC console for the node in question.  If it fails the PXE boot, the boot cycle will be short and it will either try to load the image from the hard disk or go into a restart state after timing out.        
+    
+    - If this issue occurs and either the process does not restart or you just don't want to wait for it to timeout you can force the process to start again by issuing  the `openstack baremetal introspection start` command for the node in question.  You do not need to do anything else other than issue the `openstack baremetal introspection start` command `(example for the controller node -- openstack baremetal introspection start 146bb426-2a52-4cba-b12b-b3f46749462b)` to restart the process.
+    
+    <br/> 
+
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node introspect --all-manageable --provide
     ```  
@@ -126,7 +144,7 @@ Director can run an introspection process on each node. This process boots an in
 
     - Use the --provide option to reset all nodes to an available state after introspection.  
 
-    __Important__  During this process open a terminal window and start a tcpdump on eno4 to ensure the openstack director is answering the bootp requests  
+    __Fixing Issue #1__  During this process open a terminal window and start a tcpdump on eno4 to ensure the openstack director is answering the bootp requests  
     ```
     tcpdump -s0 -nni eno4 port 67 or port 68
     ```  
