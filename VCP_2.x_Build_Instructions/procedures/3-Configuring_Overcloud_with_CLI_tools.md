@@ -332,3 +332,8 @@ By default, director deploys an overcloud with 1 Controller node and 1 Compute n
       ControllerCount: 1
       ComputeCount: 2
     ```  
+
+
+```
+(undercloud) $ openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml  -e /home/stack/containers-prepare-parameter.yaml
+```
