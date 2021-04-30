@@ -145,34 +145,37 @@ Director can run an introspection process on each node. This process boots an in
     
     <br/> 
 
-    __Fixing Issue #1__  During this process open a terminal window and start a tcpdump on eno4 to ensure the openstack director is answering the bootp requests  
-    ```
-    tcpdump -s0 -nni eno4 port 67 or port 68
-    ```  
+    __Fixing Issue #1__  
+    
+    During this process open a terminal window and start a tcpdump on interface `eno4` to ensure the openstack director is answering the BOOTP requests  
 
-    If the openstack director is not answering the bootp requests most likely the `tripleo_ironic_inspector_dnsmasq.service` has failed.  Run the following commands to verify `tripleo_ironic_inspector_dnsmasq.service` has failed and to fix the issue.  You need to be root to complete these steps.  
-    ```
-    su root
-    ```
-    ```
-    systemctl status tripleo_ironic_inspector_dnsmasq.service
-    systemctl status tripleo_ironic_inspector_dnsmasq_healthcheck.service
-    ```  
-    ```
-    [root@osp16-undercloud stack]# netstat -anup | grep :67
-    udp        0      0 0.0.0.0:67              0.0.0.0:*                           29922/dnsmasq
-    ```  
-    ```
-    kill 29922
-    ```
-    ```
-    systemctl restart tripleo_ironic_inspector_dnsmasq.service
-    systemctl restart tripleo_ironic_inspector_dnsmasq_healthcheck.service
-    ```
-    ```
-    systemctl status tripleo_ironic_inspector_dnsmasq.service
-    systemctl status tripleo_ironic_inspector_dnsmasq_healthcheck.service
-    ```  
+        ```
+        tcpdump -s0 -nni eno4 port 67 or port 68
+        ```  
+
+        If the openstack director is not answering the bootp requests most likely the `tripleo_ironic_inspector_dnsmasq.service` has failed.  Run the following commands to verify `tripleo_ironic_inspector_dnsmasq.service` has failed and to fix the issue.  You need to be root to complete these steps.  
+        ```
+        su root
+        ```
+        ```
+        systemctl status tripleo_ironic_inspector_dnsmasq.service
+        systemctl status tripleo_ironic_inspector_dnsmasq_healthcheck.service
+        ```  
+        ```
+        [root@osp16-undercloud stack]# netstat -anup | grep :67
+        udp        0      0 0.0.0.0:67              0.0.0.0:*                           29922/dnsmasq
+        ```  
+        ```
+        kill 29922
+        ```
+        ```
+        systemctl restart tripleo_ironic_inspector_dnsmasq.service
+        systemctl restart tripleo_ironic_inspector_dnsmasq_healthcheck.service
+        ```
+        ```
+        systemctl status tripleo_ironic_inspector_dnsmasq.service
+        systemctl status tripleo_ironic_inspector_dnsmasq_healthcheck.service
+        ```  
   
     <br/>
 
