@@ -117,6 +117,17 @@ Director can run an introspection process on each node. This process boots an in
     ```  
     <br/> 
 
+2. Run the following command to inspect the hardware attributes of each node:  
+    ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node introspect --all-manageable --provide
+    ```  
+
+    - Use the --all-manageable option to introspect only the nodes that are in a managed state. In this example, all nodes are in a managed state.  
+
+    - Use the --provide option to reset all nodes to an available state after introspection.  
+
+
+
 2. Run the following command, one at a time, to inspect the hardware attributes of each node using the Nodes `UUID`:  
 
     __IMPORTANT READ THIS:__   This process is incredibly unreliable, sometimes it works and sometimes it doesn't.  
