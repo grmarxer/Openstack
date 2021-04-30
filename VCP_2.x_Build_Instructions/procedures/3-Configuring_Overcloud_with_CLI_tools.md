@@ -117,7 +117,41 @@ Director can run an introspection process on each node. This process boots an in
     ```  
     <br/> 
 
-2. Run the following command to inspect the hardware attributes of each node:  __Read this entire step before proceeding, there are many gotcha's__    
+2.  Make sure the `tripleo_ironic_inspector_dnsmasq.service` is running and not in a failed state.  This service is required for the Openstack Director to answer the PXE client's BOOTP requests.  
+```
+systemctl status tripleo_ironic_inspector_dnsmasq.service
+```   
+```
+[stack@osp16-undercloud ~]$ systemctl status tripleo_ironic_inspector_dnsmasq.service
+● tripleo_ironic_inspector_dnsmasq.service - ironic_inspector_dnsmasq container
+Loaded: loaded (/etc/systemd/system/tripleo_ironic_inspector_dnsmasq.service; enabled; vendor preset: disabled)
+Active: active (running) since Fri 2021-04-30 09:58:42 PDT; 1h 30min ago
+```  
+
+If the `tripleo_ironic_inspector_dnsmasq.service`  has failed complete the following steps to resolve
+
+__Note:__  Must be logged in as root to issue netstat and kill commands  
+
+```
+[root@osp16-undercloud stack]# netstat -anup | grep :67
+udp        0      0 0.0.0.0:67              0.0.0.0:*                           29922/dnsmasq
+```  
+```
+kill 29922
+```  
+```
+systemctl restart tripleo_ironic_inspector_dnsmasq.service
+```  
+```
+systemctl status tripleo_ironic_inspector_dnsmasq.service
+```   
+I recommend opening a new terminal window and starting a tcpdump on interface `eno4` to ensure the openstack director is answering the BOOTP requests  
+```
+tcpdump -s0 -nni eno4 port 67 or port 68
+```  
+
+
+3. Run the following command to inspect the hardware attributes of each node: 
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node introspect --all-manageable --provide
@@ -129,58 +163,7 @@ Director can run an introspection process on each node. This process boots an in
 
     <br/> 
 
-    __IMPORTANT READ THIS:__   This process is incredibly unreliable, sometimes it works and sometimes it doesn't.  There are two main failure points:  
-
-    1. The Openstack Director does not answer the server PXE boot's BOOTP Request  
-
-    2. The PXE boot fails because the PXE client (Controller and Compute nodes) does not send the TCP SYN to start the TCP connection required to perform the `HTTP GET /inspector.ipxe HTTP/1.1\r\n`, full URL `http://192.168.255.1:8088/inspector.ipxe` from the PXE server (undercloud director).   
-    
-    If issue one occurs follow the steps below called __Fixing Issue #1__  
-
-    If issue two occurs the PXE client should keep trying, after timing out, and eventually correct itself.  
-    
-    - The best way to know if this is working or not is to watch the IDRAC console for the node in question.  If it fails the PXE boot, the boot cycle will be short and it will either try to load the image from the hard disk or go into a restart state after timing out.        
-    
-    - If this issue occurs and either the process does not restart or you just don't want to wait for it to timeout, you can force the process to start again by issuing  the `openstack baremetal introspection start` command for the node in question.  You do not need to do anything else other than issue the `openstack baremetal introspection start` command `(example for the controller node -- openstack baremetal introspection start 146bb426-2a52-4cba-b12b-b3f46749462b)` to restart the process.
-    
-    <br/> 
-
-    __Fixing Issue #1__  
-    
-    During this process open a terminal window and start a tcpdump on interface `eno4` to ensure the openstack director is answering the BOOTP requests  
-
-    ```
-    tcpdump -s0 -nni eno4 port 67 or port 68
-    ```  
-
-    If the openstack director is not answering the bootp requests most likely the `tripleo_ironic_inspector_dnsmasq.service` has failed.  Run the following commands to verify `tripleo_ironic_inspector_dnsmasq.service` has failed and to fix the issue.  You need to be root to complete these steps.  
-
-    ```
-    su root
-    ```  
-    ```
-    systemctl status tripleo_ironic_inspector_dnsmasq.service
-    systemctl status tripleo_ironic_inspector_dnsmasq_healthcheck.service
-    ```   
-    ```
-    [root@osp16-undercloud stack]# netstat -anup | grep :67
-    udp        0      0 0.0.0.0:67              0.0.0.0:*                           29922/dnsmasq
-    ```  
-    ```
-    kill 29922
-    ```  
-    ```
-    systemctl restart tripleo_ironic_inspector_dnsmasq.service
-    systemctl restart tripleo_ironic_inspector_dnsmasq_healthcheck.service
-    ```  
-    ```
-    systemctl status tripleo_ironic_inspector_dnsmasq.service
-    systemctl status tripleo_ironic_inspector_dnsmasq_healthcheck.service
-    ```  
-  
-    <br/>
-
-    The initial command above `openstack overcloud node introspect --all-manageable --provide`  won’t poll for the introspection result, use the following command to check the current introspection state:  
+    The `openstack overcloud node introspect --all-manageable --provide`  command won’t poll for the introspection result, use the following command to check the current introspection state:  
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection status 146bb426-2a52-4cba-b12b-b3f46749462b
@@ -200,8 +183,23 @@ Director can run an introspection process on each node. This process boots an in
 
     <br/> 
 
+    __IMPORTANT READ THIS:__   This process is incredibly unreliable, sometimes it works and sometimes it doesn't.  
 
-3. Monitor the introspection progress logs in a separate terminal window:  The logs are not real helpful in telling you if something failed.  I have found they are only good at telling you if it was successful.  Monitoring IDRAC is the best method to see what is going on.  
+    The PXE boot can fail because the PXE client (Controller and Compute nodes) does not send the TCP SYN to start the TCP connection required to perform the `HTTP GET /inspector.ipxe HTTP/1.1\r\n`, full URL `http://192.168.255.1:8088/inspector.ipxe` from the PXE server (undercloud director).   
+
+    If issue two occurs the PXE client should keep trying, after timing out, and eventually correct itself.  
+    
+    - The best way to know if this is working or not is to watch the IDRAC console for the node in question.  If it fails the PXE boot, the boot cycle will be short and it will either try to load the image from the hard disk or go into a restart state after timing out.        
+    
+    - If this issue occurs and either the process does not restart or you just don't want to wait for it to timeout, you can force the process to start again by issuing  the `openstack baremetal introspection start` command for the node in question.  You do not need to do anything else other than issue the `openstack baremetal introspection start` command `(example for the controller node -- openstack baremetal introspection start 146bb426-2a52-4cba-b12b-b3f46749462b)` to restart the process.
+    
+  
+    <br/>
+
+
+
+
+4. Monitor the introspection progress logs in a separate terminal window:  The logs are not real helpful in telling you if something failed.  I have found they are only good at telling you if it was successful.  Monitoring IDRAC is the best method to see what is going on.  
 
     ```
     (undercloud) $ sudo tail -f /var/log/containers/ironic-inspector/ironic-inspector.log
@@ -221,7 +219,7 @@ Director can run an introspection process on each node. This process boots an in
     __Note:__ This process usually takes __~10__ minutes per node.    
     <br/> 
 
-4.  Issue the `openstack baremetal node list` command again.  This is the desired result.  Provisioning state will transition to `clean failed`, that is expected.  
+5.  Issue the `openstack baremetal node list` command again.  This is the desired result.  Provisioning state will transition to `clean failed`, that is expected.  
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node list
