@@ -351,4 +351,12 @@ By default, director deploys an overcloud with 1 Controller node and 1 Compute n
 
 ```
 (undercloud) $ openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml  -e /home/stack/containers-prepare-parameter.yaml
+```  
+
 ```
+openstack overcloud delete stack
+openstack baremetal node list
+openstack baremetal port list
+openstack baremetal node delete 607b6f1c-adcc-45e5-8068-36efb1497e93
+openstack baremetal port delete
+```  
