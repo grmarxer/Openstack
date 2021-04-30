@@ -218,7 +218,7 @@ Director can run an introspection process on each node. This process boots an in
     2021-04-22 11:51:31.008 7 INFO ironic_inspector.process [-] [node: 146bb426-2a52-4cba-b12b-b3f46749462b state finished MAC b0:26:28:44:91:41 BMC 10.144.19.237] Introspection finished successfully
     ```
 
-    __IMPORTANT__ Ensure that this process runs to completion. This process usually takes __~10__ minutes per node.    
+    __Note:__ This process usually takes __~10__ minutes per node.    
     <br/> 
 
 4.  Issue the `openstack baremetal node list` command again.  This is the desired result.  Provisioning state will transition to `clean failed`, that is expected.  
