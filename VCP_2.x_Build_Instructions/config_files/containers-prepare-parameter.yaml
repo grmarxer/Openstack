@@ -35,4 +35,4 @@ parameter_defaults:
   ContainerImageRegistryCredentials:
     registry.redhat.io:
 #      my_username: my_password
-      gmarx09: 2X@@agDTaGpUBvc
+      gmarx09: password
