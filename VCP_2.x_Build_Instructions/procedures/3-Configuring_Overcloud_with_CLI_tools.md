@@ -352,6 +352,11 @@ By default, director deploys an overcloud with 1 Controller node and 1 Compute n
 ```
 (undercloud) $ openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml  -e /home/stack/containers-prepare-parameter.yaml
 ```  
+```
+openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml -e /home/stack/containers-prepare-parameter.yaml --validation-errors-nonfatal
+openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml -e /home/stack/containers-prepare-parameter.yaml --validation-warnings-fatal
+openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml -e /home/stack/containers-prepare-parameter.yaml --dry-run
+```  
 
 ```
 openstack overcloud delete stack
