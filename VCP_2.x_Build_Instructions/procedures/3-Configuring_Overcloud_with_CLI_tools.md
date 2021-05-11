@@ -359,7 +359,8 @@ openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml -
 ```  
 
 ```
-openstack overcloud delete stack
+openstack overcloud status
+openstack overcloud delete overcloud
 openstack baremetal node list
 openstack baremetal port list
 openstack baremetal node delete 607b6f1c-adcc-45e5-8068-36efb1497e93
