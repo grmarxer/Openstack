@@ -120,7 +120,7 @@ Director can run an introspection process on each node. This process boots an in
 2.  Make sure the `tripleo_ironic_inspector_dnsmasq.service` is running and not in a failed state.  This service is required for the Openstack Director to answer the PXE client's BOOTP requests.  
 
     ```
-    systemctl status tripleo_ironic_inspector_dnsmasq.service
+    sudo systemctl status tripleo_ironic_inspector_dnsmasq.service
     ```   
     ```
     [stack@osp16-undercloud ~]$ systemctl status tripleo_ironic_inspector_dnsmasq.service
@@ -135,23 +135,23 @@ Director can run an introspection process on each node. This process boots an in
     __Note:__  Must be logged in as root to issue netstat and kill commands  
 
     ```
-    [root@osp16-undercloud stack]# netstat -anup | grep :67
+    [root@osp16-undercloud stack]# sudo netstat -anup | grep :67
     udp        0      0 0.0.0.0:67              0.0.0.0:*                           29922/dnsmasq
     ```  
     ```
-    kill 29922
+    sudo kill 29922
     ```  
     ```
-    systemctl restart tripleo_ironic_inspector_dnsmasq.service
+    sudo systemctl restart tripleo_ironic_inspector_dnsmasq.service
     ```  
     ```
-    systemctl status tripleo_ironic_inspector_dnsmasq.service
+    sudo systemctl status tripleo_ironic_inspector_dnsmasq.service
     ```   
     <br/> 
 
 3.  (Optional) I recommend opening a new terminal window and starting a tcpdump on interface `eno4` to ensure the openstack director is answering the BOOTP requests  
     ```
-    tcpdump -s0 -nni eno4 port 67 or port 68
+    sudo tcpdump -s0 -nni eno4 port 67 or port 68
     ```  
 
     <br/> 
