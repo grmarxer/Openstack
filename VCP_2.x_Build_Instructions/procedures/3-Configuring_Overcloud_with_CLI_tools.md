@@ -151,7 +151,7 @@ Director can run an introspection process on each node. This process boots an in
 
 3.  (Optional) I recommend opening a new terminal window and starting a tcpdump on interface `eno4` to ensure the openstack director is answering the BOOTP requests  
     ```
-    sudo tcpdump -s0 -nni eno4 port 67 or port 68
+    sudo tcpdump -s0 -nni eno4 port 67 or port 68 or port 8088
     ```  
 
     <br/> 
