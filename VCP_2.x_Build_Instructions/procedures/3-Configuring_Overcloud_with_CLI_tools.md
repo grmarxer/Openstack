@@ -49,6 +49,11 @@ Director requires a node definition template, which you create manually. This te
     | 73716eb2-791d-4f03-a9d5-aeb49acc89ce | compute2   | None          | power off   | manageable         | False       |
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
     ```  
+
+5.  Also confirm that the MAC addresses are correct for each node.  This is the MAC of the provisioning network.  
+
+    __NOTE:__ The physical_network must be `ctlplane` and not the name of the interface found in ifconfig  
+    
     ```
     (undercloud) [stack@osp16-undercloud var]$ openstack baremetal port list
     +--------------------------------------+-------------------+
