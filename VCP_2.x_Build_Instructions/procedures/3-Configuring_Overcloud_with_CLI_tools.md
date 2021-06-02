@@ -48,7 +48,69 @@ Director requires a node definition template, which you create manually. This te
     | b6f8faac-0b35-4ee2-8680-62223349c61e | compute1   | None          | power off   | manageable         | False       |
     | 73716eb2-791d-4f03-a9d5-aeb49acc89ce | compute2   | None          | power off   | manageable         | False       |
     +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
+    ```  
     ```
+    (undercloud) [stack@osp16-undercloud var]$ openstack baremetal port list
+    +--------------------------------------+-------------------+
+    | UUID                                 | Address           |
+    +--------------------------------------+-------------------+
+    | 01048226-2285-4d46-857a-f2f9752a2da2 | b0:26:28:44:91:41 |
+    | 962d2cf7-334d-4465-91ce-1c4b5dfbfa7f | b0:26:28:3e:73:11 |
+    | e89bb783-a734-444d-a3dd-25aa31cf7674 | b0:26:28:45:fd:81 |
+    +--------------------------------------+-------------------+
+    (undercloud) [stack@osp16-undercloud var]$ openstack baremetal port show 01048226-2285-4d46-857a-f2f9752a2da2
+    +-----------------------+--------------------------------------+
+    | Field                 | Value                                |
+    +-----------------------+--------------------------------------+
+    | address               | b0:26:28:44:91:41                    |
+    | created_at            | 2021-06-02T21:18:38+00:00            |
+    | extra                 | {}                                   |
+    | internal_info         | {}                                   |
+    | is_smartnic           | False                                |
+    | local_link_connection | {}                                   |
+    | node_uuid             | 70edb09e-7338-48b0-9707-edfdf8e115b9 |
+    | physical_network      | ctlplane                             |
+    | portgroup_uuid        | None                                 |
+    | pxe_enabled           | True                                 |
+    | updated_at            | None                                 |
+    | uuid                  | 01048226-2285-4d46-857a-f2f9752a2da2 |
+    +-----------------------+--------------------------------------+
+    (undercloud) [stack@osp16-undercloud var]$ openstack baremetal port show 962d2cf7-334d-4465-91ce-1c4b5dfbfa7f
+    +-----------------------+--------------------------------------+
+    | Field                 | Value                                |
+    +-----------------------+--------------------------------------+
+    | address               | b0:26:28:3e:73:11                    |
+    | created_at            | 2021-06-02T21:18:39+00:00            |
+    | extra                 | {}                                   |
+    | internal_info         | {}                                   |
+    | is_smartnic           | False                                |
+    | local_link_connection | {}                                   |
+    | node_uuid             | b6f8faac-0b35-4ee2-8680-62223349c61e |
+    | physical_network      | ctlplane                             |
+    | portgroup_uuid        | None                                 |
+    | pxe_enabled           | True                                 |
+    | updated_at            | None                                 |
+    | uuid                  | 962d2cf7-334d-4465-91ce-1c4b5dfbfa7f |
+    +-----------------------+--------------------------------------+
+    (undercloud) [stack@osp16-undercloud var]$ openstack baremetal port show e89bb783-a734-444d-a3dd-25aa31cf7674
+    +-----------------------+--------------------------------------+
+    | Field                 | Value                                |
+    +-----------------------+--------------------------------------+
+    | address               | b0:26:28:45:fd:81                    |
+    | created_at            | 2021-06-02T21:18:40+00:00            |
+    | extra                 | {}                                   |
+    | internal_info         | {}                                   |
+    | is_smartnic           | False                                |
+    | local_link_connection | {}                                   |
+    | node_uuid             | 73716eb2-791d-4f03-a9d5-aeb49acc89ce |
+    | physical_network      | ctlplane                             |
+    | portgroup_uuid        | None                                 |
+    | pxe_enabled           | True                                 |
+    | updated_at            | None                                 |
+    | uuid                  | e89bb783-a734-444d-a3dd-25aa31cf7674 |
+    +-----------------------+--------------------------------------+
+    ```  
+
 
 <br/> 
 
