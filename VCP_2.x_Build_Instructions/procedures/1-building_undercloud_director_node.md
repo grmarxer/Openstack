@@ -66,7 +66,7 @@ Before you can install director, you must run subscription-manager to register t
 
 2. Register your system either with the Red Hat Content Delivery Network or with a Red Hat Satellite. For example, run the following command to register the system to the Content Delivery Network. Enter your Customer Portal user name and password when prompted:
     ```
-    [stack@osp16-undercloud ~]$ sudo subscription-manager register
+    [stack@osp16-undercloud ~]$ sudo subscription-manager register --force
     ```  
 
 3. Find the entitlement pool ID for Red Hat OpenStack Platform (RHOSP) director:  
