@@ -416,9 +416,61 @@ By default, director deploys an overcloud with 1 Controller node and 1 Compute n
     ```  
 
 
+## Deployment command  
+
+The final stage in creating your OpenStack environment is to run the openstack overcloud deploy command to create the overcloud.  
+
+https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/creating-a-basic-overcloud-with-cli-tools#sect-Including_Environment_Files_in_Overcloud_Creation  
+
+This command contains the following additional options:
+
+--templates  
+Creates the overcloud using the heat template collection in /usr/share/openstack-tripleo-heat-templates as a foundation.  
+
+-e /home/stack/templates/node-info.yaml  
+Adds an environment file to define how many nodes and which flavors to use for each role.  
+
+-e /home/stack/containers-prepare-parameter.yaml  
+Adds the container image preparation environment file. You generated this file during the undercloud installation and can use the same file for your overcloud creation.  
+
+-e /home/stack/inject-trust-anchor-hiera.yaml  
+Adds an environment file to install a custom certificate in the undercloud.  
+
+-r /home/stack/templates/roles_data.yaml  
+(Optional) The generated roles data if you use custom roles or want to enable a multi architecture cloud. For more information, see Section 7.10, “Creating architecture specific roles”.  
+
+Director requires these environment files for re-deployment and post-deployment functions. Failure to include these files can result in damage to your overcloud.  
+
+To modify the overcloud configuration at a later stage, perform the following actions:  
+
+- Modify parameters in the custom environment files and heat templates.  
+- Run the openstack overcloud deploy command again with the same environment files.  
+
+Do not edit the overcloud configuration directly because director overrides any manual configuration when you update the overcloud stack.
+
 ```
 (undercloud) $ openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml  -e /home/stack/containers-prepare-parameter.yaml
 ```  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```
 openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml -e /home/stack/containers-prepare-parameter.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs.yaml --validation-errors-nonfatal
 openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml -e /home/stack/containers-prepare-parameter.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs.yaml --validation-warnings-fatal
