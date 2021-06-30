@@ -384,7 +384,7 @@ We need to set the nameserver in this step so the overcloud can resolve external
 
 2. Set the nameservers for the ctlplane-subnet subnet:  
     ```
-    (undercloud) [stack@osp16-undercloud images]$ openstack subnet set --dns-nameserver 8.8.8.8 --dns-nameserver 8.8.4.4 ctlplane-subnet
+    (undercloud) [stack@osp16-undercloud images]$ openstack subnet set --dns-nameserver 10.144.31.146 --dns-nameserver 8.8.8.8 ctlplane-subnet
     ```  
 
 3. View the subnet to verify the nameserver:  
@@ -397,7 +397,7 @@ We need to set the nameserver in this step so the overcloud can resolve external
     | cidr              | 192.168.255.0/24                                             |
     | created_at        | 2021-04-12T19:04:06Z                                         |
     | description       |                                                              |
-    | dns_nameservers   | 8.8.4.4, 8.8.8.8                              |
+    | dns_nameservers   | 10.144.31.146, 8.8.8.8                              |
     | ...               | <snippet removed>                                            |
     | tags              |                                                              |
     | updated_at        | 2021-04-13T21:00:16Z                                         |
