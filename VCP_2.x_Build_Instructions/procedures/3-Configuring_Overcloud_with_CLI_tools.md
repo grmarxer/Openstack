@@ -415,6 +415,7 @@ By default, director deploys an overcloud with 1 Controller node and 1 Compute n
       ComputeCount: 2
     ```  
 
+<br/> 
 
 ## Deployment command  
 
