@@ -455,21 +455,12 @@ Do not edit the overcloud configuration directly because director overrides any 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<br/> 
+<br/> 
+<br/> 
+<br/> 
+<br/> 
+<br/> 
 
 ```
 openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml -e /home/stack/containers-prepare-parameter.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs.yaml --validation-errors-nonfatal
