@@ -453,6 +453,45 @@ Do not edit the overcloud configuration directly because director overrides any 
 (undercloud) $ openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml  -e /home/stack/containers-prepare-parameter.yaml
 ```  
 
+```
+PLAY RECAP *********************************************************************
+overcloud-controller-0     : ok=335  changed=204  unreachable=0    failed=0    skipped=165  rescued=0    ignored=0
+overcloud-novacompute-0    : ok=272  changed=160  unreachable=0    failed=0    skipped=166  rescued=0    ignored=0
+overcloud-novacompute-1    : ok=269  changed=160  unreachable=0    failed=0    skipped=166  rescued=0    ignored=0
+undercloud                 : ok=95   changed=39   unreachable=0    failed=0    skipped=9    rescued=0    ignored=0
+
+Friday 02 July 2021  13:44:22 -0700 (0:00:00.056)       0:22:21.912 ***********
+===============================================================================
+Wait for containers to start for step 2 using paunch ------------------ 203.69s
+Wait for containers to start for step 3 using paunch ------------------ 110.22s
+Pre-fetch all the containers ------------------------------------------ 106.00s
+Pre-fetch all the containers ------------------------------------------- 97.49s
+Wait for containers to start for step 4 using paunch ------------------- 81.88s
+Wait for container-puppet tasks (generate config) to finish ------------ 55.55s
+Wait for puppet host configuration to finish --------------------------- 42.62s
+Run tripleo-container-image-prepare logged to: /var/log/tripleo-container-image-prepare.log -- 39.32s
+Wait for containers to start for step 5 using paunch ------------------- 35.96s
+tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-cinder-volume:16.1 image -- 23.88s
+Run puppet on the host to apply IPtables rules ------------------------- 23.63s
+Wait for puppet host configuration to finish --------------------------- 19.81s
+Wait for container-puppet tasks (bootstrap tasks) for step 4 to finish -- 16.60s
+Wait for containers to start for step 1 using paunch ------------------- 16.53s
+tripleo-network-config : Run NetworkConfig script ---------------------- 13.86s
+Wait for puppet host configuration to finish --------------------------- 13.38s
+Wait for puppet host configuration to finish --------------------------- 13.27s
+Wait for puppet host configuration to finish --------------------------- 13.27s
+Wait for container-puppet tasks (bootstrap tasks) for step 3 to finish -- 10.06s
+Manage Cinder Volume Type ----------------------------------------------- 9.17s
+
+Ansible passed.
+Overcloud configuration completed.
+Overcloud Endpoint: http://192.168.255.24:5000
+Overcloud Horizon Dashboard URL: http://192.168.255.24:80/dashboard
+Overcloud rc file: /home/stack/templates/overcloudrc
+Overcloud Deployed without error
+```  
+
+
 
 
 
