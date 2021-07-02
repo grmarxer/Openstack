@@ -453,6 +453,8 @@ Do not edit the overcloud configuration directly because director overrides any 
 (undercloud) $ openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml  -e /home/stack/containers-prepare-parameter.yaml
 ```  
 
+This is the output of a deployment that completed successfully
+
 ```
 PLAY RECAP *********************************************************************
 overcloud-controller-0     : ok=335  changed=204  unreachable=0    failed=0    skipped=165  rescued=0    ignored=0
