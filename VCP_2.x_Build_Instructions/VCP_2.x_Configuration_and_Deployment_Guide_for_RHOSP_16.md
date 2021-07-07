@@ -13,3 +13,7 @@
 - SRIOV - Intel XXV710  
 - OVS-DPDK queue size 1024  
 
+
+
+### [Procedures List](https://github.com/grmarxer/Openstack/tree/master/VCP_2.x_Build_Instructions/procedures)
+
