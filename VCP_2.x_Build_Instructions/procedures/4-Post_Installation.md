@@ -5,6 +5,7 @@
 $ source ~/overcloudrc
 ```
 
+<br/> 
 
 ## Accessing overcloud nodes through SSH
 
@@ -37,6 +38,11 @@ $ source ~/stackrc
 ```  
 
 
+<br/> 
+
+<br/> 
+
+<br/> 
 
 ```
 (overcloud) [stack@osp16-undercloud ~]$ openstack user create --password default grmarxer
