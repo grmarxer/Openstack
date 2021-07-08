@@ -90,4 +90,35 @@ The Undercloud Controller pushed the OS and Openstack Configuration to the Contr
 | :---------:    | :----------:    | :----------:        |  :----------:        |  
 | Controller     | 10.144.19.237   | root                | calvin               |  
 | Compute Node 1 | 10.144.19.235   | root                | calvin               |
-| Compute Node 2 | 10.144.19.233   | root                | calvin               |
+| Compute Node 2 | 10.144.19.233   | root                | calvin               |  
+
+<br/> 
+
+1. Using the IDRAC console boot each server into BIOS setup  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/idrac-boot-bios-setup.png)  
+
+
+2. Select device settings  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/device-settings.png)  
+
+3. Select Integrated NIC 1 Port 1:Broadcom Adv Dual 25GB Ethernet and ensure Legacy Boot Protocol is set to none  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/nic1-port1.png)  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/nic1-port1-pxe-none.png)  
+
+4. Select Integrated NIC 1 Port 2:Broadcom Adv Dual 25GB Ethernet and ensure Legacy Boot Protocol is set to PXE  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/nic1-port2.png)
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/nic1-port2-pxe-on.png)  
+
+5. Enter System BIOS > Boot Settings and make sure Boot Mode is set to BIOS  
+
+6. Select BIOS Boot Settings and make sure that both hard drive C and Integrated NIC 1 Port 2 are checked  
+
+7.  Select Boot Sequence and rearrange the boot order so Integrated NIC 1 Port 2 is first in the boot order  
+
+8.  Save your changes, exit the BIOS setup and reboot  
