@@ -1,4 +1,4 @@
-# Building the OSP 16.1 UnderCloud Director Node  
+# Preparing the OSP 16.1 UnderCloud Director Node for Openstack Deployment
 
 https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/chap-introduction  
 
