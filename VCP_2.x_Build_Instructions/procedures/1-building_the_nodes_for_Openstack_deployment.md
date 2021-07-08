@@ -78,4 +78,16 @@ There are four nodes in this deployment, the Undercloud Director, the Controller
     Active: inactive (dead)
         Docs: man:firewalld(1)
     ```  
+<br/>  
 
+## Configure the Controller and Compute Nodes to PXE boot from NIC eno2np1  
+
+The Undercloud Controller pushed the OS and Openstack Configuration to the Controller and Compute Nodes via PXE boot.  You must configure the BIOS of each of the nodes below to PXE boot from NIC eno2np1.  
+<br/>  
+
+
+| **Node**       | **IDRAC IP**    |**IDRAC username**  |  **IRAC password**   |
+| :---------:    | :----------:    | :----------:        |  :----------:        |  
+| Controller     | 10.144.19.237   | root                | calvin               |  
+| Compute Node 1 | 10.144.19.235   | root                | calvin               |
+| Compute Node 2 | 10.144.19.233   | root                | calvin               |
