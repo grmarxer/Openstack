@@ -12,10 +12,12 @@
 
 ### Openstack Environment Requirements:  
 - RHEL 8.2   
-- OSP 16.1 (TRAIN)  
+- OSP 16.1 (TRAIN) 
+- Hyperthreading for guests disabled  
+- CPU pinning on NUMA node   
 
 ### Neutron Requirements:  
-- OVS-DPDK (host) - Mellanox NICs MCX512A-ACAT, OVS-DPDK queue size 1024  
+- OVS-DPDK (host) - Mellanox NICs MCX512A-ACAT, OVS-DPDK queue size 1024, enable 1G huge pages, multi-queue enabled  
 - SRIOV - Intel NICs XXV710  
 - virtio bridge - eno1np0  
 
