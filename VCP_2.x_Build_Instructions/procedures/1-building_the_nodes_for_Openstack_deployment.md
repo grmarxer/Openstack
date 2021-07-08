@@ -160,3 +160,5 @@ __NOTE:__ The following steps must be completed on the controller and each of th
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/exit-bios-3.png)  
 
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/exit-bios-4.png)    
+
+9.  You have completed this procedure, all further configuration work will be completed on the Undercloud Director __ONLY__  
