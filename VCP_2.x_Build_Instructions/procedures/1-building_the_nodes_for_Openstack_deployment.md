@@ -87,7 +87,7 @@ The Undercloud Controller pushed the OS and Openstack Configuration to the Contr
 <br/>  
 
 
-| **Node**       | **IDRAC IP**    |**IDRAC username**  |  **IRAC password**   |
+| **Node**       | **IDRAC IP**    |**IDRAC username**  |  **IDRAC password**   |
 | :---------:    | :----------:    | :----------:        |  :----------:        |  
 | Controller     | 10.144.19.237   | root                | calvin               |  
 | Compute Node 1 | 10.144.19.235   | root                | calvin               |
