@@ -22,10 +22,10 @@
     - Configure NIC eno3 with the IP information above  
     - set the root user password to `default`  
 
-3. Once the OS installation is complete reboot the server and ssh into the node using `root`
+3. Once the OS installation is complete reboot the server and ssh into the Undercloud Director using `root`
 <br/>  
 
-### Configure NTP  
+### Configure NTP on the Undercloud Director
 
 1.  Edit the chrony.conf file 
     ```
@@ -53,7 +53,7 @@
     ```  
 <br/>  
 
-### Disable firewall  
+### Disable firewall on the Undercloud Director
 
 1. Stop the firewalld service  
     ```
