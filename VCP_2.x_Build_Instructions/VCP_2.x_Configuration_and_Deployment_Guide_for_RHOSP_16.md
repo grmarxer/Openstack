@@ -37,5 +37,5 @@
 
 <br/> 
 
-### [Link to Procedures List](https://github.com/grmarxer/Openstack/tree/master/VCP_2.x_Build_Instructions/procedures)
+### [Link to Procedures List for OSP 16 deployment](https://github.com/grmarxer/Openstack/tree/master/VCP_2.x_Build_Instructions/procedures)
 
