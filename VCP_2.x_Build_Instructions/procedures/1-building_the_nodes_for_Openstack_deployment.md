@@ -138,9 +138,9 @@ The Undercloud Controller pushed the OS and Openstack Configuration to the Contr
 
 7.  Select Boot Sequence and rearrange the boot order so Integrated NIC 1 Port 2 is first in the boot order  
 
-![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/boot-sequence.png)  
-
-![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/boot-sequence-rearrange-2.png)  
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/boot-sequence-rearrange-1.png) 
+ 
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/boot-sequence-rearrange-2.png) 
 
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/boot-sequence-rearrange-3.png)  
 
