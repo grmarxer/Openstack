@@ -98,27 +98,63 @@ The Undercloud Controller pushed the OS and Openstack Configuration to the Contr
 
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/idrac-boot-bios-setup.png)  
 
+<br/> 
 
 2. Select device settings  
 
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/device-settings.png)  
+<br/> 
 
 3. Select Integrated NIC 1 Port 1:Broadcom Adv Dual 25GB Ethernet and ensure Legacy Boot Protocol is set to none  
 
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/nic1-port1.png)  
 
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/nic1-port1-pxe-none.png)  
+<br/> 
 
 4. Select Integrated NIC 1 Port 2:Broadcom Adv Dual 25GB Ethernet and ensure Legacy Boot Protocol is set to PXE  
 
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/nic1-port2.png)
 
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/nic1-port2-pxe-on.png)  
+<br/> 
 
 5. Enter System BIOS > Boot Settings and make sure Boot Mode is set to BIOS  
 
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/system-bios.png)  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/boot-settings.png)  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/boot-settings-BIOS.png)  
+<br/> 
+
 6. Select BIOS Boot Settings and make sure that both hard drive C and Integrated NIC 1 Port 2 are checked  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/bios-boot-settings.png)  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/bios-boot-settings-enable-hdc-nic1p2.png)
+
+<br/> 
 
 7.  Select Boot Sequence and rearrange the boot order so Integrated NIC 1 Port 2 is first in the boot order  
 
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/boot-sequence.png)  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/boot-sequence-rearrange-1.png)  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/boot-sequence-rearrange-2.png) 
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/boot-sequence-rearrange-3.png)  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/boot-sequence-rearrange-4.png)  
+<br/> 
+
 8.  Save your changes, exit the BIOS setup and reboot  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/exit-bios-1.png)  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/exit-bios-2.png)  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/exit-bios-3.png)  
+
+![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/exit-bios-4.png)    
