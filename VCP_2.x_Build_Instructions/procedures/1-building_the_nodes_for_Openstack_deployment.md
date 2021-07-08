@@ -94,6 +94,8 @@ The Undercloud Controller pushed the OS and Openstack Configuration to the Contr
 
 <br/> 
 
+__NOTE:__ The following steps must be completed on the controller and each of the compute nodes  
+
 1. Using the IDRAC console boot each server into BIOS setup  
 
 ![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/idrac-boot-bios-setup.png)  
