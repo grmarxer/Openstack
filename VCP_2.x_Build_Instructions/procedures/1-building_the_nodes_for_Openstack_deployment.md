@@ -1,4 +1,9 @@
-# Building the Undercloud Director Node  
+# Building the Nodes for Openstack deployment  
+
+There are four nodes in this deployment, the Undercloud Director, the Controller, and two Compute nodes.  
+<br/>  
+
+## Build the Undercloud Director Node  
 
 <br/>  
 
