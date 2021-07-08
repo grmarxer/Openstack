@@ -79,6 +79,7 @@ There are four nodes in this deployment, the Undercloud Director, the Controller
         Docs: man:firewalld(1)
     ```  
 <br/>  
+<br/>  
 
 ## Configure the Controller and Compute Nodes to PXE boot from NIC eno2np1  
 
