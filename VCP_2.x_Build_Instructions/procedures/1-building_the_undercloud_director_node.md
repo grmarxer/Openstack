@@ -2,7 +2,7 @@
 
 <br/>  
 
-## Node Information  
+### Node Information  
   
 | **Undercloud Director Hostname**    | **IDRAC IP**  |**NIC eno3 IP Address**  |  **Netmask**   | **Gateway**   | **DNS**                |  
 | :---------------------:             | :----------:  | :----------:            |  :----------:  | :----------:  | :----------:           |  
@@ -10,7 +10,7 @@
 
 <br/>  
 
-## Install RHEL 8.2 on Undercloud Director  
+### Install RHEL 8.2 on Undercloud Director  
 
 1. Log into IDRAC IP above -- username root, password calvin  
 
@@ -22,9 +22,10 @@
     - Configure NIC eno3 with the IP information above  
     - set the root user password to `default`  
 
-3. Once the OS installation is complete, reboot the server and ssh into the node using `root`
+3. Once the OS installation is complete reboot the server and ssh into the node using `root`
+<br/>  
 
-## Configure NTP  
+### Configure NTP  
 
 1.  Edit the chrony.conf file 
     ```
@@ -50,3 +51,26 @@
     ===============================================================================
     ^* time.pd.f5net.com             5   6   377    25   -133us[ -167us] +/-  392ms
     ```  
+<br/>  
+
+### Disable firewall  
+
+1. Stop the firewalld service  
+    ```
+    systemctl stop firewalld.service
+    ```  
+
+2.  Disable the firewalld service  
+    ```
+    systemctl disable firewalld.service
+    ```  
+
+3.  Verify that the firewall has been disabled  
+    ```
+    [root@osp16-undercloud stack]# systemctl status firewalld.service
+    ● firewalld.service - firewalld - dynamic firewall daemon
+    Loaded: loaded (/usr/lib/systemd/system/firewalld.service; disabled; vendor preset: enabled)
+    Active: inactive (dead)
+        Docs: man:firewalld(1)
+    ```  
+
