@@ -4,7 +4,7 @@
 
 ## Openstack 2.x Lab drawing
 
-![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/vcp2-x-lab-drawing.png)  
+![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/lab-drawing.png)  
 
 <br/> 
 
