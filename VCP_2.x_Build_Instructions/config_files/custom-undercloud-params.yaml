@@ -1,4 +1,0 @@
-parameter_defaults:
-  Debug: True
-  AdminPassword: "default"
-  AdminEmail: "g.marxer@f5.com"
