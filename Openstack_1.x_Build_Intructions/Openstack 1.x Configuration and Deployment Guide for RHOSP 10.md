@@ -1,5 +1,5 @@
 # Openstack 1.x Configuration and Deployment Guide for Openstack Newton (RHOSP 10) on RHEL 7.7
-- RHEL 7.7 is required to match VCP environment  
+- RHEL 7.7 is required   
 - This deployment is built using the Intel x520 NIC for the tenant networks
 - This guide builds everything using the admin user in the demo tenant
 - This deployment consists of one controller node and two compute nodes all of which are  Dell PowerEdge R640 servers  
