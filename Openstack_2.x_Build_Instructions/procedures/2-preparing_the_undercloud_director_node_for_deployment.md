@@ -174,7 +174,7 @@ The undercloud installation requires an environment file to determine where to o
 
 #### Procedure
 
-1.  This file has already been created and modified for this specific environment.  Copy [this file](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/config_files/containers-prepare-parameter.yaml) `containers-prepare-parameter.yaml` into the `/home/stack/` directory on the undercloud director node.  
+1.  This file has already been created and modified for this specific environment.  Copy [this file](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/config_files/containers-prepare-parameter.yaml) `containers-prepare-parameter.yaml` into the `/home/stack/` directory on the undercloud director node.  
 
     __Note:__ Do not change this files name.  
 
@@ -199,9 +199,9 @@ The director installation process requires certain settings in the undercloud.co
 
 #### Procedure  
 
-1. Copy [this file](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/config_files/undercloud.final.conf) `undercloud.final.conf` into the `/home/stack/` directory on the undercloud director node and rename it to `undercloud.conf`  
+1. Copy [this file](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/config_files/undercloud.final.conf) `undercloud.final.conf` into the `/home/stack/` directory on the undercloud director node and rename it to `undercloud.conf`  
 
-    __Note:__ For your reference this is the [link](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/config_files/undercloud.conf.original) to the unedited original undercloud.conf file.  Use this file and follow the procedure [here](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/installing-the-undercloud#director-configuration-parameters) if you wish to modify this deployment.  
+    __Note:__ For your reference this is the [link](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/config_files/undercloud.conf.original) to the unedited original undercloud.conf file.  Use this file and follow the procedure [here](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/installing-the-undercloud#director-configuration-parameters) if you wish to modify this deployment.  
 
 <br/> 
 
@@ -213,7 +213,7 @@ You configure the main parameters for the undercloud through the undercloud.conf
 
 #### Procedure  
 
-1. Copy [this file](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/config_files/custom-undercloud-params.yaml) `custom-undercloud-params.yaml` into the `/home/stack/templates` directory on the undercloud director node.  
+1. Copy [this file](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/config_files/custom-undercloud-params.yaml) `custom-undercloud-params.yaml` into the `/home/stack/templates` directory on the undercloud director node.  
 
     __Note:__ If you wish to make any additions to this file, follow this procedure as a reference -- [link](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/installing-the-undercloud#director-configuration-parameters)  
 

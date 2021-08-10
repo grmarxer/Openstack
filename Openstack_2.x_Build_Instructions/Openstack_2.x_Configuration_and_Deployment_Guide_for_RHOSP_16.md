@@ -4,7 +4,7 @@
 
 ## Openstack 2.x Lab drawing
 
-![Image](https://github.com/grmarxer/Openstack/blob/master/VCP_2.x_Build_Instructions/illustrations/vcp2-x-lab-drawing.png)  
+![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/vcp2-x-lab-drawing.png)  
 
 <br/> 
 
@@ -39,5 +39,5 @@
 
 <br/> 
 
-### [Link to Procedures List for OSP 16 deployment](https://github.com/grmarxer/Openstack/tree/master/VCP_2.x_Build_Instructions/procedures)
+### [Link to Procedures List for OSP 16 deployment](https://github.com/grmarxer/Openstack/tree/master/Openstack_2.x_Build_Instructions/procedures)
 
