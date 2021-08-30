@@ -115,12 +115,16 @@ __NOTE:__ The following steps must be completed on the controller and each of th
 
     ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/nic1-port1.png)  
 
+    ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/nic1-port1-nic-config.png) 
+
     ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/nic1-port1-pxe-none.png)  
 <br/> 
 
 4. Select Integrated NIC 1 Port 2:Broadcom Adv Dual 25GB Ethernet > NIC settings > and ensure Legacy Boot Protocol is set to PXE  
 
-    ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/nic1-port2.png)
+    ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/nic1-port2.png)  
+
+    ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/nic1-port2-nic-config.png)
 
     ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/nic1-port2-pxe-on.png)  
 <br/> 
