@@ -91,8 +91,8 @@ The Undercloud Controller pushed the OS and Openstack Configuration to the Contr
 | **Node**       |  **PXE NIC**                                      | **IDRAC IP**    |**IDRAC username**  |  **IDRAC password**   |
 | :---------:    | :----------:                                      | :----------:    | :----------:        |  :----------:        |  
 | Compute Node 1 | eno2np1 - Int NIC 1 Port 2:Broadcom Adv Dual 25GB | 10.144.19.235   | root                | calvin               |
-| Compute Node 2 | eno2np1 - Int NIC 1 Port 2:Broadcom Adv Dual 25GB | 10.144.19.237   | root                | calvin               |  
-| Compute Node 3 | eno2np1 - Int NIC 1 Port 2:Broadcom Adv Dual 25GB | 10.144.19.231   | root                | calvin               |  
+| Compute Node 2 | eno2np1 - Int NIC 1 Port 2:Broadcom Adv Dual 25GB | 10.144.19.231   | root                | calvin               |  
+| Compute Node 3 | eno2np1 - Int NIC 1 Port 2:Broadcom Adv Dual 25GB | 10.144.19.237   | root                | calvin               |  
 | Compute Node 4 | eno2np1 - Int NIC 1 Port 2:Broadcom Adv Dual 25GB | 10.144.19.233   | root                | calvin               | 
 | Controller     | ??                                                | 10.144.19.???   | root                | calvin               |   
 
