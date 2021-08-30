@@ -82,19 +82,19 @@ There are four nodes in this deployment, the Undercloud Director, the Controller
 <br/>  
 <br/>  
 
-## Configure the Controller and Compute Nodes to PXE boot from the appropriate NIC eno2np1  
+## Configure the Controller and Compute Nodes to PXE boot from the appropriate NIC  
 
 The Undercloud Controller pushed the OS and Openstack Configuration to the Controller and Compute Nodes via PXE boot.  You must configure the BIOS of each of the nodes below to PXE boot from NIC eno2np1.  
 <br/>  
 
 
-| **Node**       |  **PXE NIC** | **IDRAC IP**    |**IDRAC username**  |  **IDRAC password**   |
-| :---------:    | :----------: | :----------:    | :----------:        |  :----------:        |  
-| Controller     | ??           | 10.144.19.???   | root                | calvin               |  
-| Compute Node 1 | eno2np1      | 10.144.19.235   | root                | calvin               |
-| Compute Node 2 | eno2np1      | 10.144.19.237   | root                | calvin               |  
-| Compute Node 3 | eno2np1      | 10.144.19.231   | root                | calvin               |  
-| Compute Node 4 | eno2np1      | 10.144.19.233   | root                | calvin               |  
+| **Node**       |  **PXE NIC**                                             | **IDRAC IP**    |**IDRAC username**  |  **IDRAC password**   |
+| :---------:    | :----------:                                             | :----------:    | :----------:        |  :----------:        |  
+| Controller     | ??                                                       | 10.144.19.???   | root                | calvin               |  
+| Compute Node 1 | eno2np1 - Integrated NIC 1 Port 2:Broadcom Adv Dual 25GB | 10.144.19.235   | root                | calvin               |
+| Compute Node 2 | eno2np1 - Integrated NIC 1 Port 2:Broadcom Adv Dual 25GB | 10.144.19.237   | root                | calvin               |  
+| Compute Node 3 | eno2np1 - Integrated NIC 1 Port 2:Broadcom Adv Dual 25GB | 10.144.19.231   | root                | calvin               |  
+| Compute Node 4 | eno2np1 - Integrated NIC 1 Port 2:Broadcom Adv Dual 25GB | 10.144.19.233   | root                | calvin               |  
 
 <br/> 
 
