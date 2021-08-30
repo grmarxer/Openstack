@@ -109,14 +109,16 @@ __NOTE:__ The following steps must be completed on the controller and each of th
     ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/device-settings.png)  
 <br/> 
 
-3. Select Integrated NIC 1 Port 1:Broadcom Adv Dual 25GB Ethernet and ensure Legacy Boot Protocol is set to none  
+3. Select Integrated NIC 1 Port 1:Broadcom Adv Dual 25GB Ethernet > NIC Settings > and ensure Legacy Boot Protocol is set to none  
+
+    __Note:__ If you make any changes the BIOS will prompt you to save those changes.  
 
     ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/nic1-port1.png)  
 
     ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/nic1-port1-pxe-none.png)  
 <br/> 
 
-4. Select Integrated NIC 1 Port 2:Broadcom Adv Dual 25GB Ethernet and ensure Legacy Boot Protocol is set to PXE  
+4. Select Integrated NIC 1 Port 2:Broadcom Adv Dual 25GB Ethernet > NIC settings > and ensure Legacy Boot Protocol is set to PXE  
 
     ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/nic1-port2.png)
 
