@@ -1,16 +1,6 @@
 {
         "nodes": [{
                         "ports": [{
-                                "address": "b0:26:28:44:91:41"
-                        }],
-                        "name": "controller",
-                        "pm_type": "ipmi",
-                        "pm_user": "root",
-                        "pm_password": "calvin",
-                        "pm_addr": "10.144.19.237"
-                },
-                {
-                        "ports": [{
                                 "address": "b0:26:28:3e:73:11"
                         }],
                         "name": "compute1",
@@ -21,13 +11,43 @@
                 },
                 {
                         "ports": [{
-                                "address": "b0:26:28:45:fd:81"
+                                "address": "b0:26:28:44:91:41"
                         }],
                         "name": "compute2",
                         "pm_type": "ipmi",
                         "pm_user": "root",
                         "pm_password": "calvin",
+                        "pm_addr": "10.144.19.237"
+                },
+                {
+                        "ports": [{
+                                "address": "b0:26:28:3b:71:a1"
+                        }],
+                        "name": "compute3",
+                        "pm_type": "ipmi",
+                        "pm_user": "root",
+                        "pm_password": "calvin",
+                        "pm_addr": "10.144.19.231"
+                },
+                {
+                        "ports": [{
+                                "address": "b0:26:28:45:fd:81"
+                        }],
+                        "name": "compute4",
+                        "pm_type": "ipmi",
+                        "pm_user": "root",
+                        "pm_password": "calvin",
                         "pm_addr": "10.144.19.233"
+                },
+                {
+                        "ports": [{
+                                "address": "b0:26:28:45:fd:81"
+                        }],
+                        "name": "controller",
+                        "pm_type": "ipmi",
+                        "pm_user": "root",
+                        "pm_password": "calvin",
+                        "pm_addr": "10.144.19.??"
                 }
         ]
 }
