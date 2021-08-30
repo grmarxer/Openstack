@@ -136,8 +136,6 @@ __NOTE:__ The following steps must be completed on the controller and each of th
 
 6. Select BIOS Boot Settings and make sure that both hard drive C and Integrated NIC 1 Port 2 are checked  
 
-    ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/bios-boot-settings.png)  
-
     ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/bios-boot-settings-enable-hdc-nic1p2.png)
 
 <br/> 
