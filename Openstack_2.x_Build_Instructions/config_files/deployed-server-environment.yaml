@@ -1,0 +1,237 @@
+resource_registry:
+  OS::TripleO::Server: /usr/share/openstack-tripleo-heat-templates/deployed-server/deployed-server.yaml
+  OS::TripleO::DeployedServer::ControlPlanePort: /usr/share/openstack-tripleo-heat-templates/deployed-server/deployed-neutron-port.yaml
+  OS::TripleO::DeployedServer::Bootstrap: OS::Heat::None
+
+  # Network configuration assignments for the Controller Role
+  OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/templates/virtcontroller4.yaml
+  # Network configuration assignments for the ComputeVirt Role
+  OS::TripleO::ComputeVirt::Net::SoftwareConfig: /home/stack/templates/virtcompute4.yaml
+  # Network configuration assignments for the ComputeMetal Role
+  OS::TripleO::ComputeMetal::Net::SoftwareConfig: /home/stack/templates/metalcompute4.yaml
+  # Network configuration assignments for the ComputeMetal Role
+  OS::TripleO::ComputeSriovMetal::Net::SoftwareConfig: /home/stack/templates/metalcomputesriov4.yaml
+  # Network configuration assignments for the BlockStorage
+  # OS::TripleO::BlockStorage::Net::SoftwareConfig: /usr/share/openstack-tripleo-heat-templates/network/config/multiple-nics-vlans/cinder-storage.yaml
+  # Network configuration assignments for the ObjectStorage
+  # OS::TripleO::ObjectStorage::Net::SoftwareConfig: /usr/share/openstack-tripleo-heat-templates/network/config/multiple-nics-vlans/swift-storage.yaml
+  # Network configuration assignments for the CephStorage
+  # OS::TripleO::CephStorage::Net::SoftwareConfig: /usr/share/openstack-tripleo-heat-templates/network/config/multiple-nics-vlans/ceph-storage.yaml
+
+
+parameter_defaults:
+  # NeutronOVSFirewallDriver: noop
+  CloudDomain: pdsea.f5net.com
+  EnablePackageInstall: True
+  NeutronPublicInterface: ens224
+  ControlPlaneDefaultRoute: 10.146.171.11
+  # EC2MetadataIp: 10.146.171.25
+  HostnameMap:
+    vnfcloud-controller-0: controller0
+    vnfcloud-controller-1: controller1
+    vnfcloud-controller-2: controller2
+    vnfcloud-computevirt-0: computevirt0
+    vnfcloud-computemetal-0: computemetal0
+    vnfcloud-computemetal-1: computemetal1
+    vnfcloud-computsriovemetal-0: computemetal0-sriov
+    vnfcloud-computsriovemetal-1: computemetal1-sriov
+    vnfcloud-computsriovemetal-2: computemetal2-sriov
+    vnfcloud-computsriovemetal-3: computemetal3-sriov
+    vnfcloud-computsriovemetal-4: computemetal4-sriov
+    vnfcloud-computsriovemetal-5: computemetal5-sriov
+  DeployedServerPortMap:
+    controller0-ctlplane:
+      fixed_ips:
+        - ip_address: 10.146.171.14
+      subnets:
+        - cidr: 10.146.171.0/23
+      network:
+        tags:
+          - 10.146.171.0/23
+    controller1-ctlplane:
+      fixed_ips:
+        - ip_address: 10.146.171.15
+      subnets:
+        - cidr: 10.146.171.0/23
+      network:
+        tags:
+          - 10.146.171.0/23
+    controller2-ctlplane:
+      fixed_ips:
+        - ip_address: 10.146.171.16
+      subnets:
+        - cidr: 10.146.171.0/23
+      network:
+        tags:
+          - 10.146.171.0/23
+    computevirt0-ctlplane:
+      fixed_ips:
+        - ip_address: 10.146.171.17
+      subnets:
+        - cidr: 10.146.171.0/23
+      network:
+        tags:
+          - 10.146.171.0/23
+    computemetal0-ctlplane:
+      fixed_ips:
+        - ip_address: 10.146.171.18
+      subnets:
+        - cidr: 10.146.171.0/23
+      network:
+        tags:
+          - 10.146.171.0/23
+    computemetal1-ctlplane:
+      fixed_ips:
+        - ip_address: 10.146.171.19
+      subnets:
+        - cidr: 10.146.171.0/23
+      network:
+        tags:
+          - 10.146.171.0/23
+    computemetal0-sriov-ctlplane:
+      fixed_ips:
+        - ip_address: 10.146.171.32
+      subnets:
+        - cidr: 10.146.171.0/23
+      network:
+        tags:
+          - 10.146.171.0/23
+    computemetal1-sriov-ctlplane:
+      fixed_ips:
+        - ip_address: 10.146.171.33
+      subnets:
+        - cidr: 10.146.171.0/23
+      network:
+        tags:
+          - 10.146.171.0/23
+    computemetal2-sriov-ctlplane:
+      fixed_ips:
+        - ip_address: 10.146.171.34
+      subnets:
+        - cidr: 10.146.171.0/23
+      network:
+        tags:
+          - 10.146.171.0/23
+    computemetal3-sriov-ctlplane:
+      fixed_ips:
+        - ip_address: 10.146.171.35
+      subnets:
+        - cidr: 10.146.171.0/23
+      network:
+        tags:
+          - 10.146.171.0/23      
+    computemetal4-sriov-ctlplane:
+      fixed_ips:
+        - ip_address: 10.146.171.36
+      subnets:
+        - cidr: 10.146.171.0/23
+      network:
+        tags:
+          - 10.146.171.0/23
+    computemetal5-sriov-ctlplane:
+      fixed_ips:
+        - ip_address: 10.146.171.37
+      subnets:
+        - cidr: 10.146.171.0/23
+      network:
+        tags:
+          - 10.146.171.0/23
+       
+  
+  # This section is where deployment-specific configuration is done
+  #
+  # NOTE: (Since Rocky)
+  # ControlPlaneSubnetCidr: It is no longer a requirement to provide the
+  #                         parameter. The attribute is resolved from the
+  #                         ctlplane subnet(s).
+  # ControlPlaneDefaultRoute: It is no longer a requirement to provide this
+  #                           parameter. The attribute is resolved from the
+  #                           ctlplane subnet(s).
+  # EC2MetadataIp: It is no longer a requirement to provide this parameter. The
+  #                attribute is resolved from the ctlplane subnet(s).
+  #
+  # Customize the IP subnets to match the local environment
+  StorageNetCidr: '10.146.130.0/23'
+  StorageMgmtNetCidr: '10.94.0.0/16'
+  InternalApiNetCidr: '10.92.0.0/16'
+  TenantNetCidr: '10.95.0.0/16'
+  ExternalNetCidr: '10.146.172.0/23'
+  # Customize the VLAN IDs to match the local environment
+  StorageNetworkVlanID: 2248
+  StorageMgmtNetworkVlanID: 93
+  InternalApiNetworkVlanID: 94
+  TenantNetworkVlanID: 95
+  ExternalNetworkVlanID: 92
+  StorageAllocationPools: [{'start': '10.146.130.160', 'end': '10.146.130.170'}]
+  StorageMgmtAllocationPools: [{'start': '10.94.1.100', 'end': '10.94.1.200'}]
+  InternalApiAllocationPools: [{'start': '10.92.1.100', 'end': '10.92.1.200'}]
+  TenantAllocationPools: [{'start': '10.95.1.100', 'end': '10.95.1.200'}]
+  # Leave room if the external network is also used for floating IPs
+  ExternalAllocationPools: [{'start': '10.146.172.90', 'end': '10.146.172.100'}]
+  # Gateway routers for routable networks
+  ExternalInterfaceDefaultRoute: '10.146.173.254'
+  ### Custom VIP addresses
+  # ControlFixedIPs: [{'ip_address':'192.168.201.101'}]
+  InternalApiVirtualFixedIPs: [{'ip_address':'10.92.1.120'}]
+  PublicVirtualFixedIPs: [{'ip_address':'10.146.172.101'}]
+  StorageVirtualFixedIPs: [{'ip_address':'10.146.130.78'}]
+  StorageMgmtVirtualFixedIPs: [{'ip_address':'10.94.1.111'}]
+  # RedisVirtualFixedIPs: [{'ip_address':'172.16.0.8'}]
+
+  # Customize the IP subnet to match the local environment
+  ManagementNetCidr: '10.146.171.0/24'
+  # Customize the IP range to use for static IPs and VIPs
+  ManagementAllocationPools: [{'start': '10.146.171.240', 'end': '10.146.171.250'}]
+  # Gateway router for routable networks
+  ManagementInterfaceDefaultRoute: '10.146.171.11'
+  # Customize the VLAN ID to match the local environment
+  ManagementNetworkVlanID: 90
+  # Define the DNS servers (maximum 2) for the overcloud nodes
+  DnsServers: ["172.27.1.1","172.27.2.1"]
+  # List of Neutron network types for tenant networks (will be used in order)
+  # NeutronNetworkType: 'vlan'
+  # The tunnel type for the tenant network (vxlan or gre). Set to '' to disable tunneling.
+  # NeutronTunnelTypes: 'vxlan'
+  NeutronBridgeMappings:
+    - float:br-ex
+  # Neutron VLAN ranges per network, for example 'datacentre:1:499,tenant:500:1000':
+  NeutronNetworkVLANRanges: 
+    - float:10:10
+    - float:100:109
+  NeutronFlatNetworks: "float"
+  # NeutronExternalNetworkBridge: "''"
+  # Customize bonding options, e.g. "mode=4 lacp_rate=1 updelay=1000 miimon=100"
+  # for Linux bonds w/LACP, or "bond_mode=active-backup" for OVS active/backup.
+  # BondInterfaceOvsOptions: "bond_mode=balance-slb lacp=off"
+  BondInterfaceOvsOptions: "lacp=active bond_mode=active-backup"
+  # These settings are specific to our Dell Servers for SR-IOV
+  ComputeSriovMetalParameters:
+    KernelArgs: "intel_iommu=on iommu=pt default_hugepagesz=2M hugepagesz=2M hugepages=512 isolcpus=1-15,17-31,33-47,49-63"
+    TunedProfileName: "cpu-partitioning"
+    IsolCpusList: "1-15,17-31,33-47,49-63"    
+    NeutronPhysicalDevMappings:
+      - float:ens3f0
+      - float:ens3f1
+    NeutronSriovNumVFs:
+      - ens3f0:8
+      - ens3f1:8
+    NovaVcpuPinSet: '1-15,17-31,33-47,49-63'
+    NovaReservedHostMemory: 8192
+  ComputeVirtExtraConfig:        
+    nova::disk_allocation_ratio: 4.0
+  ComputeVirtSchedulerHints:
+    'capabilities:profile': 'compute-%index%'
+  ComputeMetalExtraConfig:        
+    nova::disk_allocation_ratio: 4.0
+  ComputeMetalSchedulerHints:
+    'capabilities:profile': 'compute-%index%'
+  ComputeSriovMetalExtraConfig:        
+    nova::disk_allocation_ratio: 4.0
+  ComputeSriovMetalSchedulerHints:
+    'capabilities:profile': 'compute-%index%'
+  TimeZone: 'America/Los_Angeles'
+  ControllerCount: 3
+  ComputeVirtCount: 1
+  ComputeMetalCount: 2
+  ComputeSriovMetalCount: 6
+  NetworkDeploymentActions: ['CREATE','UPDATE']

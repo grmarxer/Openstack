@@ -1,0 +1,17 @@
+templates: /usr/share/openstack-tripleo-heat-templates/
+environments:
+  - /home/stack/templates/network-isolation.yaml
+  - /usr/share/openstack-tripleo-heat-templates/environments/network-environment.yaml
+  - /home/stack/templates/deployed-server-environment.yaml
+  - /home/stack/templates/ips-from-pool-all.yaml
+  - /home/stack/containers-prepare-parameter.yaml
+  - /usr/share/openstack-tripleo-heat-templates/environments/podman.yaml
+  - /home/stack/templates/docker-ha.yaml
+  # - /usr/share/openstack-tripleo-heat-templates/environments/host-config-and-reboot.yaml
+  - /home/stack/templates/neutron-ovn-sriov.yaml
+  # - /home/stack/templates/overcloud_images_update.yaml
+  # - /home/stack/templates/disable-telemetry.yaml
+  - /home/stack/templates/enable-tls.yaml
+  - /home/stack/templates/inject-trust-anchor.yaml
+  - /usr/share/openstack-tripleo-heat-templates/environments/ssl/tls-endpoints-public-ip.yaml
+  - /home/stack/templates/storage-environment.yaml
