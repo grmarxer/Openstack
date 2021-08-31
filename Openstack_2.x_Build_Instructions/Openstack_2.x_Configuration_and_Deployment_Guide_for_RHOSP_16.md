@@ -16,7 +16,7 @@
 | **Node**            |  **NIC Configuraion** | **Accerlation Technology** | **IDRAC IP**    |**IDRAC username**  |  **IDRAC password**   |
 | :---------:         | :----------:          | :----------:               | :----------:    | :----------:        |  :----------:        |  
 | Undercloud Director | N/A                   | N/A                        | 10.144.20.6     | root                | calvin               |  
-| Controller          | N/A                   | N/A                        | 10.144.19.???   | root                | calvin               |  
+| Controller          | N/A                   | N/A                        | 10.144.22.13    | root                | calvin               |  
 | Compute Node 1      | Intel XXV710          | SRIOV                      | 10.144.19.235   | root                | calvin               |
 | Compute Node 2      | Intel XXV710          | SRIOV                      | 10.144.19.231   | root                | calvin               |  
 | Compute Node 3      | Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.237   | root                | calvin               |  
