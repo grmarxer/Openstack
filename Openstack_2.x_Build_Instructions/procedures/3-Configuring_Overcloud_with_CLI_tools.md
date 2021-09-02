@@ -338,26 +338,31 @@ The undercloud director can run an introspection process on each node. This proc
     (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node introspect --all-manageable --provide
     Waiting for introspection to finish...
     Waiting for messages on queue 'tripleo' with no timeout.
-    Introspection of node completed:146bb426-2a52-4cba-b12b-b3f46749462b. Status:SUCCESS. Errors:None
-    Introspection of node completed:86da6986-443c-4135-9bc6-bc00653502b8. Status:SUCCESS. Errors:None
-    Introspection of node completed:96eb9d6f-e52e-4388-90cb-b793c39dc588. Status:SUCCESS. Errors:None
+    Introspection of node completed:3d19a65f-6699-484a-9298-c63c5d9068fe. Status:SUCCESS. Errors:None
+    Introspection of node completed:199a6ae0-c39a-4bfa-ad23-54280a3bac38. Status:SUCCESS. Errors:None
+    Introspection of node completed:5115e19f-9b81-44ca-8423-b3b1949807e5. Status:SUCCESS. Errors:None
+    Introspection of node completed:e2645014-ebed-4184-ae01-c782823b100a. Status:SUCCESS. Errors:None
+    Introspection of node completed:10e49aaa-fdd2-49dc-b009-0da398b4f5d7. Status:SUCCESS. Errors:None
+    Successfully introspected 5 node(s).
 
     Introspection completed.
     Waiting for messages on queue 'tripleo' with no timeout.
-    3 node(s) successfully moved to the "available" state.
+    5 node(s) successfully moved to the "available" state.
     ```  
 
 7.  Issue the `openstack baremetal node list` command again.  This is the desired result.  Provisioning state will transition to `clean failed`, that is expected.  
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node list
-    +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
-    | UUID                                 | Name       | Instance UUID | Power State | Provisioning State | Maintenance |
-    +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
-    | 146bb426-2a52-4cba-b12b-b3f46749462b | controller | None          | power off   | available          | False       |
-    | 86da6986-443c-4135-9bc6-bc00653502b8 | compute1   | None          | power off   | available          | False       |
-    | 96eb9d6f-e52e-4388-90cb-b793c39dc588 | compute2   | None          | power off   | available          | False       |
-    +--------------------------------------+------------+---------------+-------------+--------------------+-------------+
+    +--------------------------------------+----------------+---------------+-------------+--------------------+-------------+
+    | UUID                                 | Name           | Instance UUID | Power State | Provisioning State | Maintenance |
+    +--------------------------------------+----------------+---------------+-------------+--------------------+-------------+
+    | 199a6ae0-c39a-4bfa-ad23-54280a3bac38 | compute1-intel | None          | power off   | available          | False       |
+    | 5115e19f-9b81-44ca-8423-b3b1949807e5 | compute2-intel | None          | power off   | available          | False       |
+    | e2645014-ebed-4184-ae01-c782823b100a | compute3-mel   | None          | power off   | available          | False       |
+    | 10e49aaa-fdd2-49dc-b009-0da398b4f5d7 | compute4-mel   | None          | power off   | available          | False       |
+    | 3d19a65f-6699-484a-9298-c63c5d9068fe | controller     | None          | power off   | available          | False       |
+    +--------------------------------------+----------------+---------------+-------------+--------------------+-------------+
     ```  
 
 <br/> 
