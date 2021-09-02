@@ -274,8 +274,6 @@ The undercloud director can run an introspection process on each node. This proc
 
     - Use the --provide option to reset all nodes to an available state after introspection.  
 
-    <br/> 
-
     The `openstack overcloud node introspect --all-manageable --provide`  command won’t poll for real-time introspection status, you can use the following command to check the current introspection state for each UUID:  
 
     ```
