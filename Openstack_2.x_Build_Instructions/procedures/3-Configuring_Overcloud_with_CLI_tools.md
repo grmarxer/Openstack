@@ -352,7 +352,7 @@ The undercloud director can run an introspection process on each node. This proc
     5 node(s) successfully moved to the "available" state.
     ```  
 
-7.  Issue the `openstack baremetal node list` command again.  This is the desired result.  Provisioning state will transition to `clean failed`, that is expected.  
+7.  Issue the `openstack baremetal node list` command again.  This is the desired result.  Provisioning state will transition to `available` and the nodes will be powered off.  
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node list
