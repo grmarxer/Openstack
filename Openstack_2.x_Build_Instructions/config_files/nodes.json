@@ -3,7 +3,7 @@
                         "ports": [{
                                 "address": "b0:26:28:3e:73:11"
                         }],
-                        "name": "compute1",
+                        "name": "compute1-intel",
                         "pm_type": "ipmi",
                         "pm_user": "root",
                         "pm_password": "calvin",
@@ -13,7 +13,7 @@
                         "ports": [{
                                 "address": "b0:26:28:44:91:41"
                         }],
-                        "name": "compute2",
+                        "name": "compute2-intel",
                         "pm_type": "ipmi",
                         "pm_user": "root",
                         "pm_password": "calvin",
@@ -23,7 +23,7 @@
                         "ports": [{
                                 "address": "b0:26:28:3b:71:a1"
                         }],
-                        "name": "compute3",
+                        "name": "compute3-mel",
                         "pm_type": "ipmi",
                         "pm_user": "root",
                         "pm_password": "calvin",
@@ -33,7 +33,7 @@
                         "ports": [{
                                 "address": "b0:26:28:45:fd:81"
                         }],
-                        "name": "compute4",
+                        "name": "compute4-mel",
                         "pm_type": "ipmi",
                         "pm_user": "root",
                         "pm_password": "calvin",
