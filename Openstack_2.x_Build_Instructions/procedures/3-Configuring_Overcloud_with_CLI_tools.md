@@ -202,7 +202,7 @@ Run the pre-introspection validation group to check the introspection requiremen
 
 <br/> 
 
-## Inspecting the hardware of nodes for IPv4 provisioning  
+## Inspecting the openstack nodes hardware for IPv4 provisioning  
 
 The undercloud director can run an introspection process on each node. This process boots an introspection agent on each node via PXE. The introspection agent collects hardware data each node and sends the data back to director. The director then stores this introspection data in the OpenStack Object Storage (swift) service running on the director. Director uses hardware information for various purposes such as profile tagging, benchmarking, and manual root disk assignment.  
 
