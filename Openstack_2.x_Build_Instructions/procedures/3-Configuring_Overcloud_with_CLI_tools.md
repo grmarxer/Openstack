@@ -276,7 +276,7 @@ The undercloud director can run an introspection process on each node. This proc
 
     <br/> 
 
-    The `openstack overcloud node introspect --all-manageable --provide`  command won’t poll for the introspection result, use the following command to check the current introspection state for each UUID:  
+    The `openstack overcloud node introspect --all-manageable --provide`  command won’t poll for real-time introspection status, you can use the following command to check the current introspection state for each UUID:  
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal introspection status 146bb426-2a52-4cba-b12b-b3f46749462b
@@ -291,25 +291,28 @@ The undercloud director can run an introspection process on each node. This proc
     | uuid        | 146bb426-2a52-4cba-b12b-b3f46749462b |
     +-------------+--------------------------------------+
     ```  
+  <br/>
 
-    Repeat it for every node until you see __True__ in the finished field. The error field will contain an error message if introspection failed, or __None__ if introspection succeeded for this node.  
+    __IMPORTANT READ THIS:__  
 
-    <br/> 
+    The command above does not provide any real-time useful information.  The best way to know what is going on is to monitor the iDRAC console for each of the Openstack Nodes.  If you see tons of data flying across the screen things are working as it should.  
 
-    __IMPORTANT READ THIS:__   This process is incredibly unreliable, sometimes it works and sometimes it doesn't.  
+    The process is slow, here are the steps so you know what to look for:  
 
-    The PXE boot can fail because the PXE client (Controller and Compute nodes) does not send the TCP SYN to start the TCP connection required to perform the `HTTP GET /inspector.ipxe HTTP/1.1\r\n`, full URL `http://192.168.255.1:8088/inspector.ipxe` from the PXE server (undercloud director).   
+    1. The Undercloud director will PXE boot each Openstack Node -- this takes time to start as each server has to go through its bootstrap to get to the PXE boot.  
 
-    If this occurs the PXE client should keep trying, after timing out, and eventually correct itself.  
+    2. Then the Openstack Node will attempt to get an IP address from the undercloud director.  Once complete,  
+
+    3. The Openstack Node will issue a TFTP read to the undercloud director, then  
     
-    The best way to know if this is working or not is to watch the IDRAC console for the node in question.  If it fails the PXE boot, the boot cycle will be short and it will either try to load the image from the hard disk or go into a restart state after timing out.        
-    
-    If this issue occurs and either the process does not restart or you just don't want to wait for it to timeout, you can force the process to start again by issuing  the `openstack baremetal introspection start` command for the node in question.  You do not need to do anything else other than issue the `openstack baremetal introspection start` command `(example for the controller node -- openstack baremetal introspection start 146bb426-2a52-4cba-b12b-b3f46749462b)` to restart the process.
-    
-  
+    4. The Openstack Node will issue a HTTP GET for the inspector.ipxe image  
+
+    This process regularly fails between step 3 and step 4, you will know this by monitoring the iDRAC console.  If you see the PXE start but then fail, the server will try to boot from `disk` which is the next option in the boot sequence.  If this occurs it is best to use iDRAC to reboot the node immediately and kickoff the PXE boot again.  This can be done by selecting PXE from boot option inside iDRAC or from the BIOS.  
+    You do not want this to linger as the introspect command has a time limit.  So if it fails a node and the entire process times out you will need to start the process again for all nodes.  
+
+    The take home message here is if the PXE boot fails for a Openstack Node kick it off again manually as quickly as possible.  
+
     <br/>
-
-
 
 
 5. Monitor the introspection progress logs in a separate terminal window:  The logs are not real helpful in telling you if something failed.  I have found they are only good at telling you if it was successful.  Monitoring IDRAC is the best method to see what is going on.  
