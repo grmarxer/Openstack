@@ -291,7 +291,8 @@ The undercloud director can run an introspection process on each node. This proc
     | uuid        | 146bb426-2a52-4cba-b12b-b3f46749462b |
     +-------------+--------------------------------------+
     ```  
-  <br/>
+
+    <br/>
 
     __IMPORTANT READ THIS:__  
 
@@ -304,7 +305,7 @@ The undercloud director can run an introspection process on each node. This proc
     2. Then the Openstack Node will attempt to get an IP address from the undercloud director.  Once complete,  
 
     3. The Openstack Node will issue a TFTP read to the undercloud director, then  
-    
+
     4. The Openstack Node will issue a HTTP GET for the inspector.ipxe image  
 
     This process regularly fails between step 3 and step 4, you will know this by monitoring the iDRAC console.  If you see the PXE start but then fail, the server will try to boot from `disk` which is the next option in the boot sequence.  If this occurs it is best to use iDRAC to reboot the node immediately and kickoff the PXE boot again.  This can be done by selecting PXE from boot option inside iDRAC or from the BIOS.  
