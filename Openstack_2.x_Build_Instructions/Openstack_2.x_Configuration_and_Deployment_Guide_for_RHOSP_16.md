@@ -58,7 +58,7 @@
 
 ## BIG-IP's that are being used as the Proxy  
 
-Due to how Openstack allocates VLANs and IP networks in OSP 16 (TripleO) a Proxy (BIG-IP) is required to map F5 internal routable IP address's to the internal Openstack IP network that will be assigned to guest management IP addresses.  The BIG-IP config has a FastL4 VIP with a F5 internal routable IP address and a single pool member which is the back end Openstack Internal IP which it maps to.  
+Due to how Openstack allocates VLANs and IP networks in OSP 16 (TripleO) a Proxy (BIG-IP) is required to map routable IP address's to the internal Openstack IP network that will be assigned to guest management IP addresses.  The BIG-IP config has a FastL4 VIP with a routable IP address and a single pool member which is the back end Openstack Internal IP which it maps to.  
 
 The BIG-IP configuration has been completed to support this configuration, so it should not have to be touched.  If there are issues please reach out to Gregg Marxer (g.marxer@f5.com)  
 
@@ -70,6 +70,26 @@ The BIG-IP configuration has been completed to support this configuration, so it
 | spk-proxy-1.pl.pdsea.f5net.com | 10.144.19.85     |
 | spk-proxy-2.pl.pdsea.f5net.com | 10.144.21.233    |
 
+
+<br/>  
+
+## Mapping of BIG-IP Guest Management IP's to Routable Addresses   
+
+These are the only routable IP addresses we have for Guest mgmt access.  Thus the current configuration will support a maximum of 8 BIG-IP's on this Openstack cluster
+
+<br/>  
+
+
+| **Internal Openstack Mgmt Network IP** |  **Routable IP Address** |  
+| :---------:                            | :------:                 |  
+| 10.255.240.20                          | 10.144.22.24             |    
+| 10.255.240.21                          | 10.144.22.25             |    
+| 10.255.240.22                          | 10.144.22.26             |  
+| 10.255.240.23                          | 10.144.22.27             |  
+| 10.255.240.24                          | 10.144.22.28             |    
+| 10.255.240.25                          | 10.144.22.29             |  
+| 10.255.240.26                          | 10.144.22.30             |    
+| 10.255.240.27                          | 10.144.22.31             |      
 
 <br/>  
 
