@@ -60,6 +60,8 @@
 
 Due to how Openstack allocates VLANs and IP networks in OSP 16 (TripleO) a Proxy (BIG-IP) is required to map F5 internal routable IP address's to the internal Openstack IP network that will be assigned to guest management IP addresses.  The BIG-IP config has a FastL4 VIP with a F5 internal routable IP address and a single pool member which is the back end Openstack Internal IP which it maps to.  
 
+The BIG-IP configuration has been completed to support this configuration, so it should not have to be touched.  If there are issues please reach out to Gregg Marxer (g.marxer@f5.com)  
+
 <br/>  
 
 
