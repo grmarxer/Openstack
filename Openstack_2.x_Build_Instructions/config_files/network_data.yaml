@@ -127,7 +127,7 @@
   name_lower: external
   vlan: 1150
   ip_subnet: '10.255.240.0/24'
-  allocation_pools: [{'start': '10.255.240.20', 'end': '10.255.240.27'}]
+  allocation_pools: [{'start': '10.255.240.11', 'end': '10.255.240.15'}]
   gateway_ip: '10.255.240.1'
   ipv6_subnet: 'fd00:10:255:240::/64'
   ipv6_allocation_pools: [{'start': 'fd00:10:255:240::20', 'end': 'fd00:10:255:240::50'}]
@@ -139,7 +139,7 @@
   enabled: true
   vip: false  # Management network does not use VIPs
   name_lower: management
-  vlan: 1151
+  vlan:
   ip_subnet: '10.255.241.0/24'
   allocation_pools: [{'start': '10.255.241.10', 'end': '10.255.241.250'}]
   gateway_ip: '10.255.241.1'
