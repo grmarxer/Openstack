@@ -369,6 +369,18 @@ The undercloud director can run an introspection process on each node. This proc
 
 <br/> 
 
+##  Create Roles Specific to this environment  
+
+#### Procedure  
+
+    1. Create the `my_custom_roles_data.yaml` with the following specific roles controllerRole, computeIntelSriovRole, computeIntelDpdkRole, computeMellanoxSriovRole, and computeMellanoxDpdkRole  
+
+    ```
+    openstack overcloud roles generate -o ~/templates/my_custom_roles_data.yaml --roles-path ~/templates/roles controllerRole computeIntelSriovRole computeIntelDpdkRole computeMellanoxSriovRole computeMellanoxDpdkRole
+    ```  
+
+<br/> 
+
 ##  Tagging nodes into profiles  
 
 After you register and inspect the hardware of each node, tag the nodes into specific profiles. These profile tags match your nodes to flavors, which assigns the flavors to deployment roles.  
