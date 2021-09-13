@@ -381,22 +381,29 @@ The steps to define your __custom roles__ configuration are:
 
 #### Procedure  
 
-1. Make the `roles` directory inside of templates to copy the default `openstack-tripleo-heat-templates/roles` into 
+1.  Login as the `stack` user  
+
+```
+source stackrc
+```  
+
+
+1. Make the following directory to copy the Triple0 Heat Template default roles to -- `/home/stack/copy-of-default-tripleo-heat-templates/roles`  
 
     ```
-    (undercloud) [stack@osp16-undercloud network]$ mkdir ~/templates/roles
+    /home/stack/copy-of-default-tripleo-heat-templates/roles
     ```  
 
-2. Copy the default roles into `home/stack/templates/roles` folder
+2. Copy the default roles into `/home/stack/copy-of-default-tripleo-heat-templates/roles` folder
 
     ```
-    (undercloud) [stack@osp16-undercloud templates]$ cp /usr/share/openstack-tripleo-heat-templates/roles/* ~/templates/roles
+    cp /usr/share/openstack-tripleo-heat-templates/roles/* /home/stack/copy-of-default-tripleo-heat-templates/roles
     ```  
 
 3. Create the `my_custom_roles_data.yaml` with the following specific roles ControllerRole, computeIntelSriovRole, computeIntelDpdkRole, computeMellanoxSriovRole, and computeMellanoxDpdkRole  
 
     ```
-    (undercloud) [stack@osp16-undercloud roles]$ openstack overcloud roles generate -o ~/templates/my_custom_roles_data.yaml --roles-path ~/templates/roles Controller:ControllerRole Compute:ComputeIntelSriovRole Compute:ComputeIntelDpdkRole Compute:ComputeMellanoxSriovRole Compute:ComputeMellanoxDpdkRole
+    openstack overcloud roles generate -o ~/templates/my_custom_roles_data.yaml --roles-path /home/stack/copy-of-default-tripleo-heat-templates/roles Controller:ControllerRole Compute:ComputeIntelSriovRole Compute:ComputeIntelDpdkRole Compute:ComputeMellanoxSriovRole Compute:ComputeMellanoxDpdkRole
     ```  
 
 4.  Verify that the `my_custom_roles_data.yaml` file was created with the specified roles outlined above  
