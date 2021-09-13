@@ -369,7 +369,15 @@ The undercloud director can run an introspection process on each node. This proc
 
 <br/> 
 
-##  Create Roles Specific to this environment  
+##  Create Custom Roles Specific to this environment  
+
+TripleO offers the option of deploying with a user-defined list of roles, each running a user defined list of services (where “role” means group of nodes, e.g “Controller”, and “service” refers to the individual services or configurations e.g “Nova API”).  
+
+Each role is defined in the roles_data.yaml file. There is a sample file in /usr/share/openstack-tripleo-heat-templates, or the  tripleo-heat-templates git repository.
+
+The data in roles_data.yaml is used to perform templating with jinja2 such that arbitrary user-defined roles may be added, and the default roles may be modified or removed.  
+
+The steps to define your __custom roles__ configuration are:  
 
 #### Procedure  
 
