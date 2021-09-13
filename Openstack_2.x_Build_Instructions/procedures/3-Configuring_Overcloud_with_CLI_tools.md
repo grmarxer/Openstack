@@ -388,8 +388,16 @@ The undercloud director can run an introspection process on each node. This proc
 3. Create the `my_custom_roles_data.yaml` with the following specific roles ControllerRole, computeIntelSriovRole, computeIntelDpdkRole, computeMellanoxSriovRole, and computeMellanoxDpdkRole  
 
     ```
-    openstack overcloud roles generate -o ~/templates/my_custom_roles_data.yaml --roles-path ~/templates/roles Controller:ControllerRole Compute:ComputeIntelSriovRole Compute:ComputeIntelDpdkRole Compute:ComputeMellanoxSriovRole Compute:ComputeMellanoxDpdkRole
+    (undercloud) [stack@osp16-undercloud roles]$ openstack overcloud roles generate -o ~/templates/my_custom_roles_data.yaml --roles-path ~/templates/roles Controller:ControllerRole Compute:ComputeIntelSriovRole Compute:ComputeIntelDpdkRole Compute:ComputeMellanoxSriovRole Compute:ComputeMellanoxDpdkRole
     ```  
+
+4.  Verify that the `my_custom_roles_data.yaml` file was created with the specified roles outlined above  
+
+    ```
+    less /home/stack/templates/my_custom_roles_data.yaml
+    ```  
+
+
 
 <br/> 
 
