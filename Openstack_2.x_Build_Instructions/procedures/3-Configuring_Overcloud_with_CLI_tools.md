@@ -385,10 +385,10 @@ The undercloud director can run an introspection process on each node. This proc
     (undercloud) [stack@osp16-undercloud templates]$ cp /usr/share/openstack-tripleo-heat-templates/roles/* ~/templates/roles
     ```  
 
-3. Create the `my_custom_roles_data.yaml` with the following specific roles controllerRole, computeIntelSriovRole, computeIntelDpdkRole, computeMellanoxSriovRole, and computeMellanoxDpdkRole  
+3. Create the `my_custom_roles_data.yaml` with the following specific roles ControllerRole, computeIntelSriovRole, computeIntelDpdkRole, computeMellanoxSriovRole, and computeMellanoxDpdkRole  
 
     ```
-    openstack overcloud roles generate -o ~/templates/my_custom_roles_data.yaml --roles-path ~/templates/roles controllerRole computeIntelSriovRole computeIntelDpdkRole computeMellanoxSriovRole computeMellanoxDpdkRole
+    openstack overcloud roles generate -o ~/templates/my_custom_roles_data.yaml --roles-path ~/templates/roles Controller:ControllerRole Compute:ComputeIntelSriovRole Compute:ComputeIntelDpdkRole Compute:ComputeMellanoxSriovRole Compute:ComputeMellanoxDpdkRole
     ```  
 
 <br/> 
