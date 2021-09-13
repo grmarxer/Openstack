@@ -390,7 +390,7 @@ The steps to define your __custom roles__ configuration are:
 2. Make the following directory to copy the Triple0 Heat Template default roles to -- `/home/stack/copy-of-default-tripleo-heat-templates/roles`  
 
     ```
-    mkdir /home/stack/copy-of-default-tripleo-heat-templates/roles
+    mkdir /home/stack/copy-of-default-tripleo-heat-templates/roles/
     ```  
 
 3. Copy the default roles into `/home/stack/copy-of-default-tripleo-heat-templates/roles` folder
