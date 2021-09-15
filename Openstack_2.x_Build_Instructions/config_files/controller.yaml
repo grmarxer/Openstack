@@ -81,89 +81,63 @@ resources:
       config:
         os_net_config:
           network_config:
-            -
-              type: interface
+            - type: interface
               name: eno4
               use_dhcp: false
               dns_servers: {get_param: DnsServers}
               domain: {get_param: DnsSearchDomains}
               addresses:
-                -
-                  ip_netmask:
+                - ip_netmask:
                     list_join:
                       - '/'
                       - - {get_param: ControlPlaneIp}
                         - {get_param: ControlPlaneSubnetCidr}
               routes:
-                -
-                  ip_netmask: 169.254.169.254/32
+                - ip_netmask: 169.254.169.254/32
                   next_hop: {get_param: EC2MetadataIp}
-                -
-                  default: false
+                - default: false
                   next_hop: {get_param: ControlPlaneDefaultRoute}
-            -
-              type: ovs_bridge
+            - type: ovs_bridge
               name: {get_input: bridge_name}
               use_dhcp: false
               dns_servers: {get_param: DnsServers}
               addresses:
-                -
-                  ip_netmask:
+                - ip_netmask:
                     list_join:
                       - '/'
                       - - {get_param: ControlPlaneIp}
                         - {get_param: ControlPlaneSubnetCidr}
               routes:
-                -
-                  ip_netmask: 169.254.169.254/32
+                - ip_netmask: 169.254.169.254/32
                   next_hop: {get_param: EC2MetadataIp}
               members:
-                -
-                  type: interface
+                - type: interface
                   name: eno3
                   # force the MAC address of the bridge to this interface
                   primary: true
-                -
-                  type: vlan
+                - type: vlan
                   vlan_id: {get_param: ExternalNetworkVlanID}
                   addresses:
-                  -
-                    ip_netmask: {get_param: ExternalIpSubnet}
+                  - ip_netmask: {get_param: ExternalIpSubnet}
                   routes:
-                    -
-                      default: true
+                    - default: true
                       next_hop: {get_param: ExternalInterfaceDefaultRoute}
-                -
-                  type: vlan
+                - type: vlan
                   vlan_id: {get_param: InternalApiNetworkVlanID}
                   addresses:
-                    -
-                      ip_netmask: {get_param: InternalApiIpSubnet}
-                -
-                  type: vlan
+                    - ip_netmask: {get_param: InternalApiIpSubnet}
+                - type: vlan
                   vlan_id: {get_param: StorageNetworkVlanID}
                   addresses:
-                    -
-                      ip_netmask: {get_param: StorageIpSubnet}
-                -
-                  type: vlan
+                    - ip_netmask: {get_param: StorageIpSubnet}
+                - type: vlan
                   vlan_id: {get_param: StorageMgmtNetworkVlanID}
                   addresses:
-                    -
-                      ip_netmask: {get_param: StorageMgmtIpSubnet}
-                -
-                  type: vlan
+                    - ip_netmask: {get_param: StorageMgmtIpSubnet}
+                - type: vlan
                   vlan_id: {get_param: TenantNetworkVlanID}
                   addresses:
-                    -
-                      ip_netmask: {get_param: TenantIpSubnet}
-                #-  # Uncomment when including environments/network-management.yaml
-                #  type: vlan
-                #  vlan_id: {get_param: ManagementNetworkVlanID}
-                #  addresses:
-                #    -
-                #      ip_netmask: {get_param: ManagementIpSubnet}
-
+                    - ip_netmask: {get_param: TenantIpSubnet}
 outputs:
   OS::stack_id:
     description: The OsNetConfigImpl resource.
