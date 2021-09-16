@@ -15,14 +15,14 @@
 <br/>  
 
 
-| **Node**            |  **Location** | **NIC Configuraion** | **Accerlation Technology** | **IDRAC IP**    |**IDRAC username/password**  |
-| :---------:         | :----------:  |:----------:          | :----------:               | :----------:    | :----------:                |    
-| Undercloud Director | L25-A08-U13   |N/A                   | N/A                        | 10.144.20.6     | root / calvin               |  
-| Controller          | L25-A08-U14   |N/A                   | N/A                        | 10.144.22.13    | root / calvin               |  
-| Compute Node 1      | L25-A15-U25   |Intel XXV710          | SRIOV                      | 10.144.19.235   | root / calvin               |
-| Compute Node 2      | L25-A15-U27   |Intel XXV710          | SRIOV                      | 10.144.19.231   | root / calvin               |  
-| Compute Node 3      | L25-A15-U24   |Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.237   | root / calvin               |  
-| Compute Node 4      | L25-A15-U26   |Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.233   | root / calvin               |  
+| **Node**            |  **Location** | **NIC Configuraion** | **Accerlation Technology** | **IDRAC IP**    |**IDRAC user/password**  |
+| :---------:         | :----------:  |:----------:          | :----------:               | :----------:    | :----------:            |    
+| Undercloud Director | L25-A08-U13   |N/A                   | N/A                        | 10.144.20.6     | root / calvi            |  
+| Controller          | L25-A08-U14   |N/A                   | N/A                        | 10.144.22.13    | root / calvi            |  
+| Compute Node 1      | L25-A15-U25   |Intel XXV710          | SRIOV                      | 10.144.19.235   | root / calvi            |
+| Compute Node 2      | L25-A15-U27   |Intel XXV710          | SRIOV                      | 10.144.19.231   | root / calvin           |  
+| Compute Node 3      | L25-A15-U24   |Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.237   | root / calvin           |  
+| Compute Node 4      | L25-A15-U26   |Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.233   | root / calvin           |  
 
 <br/>  
 
