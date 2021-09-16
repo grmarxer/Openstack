@@ -30,7 +30,7 @@
 
 <br/>  
 
-#### SRIOV NIC Cards Mellanox Intel XXV710   
+#### SRIOV NIC Cards -- Intel XXV710   
 
 | **Node**        | **Location** | **XXV710-1 P1** | **XXV710-1 P2** | **XXV710-2 P1** |  **XXV710-2 P2**  |
 | :---------:     | :----------: | :----------:    | :----------:    | :----------:    |  :----------:     |  
@@ -40,7 +40,7 @@
 
 <br/> 
 
-#### OVS-DPDK NIC Cards Mellanox MCX512A-ACAT  
+#### OVS-DPDK NIC Cards -- Mellanox MCX512A-ACAT  
 
 | **Node**        | **Location** | **MCX512A-1 P1** | **MCX512A-1 P2** | **MCX512A-2 P1** |  **MCX512A-2 P2**   |
 | :---------:     | :----------: | :----------:     | :----------:     | :----------:     |  :----------:       |  
