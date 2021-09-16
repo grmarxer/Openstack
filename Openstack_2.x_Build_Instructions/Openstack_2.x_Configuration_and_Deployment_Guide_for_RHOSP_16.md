@@ -6,7 +6,9 @@
 
 ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/lab-drawing.png)  
 
+
 <br/> 
+
 
 ## Openstack 2.x Nodes
 
@@ -23,6 +25,29 @@
 | Compute Node 4      | Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.233   | root                | calvin               |  
 
 <br/>  
+
+## Openstack 2.x Switch Port assignments for SRIOV and DPDK
+
+<br/>  
+
+### SRIOV NIC Cards Mellanox Intel XXV710   
+
+| **Node**        | **Location** | **XXV710-1 P1** | **XXV710-1 P2** | **XXV710-2 P1** |  **XXV710-2 P2**  |
+| :---------:     | :----------: | :----------:    | :----------:    | :----------:    |  :----------:     |  
+| Compute Node 1  | L25-A15-U25  | CORE3/6/2/3     | CORE3/6/2/4     | CORE3/5/21/3    | CORE3/5/22/4      |  
+| Compute Node 2  | L25-A15-U27  | CORE3/5/21/1    | CORE3/5/21/2    | CORE3/6/2/1     | CORE3/10/1/3      |  
+
+
+<br/> 
+
+### OVS-DPDK NIC Cards Mellanox MCX512A-ACAT  
+
+| **Node**        | **Location** | **MCX512A-1 P1** | **MCX512A-1 P2** | **MCX512A-2 P1** |  **MCX512A-2 P2**   |
+| :---------:     | :----------: | :----------:     | :----------:     | :----------:     |  :----------:       |  
+| Compute Node 3  | L25-A15-U24  | CORE3/5/22/1     | CORE3/5/22/2     | CORE3/5/22/3     | CORE3/6/2/2         |  
+| Compute Node 4  | L25-A15-U26  | CORE3/6/1/1      | CORE3/6/1/2      | CORE3/6/1/3      | CORE3/6/1/4         |  
+
+<br/> 
 
 ## Openstack 2.x Mandated VLANs
 
