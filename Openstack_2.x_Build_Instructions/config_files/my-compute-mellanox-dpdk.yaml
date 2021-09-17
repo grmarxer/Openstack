@@ -252,55 +252,56 @@ resources:
                       vlan_id: {get_param: InternalApiNetworkVlanID}
                       addresses:
                         - ip_netmask: {get_param: InternalApiIpSubnet}
-                    - type: vlan
-                      vlan_id: {get_param: TenantNetworkVlanID}
-                      addresses:
-                        - ip_netmask: {get_param: TenantIpSubnet}
-## This is what I added to activate DPDK without a bond based on https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/12/html/network_functions_virtualization_planning_and_configuration_guide/assembly-config-sriov-dpdk-2-vlan
                 - type: ovs_user_bridge
-                  name: dpdk-br-link-ens1f0
+                  name: br-tenant
                   use_dhcp: false
+                #  ovs_extra:
+                #   - str_replace:
+                #     template: set port br-tenant tag=_VLAN_TAG_
+                #     params:
+                #       _VLAN_TAG_:
+                #       get_param: TenantNetworkVlanID
+                  addresses:
+                   - ip_netmask:
+                     get_param: TenantIpSubnet
+                  routes:
+                    list_concat_unique:
+                      - get_param: TenantInterfaceRoutes
                   members:
                   - type: ovs_dpdk_port
-                    name: dpdk0
+                    name: dpdkbond0
                     mtu: 9000
-                    rx_queue: 2
+                    ovs_extra:
+                      - set port dpdkbond0 bond_mode=balance-slb
                     members:
-                    - type: interface
-                      name: ens1f0
-                - type: ovs_user_bridge
-                  name: dpdk-br-link-ens1f1
+                      - type: ovs_dpdk_port
+                        name: dpdk0
+                        members:
+                          - type: sriov_vf
+                            device: ens1f0
+                            vfid: 3
+                      - type: ovs_dpdk_port
+                        name: dpdk1
+                        members:
+                          - type: sriov_vf
+                            device: ens1f1
+                            vfid: 3
+                - type: sriov_pf
+                  name: ens1f0
                   use_dhcp: false
-                  members:
-                  - type: ovs_dpdk_port
-                    name: dpdk0
-                    mtu: 9000
-                    rx_queue: 2
-                    members:
-                    - type: interface
-                      name: ens1f1
-                - type: ovs_user_bridge
-                  name: dpdk-br-link-ens2f0
+                  numvfs: 32
+                  defroute: false
+                  nm_controlled: true
+                  hotplug: true
+                  promisc: false
+                - type: sriov_pf
+                  name: ens1f1
                   use_dhcp: false
-                  members:
-                  - type: ovs_dpdk_port
-                    name: dpdk0
-                    mtu: 9000
-                    rx_queue: 2
-                    members:
-                    - type: interface
-                      name: ens2f0
-                - type: ovs_user_bridge
-                  name: dpdk-br-link-ens2f1
-                  use_dhcp: false
-                  members:
-                  - type: ovs_dpdk_port
-                    name: dpdk0
-                    mtu: 9000
-                    rx_queue: 2
-                    members:
-                    - type: interface
-                      name: ens2f1                      
+                  numvfs: 32
+                  defroute: false
+                  nm_controlled: true
+                  hotplug: true
+                  promisc: false
 outputs:
   OS::stack_id:
     description: The OsNetConfigImpl resource.
