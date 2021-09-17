@@ -252,10 +252,10 @@ resources:
                       vlan_id: {get_param: InternalApiNetworkVlanID}
                       addresses:
                         - ip_netmask: {get_param: InternalApiIpSubnet}
-                    - type: vlan
-                      vlan_id: {get_param: TenantNetworkVlanID}
-                      addresses:
-                        - ip_netmask: {get_param: TenantIpSubnet}
+                   # - type: vlan
+                   #   vlan_id: {get_param: TenantNetworkVlanID}
+                   #   addresses:
+                   #     - ip_netmask: {get_param: TenantIpSubnet}
                 - type: sriov_pf
                   name: ens1f0
                   use_dhcp: false
