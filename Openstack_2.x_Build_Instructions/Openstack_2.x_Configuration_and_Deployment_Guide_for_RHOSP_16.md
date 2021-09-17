@@ -26,18 +26,18 @@
 
 <br/>  
 
-## Openstack 2.x Node Switch Port assignments for Management (mgmt) and Provisioning (prov)
+## Openstack 2.x Node -- Switch Port assignments for Management (mgmt) and Provisioning (prov)
 
 <br/>  
 
-| **Node**            | **Location** | **eno3 mgmt** | **eno1np0 mgmt** | **eno4 prov** |  **eno2np1 prov** |
-| :---------:         | :----------: | :----------:  | :----------:     | :----------:  |  :----------:     |  
-| Undercloud Director | L25-A08-U13  | Arista1G-P46  | N/A              | Arista1G-P48  | N/A               |  
-| Controller          | L25-A08-U14  | Arista1G-P45  | N/A              | Arista1G-P47  | N/A               |  
-| Compute Node 1      | L25-A15-U25  | N/A           | CORE5/6/25/2     | N/A           | CORE3/10/12/3     |  
-| Compute Node 2      | L25-A15-U27  | N/A           | CORE5/6/25/4     | N/A           | CORE3/10/12/4     |  
-| Compute Node 3      | L25-A15-U24  | N/A           | CORE5/6/25/1     | N/A           | CORE3/10/12/2     |  
-| Compute Node 4      | L25-A15-U26  | N/A           | CORE5/6/25/3     | N/A           | CORE3/10/12/1     |  
+| **Node**            | **Location** | **eno3 (mgmt)** | **eno1np0 (mgmt)** | **eno4 (prov)** |  **eno2np1 (prov)** |
+| :---------:         | :----------: | :----------:    | :----------:       | :----------:    |  :----------:       |  
+| Undercloud Director | L25-A08-U13  | Arista1G-P46    | N/A                | Arista1G-P48    | N/A                 |  
+| Controller          | L25-A08-U14  | Arista1G-P45    | N/A                | Arista1G-P47    | N/A                 |  
+| Compute Node 1      | L25-A15-U25  | N/A             | CORE5/6/25/2       | N/A             | CORE3/10/12/3       |  
+| Compute Node 2      | L25-A15-U27  | N/A             | CORE5/6/25/4       | N/A             | CORE3/10/12/4       |  
+| Compute Node 3      | L25-A15-U24  | N/A             | CORE5/6/25/1       | N/A             | CORE3/10/12/2       |  
+| Compute Node 4      | L25-A15-U26  | N/A             | CORE5/6/25/3       | N/A             | CORE3/10/12/1       |  
 
 <br/> 
 
