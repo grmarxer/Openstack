@@ -26,7 +26,22 @@
 
 <br/>  
 
-## Openstack 2.x Switch Port assignments for SRIOV and DPDK
+## Openstack 2.x Node Switch Port assignments for Management (mgmt) and Provisioning (prov)
+
+<br/>  
+
+| **Node**            | **Location** | **eno3 mgmt** | **eno1np0 mgmt** | **eno4 prov** |  **eno2np1 prov**  |
+| :---------:         | :----------: | :----------:  | :----------:     | :----------:    |  :----------:     |  
+| Undercloud Director | L25-A08-U13  | CORE3/6/2/3   | N/A              | CORE3/5/21/3    | N/A      |  
+| Controller          | L25-A08-U14  | CORE3/5/21/1  | N/A              | CORE3/6/2/1     | N/A     |  
+| Compute Node 1      | L25-A15-U25  | N/A           | CORE3/5/21/2    | N/A     | CORE3/10/1/3      |  
+| Compute Node 2      | L25-A15-U27  | N/A           | CORE3/5/21/2    | N/A     | CORE3/10/1/3      |  
+| Compute Node 3      | L25-A15-U24  | N/A           | CORE3/5/21/2    | N/A     | CORE3/10/1/3      |  
+| Compute Node 4      | L25-A15-U26  | N/A           | CORE3/5/21/2    | N/A     | CORE3/10/1/3      |  
+
+<br/> 
+
+## Openstack 2.x Node Switch Port assignments for SRIOV and DPDK
 
 <br/>  
 
