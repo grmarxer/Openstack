@@ -47,7 +47,7 @@
 
 #### SRIOV NIC Cards -- Intel XXV710   
 
-| **Node**        | **Location** | **XXV710-1 P1** | **XXV710-1 P2** | **XXV710-2 P1** |  **XXV710-2 P2**  |
+| **Node**        | **Location** | **ens1f0**      | **ens1f1**      | **ens2f0**      |  **ens2f1**       |  
 | :---------:     | :----------: | :----------:    | :----------:    | :----------:    |  :----------:     |  
 | Compute Node 1  | L25-A15-U25  | CORE3/6/2/3     | CORE3/6/2/4     | CORE3/5/21/3    | CORE3/5/22/4      |  
 | Compute Node 2  | L25-A15-U27  | CORE3/5/21/1    | CORE3/5/21/2    | CORE3/6/2/1     | CORE3/10/1/3      |  
@@ -57,10 +57,10 @@
 
 #### OVS-DPDK NIC Cards -- Mellanox MCX512A-ACAT  
 
-| **Node**        | **Location** | **MCX512A-1 P1** | **MCX512A-1 P2** | **MCX512A-2 P1** |  **MCX512A-2 P2**   |
-| :---------:     | :----------: | :----------:     | :----------:     | :----------:     |  :----------:       |  
-| Compute Node 3  | L25-A15-U24  | CORE3/5/22/1     | CORE3/5/22/2     | CORE3/5/22/3     | CORE3/6/2/2         |  
-| Compute Node 4  | L25-A15-U26  | CORE3/6/1/1      | CORE3/6/1/2      | CORE3/6/1/3      | CORE3/6/1/4         |  
+| **Node**        | **Location** | **ens1f0**    | **ens1f1**    | **ens2f0**    |  **ens2f1**   |
+| :---------:     | :----------: | :----------:  | :----------:  | :----------:  |  :----------: |  
+| Compute Node 3  | L25-A15-U24  | CORE3/5/22/1  | CORE3/5/22/2  | CORE3/5/22/3  | CORE3/6/2/2   |  
+| Compute Node 4  | L25-A15-U26  | CORE3/6/1/1   | CORE3/6/1/2   | CORE3/6/1/3   | CORE3/6/1/4   |  
 
 <br/> 
 
