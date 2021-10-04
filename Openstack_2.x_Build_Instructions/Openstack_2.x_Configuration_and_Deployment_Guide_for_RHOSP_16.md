@@ -45,7 +45,7 @@
 
 <br/>  
 
-#### SRIOV NIC Cards -- Intel XXV710   
+#### SRIOV NIC Card Switch Ports -- Intel XXV710   
 
 | **Node**        | **Location** | **ens1f0**      | **ens1f1**      | **ens2f0**      |  **ens2f1**       |  
 | :---------:     | :----------: | :----------:    | :----------:    | :----------:    |  :----------:     |  
@@ -55,7 +55,7 @@
 
 <br/> 
 
-#### OVS-DPDK NIC Cards -- Mellanox MCX512A-ACAT  
+#### OVS-DPDK NIC Card Switch Ports -- Mellanox MCX512A-ACAT  
 
 | **Node**        | **Location** | **ens1f0**    | **ens1f1**    | **ens2f0**    |  **ens2f1**   |
 | :---------:     | :----------: | :----------:  | :----------:  | :----------:  |  :----------: |  
