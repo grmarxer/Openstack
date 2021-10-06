@@ -27,20 +27,29 @@ resource_registry:
   OS::TripleO::Controller::Ports::ManagementPort: /usr/share/openstack-tripleo-heat-templates/network/ports/management_from_pool.yaml
 
   # Port assignments for the Compute
-  OS::TripleO::Compute::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api_from_pool.yaml
-  OS::TripleO::Compute::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
-  OS::TripleO::Compute::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant_from_pool.yaml
-  OS::TripleO::Compute::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
-  OS::TripleO::Compute::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
-  OS::TripleO::Compute::Ports::ManagementPort: /usr/share/openstack-tripleo-heat-templates/network/ports/management_from_pool.yaml
+  #OS::TripleO::Compute::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api_from_pool.yaml
+  #OS::TripleO::Compute::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
+  #OS::TripleO::Compute::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant_from_pool.yaml
+  #OS::TripleO::Compute::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
+  #OS::TripleO::Compute::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
+  #OS::TripleO::Compute::Ports::ManagementPort: /usr/share/openstack-tripleo-heat-templates/network/ports/management_from_pool.yaml
 
-  # Port assignments for the Compute
+  # Port assignments for the ComputeSriov
   OS::TripleO::ComputeSriov::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api_from_pool.yaml
   OS::TripleO::ComputeSriov::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
   OS::TripleO::ComputeSriov::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant_from_pool.yaml
   OS::TripleO::ComputeSriov::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
   OS::TripleO::ComputeSriov::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
   OS::TripleO::ComputeSriov::Ports::ManagementPort: /usr/share/openstack-tripleo-heat-templates/network/ports/management_from_pool.yaml
+  
+  # Port assignments for the ComputeOvsDpdk
+  OS::TripleO::ComputeOvsDpdk::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api_from_pool.yaml
+  OS::TripleO::ComputeOvsDpdk::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
+  OS::TripleO::ComputeOvsDpdk::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant_from_pool.yaml
+  OS::TripleO::ComputeOvsDpdk::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
+  OS::TripleO::ComputeOvsDpdk::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
+  OS::TripleO::ComputeOvsDpdk::Ports::ManagementPort: /usr/share/openstack-tripleo-heat-templates/network/ports/management_from_pool.yaml
+
 
   # These parameters should point to the nic config templates for each type of node
   # Network config for the Controller
@@ -49,7 +58,7 @@ resource_registry:
   #OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/environments/osp16-lab/network/config/nic-configs/compute.yaml
   # Network config for the ComputeSriov
   OS::TripleO::ComputeSriov::Net::SoftwareConfig: /home/stack/templates/my-compute-intel-sriov.yaml
-  # Network config for the ComputeOvsDpdkSriov
+  # Network config for the ComputeOvsDpdk
   OS::TripleO::ComputeOvsDpdk::Net::SoftwareConfig: /home/stack/templates/my-compute-mellanox-dpdk.yaml
 
 parameter_defaults:
@@ -57,46 +66,53 @@ parameter_defaults:
   # Data about where to find the metadata address on the controlplane network
   # This is how nodes find where to download their configuration information
   # from director
+  #
+  #
+  #
+  #  help  -- do i need EC2MetadataIp: if so what is it?
+  #
+  #
+  #
   ControlPlaneSubnetCidr: '24'
-  ControlPlaneDefaultRoute: 192.168.70.7
-  EC2MetadataIp: 192.168.70.7
+  ControlPlaneDefaultRoute: 192.168.255.1
+  #EC2MetadataIp: 192.168.255.x?
 
   # IP/CIDR ranges for the networks defined in network_data.yaml
-  InternalApiNetCidr: 172.16.20.0/24
-  TenantNetCidr: 172.16.60.0/24
-  StorageNetCidr: 172.16.30.0/24
-  StorageMgmtNetCidr: 172.16.40.0/24
-  ExternalNetCidr: 192.168.10.0/24
-  ManagementNetCidr: 192.168.100.0/24
+  InternalApiNetCidr: 10.255.242.0/24
+  TenantNetCidr: 10.255.243.0/24
+  StorageNetCidr: 10.255.244.0/24
+  StorageMgmtNetCidr: 10.255.245.0/24
+  ExternalNetCidr: 10.255.240.0/24
+  #ManagementNetCidr: 192.168.255.0/24
 
   # VLAN IDs for the various networks defined in network_data.yaml
-  InternalApiNetworkVlanID: 20
-  StorageNetworkVlanID: 30
-  StorageMgmtNetworkVlanID: 40
-  TenantNetworkVlanID: 60
-  ExternalNetworkVlanID: 10
-  ManagementNetworkVlanID: 100
+  InternalApiNetworkVlanID: 1151
+  StorageNetworkVlanID: 1153
+  StorageMgmtNetworkVlanID: 1154
+  TenantNetworkVlanID: 1152
+  ExternalNetworkVlanID: 1150
+  #ManagementNetworkVlanID: 
 
   # These are the allocation pools for IPs for the nodes.
   # They need to be populated even when using static IP assignments
-  InternalApiAllocationPools: [{'start': '172.16.20.150', 'end': '172.16.20.169'}]
-  TenantAllocationPools: [{'start': '172.16.60.150', 'end': '172.16.60.169'}]
-  StorageAllocationPools: [{'start': '172.16.30.150', 'end': '172.16.30.169'}]
-  StorageMgmtAllocationPools: [{'start': '172.16.40.150', 'end': '172.16.40.169'}]
-  ExternalAllocationPools: [{'start': '192.168.10.50', 'end': '192.168.10.59'}]
-  ManagementAllocationPools: [{'start': '192.168.100.150', 'end': '192.168.100.169'}]
+  InternalApiAllocationPools: [{'start': '10.255.242.10', 'end': '10.255.242.250'}]
+  TenantAllocationPools: [{'start': '10.255.243.10', 'end': '10.255.243.250'}]
+  StorageAllocationPools: [{'start': '10.255.244.10', 'end': '10.255.244.250'}]
+  StorageMgmtAllocationPools: [{'start': '10.255.245.10', 'end': '10.255.245.250'}]
+  ExternalAllocationPools: [{'start': '10.255.240.11', 'end': '10.255.240.15'}]
+  #ManagementAllocationPools: [{'start': '192.168.255.10', 'end': '192.168.255.45'}]
 
   # These should point to the gateway IP for the external interfaces
-  ExternalInterfaceDefaultRoute: 192.168.10.1
+  ExternalInterfaceDefaultRoute: 10.255.240.1
 
   # Set to the Gateway for the management network
   #ManagementInterfaceDefaultRoute: 192.168.100.1
 
   # This should point to a max of 2 DNS servers
-  DnsServers: ['192.168.1.13','192.168.1.16']
-  DnsSearchDomains: ['16.osp.consulting-services.lab','osp.consulting-services.lab','consulting-services.lab','consulting-services.lan']
+  DnsServers: ['10.144.31.146','8.8.8.8']
+  #DnsSearchDomains: ['16.osp.consulting-services.lab','osp.consulting-services.lab','consulting-services.lab','consulting-services.lan']
   # This should point to a max of 3 NTP servers
-  NtpServer: ['192.168.1.10']
+  NtpServer: ['0.north-america.pool.ntp.org','1.north-america.pool.ntp.org','2.north-america.pool.ntp.org']
 
   # Neutron Settings
   EnableVLANTransparency: true
@@ -111,11 +127,11 @@ parameter_defaults:
   NeutronFlatNetworks: ['datacentre','tenant']
   ControllerParameters:
     NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
-  ComputeParameters:
-    NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
+  #ComputeParameters:
+  #  NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
   ComputeSriovParameters:
     NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
-  ComputeOvsDpdkSriovParameters:
+  ComputeOvsDpdkParameters:
     NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
   #ComputeDCAParameters:
   #  NeutronBridgeMappings: ['datacentre:br-ex','dca:br-dca']
@@ -174,6 +190,10 @@ parameter_defaults:
 
   # Predictable VIPs
   # This is a set of parameters for fixed VIPs
+  #
+  # help WHY DO I NEED These
+  #
+  #
   ControlFixedIPs: [{'ip_address':'192.168.70.59'}]
   InternalApiVirtualFixedIPs: [{'ip_address':'172.16.20.59'}]
   PublicVirtualFixedIPs: [{'ip_address':'192.168.10.59'}]
@@ -184,6 +204,10 @@ parameter_defaults:
   # Predictable IPs
   # This contains (in order) the IPs that every node will
   # have on every network
+  #
+  # help WHY DO I NEED These
+  #
+  #
   ControllerIPs:
     external:
     - 192.168.10.50
