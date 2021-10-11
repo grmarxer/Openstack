@@ -1,0 +1,17 @@
+cd ~
+source ~/stackrc
+time openstack overcloud deploy --templates \
+-e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs-dpdk.yaml \
+-e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-sriov.yaml \
+-n /home/stack/templates/network_data.yaml \
+-r /home/stack/templates/roles_data.yaml \
+-e /home/stack/templates/containers-prepare-parameter.yaml \
+-e /home/stack/templates/control-environment.yaml \
+-e /home/stack/templates/compute-environment.yaml \
+-e /home/stack/templates/deploy-options.yaml \
+-e /home/stack/templates/network-environment.yaml \
+--timeout 120 --ntp-server 192.168.1.10  \
+
+
+
+
