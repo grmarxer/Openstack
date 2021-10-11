@@ -1,0 +1,86 @@
+parameter_defaults:
+  TimeZone: "America/Los_Angeles"
+  KeystoneRegion: LAB
+
+  # This should be the full FQDN of the overcloud vip
+  CloudName: 'service.16.osp.consulting-services.lab'
+
+  # This should be the domain name (same as above)
+  # for the cloud
+  CloudDomain: '16.osp.consulting-services.lab'
+
+  # This should be the hostname pattern used for controllers
+  #ControllerHostnameFormat: '%stackname%-ctrl-%index%'
+  ControllerHostnameFormat: 'lab-osp-ctl%index%'
+
+  # This should be the hostname pattern used for computes
+  #ComputeHostnameFormat: '%stackname%-comp-%index%'
+  ComputeHostnameFormat: 'lab-osp-comp%index%'
+
+  # This should be the hostname pattern used for computes
+  #ComputeHostnameFormat: '%stackname%-comp-%index%'
+  ComputeSriovHostnameFormat: 'lab-osp-sriov%index%'
+
+  # This should be the hostname pattern used for computes
+  #ComputeHostnameFormat: '%stackname%-comp-%index%'
+  ComputeOvsDpdkHostnameFormat: 'lab-osp-dpdk%index%'
+
+  # This should be the scheduler hint set on the baremetal node to designate
+  # to be provisioned as a controller
+  #ControllerSchedulerHints: {'capabilities:node': 'controller-%index%'}
+  ControllerSchedulerHints: {'capabilities:node': 'lab-osp-ctl%index%'}
+
+  # This should be the scheduler hint set on the baremetal node to designate
+  # to be provisioned as a compute
+  #ComputeSchedulerHints: {'capabilities:node': 'compute-%index%'}
+  ComputeSchedulerHints: {'capabilities:node': 'lab-osp-comp%index%'}
+
+  # This should be the scheduler hint set on the baremetal node to designate
+  # to be provisioned as a compute
+  #ComputeSchedulerHints: {'capabilities:node': 'compute-%index%'}
+  ComputeSriovSchedulerHints: {'capabilities:node': 'lab-osp-sriov%index%'}
+
+  # This should be the scheduler hint set on the baremetal node to designate
+  # to be provisioned as a compute
+  #ComputeSchedulerHints: {'capabilities:node': 'compute-%index%'}
+  ComputeOvsDpdkSchedulerHints: {'capabilities:node': 'lab-osp-sriov%index%'}
+
+  # Using scheduler hints not flavors
+  # Undercloud nova flavor used for controllers
+  # OvercloudControllerFlavor: baremetal
+  #OvercloudControllerFlavor: control
+
+  # Using scheduler hints not flavors
+  # Undercloud nova flavor used for computes
+  # OvercloudComputeFlavor: baremetal
+  #OvercloudComputeFlavor: compute
+
+  # Using scheduler hints not flavors
+  # Undercloud nova flavor used for computes
+  # OvercloudComputeFlavor: baremetal
+  #OvercloudComputeSriovFlavor: computesriov
+
+  # Using scheduler hints not flavors
+  # Undercloud nova flavor used for computes
+  # OvercloudComputeFlavor: baremetal
+  #OvercloudComputeOvsDpdkSriovFlavor: computesriov
+
+  # Number of controllers to provision
+  ControllerCount: 1
+
+  # Number of computes to provision
+  ComputeCount: 0
+
+  # Number of computes to provision
+  ComputeSriovCount: 2
+
+  # Number of computes to provision
+  ComputeOvsDpdkCount: 2
+
+  MysqlMaxConnections: 8192
+  RabbitFDLimit: 16384
+
+  #GnocchiMetricdWorkers: 24
+  #MetricProcessingDelay: 60
+  #CeilometerWorkers: 8
+
