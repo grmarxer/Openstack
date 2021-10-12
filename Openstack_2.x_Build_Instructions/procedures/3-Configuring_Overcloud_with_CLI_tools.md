@@ -57,100 +57,100 @@ Director requires a node definition template, which you create manually. This te
     __NOTE:__ The physical_network must be `ctlplane` and not the name of the interface found in ifconfig  
     
     ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal port list
+    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port list
     +--------------------------------------+-------------------+
     | UUID                                 | Address           |
     +--------------------------------------+-------------------+
-    | f4044415-0686-4d19-8519-f4359980ec3a | b0:26:28:3e:73:11 |
-    | d849fa71-42a3-49bf-b8cf-a37fdc9e950b | b0:26:28:44:91:41 |
-    | bff36ae4-f973-4857-8b08-7960881d1939 | b0:26:28:3b:71:a1 |
-    | 09bfa6b7-3889-4c69-a749-d1f051882091 | b0:26:28:45:fd:81 |
-    | 76c03ce9-311d-4753-81e5-6195ecbdcf45 | 14:18:77:70:0c:fa |
+    | fee46fa9-1b6d-4070-9bd1-22d991a26fe0 | b0:26:28:3e:73:11 |
+    | 567bc2b0-1ace-4d86-8be3-7eccd69b0db7 | b0:26:28:3b:71:a1 |
+    | 769c785e-a6a0-421c-b3cd-0de6f77ce969 | b0:26:28:44:91:41 |
+    | 9c7f2ae4-9afb-4402-a971-a90149e2f938 | b0:26:28:45:fd:81 |
+    | 4b3f1224-eda5-4c29-a91d-28afe08f0f93 | 14:18:77:70:0c:fa |
     +--------------------------------------+-------------------+
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal port show f4044415-0686-4d19-8519-f4359980ec3a
+    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show fee46fa9-1b6d-4070-9bd1-22d991a26fe0
     +-----------------------+--------------------------------------+
     | Field                 | Value                                |
     +-----------------------+--------------------------------------+
     | address               | b0:26:28:3e:73:11                    |
-    | created_at            | 2021-09-02T03:32:50+00:00            |
+    | created_at            | 2021-10-12T18:14:03+00:00            |
     | extra                 | {}                                   |
     | internal_info         | {}                                   |
     | is_smartnic           | False                                |
     | local_link_connection | {}                                   |
-    | node_uuid             | 199a6ae0-c39a-4bfa-ad23-54280a3bac38 |
+    | node_uuid             | 3dcdfc03-2209-4b39-95ed-c3f5aa83f4b3 |
     | physical_network      | ctlplane                             |
     | portgroup_uuid        | None                                 |
     | pxe_enabled           | True                                 |
     | updated_at            | None                                 |
-    | uuid                  | f4044415-0686-4d19-8519-f4359980ec3a |
+    | uuid                  | fee46fa9-1b6d-4070-9bd1-22d991a26fe0 |
     +-----------------------+--------------------------------------+
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal port show d849fa71-42a3-49bf-b8cf-a37fdc9e950b
-    +-----------------------+--------------------------------------+
-    | Field                 | Value                                |
-    +-----------------------+--------------------------------------+
-    | address               | b0:26:28:44:91:41                    |
-    | created_at            | 2021-09-02T03:32:51+00:00            |
-    | extra                 | {}                                   |
-    | internal_info         | {}                                   |
-    | is_smartnic           | False                                |
-    | local_link_connection | {}                                   |
-    | node_uuid             | 5115e19f-9b81-44ca-8423-b3b1949807e5 |
-    | physical_network      | ctlplane                             |
-    | portgroup_uuid        | None                                 |
-    | pxe_enabled           | True                                 |
-    | updated_at            | None                                 |
-    | uuid                  | d849fa71-42a3-49bf-b8cf-a37fdc9e950b |
-    +-----------------------+--------------------------------------+
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal port show bff36ae4-f973-4857-8b08-7960881d1939
+    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show 567bc2b0-1ace-4d86-8be3-7eccd69b0db7
     +-----------------------+--------------------------------------+
     | Field                 | Value                                |
     +-----------------------+--------------------------------------+
     | address               | b0:26:28:3b:71:a1                    |
-    | created_at            | 2021-09-02T03:32:51+00:00            |
+    | created_at            | 2021-10-12T18:14:04+00:00            |
     | extra                 | {}                                   |
     | internal_info         | {}                                   |
     | is_smartnic           | False                                |
     | local_link_connection | {}                                   |
-    | node_uuid             | e2645014-ebed-4184-ae01-c782823b100a |
+    | node_uuid             | fd8cb86e-1b85-44a1-84bc-bf144de71481 |
     | physical_network      | ctlplane                             |
     | portgroup_uuid        | None                                 |
     | pxe_enabled           | True                                 |
     | updated_at            | None                                 |
-    | uuid                  | bff36ae4-f973-4857-8b08-7960881d1939 |
+    | uuid                  | 567bc2b0-1ace-4d86-8be3-7eccd69b0db7 |
     +-----------------------+--------------------------------------+
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal port show 09bfa6b7-3889-4c69-a749-d1f051882091
+    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show 769c785e-a6a0-421c-b3cd-0de6f77ce969
+    +-----------------------+--------------------------------------+
+    | Field                 | Value                                |
+    +-----------------------+--------------------------------------+
+    | address               | b0:26:28:44:91:41                    |
+    | created_at            | 2021-10-12T18:14:05+00:00            |
+    | extra                 | {}                                   |
+    | internal_info         | {}                                   |
+    | is_smartnic           | False                                |
+    | local_link_connection | {}                                   |
+    | node_uuid             | a464f58c-2af3-4d9b-a10e-66eadf9e085a |
+    | physical_network      | ctlplane                             |
+    | portgroup_uuid        | None                                 |
+    | pxe_enabled           | True                                 |
+    | updated_at            | None                                 |
+    | uuid                  | 769c785e-a6a0-421c-b3cd-0de6f77ce969 |
+    +-----------------------+--------------------------------------+
+    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show 9c7f2ae4-9afb-4402-a971-a90149e2f938
     +-----------------------+--------------------------------------+
     | Field                 | Value                                |
     +-----------------------+--------------------------------------+
     | address               | b0:26:28:45:fd:81                    |
-    | created_at            | 2021-09-02T03:32:52+00:00            |
+    | created_at            | 2021-10-12T18:14:06+00:00            |
     | extra                 | {}                                   |
     | internal_info         | {}                                   |
     | is_smartnic           | False                                |
     | local_link_connection | {}                                   |
-    | node_uuid             | 10e49aaa-fdd2-49dc-b009-0da398b4f5d7 |
+    | node_uuid             | 6fd40403-fd4f-41c0-811a-7f94a5cc1d7f |
     | physical_network      | ctlplane                             |
     | portgroup_uuid        | None                                 |
     | pxe_enabled           | True                                 |
     | updated_at            | None                                 |
-    | uuid                  | 09bfa6b7-3889-4c69-a749-d1f051882091 |
+    | uuid                  | 9c7f2ae4-9afb-4402-a971-a90149e2f938 |
     +-----------------------+--------------------------------------+
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal port show 76c03ce9-311d-4753-81e5-6195ecbdcf45
+    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show 4b3f1224-eda5-4c29-a91d-28afe08f0f93
     +-----------------------+--------------------------------------+
     | Field                 | Value                                |
     +-----------------------+--------------------------------------+
     | address               | 14:18:77:70:0c:fa                    |
-    | created_at            | 2021-09-02T03:32:53+00:00            |
+    | created_at            | 2021-10-12T18:14:06+00:00            |
     | extra                 | {}                                   |
     | internal_info         | {}                                   |
     | is_smartnic           | False                                |
     | local_link_connection | {}                                   |
-    | node_uuid             | 3d19a65f-6699-484a-9298-c63c5d9068fe |
+    | node_uuid             | a753d67e-072d-4500-bc14-965822fa4089 |
     | physical_network      | ctlplane                             |
     | portgroup_uuid        | None                                 |
     | pxe_enabled           | True                                 |
     | updated_at            | None                                 |
-    | uuid                  | 76c03ce9-311d-4753-81e5-6195ecbdcf45 |
+    | uuid                  | 4b3f1224-eda5-4c29-a91d-28afe08f0f93 |
     +-----------------------+--------------------------------------+
     ```  
 
