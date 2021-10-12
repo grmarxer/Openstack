@@ -4,7 +4,7 @@ time openstack overcloud deploy --templates \
 -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-sriov.yaml \
 -n /home/stack/templates/my-network_data.yaml \
 -r /home/stack/templates/my-custom-roles_data.yaml \
--e /home/stack/templates/my-containers-prepare-parameter.yaml \
+-e /home/stack/containers-prepare-parameter.yaml \
 -e /home/stack/templates/my-control-environment.yaml \
 -e /home/stack/templates/my-compute-environment.yaml \
 -e /home/stack/templates/my-deploy-options.yaml \
