@@ -19,10 +19,10 @@ Director requires a node definition template, which you create manually. This te
     $ source ~/stackrc
     ```  
     ```
-    (undercloud) $ openstack overcloud node import --validate-only ~/nodes.json
+    (undercloud) $ openstack overcloud node import --validate-only ~/my-nodes.json
     ```  
     ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node import --validate-only ~/nodes.json
+    (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node import --validate-only ~/my-nodes.json
     Waiting for messages on queue 'tripleo' with no timeout.
 
     Successfully validated environment file
@@ -30,7 +30,7 @@ Director requires a node definition template, which you create manually. This te
 
 3. Run the following commands to import the template to director:  
     ```
-    (undercloud) $ openstack overcloud node import ~/nodes.json
+    (undercloud) $ openstack overcloud node import ~/my-nodes.json
     ```  
 
     This command registers each node from the template into director.  
