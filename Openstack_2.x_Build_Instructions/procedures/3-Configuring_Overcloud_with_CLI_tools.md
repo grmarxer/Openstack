@@ -40,16 +40,16 @@ Director requires a node definition template, which you create manually. This te
     (undercloud) $ openstack baremetal node list
     ```  
     ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node list
-    +--------------------------------------+----------------+---------------+-------------+--------------------+-------------+
-    | UUID                                 | Name           | Instance UUID | Power State | Provisioning State | Maintenance |
-    +--------------------------------------+----------------+---------------+-------------+--------------------+-------------+
-    | 199a6ae0-c39a-4bfa-ad23-54280a3bac38 | compute1-intel | None          | power on    | manageable         | False       |
-    | 5115e19f-9b81-44ca-8423-b3b1949807e5 | compute2-intel | None          | power on    | manageable         | False       |
-    | e2645014-ebed-4184-ae01-c782823b100a | compute3-mel   | None          | power on    | manageable         | False       |
-    | 10e49aaa-fdd2-49dc-b009-0da398b4f5d7 | compute4-mel   | None          | power on    | manageable         | False       |
-    | 3d19a65f-6699-484a-9298-c63c5d9068fe | controller     | None          | power on    | manageable         | False       |
-    +--------------------------------------+----------------+---------------+-------------+--------------------+-------------+
+    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal node list
+    +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
+    | UUID                                 | Name              | Instance UUID | Power State | Provisioning State | Maintenance |
+    +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
+    | 3dcdfc03-2209-4b39-95ed-c3f5aa83f4b3 | compute1-intel    | None          | power on    | manageable         | False       |
+    | fd8cb86e-1b85-44a1-84bc-bf144de71481 | compute2-intel    | None          | power on    | manageable         | False       |
+    | a464f58c-2af3-4d9b-a10e-66eadf9e085a | compute3-mellanox | None          | power on    | manageable         | False       |
+    | 6fd40403-fd4f-41c0-811a-7f94a5cc1d7f | compute4-mellanox | None          | power on    | manageable         | False       |
+    | a753d67e-072d-4500-bc14-965822fa4089 | controller        | None          | power on    | manageable         | False       |
+    +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
     ```  
 
 5.  Also confirm that the MAC addresses are correct for each node.  This is the MAC of the provisioning network.  
