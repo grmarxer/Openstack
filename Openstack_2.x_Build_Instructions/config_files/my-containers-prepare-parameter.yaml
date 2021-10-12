@@ -25,7 +25,7 @@ parameter_defaults:
       ceph_prometheus_namespace: registry.redhat.io/openshift4
       ceph_prometheus_tag: 4.1
       ceph_tag: latest
-      name_prefix: openstack-
+      name_prefix: vz-osp-lab-containers-
       name_suffix: ''
       namespace: registry.redhat.io/rhosp-rhel8
       neutron_driver: ovn
