@@ -174,7 +174,7 @@ The undercloud installation requires an environment file to determine where to o
 
 #### Procedure
 
-1.  This file has already been created and modified for this specific environment.  Copy [this file](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/config_files/containers-prepare-parameter.yaml) `containers-prepare-parameter.yaml` into the `/home/stack/` directory on the undercloud director node.  
+1.  This file has already been created and modified for this specific environment.  Copy [this file](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/config_files/my-containers-prepare-parameter.yaml) `my-containers-prepare-parameter.yaml` into the `/home/stack/` directory on the undercloud director node.  
 
     __Note:__ Do not change this files name.  
 
