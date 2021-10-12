@@ -68,15 +68,59 @@ parameter_defaults:
   # from director
   #
   #
-  #
-  #  help  -- do i need EC2MetadataIp: if so what is it?
-  #
-  #
-  #
   ControlPlaneSubnetCidr: '24'
   ControlPlaneDefaultRoute: 192.168.255.1
-  #EC2MetadataIp: 192.168.255.x?
-
+  EC2MetadataIp: 192.168.255.1 # should be the IP address of the undercloud director provisioning network
+  
+   HostnameMap:
+     vz-osp-controller-0: controller0
+     vz-osp-computesriov-0: computemetal0-sriov
+     vz-osp-computesriov-1: computemetal1-sriov
+     vz-osp-computedpdk-0: computemetal0-dpdk
+     vz-osp-computedpdk-1: computemetal1-dpdk
+   DeployedServerPortMap:
+     controller0-ctlplane:
+       fixed_ips:
+         - ip_address: 192.168.255.11
+       subnets:
+         - cidr: 192.168.255.0/24
+       network:
+         tags:
+           - 192.168.255.0/24
+     computemetal0-sriov-ctlplane:
+       fixed_ips:
+         - ip_address: 192.168.255.12
+       subnets:
+         - cidr: 192.168.255.0/24
+       network:
+         tags:
+           - 192.168.255.0/24
+     computemetal1-sriov-ctlplane:
+       fixed_ips:
+         - ip_address: 192.168.255.13
+       subnets:
+         - cidr: 192.168.255.0/24
+       network:
+         tags:
+           - 192.168.255.0/24
+     computemetal0-dpdk-ctlplane:
+       fixed_ips:
+         - ip_address: 192.168.255.14
+       subnets:
+         - cidr: 192.168.255.0/24
+       network:
+         tags:
+           - 192.168.255.0/24
+     computemetal1-dpdk-ctlplane:
+       fixed_ips:
+         - ip_address: 192.168.255.15
+       subnets:
+         - cidr: 192.168.255.0/24
+       network:
+         tags:
+           - 192.168.255.0/24
+  #
+  #
   # IP/CIDR ranges for the networks defined in network_data.yaml
   InternalApiNetCidr: 10.255.242.0/24
   TenantNetCidr: 10.255.243.0/24
@@ -191,99 +235,70 @@ parameter_defaults:
   # Predictable VIPs
   # This is a set of parameters for fixed VIPs
   #
-  # help WHY DO I NEED These
+  # Only required when you have multiple controllers
   #
-  #
-  ControlFixedIPs: [{'ip_address':'192.168.70.59'}]
-  InternalApiVirtualFixedIPs: [{'ip_address':'172.16.20.59'}]
-  PublicVirtualFixedIPs: [{'ip_address':'192.168.10.59'}]
-  StorageVirtualFixedIPs: [{'ip_address':'172.16.30.59'}]
-  StorageMgmtVirtualFixedIPs: [{'ip_address':'172.16.40.59'}]
-  RedisVirtualFixedIPs: [{'ip_address':'172.16.20.58'}]
+  #ControlFixedIPs: [{'ip_address':'192.168.70.59'}]
+  #InternalApiVirtualFixedIPs: [{'ip_address':'172.16.20.59'}]
+  #PublicVirtualFixedIPs: [{'ip_address':'192.168.10.59'}]
+  #StorageVirtualFixedIPs: [{'ip_address':'172.16.30.59'}]
+  #StorageMgmtVirtualFixedIPs: [{'ip_address':'172.16.40.59'}]
+  #RedisVirtualFixedIPs: [{'ip_address':'172.16.20.58'}]
 
   # Predictable IPs
   # This contains (in order) the IPs that every node will
   # have on every network
-  #
-  # help WHY DO I NEED These
-  #
-  #
+  # need to map to HostnameMap and DeployedServerPortMap:
   ControllerIPs:
     external:
-    - 192.168.10.50
-    - 192.168.10.51
-    - 192.168.10.52
+    - 10.255.240.11
     internal_api:
-    - 172.16.20.150
-    - 172.16.20.151
-    - 172.16.20.152
+    - 10.255.242.11
     tenant:
-    - 172.16.60.150
-    - 172.16.60.151
-    - 172.16.60.152
+    - 10.255.243.11
     storage:
-    - 172.16.30.150
-    - 172.16.30.151
-    - 172.16.30.152
+    - 10.255.244.11
     storage_mgmt:
-    - 172.16.40.150
-    - 172.16.40.151
-    - 172.16.40.152
+    - 10.255.245.11
     management:
-    - 192.168.100.150
-    - 192.168.100.151
-    - 192.168.100.152
-  ComputeIPs:
-    internal_api:
-    - 172.16.20.160
-    - 172.16.20.161
-    - 172.16.20.162
-    tenant:
-    - 172.16.60.160
-    - 172.16.60.161
-    - 172.16.60.162
-    storage:
-    - 19.16.30.160
-    - 19.16.30.161
-    - 19.16.30.162
-    storage_mgmt:
-    - 172.16.40.160
-    - 172.16.40.161
-    - 172.16.40.162
-    external:
-    - 192.168.10.53
-    - 192.168.10.54
-    - 192.168.10.55
-    management:
-    - 192.168.100.170
-    - 192.168.100.171
-    - 192.168.100.172
+    - 192.168.255.11
   ComputeSriovIPs:
-    internal_api:
-    - 172.16.20.163
-    - 172.16.20.164
-    - 172.16.20.165
-    tenant:
-    - 172.16.60.163
-    - 172.16.60.164
-    - 172.16.60.165
-    storage:
-    - 19.16.30.163
-    - 19.16.30.164
-    - 19.16.30.165
-    storage_mgmt:
-    - 172.16.40.163
-    - 172.16.40.164
-    - 172.16.40.165
     external:
-    - 192.168.10.56
-    - 192.168.10.57
-    - 192.168.10.58
+    - 10.255.240.12
+    - 10.255.240.13
+    internal_api:
+    - 10.255.242.12
+    - 10.255.242.13
+    tenant:
+    - 10.255.243.12
+    - 10.255.243.13
+    storage:
+    - 10.255.244.12
+    - 10.255.244.13
+    storage_mgmt:
+    - 10.255.245.12
+    - 10.255.245.13
     management:
-    - 192.168.100.170
-    - 192.168.100.171
-    - 192.168.100.172
-
+    - 192.168.255.12
+    - 192.168.255.13
+  ComputeOvsDpdkIPs:
+    external:
+    - 10.255.240.14
+    - 10.255.240.15
+    internal_api:
+    - 10.255.242.14
+    - 10.255.242.15
+    tenant:
+    - 10.255.243.14
+    - 10.255.243.15
+    storage:
+    - 10.255.244.14
+    - 10.255.244.15
+    storage_mgmt:
+    - 10.255.245.14
+    - 10.255.245.15
+    management:
+    - 192.168.255.14
+    - 192.168.255.15
   ServiceNetMap:
     ApacheNetwork: internal_api
     NeutronTenantNetwork: tenant

@@ -11,39 +11,39 @@ parameter_defaults:
 
   # This should be the hostname pattern used for controllers
   #ControllerHostnameFormat: '%stackname%-ctrl-%index%'
-  ControllerHostnameFormat: 'lab-osp-ctl%index%'
+  ControllerHostnameFormat: 'vz-osp-controller-%index%'
 
   # This should be the hostname pattern used for computes
   #ComputeHostnameFormat: '%stackname%-comp-%index%'
-  ComputeHostnameFormat: 'lab-osp-comp%index%'
+  ComputeHostnameFormat: 'vz-osp-comp-%index%'
 
   # This should be the hostname pattern used for computes
   #ComputeHostnameFormat: '%stackname%-comp-%index%'
-  ComputeSriovHostnameFormat: 'lab-osp-sriov%index%'
+  ComputeSriovHostnameFormat: 'vz-osp-computesriov-%index%'
 
   # This should be the hostname pattern used for computes
   #ComputeHostnameFormat: '%stackname%-comp-%index%'
-  ComputeOvsDpdkHostnameFormat: 'lab-osp-dpdk%index%'
+  ComputeOvsDpdkHostnameFormat: 'vz-osp-computedpdk-%index%'
 
   # This should be the scheduler hint set on the baremetal node to designate
   # to be provisioned as a controller
   #ControllerSchedulerHints: {'capabilities:node': 'controller-%index%'}
-  ControllerSchedulerHints: {'capabilities:node': 'lab-osp-ctl%index%'}
+  ControllerSchedulerHints: {'capabilities:node': 'vz-osp-controller-%index%'}
 
   # This should be the scheduler hint set on the baremetal node to designate
   # to be provisioned as a compute
   #ComputeSchedulerHints: {'capabilities:node': 'compute-%index%'}
-  ComputeSchedulerHints: {'capabilities:node': 'lab-osp-comp%index%'}
+  ComputeSchedulerHints: {'capabilities:node': 'vz-osp-comp-%index%'}
 
   # This should be the scheduler hint set on the baremetal node to designate
   # to be provisioned as a compute
   #ComputeSchedulerHints: {'capabilities:node': 'compute-%index%'}
-  ComputeSriovSchedulerHints: {'capabilities:node': 'lab-osp-sriov%index%'}
+  ComputeSriovSchedulerHints: {'capabilities:node': 'vz-osp-computesriov-%index%'}
 
   # This should be the scheduler hint set on the baremetal node to designate
   # to be provisioned as a compute
   #ComputeSchedulerHints: {'capabilities:node': 'compute-%index%'}
-  ComputeOvsDpdkSchedulerHints: {'capabilities:node': 'lab-osp-sriov%index%'}
+  ComputeOvsDpdkSchedulerHints: {'capabilities:node': 'vz-osp-computedpdk-%index%'}
 
   # Using scheduler hints not flavors
   # Undercloud nova flavor used for controllers
