@@ -23,7 +23,7 @@
                         "ports": [{
                                 "address": "b0:26:28:44:91:41"
                         }],
-                        "name": "compute3-mel",
+                        "name": "compute3-mellanox",
                         "pm_type": "ipmi",
                         "pm_user": "root",
                         "pm_password": "calvin",
@@ -33,7 +33,7 @@
                         "ports": [{
                                 "address": "b0:26:28:45:fd:81"
                         }],
-                        "name": "compute4-mel",
+                        "name": "compute4-mellanox",
                         "pm_type": "ipmi",
                         "pm_user": "root",
                         "pm_password": "calvin",
