@@ -11,7 +11,7 @@ Director requires a node definition template, which you create manually. This te
 
 #### Procedure  
 
-1. Create the following template named `my-nodes.json` in the `/home/stack` directory which identifies your Overcloud nodes. This template has been created for you and is specific to this environment.  The `my-nodes.json` file can be found [here](https://github.com/grmarxer/Openstack/tree/master/Openstack_2.x_Build_Instructions/config_files/my-nodes.json)  
+1. Create the following template named `my-nodes.json` in the `/home/stack/templates` directory which identifies your Overcloud nodes. This template has been created for you and is specific to this environment.  The `my-nodes.json` file can be found [here](https://github.com/grmarxer/Openstack/tree/master/Openstack_2.x_Build_Instructions/config_files/my-nodes.json)  
 
 
 2. After you create the template, run the following commands to verify the formatting and syntax:  
@@ -19,10 +19,10 @@ Director requires a node definition template, which you create manually. This te
     $ source ~/stackrc
     ```  
     ```
-    (undercloud) $ openstack overcloud node import --validate-only ~/my-nodes.json
+    (undercloud) $ openstack overcloud node import --validate-only /home/stack/templates/my-nodes.json
     ```  
     ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node import --validate-only ~/my-nodes.json
+    (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node import --validate-only /home/stack/templates/my-nodes.json
     Waiting for messages on queue 'tripleo' with no timeout.
 
     Successfully validated environment file
@@ -30,7 +30,7 @@ Director requires a node definition template, which you create manually. This te
 
 3. Run the following commands to import the template to director:  
     ```
-    (undercloud) $ openstack overcloud node import ~/my-nodes.json
+    (undercloud) $ openstack overcloud node import /home/stack/templates/my-nodes.json
     ```  
 
     This command registers each node from the template into director.  
