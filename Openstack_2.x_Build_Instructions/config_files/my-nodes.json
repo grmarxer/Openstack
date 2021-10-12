@@ -11,16 +11,6 @@
                 },
                 {
                         "ports": [{
-                                "address": "b0:26:28:44:91:41"
-                        }],
-                        "name": "compute3-mel",
-                        "pm_type": "ipmi",
-                        "pm_user": "root",
-                        "pm_password": "calvin",
-                        "pm_addr": "10.144.19.237"
-                },
-                {
-                        "ports": [{
                                 "address": "b0:26:28:3b:71:a1"
                         }],
                         "name": "compute2-intel",
@@ -28,6 +18,16 @@
                         "pm_user": "root",
                         "pm_password": "calvin",
                         "pm_addr": "10.144.19.231"
+                },
+				{
+                        "ports": [{
+                                "address": "b0:26:28:44:91:41"
+                        }],
+                        "name": "compute3-mel",
+                        "pm_type": "ipmi",
+                        "pm_user": "root",
+                        "pm_password": "calvin",
+                        "pm_addr": "10.144.19.237"
                 },
                 {
                         "ports": [{
