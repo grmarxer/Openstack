@@ -68,17 +68,17 @@ parameter_defaults:
   # from director
   #
   #
-  ControlPlaneSubnetCidr: '24'
+  ControlPlaneSubnetCidr: "24"
   ControlPlaneDefaultRoute: 192.168.255.1
   EC2MetadataIp: 192.168.255.1 # should be the IP address of the undercloud director provisioning network
   
-   HostnameMap:
+  HostnameMap:
      vz-osp-controller-0: controller0
      vz-osp-computesriov-0: computemetal0-sriov
      vz-osp-computesriov-1: computemetal1-sriov
      vz-osp-computedpdk-0: computemetal0-dpdk
      vz-osp-computedpdk-1: computemetal1-dpdk
-   DeployedServerPortMap:
+  DeployedServerPortMap:
      controller0-ctlplane:
        fixed_ips:
          - ip_address: 192.168.255.11

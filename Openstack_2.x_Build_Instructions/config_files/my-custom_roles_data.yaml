@@ -4,7 +4,7 @@
 ###############################################################################
 # Role: Controller                                                            #
 ###############################################################################
-- name: ControllerRole
+- name: Controller
   description: |
     Controller role that has all the controler services loaded and handles
     Database, Messaging and Network functions.
@@ -194,7 +194,7 @@
 ###############################################################################
 # Role: ComputeSriov                                                          #
 ###############################################################################
-- name: ComputeSriov-Intel-Role
+- name: ComputeSriov
   description: |
     Compute SR-IOV Role
   CountDefault: 1
@@ -259,7 +259,7 @@
 ###############################################################################
 # Role: ComputeOvsDpdk                                                        #
 ###############################################################################
-- name: ComputeOvsDpdk-Mellanox-Role
+- name: ComputeOvsDpdk
   description: |
     Compute OvS DPDK Role
   CountDefault: 1
