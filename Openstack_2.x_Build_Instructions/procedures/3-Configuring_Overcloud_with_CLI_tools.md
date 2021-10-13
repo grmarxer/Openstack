@@ -465,7 +465,7 @@ Default profile flavors compute, control, swift-storage, ceph-storage, and block
     +------------------------+----------------------------------------------------------------------------------------------------------------------------------------
     ```  
 
-2.  After you complete node tagging, check the assigned profiles or possible profiles:
+2.   __Most likely this can be removed__  After you complete node tagging, check the assigned profiles or possible profiles:
 
     ```
     (undercloud) $ openstack overcloud profiles list
@@ -514,7 +514,7 @@ The next few sections contain information about creating some environment files 
 
 <br/> 
 
-##  Creating an environment file that defines node counts and flavors  
+##  Think this can be removed Creating an environment file that defines node counts and flavors  
 
 By default, director deploys an overcloud with 1 Controller node and 1 Compute node using the baremetal flavor. However, this is only suitable for a proof-of-concept deployment. You can override the default configuration by specifying different node counts and flavors. For a small-scale production environment, deploy at least 3 Controller nodes and 3 Compute nodes, and assign specific flavors to ensure that the nodes have the appropriate resource specifications. Complete the following steps to create an environment file named node-info.yaml that stores the node counts and flavor assignments.  
 
