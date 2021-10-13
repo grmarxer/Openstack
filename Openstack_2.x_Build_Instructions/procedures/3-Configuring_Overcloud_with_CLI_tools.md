@@ -444,7 +444,26 @@ Default profile flavors compute, control, swift-storage, ceph-storage, and block
     openstack baremetal node set --property capabilities="node:computemetal1-sriov,boot_option:local" compute2-intel
     openstack baremetal node set --property capabilities="node:computemetal0-dpdk,boot_option:local" compute3-mellanox
     openstack baremetal node set --property capabilities="node:computemetal1-dpdk,boot_option:local" compute4-mellanox
+    ```  
+
     ```
+    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node show controller
+    +------------------------+----------------------------------------------------------------------------------------------------------------------------------------
+    | Field                  | Value                                                                                                                                  |
+    +------------------------+----------------------------------------------------------------------------------------------------------------------------------------
+    | allocation_uuid        | None                                                                                                                                   |
+    | automated_clean        | None                                                                                                                                   |
+    | bios_interface         | no-bios                                                                                                                                |
+    | boot_interface         | ipxe                                                                                                                                   |
+    |                                                                                                                                                                 |
+    |   <snippet removed > ...                                                                                                                                        |
+    |                                                                                                                                                                 |
+    | properties             | {'local_gb': '930', 'cpus': '24', 'cpu_arch': 'x86_64', 'memory_mb': '65536', 'capabilities': 'node:controller0,boot_option:local'}    |
+    | protected              | False                                                                                                                                  |
+    | protected_reason       | None                                                                                                                                   |
+    | provision_state        | available                                                                                                                              |
+    +------------------------+----------------------------------------------------------------------------------------------------------------------------------------
+    ```  
 
 2.  After you complete node tagging, check the assigned profiles or possible profiles:
 
