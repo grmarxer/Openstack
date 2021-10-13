@@ -192,10 +192,10 @@ parameter_defaults:
 
   # Neutron Settings
   # Default type for neutron networks
-  # NeutronNetworkType: ['geneve', 'vlan','flat']
-  NeutronNetworkType: ['vxlan', 'vlan','flat']
-  #NeutronTypeDrivers: 'geneve,vlan,flat'
-  NeutronTypeDrivers: ['vxlan', 'vlan','flat']
+  NeutronNetworkType: ['geneve', 'vlan','flat']
+  # NeutronNetworkType: ['vxlan', 'vlan','flat']  # errored on vxlan
+  # NeutronTypeDrivers: 'geneve,vlan,flat'
+  NeutronTypeDrivers: ['vxlan', 'vlan','flat']  
   NeutronTunnelTypes: 'vxlan'
 
   #NeutronEnableDVR: false
