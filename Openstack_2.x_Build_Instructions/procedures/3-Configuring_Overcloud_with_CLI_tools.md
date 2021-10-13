@@ -402,7 +402,7 @@ The steps to define your __custom roles__ configuration are:
 4. Create the `my_custom_roles_data.yaml` with the following specific roles Controller, ComputeSriov, and ComputeOvsDpdk  
 
     ```
-    openstack overcloud roles generate -o ~/templates/my_custom_roles_data.yaml --roles-path /home/stack/copy-of-default-tripleo-heat-templates/roles Controller:Controller ComputeSriov:ComputeSriov ComputeOvsDpdk:ComputeOvsDpdk
+    openstack overcloud roles generate -o /home/stack/templates/my_custom_roles_data.yaml --roles-path /home/stack/copy-of-default-tripleo-heat-templates/roles Controller:Controller ComputeSriov:ComputeSriov ComputeOvsDpdk:ComputeOvsDpdk
     ```  
 
 5.  Verify that the `my_custom_roles_data.yaml` file was created with the specified roles outlined above  
