@@ -91,46 +91,46 @@
   vlan: 1153
   name_lower: storage
   ip_subnet: '10.255.244.0/24'
-  allocation_pools: [{'start': '10.255.244.10', 'end': '10.255.244.250'}]
+  allocation_pools: [{'start': '10.255.244.20', 'end': '10.255.244.250'}]
   ipv6_subnet: 'fd00:10:255:244::/64'
-  ipv6_allocation_pools: [{'start': 'fd00:10:255:244::10', 'end': 'fd00:10:255:244::250'}]
+  ipv6_allocation_pools: [{'start': 'fd00:10:255:244::20', 'end': 'fd00:10:255:244::250'}]
   mtu: 1500
 - name: StorageMgmt
   name_lower: storage_mgmt
   vip: false
   vlan: 1154
   ip_subnet: '10.255.245.0/24'
-  allocation_pools: [{'start': '10.255.245.10', 'end': '10.255.245.250'}]
+  allocation_pools: [{'start': '10.255.245.20', 'end': '10.255.245.250'}]
   ipv6_subnet: 'fd00:10:255:245::/64'
-  ipv6_allocation_pools: [{'start': 'fd00:10:255:245::10', 'end': 'fd00:10:255:245::250'}]
+  ipv6_allocation_pools: [{'start': 'fd00:10:255:245::20', 'end': 'fd00:10:255:245::250'}]
   mtu: 1500
 - name: InternalApi
   name_lower: internal_api
   vip: false
   vlan: 1151
   ip_subnet: '10.255.242.0/24'
-  allocation_pools: [{'start': '10.255.242.10', 'end': '10.255.242.250'}]
+  allocation_pools: [{'start': '10.255.242.20', 'end': '10.255.242.250'}]
   ipv6_subnet: 'fd00:10:255:242::/64'
-  ipv6_allocation_pools: [{'start': 'fd00:10:255:242::10', 'end': 'fd00:10:255:242::250'}]
+  ipv6_allocation_pools: [{'start': 'fd00:10:255:242::20', 'end': 'fd00:10:255:242::250'}]
   mtu: 1500
 - name: Tenant
   vip: false  # Tenant network does not use VIPs
   name_lower: tenant
   vlan: 1152
   ip_subnet: '10.255.243.0/24'
-  allocation_pools: [{'start': '10.255.243.10', 'end': '10.255.243.250'}]
+  allocation_pools: [{'start': '10.255.243.20', 'end': '10.255.243.250'}]
   ipv6_subnet: 'fd00:10:255:243::/64'
-  ipv6_allocation_pools: [{'start': 'fd00:10:255:243::10', 'end': 'fd00:10:255:243::250'}]
+  ipv6_allocation_pools: [{'start': 'fd00:10:255:243::20', 'end': 'fd00:10:255:243::250'}]
   mtu: 1500
 - name: External
   vip: false
   name_lower: external
   vlan: 1150
   ip_subnet: '10.255.240.0/24'
-  allocation_pools: [{'start': '10.255.240.11', 'end': '10.255.240.15'}]
+  allocation_pools: [{'start': '10.255.240.21', 'end': '10.255.240.30'}]
   gateway_ip: '10.255.240.1'
   ipv6_subnet: 'fd00:10:255:240::/64'
-  ipv6_allocation_pools: [{'start': 'fd00:10:255:240::20', 'end': 'fd00:10:255:240::50'}]
+  ipv6_allocation_pools: [{'start': 'fd00:10:255:240::21', 'end': 'fd00:10:255:240::30'}]
   gateway_ipv6: 'fd00:10:255:240::::1'
   mtu: 1500
 - name: Management
@@ -141,9 +141,9 @@
   name_lower: management
   vlan:
   ip_subnet: '192.168.255.0/24'
-  allocation_pools: [{'start': '192.168.255.10', 'end': '192.168.255.45'}]
+  allocation_pools: [{'start': '192.168.255.20', 'end': '192.168.255.55'}]
   gateway_ip: '192.168.255.1'
   gateway_ipv6: 'fd00:192:168:255::1'
   ipv6_subnet: 'fd00:192:168:255::/64'
-  ipv6_allocation_pools: [{'start': 'fd00:192:168:255::10', 'end': 'fd00:192:168:255::45'}]
+  ipv6_allocation_pools: [{'start': 'fd00:192:168:255::20', 'end': 'fd00:192:168:255::55'}]
   mtu: 1500
