@@ -415,16 +415,15 @@ The steps to define your __custom roles__ configuration are:
 
 <br/> 
 
-##  Tagging nodes into profiles  
+##  Controlling Node Placement and IP Assignment   
 
-After you register and inspect the hardware of each node, tag the nodes into specific profiles. These profile tags match your nodes to flavors, which assigns the flavors to deployment roles.  
+By default, nodes are assigned randomly via the Nova scheduler, either from a generic pool of nodes, or from a subset of nodes identified via specific profiles which are mapped to Nova flavors (See [Baremetal Environment](https://docs.openstack.org/project-deploy-guide/tripleo-docs/latest/environments/baremetal.html) and [Advanced Profile Matching](https://docs.openstack.org/project-deploy-guide/tripleo-docs/latest/provisioning/profile_matching.html) for further information).  
 
-Default profile flavors compute, control, swift-storage, ceph-storage, and block-storage are created during undercloud installation and are usable without modification in most environments.  
+However in some circumstances, you may wish to control node placement more directly, which is possible by combining the same capabilities mechanism used for per-profile placement with per-node scheduler hints.  
 
 #### Procedure  
 
-1.  To tag a node into a specific profile, add a profile option to the properties/capabilities parameter for each node. For example, to tag a specific node to use a specific profile.  The commands below are specific to this environment.  
-
+1.  Assign per-node capabilities  The first step is to assign a unique per-node capability which may be matched by the Nova scheduler on deployment.  
     ```
     openstack baremetal node set --property capabilities="node:vz-osp-controller-0,boot_option:local" controller
     openstack baremetal node set --property capabilities="node:vz-osp-computesriov-0,boot_option:local" compute1-intel
@@ -433,42 +432,26 @@ Default profile flavors compute, control, swift-storage, ceph-storage, and block
     openstack baremetal node set --property capabilities="node:vz-osp-computedpdk-1,boot_option:local" compute4-mellanox
     ```  
 
+2.   After you assign the per-node capability to each node, verify it was set properly.  Example below for the controller  
+
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node show controller
-    +------------------------+----------------------------------------------------------------------------------------------------------------------------------------
-    | Field                  | Value                                                                                                                                  |
-    +------------------------+----------------------------------------------------------------------------------------------------------------------------------------
-    | allocation_uuid        | None                                                                                                                                   |
-    | automated_clean        | None                                                                                                                                   |
-    | bios_interface         | no-bios                                                                                                                                |
-    | boot_interface         | ipxe                                                                                                                                   |
-    |                                                                                                                                                                 |
-    |   <snippet removed > ...                                                                                                                                        |
-    |                                                                                                                                                                 |
-    | properties             | {'local_gb': '930', 'cpus': '24', 'cpu_arch': 'x86_64', 'memory_mb': '65536', 'capabilities': 'node:vz-osp-controller-0,boot_option:local'}    |
-    | protected              | False                                                                                                                                  |
-    | protected_reason       | None                                                                                                                                   |
-    | provision_state        | available                                                                                                                              |
-    +------------------------+----------------------------------------------------------------------------------------------------------------------------------------
-    ```  
-
-2.   __Most likely this can be removed__  After you complete node tagging, check the assigned profiles or possible profiles:
-
-    ```
-    (undercloud) $ openstack overcloud profiles list
-    ```  
-    ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud profiles list
-    +--------------------------------------+-------------------+-----------------+-----------------+-------------------+
-    | Node UUID                            | Node Name         | Provision State | Current Profile | Possible Profiles |
-    +--------------------------------------+-------------------+-----------------+-----------------+-------------------+
-    | 3dcdfc03-2209-4b39-95ed-c3f5aa83f4b3 | compute1-intel    | available       | computeSriov    |                   |
-    | fd8cb86e-1b85-44a1-84bc-bf144de71481 | compute2-intel    | available       | computeSriov    |                   |
-    | a464f58c-2af3-4d9b-a10e-66eadf9e085a | compute3-mellanox | available       | computeOvsDpdk  |                   |
-    | 6fd40403-fd4f-41c0-811a-7f94a5cc1d7f | compute4-mellanox | available       | computeOvsDpdk  |                   |
-    | a753d67e-072d-4500-bc14-965822fa4089 | controller        | available       | control         |                   |
-    +--------------------------------------+-------------------+-----------------+-----------------+-------------------+
-    ```  
+    +------------------------+----------------------------------------------------------------------------------------------------------------------------------------------
+    | Field                  | Value                                                                                                                                        |
+    +------------------------+----------------------------------------------------------------------------------------------------------------------------------------------
+    | allocation_uuid        | None                                                                                                                                         |
+    | automated_clean        | None                                                                                                                                         |
+    | bios_interface         | no-bios                                                                                                                                      |
+    | boot_interface         | ipxe                                                                                                                                         |
+    |                                                                                                                                                                       |
+    |   <snippet removed > ...                                                                                                                                              |
+    |                                                                                                                                                                       |
+    | properties             | {'local_gb': '930', 'cpus': '24', 'cpu_arch': 'x86_64', 'memory_mb': '65536', 'capabilities': 'node:vz-osp-controller-0,boot_option:local'}  |
+    | protected              | False                                                                                                                                        |
+    | protected_reason       | None                                                                                                                                         |
+    | provision_state        | available                                                                                                                                    |
+    +------------------------+----------------------------------------------------------------------------------------------------------------------------------------------
+    ``` 
 
 
 <br/> 
