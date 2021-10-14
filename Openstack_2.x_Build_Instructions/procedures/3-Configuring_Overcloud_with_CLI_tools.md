@@ -436,6 +436,13 @@ Default profile flavors compute, control, swift-storage, ceph-storage, and block
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute2
     ```  
+    ```
+    openstack baremetal node set --property capabilities="profile:computeSriov,boot_option:local" compute1-intel
+    openstack baremetal node set --property capabilities="profile:computeSriov,boot_option:local" compute2-intel
+    openstack baremetal node set --property capabilities="profile:computeOvsDpdk,boot_option:local" compute3-mellanox
+    openstack baremetal node set --property capabilities="profile:computeOvsDpdk,boot_option:local" compute4-mellanox
+    openstack baremetal node set --property capabilities="profile:control,boot_option:local" controller
+    ```  
 
 
     ```
@@ -472,13 +479,15 @@ Default profile flavors compute, control, swift-storage, ceph-storage, and block
     ```  
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud profiles list
-    +--------------------------------------+------------+-----------------+-----------------+-------------------+
-    | Node UUID                            | Node Name  | Provision State | Current Profile | Possible Profiles |
-    +--------------------------------------+------------+-----------------+-----------------+-------------------+
-    | 146bb426-2a52-4cba-b12b-b3f46749462b | controller | available       | control         |                   |
-    | 86da6986-443c-4135-9bc6-bc00653502b8 | compute1   | available       | compute         |                   |
-    | 96eb9d6f-e52e-4388-90cb-b793c39dc588 | compute2   | available       | compute         |                   |
-    +--------------------------------------+------------+-----------------+-----------------+-------------------+
+    +--------------------------------------+-------------------+-----------------+-----------------+-------------------+
+    | Node UUID                            | Node Name         | Provision State | Current Profile | Possible Profiles |
+    +--------------------------------------+-------------------+-----------------+-----------------+-------------------+
+    | 3dcdfc03-2209-4b39-95ed-c3f5aa83f4b3 | compute1-intel    | available       | computeSriov    |                   |
+    | fd8cb86e-1b85-44a1-84bc-bf144de71481 | compute2-intel    | available       | computeSriov    |                   |
+    | a464f58c-2af3-4d9b-a10e-66eadf9e085a | compute3-mellanox | available       | computeOvsDpdk  |                   |
+    | 6fd40403-fd4f-41c0-811a-7f94a5cc1d7f | compute4-mellanox | available       | computeOvsDpdk  |                   |
+    | a753d67e-072d-4500-bc14-965822fa4089 | controller        | available       | control         |                   |
+    +--------------------------------------+-------------------+-----------------+-----------------+-------------------+
     ```  
 
 
