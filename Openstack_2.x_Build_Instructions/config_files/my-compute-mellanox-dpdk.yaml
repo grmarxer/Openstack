@@ -207,102 +207,106 @@ resources:
           params:
             $network_config:
               network_config:
-                - type: interface
-                  name: eno2np1
-                  use_dhcp: false
-                  dns_servers: {get_param: DnsServers}
-                  domain: {get_param: DnsSearchDomains}
-                  addresses:
-                    - ip_netmask:
-                        list_join:
-                          - '/'
-                          - - {get_param: ControlPlaneIp}
-                            - {get_param: ControlPlaneSubnetCidr}
-                  routes:
-                    - ip_netmask: 169.254.169.254/32
-                      next_hop: {get_param: EC2MetadataIp}
-                    - default: false
-                      next_hop: {get_param: ControlPlaneDefaultRoute}
-                - type: ovs_bridge
-                  name: {get_input: bridge_name}
-                  use_dhcp: false
-                  dns_servers: {get_param: DnsServers}
-                  addresses:
-                    - ip_netmask:
-                        list_join:
-                          - '/'
-                          - - {get_param: ControlPlaneIp}
-                            - {get_param: ControlPlaneSubnetCidr}
-                  routes:
-                    - ip_netmask: 169.254.169.254/32
-                      next_hop: {get_param: EC2MetadataIp}
+              
+              # NIC eno2np1 - Provisioning              
+              - type: interface
+                name: eno2np1
+                use_dhcp: false
+                dns_servers: {get_param: DnsServers}
+                domain: {get_param: DnsSearchDomains}
+                addresses:
+                  - ip_netmask:
+                      list_join:
+                        - /
+                        - - get_param: ControlPlaneIp
+                          - get_param: ControlPlaneSubnetCidr
+                routes:
+                  - ip_netmask: 169.254.169.254/32
+                    next_hop: {get_param: EC2MetadataIp}
+                  - default: false
+                    next_hop: {get_param: ControlPlaneDefaultRoute}
+              
+              # NIC eno1np0 - Control Group TripleO      
+              - type: ovs_bridge
+                name: {get_input: bridge_name}
+                use_dhcp: false
+                dns_servers: {get_param: DnsServers}
+                addresses:
+                  - ip_netmask:
+                      list_join:
+                        - '/'
+                        - - {get_param: ControlPlaneIp}
+                          - {get_param: ControlPlaneSubnetCidr}
+                routes:
+                  - ip_netmask: 169.254.169.254/32
+                    next_hop: {get_param: EC2MetadataIp}
+                members:
+                  - type: interface
+                    name: eno1np0
+                    # force the MAC address of the bridge to this interface
+                    primary: true
+                  - type: vlan
+                    vlan_id: {get_param: ExternalNetworkVlanID}
+                    addresses:
+                    - ip_netmask: {get_param: ExternalIpSubnet}
+                    routes:
+                      - default: true
+                        next_hop: {get_param: ExternalInterfaceDefaultRoute}
+                  - type: vlan
+                    vlan_id: {get_param: InternalApiNetworkVlanID}
+                    addresses:
+                      - ip_netmask: {get_param: InternalApiIpSubnet}
+              - type: ovs_user_bridge
+                name: br-tenant
+                use_dhcp: false
+              #  ovs_extra:
+              #   - str_replace:
+              #     template: set port br-tenant tag=_VLAN_TAG_
+              #     params:
+              #       _VLAN_TAG_:
+              #       get_param: TenantNetworkVlanID
+                addresses:
+                - ip_netmask:
+                  get_param: TenantIpSubnet
+                routes:
+                  list_concat_unique:
+                    - get_param: TenantInterfaceRoutes
+                members:
+                - type: ovs_dpdk_port
+                  name: dpdkbond0
+                  mtu: 9000
+                  ovs_extra:
+                  # bonding maybe an issues as switch is set for lacp and ovs does not support lacp -- so if doesn't work look to modify switch settings
+                    - set port dpdkbond0 bond_mode=balance-slb # lacp=off https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/8/html/director_installation_and_usage/appe-bonding_options
                   members:
-                    - type: interface
-                      name: eno1np0
-                      # force the MAC address of the bridge to this interface
-                      primary: true
-                    - type: vlan
-                      vlan_id: {get_param: ExternalNetworkVlanID}
-                      addresses:
-                      - ip_netmask: {get_param: ExternalIpSubnet}
-                      routes:
-                        - default: true
-                          next_hop: {get_param: ExternalInterfaceDefaultRoute}
-                    - type: vlan
-                      vlan_id: {get_param: InternalApiNetworkVlanID}
-                      addresses:
-                        - ip_netmask: {get_param: InternalApiIpSubnet}
-                - type: ovs_user_bridge
-                  name: br-tenant
-                  use_dhcp: false
-                #  ovs_extra:
-                #   - str_replace:
-                #     template: set port br-tenant tag=_VLAN_TAG_
-                #     params:
-                #       _VLAN_TAG_:
-                #       get_param: TenantNetworkVlanID
-                  addresses:
-                   - ip_netmask:
-                     get_param: TenantIpSubnet
-                  routes:
-                    list_concat_unique:
-                      - get_param: TenantInterfaceRoutes
-                  members:
-                  - type: ovs_dpdk_port
-                    name: dpdkbond0
-                    mtu: 9000
-                    ovs_extra:
-                    # bonding maybe an issues as switch is set for lacp and ovs does not support lacp -- so if doesn't work look to modify switch settings
-                      - set port dpdkbond0 bond_mode=balance-slb # lacp=off https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/8/html/director_installation_and_usage/appe-bonding_options
-                    members:
-                      - type: ovs_dpdk_port
-                        name: dpdk0
-                        members:
-                          - type: sriov_vf
-                            device: ens1f0
-                            vfid: 3
-                      - type: ovs_dpdk_port
-                        name: dpdk1
-                        members:
-                          - type: sriov_vf
-                            device: ens1f1
-                            vfid: 3
-                - type: sriov_pf
-                  name: ens1f0
-                  use_dhcp: false
-                  numvfs: 32
-                  defroute: false
-                  nm_controlled: true
-                  hotplug: true
-                  promisc: false
-                - type: sriov_pf
-                  name: ens1f1
-                  use_dhcp: false
-                  numvfs: 32
-                  defroute: false
-                  nm_controlled: true
-                  hotplug: true
-                  promisc: false
+                    - type: ovs_dpdk_port
+                      name: dpdk0
+                      members:
+                        - type: sriov_vf
+                          device: ens1f0
+                          vfid: 3
+                    - type: ovs_dpdk_port
+                      name: dpdk1
+                      members:
+                        - type: sriov_vf
+                          device: ens1f1
+                          vfid: 3
+              - type: sriov_pf
+                name: ens1f0
+                use_dhcp: false
+                numvfs: 32
+                defroute: false
+                nm_controlled: true
+                hotplug: true
+                promisc: false
+              - type: sriov_pf
+                name: ens1f1
+                use_dhcp: false
+                numvfs: 32
+                defroute: false
+                nm_controlled: true
+                hotplug: true
+                promisc: false
 outputs:
   OS::stack_id:
     description: The OsNetConfigImpl resource.
