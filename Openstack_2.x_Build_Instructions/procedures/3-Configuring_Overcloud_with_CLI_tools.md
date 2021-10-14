@@ -417,6 +417,8 @@ The steps to define your __custom roles__ configuration are:
 
 ##  Controlling Node Placement and IP Assignment   
 
+[Controlling Node Placement and IP Assignment Documentation](https://docs.openstack.org/project-deploy-guide/tripleo-docs/latest/provisioning/node_placement.html)  
+
 By default, nodes are assigned randomly via the Nova scheduler, either from a generic pool of nodes, or from a subset of nodes identified via specific profiles which are mapped to Nova flavors (See [Baremetal Environment](https://docs.openstack.org/project-deploy-guide/tripleo-docs/latest/environments/baremetal.html) and [Advanced Profile Matching](https://docs.openstack.org/project-deploy-guide/tripleo-docs/latest/provisioning/profile_matching.html) for further information).  
 
 However in some circumstances, you may wish to control node placement more directly, which is possible by combining the same capabilities mechanism used for per-profile placement with per-node scheduler hints.  
