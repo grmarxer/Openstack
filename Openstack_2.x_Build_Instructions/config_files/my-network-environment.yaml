@@ -127,7 +127,7 @@ parameter_defaults:
   StorageNetCidr: 10.255.244.0/24
   StorageMgmtNetCidr: 10.255.245.0/24
   ExternalNetCidr: 10.255.240.0/24
-  #ManagementNetCidr: 192.168.255.0/24
+  ManagementNetCidr: 192.168.255.0/24
 
   # VLAN IDs for the various networks defined in network_data.yaml
   InternalApiNetworkVlanID: 1151
@@ -144,7 +144,7 @@ parameter_defaults:
   StorageAllocationPools: [{'start': '10.255.244.10', 'end': '10.255.244.250'}]
   StorageMgmtAllocationPools: [{'start': '10.255.245.10', 'end': '10.255.245.250'}]
   ExternalAllocationPools: [{'start': '10.255.240.11', 'end': '10.255.240.15'}]
-  #ManagementAllocationPools: [{'start': '192.168.255.10', 'end': '192.168.255.45'}]
+  ManagementAllocationPools: [{'start': '192.168.255.10', 'end': '192.168.255.45'}]
 
   # These should point to the gateway IP for the external interfaces
   ExternalInterfaceDefaultRoute: 10.255.240.1
