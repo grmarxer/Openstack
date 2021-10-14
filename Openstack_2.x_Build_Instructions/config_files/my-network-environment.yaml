@@ -78,47 +78,47 @@ parameter_defaults:
   #   vz-osp-computesriov-1: compute2-intel
   #   vz-osp-computedpdk-0: compute3-mellanox
   #   vz-osp-computedpdk-1: compute4-mellanox
-  DeployedServerPortMap:
-     vz-osp-controller-0-ctlplane:
-       fixed_ips:
-         - ip_address: 192.168.255.11
-       subnets:
-         - cidr: 192.168.255.0/24
-       network:
-         tags:
-           - 192.168.255.0/24
-     vz-osp-computesriov-0-ctlplane:
-       fixed_ips:
-         - ip_address: 192.168.255.12
-       subnets:
-         - cidr: 192.168.255.0/24
-       network:
-         tags:
-           - 192.168.255.0/24
-     vz-osp-computesriov-1-ctlplane:
-       fixed_ips:
-         - ip_address: 192.168.255.13
-       subnets:
-         - cidr: 192.168.255.0/24
-       network:
-         tags:
-           - 192.168.255.0/24
-     vz-osp-computedpdk-0-ctlplane:
-       fixed_ips:
-         - ip_address: 192.168.255.14
-       subnets:
-         - cidr: 192.168.255.0/24
-       network:
-         tags:
-           - 192.168.255.0/24
-     vz-osp-computedpdk-1-ctlplane:
-       fixed_ips:
-         - ip_address: 192.168.255.15
-       subnets:
-         - cidr: 192.168.255.0/24
-       network:
-         tags:
-           - 192.168.255.0/24
+  #DeployedServerPortMap:
+  #  vz-osp-controller-0-ctlplane:
+  #     fixed_ips:
+  #       - ip_address: 192.168.255.11
+  #     subnets:
+  #       - cidr: 192.168.255.0/24
+  #     network:
+  #       tags:
+  #         - 192.168.255.0/24
+  #   vz-osp-computesriov-0-ctlplane:
+  #     fixed_ips:
+  #       - ip_address: 192.168.255.12
+  #     subnets:
+  #       - cidr: 192.168.255.0/24
+  #     network:
+  #       tags:
+  #         - 192.168.255.0/24
+  #   vz-osp-computesriov-1-ctlplane:
+  #     fixed_ips:
+  #       - ip_address: 192.168.255.13
+  #     subnets:
+  #       - cidr: 192.168.255.0/24
+  #     network:
+  #      tags:
+  #         - 192.168.255.0/24
+  #   vz-osp-computedpdk-0-ctlplane:
+  #     fixed_ips:
+  #       - ip_address: 192.168.255.14
+  #     subnets:
+  #       - cidr: 192.168.255.0/24
+  #     network:
+  #       tags:
+  #         - 192.168.255.0/24
+  #   vz-osp-computedpdk-1-ctlplane:
+  #     fixed_ips:
+  #       - ip_address: 192.168.255.15
+  #     subnets:
+  #       - cidr: 192.168.255.0/24
+  #     network:
+  #       tags:
+  #         - 192.168.255.0/24
   #
   #
   # IP/CIDR ranges for the networks defined in network_data.yaml
