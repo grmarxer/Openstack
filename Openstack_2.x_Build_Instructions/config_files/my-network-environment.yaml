@@ -127,7 +127,7 @@ parameter_defaults:
   StorageNetCidr: 10.255.244.0/24
   StorageMgmtNetCidr: 10.255.245.0/24
   ExternalNetCidr: 10.255.240.0/24
-  ManagementNetCidr: 192.168.255.0/24
+  #ManagementNetCidr: 192.168.255.0/24
 
   # VLAN IDs for the various networks defined in network_data.yaml
   InternalApiNetworkVlanID: 1151
@@ -144,7 +144,7 @@ parameter_defaults:
   StorageAllocationPools: [{'start': '10.255.244.20', 'end': '10.255.244.250'}]
   StorageMgmtAllocationPools: [{'start': '10.255.245.20', 'end': '10.255.245.250'}]
   ExternalAllocationPools: [{'start': '10.255.240.21', 'end': '10.255.240.30'}]
-  ManagementAllocationPools: [{'start': '192.168.255.20', 'end': '192.168.255.55'}]
+  #ManagementAllocationPools: [{'start': '192.168.255.20', 'end': '192.168.255.55'}]
 
   # These should point to the gateway IP for the external interfaces
   ExternalInterfaceDefaultRoute: 10.255.240.1
@@ -249,6 +249,8 @@ parameter_defaults:
   # have on every network
   # need to map to HostnameMap and DeployedServerPortMap:
   ControllerIPs:
+    ctlplane:
+    - 192.168.255.11
     external:
     - 10.255.240.11
     internal_api:
@@ -259,9 +261,10 @@ parameter_defaults:
     - 10.255.244.11
     storage_mgmt:
     - 10.255.245.11
-    management:
-    - 192.168.255.11
   ComputeSriovIPs:
+    ctlplane:
+    - 192.168.255.12
+    - 192.168.255.13
     external:
     - 10.255.240.12
     - 10.255.240.13
@@ -277,10 +280,10 @@ parameter_defaults:
     storage_mgmt:
     - 10.255.245.12
     - 10.255.245.13
-    management:
-    - 192.168.255.12
-    - 192.168.255.13
   ComputeOvsDpdkIPs:
+    ctlplane:
+    - 192.168.255.14
+    - 192.168.255.15
     external:
     - 10.255.240.14
     - 10.255.240.15
@@ -296,9 +299,6 @@ parameter_defaults:
     storage_mgmt:
     - 10.255.245.14
     - 10.255.245.15
-    management:
-    - 192.168.255.14
-    - 192.168.255.15
   ServiceNetMap:
     ApacheNetwork: internal_api
     NeutronTenantNetwork: tenant
