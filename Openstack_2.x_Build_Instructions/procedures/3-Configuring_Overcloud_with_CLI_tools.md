@@ -453,12 +453,14 @@ Default profile flavors compute, control, swift-storage, ceph-storage, and block
     openstack baremetal node set --property capabilities="profile:control,boot_option:local" controller
     ```  
 
+
+
     ```
-    openstack baremetal node set --property capabilities="node:controller0,boot_option:local" controller
-    openstack baremetal node set --property capabilities="node:computemetal0-sriov,boot_option:local" compute1-intel
-    openstack baremetal node set --property capabilities="node:computemetal1-sriov,boot_option:local" compute2-intel
-    openstack baremetal node set --property capabilities="node:computemetal0-dpdk,boot_option:local" compute3-mellanox
-    openstack baremetal node set --property capabilities="node:computemetal1-dpdk,boot_option:local" compute4-mellanox
+    openstack baremetal node set --property capabilities="node:vz-osp-controller-0,boot_option:local" controller
+    openstack baremetal node set --property capabilities="node:vz-osp-computesriov-0,boot_option:local" compute1-intel
+    openstack baremetal node set --property capabilities="node:vz-osp-computesriov-1,boot_option:local" compute2-intel
+    openstack baremetal node set --property capabilities="node:vz-osp-computedpdk-0,boot_option:local" compute3-mellanox
+    openstack baremetal node set --property capabilities="node:vz-osp-computedpdk-1,boot_option:local" compute4-mellanox
     ```  
 
     ```

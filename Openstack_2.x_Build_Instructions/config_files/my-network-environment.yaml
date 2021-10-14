@@ -72,53 +72,53 @@ parameter_defaults:
   ControlPlaneDefaultRoute: 192.168.255.1
   EC2MetadataIp: 192.168.255.1 # should be the IP address of the undercloud director provisioning network
   
-  HostnameMap:
-     vz-osp-controller-0: controller0
-     vz-osp-computesriov-0: computemetal0-sriov
-     vz-osp-computesriov-1: computemetal1-sriov
-     vz-osp-computedpdk-0: computemetal0-dpdk
-     vz-osp-computedpdk-1: computemetal1-dpdk
-  DeployedServerPortMap:
-     controller0-ctlplane:
-       fixed_ips:
-         - ip_address: 192.168.255.11
-       subnets:
-         - cidr: 192.168.255.0/24
-       network:
-         tags:
-           - 192.168.255.0/24
-     computemetal0-sriov-ctlplane:
-       fixed_ips:
-         - ip_address: 192.168.255.12
-       subnets:
-         - cidr: 192.168.255.0/24
-       network:
-         tags:
-           - 192.168.255.0/24
-     computemetal1-sriov-ctlplane:
-       fixed_ips:
-         - ip_address: 192.168.255.13
-       subnets:
-         - cidr: 192.168.255.0/24
-       network:
-         tags:
-           - 192.168.255.0/24
-     computemetal0-dpdk-ctlplane:
-       fixed_ips:
-         - ip_address: 192.168.255.14
-       subnets:
-         - cidr: 192.168.255.0/24
-       network:
-         tags:
-           - 192.168.255.0/24
-     computemetal1-dpdk-ctlplane:
-       fixed_ips:
-         - ip_address: 192.168.255.15
-       subnets:
-         - cidr: 192.168.255.0/24
-       network:
-         tags:
-           - 192.168.255.0/24
+  #HostnameMap:
+  #   vz-osp-controller-0: controller0
+  #   vz-osp-computesriov-0: computemetal0-sriov
+  #   vz-osp-computesriov-1: computemetal1-sriov
+  #   vz-osp-computedpdk-0: computemetal0-dpdk
+  #   vz-osp-computedpdk-1: computemetal1-dpdk
+  #DeployedServerPortMap:
+  #   controller0-ctlplane:
+  #     fixed_ips:
+  #       - ip_address: 192.168.255.11
+  #     subnets:
+  #       - cidr: 192.168.255.0/24
+  #     network:
+  #       tags:
+  #         - 192.168.255.0/24
+  #   computemetal0-sriov-ctlplane:
+  #     fixed_ips:
+  #       - ip_address: 192.168.255.12
+  #     subnets:
+  #       - cidr: 192.168.255.0/24
+  #     network:
+  #       tags:
+  #         - 192.168.255.0/24
+  #   computemetal1-sriov-ctlplane:
+  #     fixed_ips:
+  #       - ip_address: 192.168.255.13
+  #     subnets:
+  #       - cidr: 192.168.255.0/24
+  #     network:
+  #       tags:
+  #         - 192.168.255.0/24
+  #   computemetal0-dpdk-ctlplane:
+  #     fixed_ips:
+  #       - ip_address: 192.168.255.14
+  #     subnets:
+  #       - cidr: 192.168.255.0/24
+  #     network:
+  #       tags:
+  #         - 192.168.255.0/24
+  #   computemetal1-dpdk-ctlplane:
+  #     fixed_ips:
+  #       - ip_address: 192.168.255.15
+  #     subnets:
+  #       - cidr: 192.168.255.0/24
+  #     network:
+  #       tags:
+  #         - 192.168.255.0/24
   #
   #
   # IP/CIDR ranges for the networks defined in network_data.yaml
@@ -135,7 +135,7 @@ parameter_defaults:
   StorageMgmtNetworkVlanID: 1154
   TenantNetworkVlanID: 1152
   ExternalNetworkVlanID: 1150
-  #ManagementNetworkVlanID: 
+  ManagementNetworkVlanID: 
 
   # These are the allocation pools for IPs for the nodes.
   # They need to be populated even when using static IP assignments
@@ -144,7 +144,7 @@ parameter_defaults:
   StorageAllocationPools: [{'start': '10.255.244.10', 'end': '10.255.244.250'}]
   StorageMgmtAllocationPools: [{'start': '10.255.245.10', 'end': '10.255.245.250'}]
   ExternalAllocationPools: [{'start': '10.255.240.11', 'end': '10.255.240.15'}]
-  #ManagementAllocationPools: [{'start': '192.168.255.10', 'end': '192.168.255.45'}]
+  ManagementAllocationPools: [{'start': '192.168.255.10', 'end': '192.168.255.45'}]
 
   # These should point to the gateway IP for the external interfaces
   ExternalInterfaceDefaultRoute: 10.255.240.1
