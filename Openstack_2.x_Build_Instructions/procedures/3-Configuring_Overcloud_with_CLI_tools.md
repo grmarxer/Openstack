@@ -436,6 +436,7 @@ Default profile flavors compute, control, swift-storage, ceph-storage, and block
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute2
     ```  
+
     ```
     openstack baremetal node set --property capabilities="profile:computeSriov,boot_option:local" compute1-intel
     openstack baremetal node set --property capabilities="profile:computeSriov,boot_option:local" compute2-intel
@@ -443,7 +444,14 @@ Default profile flavors compute, control, swift-storage, ceph-storage, and block
     openstack baremetal node set --property capabilities="profile:computeOvsDpdk,boot_option:local" compute4-mellanox
     openstack baremetal node set --property capabilities="profile:control,boot_option:local" controller
     ```  
-
+    
+    ```
+    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute1-intel
+    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute2-intel
+    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute3-mellanox
+    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute4-mellanox
+    openstack baremetal node set --property capabilities="profile:control,boot_option:local" controller
+    ```  
 
     ```
     openstack baremetal node set --property capabilities="node:controller0,boot_option:local" controller
