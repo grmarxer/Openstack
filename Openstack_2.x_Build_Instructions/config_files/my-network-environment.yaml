@@ -135,7 +135,7 @@ parameter_defaults:
   StorageMgmtNetworkVlanID: 1154
   TenantNetworkVlanID: 1152
   ExternalNetworkVlanID: 1150
-  ManagementNetworkVlanID: 
+  #ManagementNetworkVlanID: 
 
   # These are the allocation pools for IPs for the nodes.
   # They need to be populated even when using static IP assignments
@@ -144,7 +144,7 @@ parameter_defaults:
   StorageAllocationPools: [{'start': '10.255.244.10', 'end': '10.255.244.250'}]
   StorageMgmtAllocationPools: [{'start': '10.255.245.10', 'end': '10.255.245.250'}]
   ExternalAllocationPools: [{'start': '10.255.240.11', 'end': '10.255.240.15'}]
-  ManagementAllocationPools: [{'start': '192.168.255.10', 'end': '192.168.255.45'}]
+  #ManagementAllocationPools: [{'start': '192.168.255.10', 'end': '192.168.255.45'}]
 
   # These should point to the gateway IP for the external interfaces
   ExternalInterfaceDefaultRoute: 10.255.240.1

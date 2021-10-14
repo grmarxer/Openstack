@@ -426,36 +426,6 @@ Default profile flavors compute, control, swift-storage, ceph-storage, and block
 1.  To tag a node into a specific profile, add a profile option to the properties/capabilities parameter for each node. For example, to tag a specific node to use a specific profile.  The commands below are specific to this environment.  
 
     ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node set --property capabilities="profile:control,boot_option:local" controller
-    ```  
-
-    ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute1
-    ```  
-
-    ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute2
-    ```  
-
-    ```
-    openstack baremetal node set --property capabilities="profile:computeSriov,boot_option:local" compute1-intel
-    openstack baremetal node set --property capabilities="profile:computeSriov,boot_option:local" compute2-intel
-    openstack baremetal node set --property capabilities="profile:computeOvsDpdk,boot_option:local" compute3-mellanox
-    openstack baremetal node set --property capabilities="profile:computeOvsDpdk,boot_option:local" compute4-mellanox
-    openstack baremetal node set --property capabilities="profile:control,boot_option:local" controller
-    ```  
-    
-    ```
-    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute1-intel
-    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute2-intel
-    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute3-mellanox
-    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute4-mellanox
-    openstack baremetal node set --property capabilities="profile:control,boot_option:local" controller
-    ```  
-
-
-
-    ```
     openstack baremetal node set --property capabilities="node:vz-osp-controller-0,boot_option:local" controller
     openstack baremetal node set --property capabilities="node:vz-osp-computesriov-0,boot_option:local" compute1-intel
     openstack baremetal node set --property capabilities="node:vz-osp-computesriov-1,boot_option:local" compute2-intel
@@ -475,7 +445,7 @@ Default profile flavors compute, control, swift-storage, ceph-storage, and block
     |                                                                                                                                                                 |
     |   <snippet removed > ...                                                                                                                                        |
     |                                                                                                                                                                 |
-    | properties             | {'local_gb': '930', 'cpus': '24', 'cpu_arch': 'x86_64', 'memory_mb': '65536', 'capabilities': 'node:controller0,boot_option:local'}    |
+    | properties             | {'local_gb': '930', 'cpus': '24', 'cpu_arch': 'x86_64', 'memory_mb': '65536', 'capabilities': 'node:vz-osp-controller-0,boot_option:local'}    |
     | protected              | False                                                                                                                                  |
     | protected_reason       | None                                                                                                                                   |
     | provision_state        | available                                                                                                                              |
@@ -660,3 +630,12 @@ openstack baremetal port list
 openstack baremetal node delete 607b6f1c-adcc-45e5-8068-36efb1497e93
 openstack baremetal port delete
 ```  
+
+
+    ```
+    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute1-intel
+    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute2-intel
+    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute3-mellanox
+    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute4-mellanox
+    openstack baremetal node set --property capabilities="profile:control,boot_option:local" controller
+    ```  
