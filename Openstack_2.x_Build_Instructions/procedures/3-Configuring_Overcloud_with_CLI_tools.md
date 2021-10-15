@@ -601,13 +601,10 @@ Overcloud Deployed without error
 
 ## Notes
 
-```
-openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml -e /home/stack/containers-prepare-parameter.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs.yaml --validation-errors-nonfatal
-openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml -e /home/stack/containers-prepare-parameter.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs.yaml --validation-warnings-fatal
-openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml -e /home/stack/containers-prepare-parameter.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs.yaml --dry-run
-```  
+
 
 ```
+openstack overcloud profiles list
 openstack overcloud status
 openstack overcloud delete overcloud
 openstack baremetal node list
@@ -624,6 +621,10 @@ openstack baremetal node set --property capabilities="profile:compute,boot_optio
 openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute4-mellanox
 openstack baremetal node set --property capabilities="profile:control,boot_option:local" controller
 ```    
+
 ```
-openstack overcloud profiles list
+sudo systemctl status tripleo_ironic_inspector_dnsmasq.service
+sudo netstat -anup | grep :67
+sudo kill 29922
+sudo systemctl restart tripleo_ironic_inspector_dnsmasq.service
 ```  
