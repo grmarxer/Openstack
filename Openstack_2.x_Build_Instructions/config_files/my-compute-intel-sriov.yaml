@@ -207,87 +207,152 @@ resources:
           params:
             $network_config:
               network_config:
-                - type: interface
-                  name: eno2np1
-                  use_dhcp: false
-                  dns_servers: {get_param: DnsServers}
-                  domain: {get_param: DnsSearchDomains}
-                  addresses:
+
+              # NIC eno2np1 - Provisioning
+              - type: interface
+                name: eno2np1
+                use_dhcp: false
+                dns_servers: {get_param: DnsServers}
+                domain: {get_param: DnsSearchDomains}
+                addresses:
+                - ip_netmask:
+                    list_join:
+                      - /
+                      - - get_param: ControlPlaneIp
+                        - get_param: ControlPlaneSubnetCidr
+                routes:
+                - ip_netmask: 169.254.169.254/32
+                  next_hop: {get_param: EC2MetadataIp}
+                - default: false
+                  next_hop: {get_param: ControlPlaneDefaultRoute}
+                  
+              # NIC eno1np0 - Control Group TripleO
+              - type: ovs_bridge
+                name: br-ex
+                use_dhcp: false
+                mtu: 9000
+                members:
+                  - type: interface
+                    name: eno1np0
+                  - type: vlan
+                    mtu:
+                      get_param: ExternalMtu
+                    vlan_id:
+                      get_param: ExternalNetworkVlanID
+                    addresses:
                     - ip_netmask:
-                        list_join:
-                          - '/'
-                          - - {get_param: ControlPlaneIp}
-                            - {get_param: ControlPlaneSubnetCidr}
-                  routes:
-                    - ip_netmask: 169.254.169.254/32
-                      next_hop: {get_param: EC2MetadataIp}
-                    - default: false
-                      next_hop: {get_param: ControlPlaneDefaultRoute}
-                - type: ovs_bridge
-                  name: {get_input: bridge_name}
-                  use_dhcp: false
-                  dns_servers: {get_param: DnsServers}
-                  addresses:
+                        get_param: ExternalIpSubnet
+                    routes:
+                      list_concat_unique:
+                        - get_param: ExternalInterfaceRoutes
+                        - - default: true
+                            next_hop:
+                              get_param: ExternalInterfaceDefaultRoute
+                  - type: vlan
+                    mtu:
+                      get_param: InternalApiMtu
+                    vlan_id:
+                      get_param: InternalApiNetworkVlanID
+                    device: br-ex
+                    addresses:
                     - ip_netmask:
-                        list_join:
-                          - '/'
-                          - - {get_param: ControlPlaneIp}
-                            - {get_param: ControlPlaneSubnetCidr}
-                  routes:
-                    - ip_netmask: 169.254.169.254/32
-                      next_hop: {get_param: EC2MetadataIp}
-                  members:
-                    - type: interface
-                      name: eno1np0
-                      # force the MAC address of the bridge to this interface
-                      primary: true
-                    - type: vlan
-                      vlan_id: {get_param: ExternalNetworkVlanID}
-                      addresses:
-                      - ip_netmask: {get_param: ExternalIpSubnet}
-                      routes:
-                        - default: true
-                          next_hop: {get_param: ExternalInterfaceDefaultRoute}
-                    - type: vlan
-                      vlan_id: {get_param: InternalApiNetworkVlanID}
-                      addresses:
-                        - ip_netmask: {get_param: InternalApiIpSubnet}
+                        get_param: InternalApiIpSubnet
+                    routes:
+                        list_concat_unique:
+                          - get_param: InternalApiInterfaceRoutes
+                  - type: vlan
+                    device: br-ex
+                    mtu:
+                      get_param: StorageMtu
+                    vlan_id:
+                      get_param: StorageNetworkVlanID
+                    addresses:
+                    - ip_netmask:
+                        get_param: StorageIpSubnet
+                    routes:
+                      list_concat_unique:
+                        - get_param: StorageInterfaceRoutes
+                  - type: vlan
+                    mtu:
+                      get_param: StorageMgmtMtu
+                    vlan_id:
+                      get_param: StorageMgmtNetworkVlanID
+                    device: br-ex
+                    addresses:
+                    - ip_netmask:
+                        get_param: StorageMgmtIpSubnet
+                    routes:
+                      list_concat_unique:
+                        - get_param: StorageMgmtInterfaceRoutes
+
+
+              # The NIC configs below are for SR-IOV   
+              - type: sriov_pf
+                name: ens1f0
+                use_dhcp: false
+                numvfs: 32
+                defroute: false
+                nm_controlled: true
+                hotplug: true
+                promisc: false
+              - type: sriov_pf
+                name: ens1f1
+                use_dhcp: false
+                numvfs: 32
+                defroute: false
+                nm_controlled: true
+                hotplug: true
+                promisc: false
+              - type: sriov_pf
+                name: ens2f0
+                use_dhcp: false
+                numvfs: 32
+                defroute: false
+                nm_controlled: true
+                hotplug: true
+                promisc: false
+              - type: sriov_pf
+                name: ens2f1
+                use_dhcp: false
+                numvfs: 32
+                defroute: false
+                nm_controlled: true
+                hotplug: true
+                promisc: false
+                  
+#                - type: ovs_bridge
+#                  name: {get_input: bridge_name}
+#                  use_dhcp: false
+#                  dns_servers: {get_param: DnsServers}
+#                  addresses:
+#                    - ip_netmask:
+#                        list_join:
+#                          - '/'
+#                          - - {get_param: ControlPlaneIp}
+#                            - {get_param: ControlPlaneSubnetCidr}
+#                  routes:
+#                    - ip_netmask: 169.254.169.254/32
+#                      next_hop: {get_param: EC2MetadataIp}
+#                  members:
+#                    - type: interface
+#                      name: eno1np0
+#                      # force the MAC address of the bridge to this interface
+#                      primary: true
+#                    - type: vlan
+#                      vlan_id: {get_param: ExternalNetworkVlanID}
+#                      addresses:
+#                      - ip_netmask: {get_param: ExternalIpSubnet}
+#                      routes:
+#                        - default: true
+#                          next_hop: {get_param: ExternalInterfaceDefaultRoute}
+#                    - type: vlan
+#                      vlan_id: {get_param: InternalApiNetworkVlanID}
+#                      addresses:
+#                        - ip_netmask: {get_param: InternalApiIpSubnet}
                    # - type: vlan
                    #   vlan_id: {get_param: TenantNetworkVlanID}
                    #   addresses:
                    #     - ip_netmask: {get_param: TenantIpSubnet}
-                - type: sriov_pf
-                  name: ens1f0
-                  use_dhcp: false
-                  numvfs: 32
-                  defroute: false
-                  nm_controlled: true
-                  hotplug: true
-                  promisc: false
-                - type: sriov_pf
-                  name: ens1f1
-                  use_dhcp: false
-                  numvfs: 32
-                  defroute: false
-                  nm_controlled: true
-                  hotplug: true
-                  promisc: false
-                - type: sriov_pf
-                  name: ens2f0
-                  use_dhcp: false
-                  numvfs: 32
-                  defroute: false
-                  nm_controlled: true
-                  hotplug: true
-                  promisc: false
-                - type: sriov_pf
-                  name: ens2f1
-                  use_dhcp: false
-                  numvfs: 32
-                  defroute: false
-                  nm_controlled: true
-                  hotplug: true
-                  promisc: false
 outputs:
   OS::stack_id:
     description: The OsNetConfigImpl resource.
