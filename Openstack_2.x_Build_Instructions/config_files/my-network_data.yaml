@@ -90,10 +90,10 @@
   vip: false
   vlan: 1153
   name_lower: storage
-  ip_subnet: '10.255.244.0/24'
-  allocation_pools: [{'start': '10.255.244.20', 'end': '10.255.244.250'}]
-  ipv6_subnet: 'fd00:10:255:244::/64'
-  ipv6_allocation_pools: [{'start': 'fd00:10:255:244::20', 'end': 'fd00:10:255:244::250'}]
+  ip_subnet: '10.255.243.0/24'
+  allocation_pools: [{'start': '10.255.243.20', 'end': '10.255.243.250'}]
+  ipv6_subnet: 'fd00:10:255:243::/64'
+  ipv6_allocation_pools: [{'start': 'fd00:10:255:243::20', 'end': 'fd00:10:255:243::250'}]
   mtu: 1500
 - name: StorageMgmt
   name_lower: storage_mgmt
