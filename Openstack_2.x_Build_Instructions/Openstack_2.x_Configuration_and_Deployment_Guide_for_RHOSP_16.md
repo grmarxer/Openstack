@@ -76,9 +76,9 @@
 | Tenant                  | 1152          | 10.255.242.0/24  | fd00:10:255:242::/64 |                 |                |  
 | Storage                 | 1153          | 10.255.243.0/24  | fd00:10:255:243::/64 |                 |                |  
 | StorageMgmt             | 1154          | 10.255.244.0/24  | fd00:10:255:244::/64 |                 |                | 
-| Management**            | 1155          | 10.255.245.0/24  | fd00:10:255:245::/64 |                 |                |   
+| Management (see note)   | 1155          | 10.255.245.0/24  | fd00:10:255:245::/64 |                 |                |   
 
-* Management is only included for backward compatibility -- it is not used in OSP 16 by default
+Note: Management is only included for backward compatibility -- it is not used in OSP 16 by default
 
 <br/> 
 
