@@ -23,3 +23,8 @@ openstack overcloud deploy --templates \
 -e /home/stack/templates/my-network-environment.yaml
 
 
+sudo netstat -anup | grep :67
+
+sudo systemctl restart tripleo_ironic_inspector_dnsmasq.service
+
+sudo systemctl status tripleo_ironic_inspector_dnsmasq.service
