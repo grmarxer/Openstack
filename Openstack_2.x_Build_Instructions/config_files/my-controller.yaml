@@ -225,45 +225,91 @@ resources:
                 - default: false
                   next_hop: {get_param: ControlPlaneDefaultRoute}
 
+
               # NIC eno3 - Control Group TripleO
-              - type: ovs_bridge
-                name: control_bridge
+              - type: interface
+                name: eno3
                 use_dhcp: false
-                members:
-                - type: interface
-                  name: eno3
-                  # force the MAC address of the bridge to this interface
-                  primary: true
-                - type: vlan
-                  vlan_id:
-                    get_param: InternalApiNetworkVlanID
-                  addresses:
-                  - ip_netmask:
-                      get_param: InternalApiIpSubnet
-                - type: vlan
-                  vlan_id:
-                    get_param: StorageNetworkVlanID
-                  addresses:
-                  - ip_netmask:
-                      get_param: StorageIpSubnet
-                - type: vlan
-                  vlan_id:
-                    get_param: StorageMgmtNetworkVlanID
-                  addresses:
-                  - ip_netmask:
-                      get_param: StorageMgmtIpSubnet
-                - type: vlan
-                  vlan_id:
-                    get_param: TenantNetworkVlanID
-                  addresses:
-                  - ip_netmask:
-                      get_param: TenantIpSubnet
-                - type: vlan
-                  vlan_id:
-                    get_param: ExternalNetworkVlanID
-                  addresses:
-                  - ip_netmask:
-                      get_param: ExternalIpSubnet
+              - type: vlan
+                device: eno3
+                vlan_id:
+                  get_param: InternalApiNetworkVlanID
+                addresses:
+                - ip_netmask:
+                    get_param: InternalApiIpSubnet
+              - type: vlan
+                device: eno3
+                vlan_id:
+                  get_param: StorageMgmtNetworkVlanID
+                addresses:
+                - ip_netmask:
+                    get_param: StorageMgmtIpSubnet
+              - type: vlan
+                device: eno3
+                vlan_id:
+                  get_param: StorageNetworkVlanID
+                addresses:
+                - ip_netmask:
+                    get_param: StorageIpSubnet
+              - type: vlan
+                device: eno3
+                vlan_id:
+                  get_param: TenantNetworkVlanID
+                addresses:
+                - ip_netmask:
+                    get_param: TenantIpSubnet
+              - type: vlan
+                device: eno3
+                vlan_id:
+                  get_param: ExternalNetworkVlanID
+                addresses:
+                - ip_netmask:
+                    get_param: ExternalIpSubnet
+                routes:
+                - default: true
+                  next_hop:
+                    get_param: ExternalInterfaceDefaultRoute
+
+
+              # NIC eno3 - Control Group TripleO
+#              - type: ovs_bridge
+#                name: control_bridge
+#                use_dhcp: false
+#                members:
+#                - type: interface
+#                  name: eno3
+#                  # force the MAC address of the bridge to this interface
+#                  primary: true
+#                - type: vlan
+#                  vlan_id:
+#                    get_param: InternalApiNetworkVlanID
+#                  addresses:
+#                  - ip_netmask:
+#                      get_param: InternalApiIpSubnet
+#                - type: vlan
+#                  vlan_id:
+#                    get_param: StorageNetworkVlanID
+#                  addresses:
+#                  - ip_netmask:
+#                      get_param: StorageIpSubnet
+#                - type: vlan
+#                  vlan_id:
+#                    get_param: StorageMgmtNetworkVlanID
+#                  addresses:
+#                  - ip_netmask:
+#                      get_param: StorageMgmtIpSubnet
+#                - type: vlan
+#                  vlan_id:
+#                    get_param: TenantNetworkVlanID
+#                  addresses:
+#                  - ip_netmask:
+#                      get_param: TenantIpSubnet
+#                - type: vlan
+#                  vlan_id:
+#                    get_param: ExternalNetworkVlanID
+#                  addresses:
+#                  - ip_netmask:
+#                      get_param: ExternalIpSubnet
 outputs:
   OS::stack_id:
     description: The OsNetConfigImpl resource.
