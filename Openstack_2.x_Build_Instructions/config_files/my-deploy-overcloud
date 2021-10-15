@@ -28,3 +28,6 @@ sudo netstat -anup | grep :67
 sudo systemctl restart tripleo_ironic_inspector_dnsmasq.service
 
 sudo systemctl status tripleo_ironic_inspector_dnsmasq.service
+
+
+sudo grep -Ril "dpdk" /usr/share/openstack-tripleo-heat-templates/
