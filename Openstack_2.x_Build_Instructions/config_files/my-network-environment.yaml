@@ -120,15 +120,15 @@ parameter_defaults:
   # Names of neutron flat networks, that is, networks without associated VLANs
   # This can overlap if you have networks that support both VLAN and flat ranges
   # SR-IOV should be in both
-  NeutronFlatNetworks: ['datacentre','tenant']
+  NeutronFlatNetworks: ['sriovLinks','dpdkLinks']
   ControllerParameters:
-    NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
+    NeutronBridgeMappings: ['sriovLinks:br-sriov','dpdkLinks:br-dpdk']
   #ComputeParameters:
   #  NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
   ComputeSriovParameters:
-    NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
+    NeutronBridgeMappings: ['sriovLinks:br-sriov','dpdkLinks:br-dpdk']
   ComputeOvsDpdkParameters:
-    NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
+    NeutronBridgeMappings: ['sriovLinks:br-sriov','dpdkLinks:br-dpdk']
   #ComputeDCAParameters:
   #  NeutronBridgeMappings: ['datacentre:br-ex','dca:br-dca']
   #ComputeDCBParameters:
