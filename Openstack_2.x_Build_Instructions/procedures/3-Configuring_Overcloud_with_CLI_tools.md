@@ -617,10 +617,13 @@ openstack baremetal port delete
 ```  
 
 
-    ```
-    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute1-intel
-    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute2-intel
-    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute3-mellanox
-    openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute4-mellanox
-    openstack baremetal node set --property capabilities="profile:control,boot_option:local" controller
-    ```  
+```
+openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute1-intel
+openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute2-intel
+openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute3-mellanox
+openstack baremetal node set --property capabilities="profile:compute,boot_option:local" compute4-mellanox
+openstack baremetal node set --property capabilities="profile:control,boot_option:local" controller
+```    
+```
+openstack overcloud profiles list
+```  
