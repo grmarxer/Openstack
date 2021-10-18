@@ -33,17 +33,6 @@ parameter_defaults:
     nova::compute::allow_resize_to_same_host: true
     nova::compute::resume_guests_state_on_host_boot: true
     nova::compute::resize_confirm_window: 1
-
-  ComputeOvsDpdkSriovExtraConfig:
-    nova::cpu_allocation_ratio: 1.0
-    nova::scheduler::filter::cpu_allocation_ratio: 1.0
-    nova::initial_ram_allocation_ratio: 1.0
-    nova::ram_allocation_ratio: 1.0
-    nova::scheduler::filter::ram_allocation_ratio: 1.0
-    nova::compute::allow_resize_to_same_host: true
-    nova::compute::resume_guests_state_on_host_boot: true
-    nova::compute::resize_confirm_window: 1
-
   ComputeParameters:
     #KernelArgs: "default_hugepagesz=1G hugepagesz=1G"
     NovaReservedHostMemory: 4096

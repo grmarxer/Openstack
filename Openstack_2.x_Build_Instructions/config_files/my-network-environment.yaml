@@ -55,7 +55,7 @@ resource_registry:
   # Network config for the Controller
   OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/templates/my-controller.yaml
   # Network config for the Compute
-  #OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/environments/osp16-lab/network/config/nic-configs/compute.yaml
+  OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/environments/osp16-lab/network/config/nic-configs/compute.yaml
   # Network config for the ComputeSriov
   OS::TripleO::ComputeSriov::Net::SoftwareConfig: /home/stack/templates/my-compute-intel-sriov.yaml
   # Network config for the ComputeOvsDpdk
