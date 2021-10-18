@@ -32,7 +32,7 @@ There are four nodes in this deployment, the Undercloud Director, the Controller
 
 4.  Use NMCLI to create vlan 1150 and tag it to eno3 and set the IP and gateway
     ```
-    nmcli con add type vlan dev eno3 con-name vlan-1150 id 1150 ip4 10.255.240.10/24 gw4 10.255.240.1
+    nmcli con add type vlan dev eno3 con-name vlan-1150 id 1150 ip4 10.255.240.10/24 gw4 10.255.240.1 ipv4.dns "10.144.31.146 8.8.8.8"
     ```  
     ```
     [root@osp16-undercloud ~]# nmcli conn show
