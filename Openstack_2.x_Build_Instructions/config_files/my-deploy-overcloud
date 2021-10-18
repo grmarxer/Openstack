@@ -10,8 +10,7 @@ openstack overcloud deploy --templates \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-network-environment.yaml \
 -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs-dpdk.yaml \
 -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-sriov.yaml \
---ntp-server 172.27.1.1 \
-| tee ~/templates/environments/osp16-lab/logs/overcloud-deploy.out
+--ntp-server 172.27.1.1 | tee /home/stack/overcloud-deploy/logs/overcloud-deploy.out
 
 
 
@@ -22,7 +21,8 @@ openstack overcloud deploy --templates \
 #sudo systemctl status tripleo_ironic_inspector_dnsmasq.service
 
 #sudo grep -Ril "dpdk" /usr/share/openstack-tripleo-heat-templates/
+#/var/lib/mistral/overcloud
 
-##git clone https://github.com/grmarxer/Openstack/
+##git pull  -- to retrieve latest updates
 
 
