@@ -9,9 +9,9 @@ There are four nodes in this deployment, the Undercloud Director, the Controller
 
 ### Node Information  
   
-| **Undercloud Director Hostname**    | **IDRAC IP**  |**NIC eno3 IP Address**  |  **Netmask**   | **Gateway**   | **DNS**                |  
+| **Undercloud Director Hostname**    | **IDRAC IP**  |**NIC eno3 IP Address**  |  **VLAN ID**   | **Gateway**   | **DNS**                |  
 | :---------------------:             | :----------:  | :----------:            |  :----------:  | :----------:  | :----------:           |  
-| osp16-undercloud.pl.pdsea.f5net.com | 10.144.20.6   | 10.144.16.59            |  255.255.240.0 | 10.144.31.254 | 10.144.31.146, 8.8.8.8 |  
+| osp16-undercloud.pl.pdsea.f5net.com | 10.144.20.6   | 10.255.240.10/24        |  1150          | 10.255.240.1  | 10.144.31.146, 8.8.8.8 |  
 
 <br/>  
 
@@ -24,7 +24,7 @@ There are four nodes in this deployment, the Undercloud Director, the Controller
     - Choose server install with GUI
     - Pacific time zone  
     - hostname `osp16-undercloud.pl.pdsea.f5net.com`  
-    - Configure NIC eno3 with the IP information above  
+    - NIC eno3 cannot be configured in the Wizard as we need to tag it to a VLAN.  The IP address will be configured via NMCLI after the OS has been installed.  
     - set the root user password to `default`  
     - __Minimum 100 GB disk space on root directory.__
 
