@@ -24,11 +24,22 @@ There are four nodes in this deployment, the Undercloud Director, the Controller
     - Choose server install with GUI
     - Pacific time zone  
     - hostname `osp16-undercloud.pl.pdsea.f5net.com`  
-    - NIC eno3 cannot be configured in the Wizard as we need to tag it to a VLAN.  The IP address will be configured via NMCLI after the OS has been installed.  
+    - __NIC eno3 cannot be configured in the Wizard as we need to tag it to a VLAN.  The IP address will be configured via NMCLI after the OS has been installed.__  
     - set the root user password to `default`  
     - __Minimum 100 GB disk space on root directory.__
 
-3. Once the OS installation is complete reboot the server and ssh into the Undercloud Director using `root`
+3. Once the OS installation is complete reboot the server and log in via the console (via root) to configure NIC eno3.
+
+4.  Use NMCLI to create vlan 1150 and tag it to eno3 and set the IP and gateway
+    ```
+    nmcli con add type vlan dev eno3 con-name vlan-1150 id 1150 ip4 10.255.240.10/24 gw4 10.255.240.1
+    ```  
+    ```
+    [root@osp16-undercloud ~]# nmcli conn show
+    NAME       UUID                                  TYPE      DEVICE
+    vlan-1150  ce17e7e4-5b78-4a7d-bf2e-c3634450d4c2  vlan      eno3.1150
+    ```  
+
 <br/>  
 
 ### Configure NTP on the Undercloud Director
