@@ -26,6 +26,7 @@ There are four nodes in this deployment, the Undercloud Director, the Controller
     - hostname `osp16-undercloud.pl.pdsea.f5net.com`  
     - Configure NIC eno3 with the IP information above  
     - set the root user password to `default`  
+    - Minimum 100 GB disk space on root directory.
 
 3. Once the OS installation is complete reboot the server and ssh into the Undercloud Director using `root`
 <br/>  
