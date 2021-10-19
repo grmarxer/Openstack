@@ -39,8 +39,10 @@ Before you can install director, you must complete some basic configuration on t
 
 6. Create directories for system images and heat templates:  
     ```
-    [stack@osp16-undercloud ~]$ mkdir ~/images
-    [stack@osp16-undercloud ~]$ mkdir ~/templates
+    [stack@osp16-undercloud ~]$ mkdir /home/stack/images
+    [stack@osp16-undercloud ~]$ mkdir /home/stack/templates
+    [stack@osp16-undercloud ~]$ mkdir /home/stack/git_clone
+    [stack@osp16-undercloud ~]$ mkdir -p /home/stack/overcloud-deploy/logs
     ```  
 
     Director uses system images and heat templates to create the overcloud environment. Red Hat recommends creating these directories to help you organize your local file system.  
