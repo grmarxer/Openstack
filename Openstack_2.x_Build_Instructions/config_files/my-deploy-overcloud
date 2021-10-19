@@ -23,6 +23,7 @@ openstack overcloud deploy --templates \
 
 #sudo grep -Ril "dpdk" /usr/share/openstack-tripleo-heat-templates/
 #/var/lib/mistral/overcloud
+##git clone https://github.com/grmarxer/Openstack
 
 ##cd /home/stack/git_clone/Openstack
 ##git pull  -- to retrieve latest updates
