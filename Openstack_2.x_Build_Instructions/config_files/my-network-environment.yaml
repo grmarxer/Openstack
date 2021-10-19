@@ -53,13 +53,13 @@ resource_registry:
 
   # These parameters should point to the nic config templates for each type of node
   # Network config for the Controller
-  OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/templates/my-controller.yaml
+  OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-controller.yaml
   # Network config for the Compute
   #OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/environments/osp16-lab/network/config/nic-configs/compute.yaml
   # Network config for the ComputeSriov
-  OS::TripleO::ComputeSriov::Net::SoftwareConfig: /home/stack/templates/my-compute-intel-sriov.yaml
+  OS::TripleO::ComputeSriov::Net::SoftwareConfig: /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-intel-sriov.yaml
   # Network config for the ComputeOvsDpdk
-  OS::TripleO::ComputeOvsDpdk::Net::SoftwareConfig: /home/stack/templates/my-compute-mellanox-dpdk.yaml
+  OS::TripleO::ComputeOvsDpdk::Net::SoftwareConfig: /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-mellanox-dpdk.yaml
 
 parameter_defaults:
 
