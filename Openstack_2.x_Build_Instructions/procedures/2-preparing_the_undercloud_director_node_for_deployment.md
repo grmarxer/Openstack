@@ -172,7 +172,8 @@ Install packages relevant to Red Hat OpenStack Platform director.
 
 ## Preparing container images  
 
-The undercloud installation requires an environment file to determine where to obtain container images and how to store them. Generate and customize this environment file that you can use to prepare your container images.  
+The undercloud installation requires an environment file to determine where to obtain container images and how to store them. Generate and customize this environment file that you can use to prepare your container images.  [Documentation on how the containers-prepare-parameter.yaml file was created](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/preparing-for-director-installation#preparing-container-images)  
+
 
 #### Procedure
 
