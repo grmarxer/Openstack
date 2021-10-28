@@ -131,7 +131,7 @@
   gateway_ip: '10.255.240.1'
   ipv6_subnet: 'fd00:10:255:240::/64'
   ipv6_allocation_pools: [{'start': 'fd00:10:255:240::21', 'end': 'fd00:10:255:240::30'}]
-  gateway_ipv6: 'fd00:10:255:240::::1'
+  gateway_ipv6: 'fd00:10:255:240::1'
   mtu: 1500
 - name: Management
   # Management network is enabled by default for backwards-compatibility, but
