@@ -623,6 +623,16 @@ openstack baremetal node set --property capabilities="profile:control,boot_optio
 ```    
 
 ```
+openstack baremetal node set --property capabilities="node:vz-osp-controller-0,boot_option:local" controller
+openstack baremetal node set --property capabilities="node:vz-osp-computesriov-0,boot_option:local" compute1-intel
+openstack baremetal node set --property capabilities="node:vz-osp-computesriov-1,boot_option:local" compute2-intel
+openstack baremetal node set --property capabilities="node:vz-osp-computesriov-2,boot_option:local" compute3-mellanox
+openstack baremetal node set --property capabilities="node:vz-osp-computesriov-3,boot_option:local" compute4-mellanox
+```  
+
+
+
+```
 sudo systemctl status tripleo_ironic_inspector_dnsmasq.service
 sudo netstat -anup | grep :67
 sudo kill 29922
