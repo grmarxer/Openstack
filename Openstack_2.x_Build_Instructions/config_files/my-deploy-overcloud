@@ -4,8 +4,6 @@ source ~/stackrc
 openstack overcloud deploy --templates \
 -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs-dpdk.yaml \
 -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-sriov.yaml \
-#-e /usr/share/openstack-tripleo-heat-templates/environments/ssl/tls-endpoints-public-dns.yaml \
--e /usr/share/openstack-tripleo-heat-templates/environments/ssl/enable-tls.yaml \
 -n /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-network_data.yaml \
 -r /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-custom_roles_data.yaml \
 -e /home/stack/containers-prepare-parameter.yaml \
@@ -13,7 +11,9 @@ openstack overcloud deploy --templates \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-environment.yaml \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-deploy-options.yaml \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-network-environment.yaml \
---ntp-server 172.27.1.1 |& tee /home/stack/overcloud-deploy/logs/overcloud-deploy__$(date +"%m_%d_%Y--%I_%M_%p").out
+--ntp-server 172.27.1.1 |& tee /home/stack/overcloud-deploy/logs/overcloud-deploy_$(date +"%m-%d-%Y__%I:%M_%p").log
+
+
 
 
 
@@ -42,12 +42,13 @@ openstack overcloud deploy --templates \
 
 sudo grep -Ril "overcloud_endpoint" /usr/share/openstack-tripleo-heat-templates/
 
+sudo grep -Ril "overcloud_endpoint" /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/
 
 
 
 
-
-
+-e /usr/share/openstack-tripleo-heat-templates/environments/ssl/tls-endpoints-public-dns.yaml \
+-e /usr/share/openstack-tripleo-heat-templates/environments/ssl/enable-tls.yaml \
 
 
 
