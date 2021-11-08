@@ -1,0 +1,322 @@
+# This file contains the network data needed to populate IPs/VLANs/etc onto the nodes
+
+resource_registry:
+
+  # networks as defined in network_data.yaml
+  OS::TripleO::Network::InternalApi: /usr/share/openstack-tripleo-heat-templates/network/internal_api.yaml
+  OS::TripleO::Network::Storage: /usr/share/openstack-tripleo-heat-templates/network/storage.yaml
+  OS::TripleO::Network::Tenant: /usr/share/openstack-tripleo-heat-templates/network/tenant.yaml
+  OS::TripleO::Network::External: /usr/share/openstack-tripleo-heat-templates/network/external.yaml
+  OS::TripleO::Network::StorageMgmt: /usr/share/openstack-tripleo-heat-templates/network/storage_mgmt.yaml
+  OS::TripleO::Network::Management: /usr/share/openstack-tripleo-heat-templates/network/management.yaml
+
+  # Port assignments for the VIPs
+  OS::TripleO::Network::Ports::InternalApiVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api.yaml
+  OS::TripleO::Network::Ports::StorageVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+  OS::TripleO::Network::Ports::ExternalVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external.yaml
+  OS::TripleO::Network::Ports::RedisVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/vip.yaml
+  OS::TripleO::Network::Ports::StorageMgmtVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt.yaml
+
+  # Port assignments by role, edit role definition to assign networks to roles.
+  # Port assignments for the Controller
+  OS::TripleO::Controller::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api_from_pool.yaml
+  OS::TripleO::Controller::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
+  OS::TripleO::Controller::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant_from_pool.yaml
+  OS::TripleO::Controller::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
+  OS::TripleO::Controller::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
+  OS::TripleO::Controller::Ports::ManagementPort: /usr/share/openstack-tripleo-heat-templates/network/ports/management_from_pool.yaml
+
+  # Port assignments for the Compute
+  OS::TripleO::Compute::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api_from_pool.yaml
+  OS::TripleO::Compute::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
+  OS::TripleO::Compute::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant_from_pool.yaml
+  OS::TripleO::Compute::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
+  OS::TripleO::Compute::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
+  OS::TripleO::Compute::Ports::ManagementPort: /usr/share/openstack-tripleo-heat-templates/network/ports/management_from_pool.yaml
+
+  # Port assignments for the Compute
+  OS::TripleO::ComputeSriov::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api_from_pool.yaml
+  OS::TripleO::ComputeSriov::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
+  OS::TripleO::ComputeSriov::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant_from_pool.yaml
+  OS::TripleO::ComputeSriov::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
+  OS::TripleO::ComputeSriov::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
+  OS::TripleO::ComputeSriov::Ports::ManagementPort: /usr/share/openstack-tripleo-heat-templates/network/ports/management_from_pool.yaml
+
+  # These parameters should point to the nic config templates for each type of node
+  # Network config for the Controller
+  OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/templates/environments/osp16-lab/network/config/nic-configs/controller.yaml
+  # Network config for the Compute
+  OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/environments/osp16-lab/network/config/nic-configs/compute.yaml
+  # Network config for the ComputeSriov
+  OS::TripleO::ComputeSriov::Net::SoftwareConfig: /home/stack/templates/environments/osp16-lab/network/config/nic-configs/compute-sriov.yaml
+  # Network config for the ComputeOvsDpdkSriov
+  OS::TripleO::ComputeSriov::Net::SoftwareConfig: /home/stack/templates/environments/osp16-lab/network/config/nic-configs/compute-dpdk-sriov.yaml
+
+parameter_defaults:
+
+  # Data about where to find the metadata address on the controlplane network
+  # This is how nodes find where to download their configuration information
+  # from director
+  ControlPlaneSubnetCidr: '24'
+  ControlPlaneDefaultRoute: 192.168.70.7
+  EC2MetadataIp: 192.168.70.7
+
+  # IP/CIDR ranges for the networks defined in network_data.yaml
+  InternalApiNetCidr: 172.16.20.0/24
+  TenantNetCidr: 172.16.60.0/24
+  StorageNetCidr: 172.16.30.0/24
+  StorageMgmtNetCidr: 172.16.40.0/24
+  ExternalNetCidr: 192.168.10.0/24
+  ManagementNetCidr: 192.168.100.0/24
+
+  # VLAN IDs for the various networks defined in network_data.yaml
+  InternalApiNetworkVlanID: 20
+  StorageNetworkVlanID: 30
+  StorageMgmtNetworkVlanID: 40
+  TenantNetworkVlanID: 60
+  ExternalNetworkVlanID: 10
+  ManagementNetworkVlanID: 100
+
+  # These are the allocation pools for IPs for the nodes.
+  # They need to be populated even when using static IP assignments
+  InternalApiAllocationPools: [{'start': '172.16.20.150', 'end': '172.16.20.169'}]
+  TenantAllocationPools: [{'start': '172.16.60.150', 'end': '172.16.60.169'}]
+  StorageAllocationPools: [{'start': '172.16.30.150', 'end': '172.16.30.169'}]
+  StorageMgmtAllocationPools: [{'start': '172.16.40.150', 'end': '172.16.40.169'}]
+  ExternalAllocationPools: [{'start': '192.168.10.50', 'end': '192.168.10.59'}]
+  ManagementAllocationPools: [{'start': '192.168.100.150', 'end': '192.168.100.169'}]
+
+  # These should point to the gateway IP for the external interfaces
+  ExternalInterfaceDefaultRoute: 192.168.10.1
+
+  # Set to the Gateway for the management network
+  #ManagementInterfaceDefaultRoute: 192.168.100.1
+
+  # This should point to a max of 2 DNS servers
+  DnsServers: ['192.168.1.13','192.168.1.16']
+  DnsSearchDomains: ['16.osp.consulting-services.lab','osp.consulting-services.lab','consulting-services.lab','consulting-services.lan']
+  # This should point to a max of 3 NTP servers
+  NtpServer: ['192.168.1.10']
+
+  # Neutron Settings
+  EnableVLANTransparency: true
+
+  # Network VLAN ranges, in the form of name:range, in the absence of range
+  # the default is all VLANs allowed
+  NeutronNetworkVLANRanges: ['datacentre','tenant']
+
+  # Names of neutron flat networks, that is, networks without associated VLANs
+  # This can overlap if you have networks that support both VLAN and flat ranges
+  # SR-IOV should be in both
+  NeutronFlatNetworks: ['datacentre','tenant']
+  ControllerParameters:
+    NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
+  ComputeParameters:
+    NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
+  ComputeSriovParameters:
+    NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
+  ComputeOvsDpdkSriovParameters:
+    NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
+  #ComputeDCAParameters:
+  #  NeutronBridgeMappings: ['datacentre:br-ex','dca:br-dca']
+  #ComputeDCBParameters:
+  #  NeutronBridgeMappings: ['datacentre:br-ex','dcb:br-dcb']
+
+  # Base MTU for neutron networks, this is reduced a bit in the actual
+  # neutron network due to tunnel overhead
+  NeutronGlobalPhysnetMtu: 1500
+
+  # List of names of neutron networking drivers enabled
+  #NeutronMechanismDrivers:
+  #- openvswitch
+
+  # Neutron Settings
+  # Default type for neutron networks
+  # NeutronNetworkType: ['geneve', 'vlan','flat']
+  NeutronNetworkType: ['vxlan', 'vlan','flat']
+  #NeutronTypeDrivers: 'geneve,vlan,flat'
+  NeutronTypeDrivers: ['vxlan', 'vlan','flat']
+  NeutronTunnelTypes: 'vxlan'
+
+  #NeutronEnableDVR: false
+
+  # Enable metadata service to listen on DHCP Namespace
+  NeutronEnableIsolatedMetadata: True
+
+  # Nova scheduler filters enabled
+  # Train Filters https://docs.openstack.org/nova/train/admin/configuration/schedulers.html
+  NovaSchedulerDefaultFilters:
+  - RetryFilter
+  - AvailabilityZoneFilter
+  - NUMATopologyFilter
+  - ComputeFilter
+  - ComputeCapabilitiesFilter
+  - ImagePropertiesFilter
+  - AggregateInstanceExtraSpecsFilter
+  - AggregateMultiTenancyIsolation
+  - AggregateCoreFilter
+  - ServerGroupAntiAffinityFilter
+  - ServerGroupAffinityFilter
+  - SameHostFilter
+  - DifferentHostFilter
+  - PciPassthroughFilter
+
+  # Names of nova scheduler filter classes
+  NovaSchedulerAvailableFilters:
+  - nova.scheduler.filters.all_filters
+  - nova.scheduler.filters.pci_passthrough_filter.PciPassthroughFilter
+
+  # Customize bonding options, e.g. "mode=4 lacp_rate=1 updelay=1000 miimon=100"
+  # for Linux bonds w/LACP, or "bond_mode=active-backup" for OVS active/backup.
+  #BondInterfaceOvsOptions: "mode=1 miimon=100"
+  #LinuxBondInterfaceOptions: "mode=4 lacp_rate=0 updelay=1000 miimon=100 xmit_hash_policy=layer3+4"
+  #LinuxBondInterfaceOptions: "mode=4 lacp_rate=1 updelay=1000 miimon=100"
+
+  # Predictable VIPs
+  # This is a set of parameters for fixed VIPs
+  ControlFixedIPs: [{'ip_address':'192.168.70.59'}]
+  InternalApiVirtualFixedIPs: [{'ip_address':'172.16.20.59'}]
+  PublicVirtualFixedIPs: [{'ip_address':'192.168.10.59'}]
+  StorageVirtualFixedIPs: [{'ip_address':'172.16.30.59'}]
+  StorageMgmtVirtualFixedIPs: [{'ip_address':'172.16.40.59'}]
+  RedisVirtualFixedIPs: [{'ip_address':'172.16.20.58'}]
+
+  # Predictable IPs
+  # This contains (in order) the IPs that every node will
+  # have on every network
+  ControllerIPs:
+    external:
+    - 192.168.10.50
+    - 192.168.10.51
+    - 192.168.10.52
+    internal_api:
+    - 172.16.20.150
+    - 172.16.20.151
+    - 172.16.20.152
+    tenant:
+    - 172.16.60.150
+    - 172.16.60.151
+    - 172.16.60.152
+    storage:
+    - 172.16.30.150
+    - 172.16.30.151
+    - 172.16.30.152
+    storage_mgmt:
+    - 172.16.40.150
+    - 172.16.40.151
+    - 172.16.40.152
+    management:
+    - 192.168.100.150
+    - 192.168.100.151
+    - 192.168.100.152
+  ComputeIPs:
+    internal_api:
+    - 172.16.20.160
+    - 172.16.20.161
+    - 172.16.20.162
+    tenant:
+    - 172.16.60.160
+    - 172.16.60.161
+    - 172.16.60.162
+    storage:
+    - 19.16.30.160
+    - 19.16.30.161
+    - 19.16.30.162
+    storage_mgmt:
+    - 172.16.40.160
+    - 172.16.40.161
+    - 172.16.40.162
+    external:
+    - 192.168.10.53
+    - 192.168.10.54
+    - 192.168.10.55
+    management:
+    - 192.168.100.170
+    - 192.168.100.171
+    - 192.168.100.172
+  ComputeSriovIPs:
+    internal_api:
+    - 172.16.20.163
+    - 172.16.20.164
+    - 172.16.20.165
+    tenant:
+    - 172.16.60.163
+    - 172.16.60.164
+    - 172.16.60.165
+    storage:
+    - 19.16.30.163
+    - 19.16.30.164
+    - 19.16.30.165
+    storage_mgmt:
+    - 172.16.40.163
+    - 172.16.40.164
+    - 172.16.40.165
+    external:
+    - 192.168.10.56
+    - 192.168.10.57
+    - 192.168.10.58
+    management:
+    - 192.168.100.170
+    - 192.168.100.171
+    - 192.168.100.172
+
+  ServiceNetMap:
+    ApacheNetwork: internal_api
+    NeutronTenantNetwork: tenant
+    CeilometerApiNetwork: internal_api
+    AodhApiNetwork: internal_api
+    PankoApiNetwork: internal_api
+    BarbicanApiNetwork: internal_api
+    GnocchiApiNetwork: internal_api
+    MongodbNetwork: internal_api
+    CinderApiNetwork: internal_api
+    CinderIscsiNetwork: storage
+    CongressApiNetwork: internal_api
+    GlanceApiNetwork: internal_api
+    IronicApiNetwork: ctlplane
+    IronicNetwork: ctlplane
+    IronicInspectorNetwork: ctlplane
+    #KeystoneAdminApiNetwork: internal_api # undercloud must have internal_api interface
+    KeystoneAdminApiNetwork: ctlplane 
+    KeystonePublicApiNetwork: internal_api
+    ManilaApiNetwork: internal_api
+    NeutronApiNetwork: internal_api
+    OctaviaApiNetwork: internal_api
+    HeatApiNetwork: internal_api
+    HeatApiCfnNetwork: internal_api
+    HeatApiCloudwatchNetwork: internal_api
+    NovaApiNetwork: internal_api
+    NovaPlacementNetwork: internal_api
+    NovaMetadataNetwork: internal_api
+    NovaVncProxyNetwork: internal_api
+    NovaLibvirtNetwork: internal_api
+    Ec2ApiNetwork: internal_api
+    Ec2ApiMetadataNetwork: internal_api
+    TackerApiNetwork: internal_api
+    SwiftStorageNetwork: storage
+    SwiftProxyNetwork: storage
+    SaharaApiNetwork: internal_api
+    HorizonNetwork: internal_api
+    MemcachedNetwork: internal_api
+    RabbitmqNetwork: internal_api
+    QdrNetwork: internal_api
+    RedisNetwork: internal_api
+    GaneshaNetwork: storage_nfs
+    MysqlNetwork: internal_api
+    SnmpdNetwork: internal_api
+    #CephClusterNetwork: storage
+    #CephMonNetwork: storage
+    #CephRgwNetwork: storage
+    PublicNetwork: external
+    OpendaylightApiNetwork: internal_api
+    OvnDbsNetwork: internal_api
+    MistralApiNetwork: internal_api
+    ZaqarApiNetwork: internal_api
+    DockerRegistryNetwork: ctlplane
+    PacemakerRemoteNetwork: internal_api
+    #CephStorageHostnameResolveNetwork: storage
+    EtcdNetwork: internal_api
+    ControllerHostnameResolveNetwork: internal_api
+    ComputeHostnameResolveNetwork: internal_api
+
+  NetworkDeploymentActions: ['CREATE','UPDATE']

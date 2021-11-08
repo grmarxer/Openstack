@@ -10,9 +10,13 @@ openstack overcloud deploy --templates \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-control-environment.yaml \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-environment.yaml \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-deploy-options.yaml \
+-e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-enable-tls.yaml \
+-e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-ironic-environment.yaml \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-network-environment.yaml \
---ntp-server 172.27.1.1 |& tee /home/stack/overcloud-deploy/logs/overcloud-deploy_$(date +"%m-%d-%Y__%I:%M_%p").log
+--ntp-server 172.27.1.1 |& tee /home/stack/overcloud-deploy/logs/overcloud-deploy_$(date +"%m-%d-%Y__%I-%M_%p").log
 
+--validation-errors-nonfatal
+--validation-warnings-fatal
 
 
 
@@ -53,5 +57,12 @@ sudo grep -Ril "overcloud_endpoint" /home/stack/git_clone/Openstack/Openstack_2.
 
 
 
+openstack overcloud deploy --templates \
+-e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs-dpdk.yaml \
+-e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-sriov.yaml \
+-n /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-network_data.yaml \
+-r /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-custom_roles_data.yaml \
+-e /home/stack/containers-prepare-parameter.yaml \
+--ntp-server 172.27.1.1 |& tee /home/stack/overcloud-deploy/logs/overcloud-deploy_$(date +"%m-%d-%Y__%I-%M_%p").log
 
 

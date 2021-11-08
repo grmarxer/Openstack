@@ -1,0 +1,12 @@
+parameter_defaults:
+  NeutronMechanismDrivers: ['openvswitch', 'baremetal']
+  IronicDefaultDeployInterface: direct
+  IronicImageDownloadSource: http
+
+resource_registry:
+  OS::TripleO::Services::IronicApi: /usr/share/openstack-tripleo-heat-templates/deployment/ironic/ironic-api-container-puppet.yaml
+  OS::TripleO::Services::IronicConductor: /usr/share/openstack-tripleo-heat-templates/deployment/ironic/ironic-conductor-container-puppet.yaml
+  OS::TripleO::Services::IronicPxe: /usr/share/openstack-tripleo-heat-templates/deployment/ironic/ironic-pxe-container-puppet.yaml
+  OS::TripleO::Services::NovaIronic: /usr/share/openstack-tripleo-heat-templates/deployment/nova/nova-ironic-container-puppet.yaml
+  OS::TripleO::Services::IronicNeutronAgent: /usr/share/openstack-tripleo-heat-templates/deployment/ironic/ironic-neutron-agent-container-puppet.yaml
+  OS::TripleO::Services::NeutronDhcpAgent: /usr/share/openstack-tripleo-heat-templates/deployment/neutron/neutron-dhcp-container-puppet.yaml
