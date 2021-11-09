@@ -69,7 +69,7 @@ parameter_defaults:
   ControllerCount: 1
 
   # Number of computes to provision
-  ComputeCount: 0
+  #ComputeCount: 0
 
   # Number of computes to provision
   ComputeSriovCount: 2
