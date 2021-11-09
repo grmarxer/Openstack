@@ -3,7 +3,7 @@ parameter_defaults:
   KeystoneRegion: LAB
 
   # This should be the full FQDN of the overcloud vip
-  CloudName: 'service.16.osp.consulting-services.lab'
+  #CloudName: 'service.16.osp.consulting-services.lab'
 
   # This should be the domain name (same as above)
   # for the cloud
