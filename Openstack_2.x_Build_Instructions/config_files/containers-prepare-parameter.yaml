@@ -5,7 +5,6 @@
 
 parameter_defaults:
   # Moved this here to see if fixes overcloud python error
-  DeployedSSLCertificatePath: /etc/pki/tls/private/overcloud_endpoint.pem
   ContainerImagePrepare:
   - push_destination: true
     set:

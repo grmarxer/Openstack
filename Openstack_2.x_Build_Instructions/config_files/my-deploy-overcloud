@@ -44,6 +44,7 @@ openstack overcloud deploy --templates \
 
 
 
+
 sudo grep -Ril "overcloud_endpoint" /usr/share/openstack-tripleo-heat-templates/
 
 sudo grep -Ril "overcloud_endpoint" /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/
