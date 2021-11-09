@@ -10,10 +10,13 @@ openstack overcloud deploy --templates \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-control-environment.yaml \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-environment.yaml \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-deploy-options.yaml \
--e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-enable-tls.yaml \
--e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-ironic-environment.yaml \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-network-environment.yaml \
 --ntp-server 172.27.1.1 |& tee /home/stack/overcloud-deploy/logs/overcloud-deploy_$(date +"%m-%d-%Y__%I-%M_%p").log
+
+
+
+-e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-enable-tls.yaml \
+-e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-ironic-environment.yaml \
 
 --validation-errors-nonfatal
 --validation-warnings-fatal
