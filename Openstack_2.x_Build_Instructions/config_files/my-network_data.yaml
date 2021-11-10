@@ -87,7 +87,7 @@
 # NIC2, Control Plane is always NIC1.
 
 - name: Storage
-  vip: false
+  vip: true
   vlan: 1153
   name_lower: storage
   ip_subnet: '10.255.243.0/24'
@@ -97,7 +97,7 @@
   mtu: 1500
 - name: StorageMgmt
   name_lower: storage_mgmt
-  vip: false
+  vip: true
   vlan: 1154
   ip_subnet: '10.255.244.0/24'
   allocation_pools: [{'start': '10.255.244.20', 'end': '10.255.244.250'}]
@@ -106,7 +106,7 @@
   mtu: 1500
 - name: InternalApi
   name_lower: internal_api
-  vip: false
+  vip: true
   vlan: 1151
   ip_subnet: '10.255.241.0/24'
   allocation_pools: [{'start': '10.255.241.20', 'end': '10.255.241.250'}]
@@ -123,7 +123,7 @@
   #ipv6_allocation_pools: [{'start': 'fd00:10:255:242::20', 'end': 'fd00:10:255:242::250'}]
   mtu: 1500
 - name: External
-  vip: false
+  vip: true
   name_lower: external
   vlan: 1150
   ip_subnet: '10.255.240.0/24'
