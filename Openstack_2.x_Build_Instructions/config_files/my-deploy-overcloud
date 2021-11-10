@@ -15,6 +15,13 @@ openstack overcloud deploy --templates \
 
 
 
+###############################################################################################
+#                                                                                             #
+#                           EXTRA STUFF 													  #
+#																							  #
+###############################################################################################
+
+
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-enable-tls.yaml \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-ironic-environment.yaml \
 
