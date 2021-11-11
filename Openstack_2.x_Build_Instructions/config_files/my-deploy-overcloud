@@ -27,6 +27,12 @@ openstack overcloud deploy --templates \
 --validation-errors-nonfatal
 --validation-warnings-fatal
 
+###################################################################
+# How to find tripleO errors
+
+sudo su -
+cd /var/lib/mistral/overcloud
+cat ansible-errors.json | jq .
 
 
 
