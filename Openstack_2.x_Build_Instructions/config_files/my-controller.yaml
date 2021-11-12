@@ -227,48 +227,52 @@ resources:
 
 
               # NIC eno3 - Control Group TripleO
-              - type: interface
-                name: eno3
+              - type: ovs_bridge
+                name: br-ex
                 use_dhcp: false
-              - type: vlan
-                device: eno3
-                vlan_id:
-                  get_param: InternalApiNetworkVlanID
-                addresses:
-                - ip_netmask:
-                    get_param: InternalApiIpSubnet
-              - type: vlan
-                device: eno3
-                vlan_id:
-                  get_param: StorageMgmtNetworkVlanID
-                addresses:
-                - ip_netmask:
-                    get_param: StorageMgmtIpSubnet
-              - type: vlan
-                device: eno3
-                vlan_id:
-                  get_param: StorageNetworkVlanID
-                addresses:
-                - ip_netmask:
-                    get_param: StorageIpSubnet
-              - type: vlan
-                device: eno3
-                vlan_id:
-                  get_param: TenantNetworkVlanID
-                addresses:
-                - ip_netmask:
-                    get_param: TenantIpSubnet
-              - type: vlan
-                device: eno3
-                vlan_id:
-                  get_param: ExternalNetworkVlanID
-                addresses:
-                - ip_netmask:
-                    get_param: ExternalIpSubnet
-                routes:
-                - default: true
-                  next_hop:
-                    get_param: ExternalInterfaceDefaultRoute
+                mtu: 9000
+                members:
+                  - type: interface
+                    name: eno3
+                  - type: vlan
+                    device: br-ex
+                    vlan_id:
+                      get_param: InternalApiNetworkVlanID
+                    addresses:
+                    - ip_netmask:
+                        get_param: InternalApiIpSubnet
+                  - type: vlan
+                    device: br-ex
+                    vlan_id:
+                      get_param: StorageMgmtNetworkVlanID
+                    addresses:
+                    - ip_netmask:
+                        get_param: StorageMgmtIpSubnet
+                  - type: vlan
+                    device: br-ex
+                    vlan_id:
+                      get_param: StorageNetworkVlanID
+                    addresses:
+                    - ip_netmask:
+                        get_param: StorageIpSubnet
+                  - type: vlan
+                    device: br-ex
+                    vlan_id:
+                      get_param: TenantNetworkVlanID
+                    addresses:
+                    - ip_netmask:
+                        get_param: TenantIpSubnet
+                  - type: vlan
+                    device: br-ex
+                    vlan_id:
+                      get_param: ExternalNetworkVlanID
+                    addresses:
+                    - ip_netmask:
+                        get_param: ExternalIpSubnet
+                    routes:
+                    - default: true
+                      next_hop:
+                        get_param: ExternalInterfaceDefaultRoute
 
 
               # NIC eno3 - Control Group TripleO
