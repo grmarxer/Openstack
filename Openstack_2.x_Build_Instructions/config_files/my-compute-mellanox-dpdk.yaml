@@ -247,12 +247,12 @@ resources:
                       name: dpdk0
                       members:
                         - type: interface
-                          device: ens1f0
+                          name: ens1f0
                     - type: ovs_dpdk_port
                       name: dpdk1
                       members:
                         - type: interface
-                          device: ens1f1
+                          name: ens1f1
                 - type: vlan
                   device: br-ex
                   mtu:
