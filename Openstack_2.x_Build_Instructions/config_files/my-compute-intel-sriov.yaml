@@ -240,15 +240,6 @@ resources:
                   get_param: ExternalMtu
                 vlan_id:
                   get_param: ExternalNetworkVlanID
-                addresses:
-                - ip_netmask:
-                    get_param: ExternalIpSubnet
-                routes:
-                  list_concat_unique:
-                    - get_param: ExternalInterfaceRoutes
-                    - - default: true
-                        next_hop:
-                          get_param: ExternalInterfaceDefaultRoute
               - type: vlan
                 mtu:
                   get_param: InternalApiMtu
@@ -275,16 +266,16 @@ resources:
                     - get_param: StorageInterfaceRoutes
               - type: vlan
                 mtu:
-                  get_param: StorageMgmtMtu
+                  get_param: TenantMtu
                 vlan_id:
-                  get_param: StorageMgmtNetworkVlanID
+                  get_param: TenantNetworkVlanID
                 device: br-ex
                 addresses:
                 - ip_netmask:
-                    get_param: StorageMgmtIpSubnet
+                    get_param: TenantIpSubnet
                 routes:
                   list_concat_unique:
-                    - get_param: StorageMgmtInterfaceRoutes
+                    - get_param: TenantInterfaceRoutes
 
 
               # The NIC configs below are for SR-IOV   
