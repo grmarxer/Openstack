@@ -282,35 +282,35 @@ resources:
               - type: interface
                 name: ens1f0
                 use_dhcp: false
-                numvfs: 32
+                # numvfs: 32
                 defroute: false
                 nm_controlled: true
                 hotplug: true
-                promisc: false
+                # promisc: false
               - type: interface
                 name: ens1f1
                 use_dhcp: false
-                numvfs: 32
+                # numvfs: 32
                 defroute: false
                 nm_controlled: true
                 hotplug: true
-                promisc: false
+                # promisc: false
               - type: interface
                 name: ens2f0
                 use_dhcp: false
-                numvfs: 32
+                # numvfs: 32
                 defroute: false
                 nm_controlled: true
                 hotplug: true
-                promisc: false
+                # promisc: false
               - type: interface
                 name: ens2f1
                 use_dhcp: false
-                numvfs: 32
+                # numvfs: 32
                 defroute: false
                 nm_controlled: true
                 hotplug: true
-                promisc: false
+                # promisc: false
                   
 #                - type: ovs_bridge
 #                  name: {get_input: bridge_name}
