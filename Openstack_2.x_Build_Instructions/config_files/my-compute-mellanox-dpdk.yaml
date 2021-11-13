@@ -253,48 +253,48 @@ resources:
                       members:
                         - type: interface
                           device: ens1f1
-                    - type: vlan
-                      device: br-ex
-                      mtu:
-                        get_param: ExternalMtu
-                      vlan_id:
-                        get_param: ExternalNetworkVlanID
-                    - type: vlan
-                      mtu:
-                        get_param: InternalApiMtu
-                      vlan_id:
-                        get_param: InternalApiNetworkVlanID
-                      device: br-ex
-                      addresses:
-                      - ip_netmask:
-                          get_param: InternalApiIpSubnet
-                      routes:
-                          list_concat_unique:
-                            - get_param: InternalApiInterfaceRoutes
-                    - type: vlan
-                      device: br-ex
-                      mtu:
-                        get_param: StorageMtu
-                      vlan_id:
-                        get_param: StorageNetworkVlanID
-                      addresses:
-                      - ip_netmask:
-                          get_param: StorageIpSubnet
-                      routes:
-                        list_concat_unique:
-                          - get_param: StorageInterfaceRoutes
-                    - type: vlan
-                      mtu:
-                        get_param: TenantMtu
-                      vlan_id:
-                        get_param: TenantNetworkVlanID
-                      device: br-ex
-                      addresses:
-                      - ip_netmask:
-                          get_param: TenantIpSubnet
-                      routes:
-                        list_concat_unique:
-                          - get_param: TenantInterfaceRoutes
+                - type: vlan
+                  device: br-ex
+                  mtu:
+                    get_param: ExternalMtu
+                  vlan_id:
+                    get_param: ExternalNetworkVlanID
+                - type: vlan
+                  mtu:
+                    get_param: InternalApiMtu
+                  vlan_id:
+                    get_param: InternalApiNetworkVlanID
+                  device: br-ex
+                  addresses:
+                  - ip_netmask:
+                      get_param: InternalApiIpSubnet
+                  routes:
+                      list_concat_unique:
+                        - get_param: InternalApiInterfaceRoutes
+                - type: vlan
+                  device: br-ex
+                  mtu:
+                    get_param: StorageMtu
+                  vlan_id:
+                    get_param: StorageNetworkVlanID
+                  addresses:
+                  - ip_netmask:
+                      get_param: StorageIpSubnet
+                  routes:
+                    list_concat_unique:
+                      - get_param: StorageInterfaceRoutes
+                - type: vlan
+                  mtu:
+                    get_param: TenantMtu
+                  vlan_id:
+                    get_param: TenantNetworkVlanID
+                  device: br-ex
+                  addresses:
+                  - ip_netmask:
+                      get_param: TenantIpSubnet
+                  routes:
+                    list_concat_unique:
+                      - get_param: TenantInterfaceRoutes
 
 outputs:
   OS::stack_id:
