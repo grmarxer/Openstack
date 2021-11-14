@@ -227,7 +227,7 @@ resources:
 
               # NIC eno1np0 - br-ex Group TripleO
               - type: ovs_user_bridge
-                name: br-ex
+                name: br-dpdk
                 use_dhcp: false
                 mtu: 9000
                 members:
@@ -254,41 +254,11 @@ resources:
                         - type: interface
                           name: ens1f1
                 - type: vlan
-                  device: br-ex
-                  mtu:
-                    get_param: ExternalMtu
-                  vlan_id:
-                    get_param: ExternalNetworkVlanID
-                - type: vlan
-                  mtu:
-                    get_param: InternalApiMtu
-                  vlan_id:
-                    get_param: InternalApiNetworkVlanID
-                  device: br-ex
-                  addresses:
-                  - ip_netmask:
-                      get_param: InternalApiIpSubnet
-                  routes:
-                      list_concat_unique:
-                        - get_param: InternalApiInterfaceRoutes
-                - type: vlan
-                  device: br-ex
-                  mtu:
-                    get_param: StorageMtu
-                  vlan_id:
-                    get_param: StorageNetworkVlanID
-                  addresses:
-                  - ip_netmask:
-                      get_param: StorageIpSubnet
-                  routes:
-                    list_concat_unique:
-                      - get_param: StorageInterfaceRoutes
-                - type: vlan
                   mtu:
                     get_param: TenantMtu
                   vlan_id:
                     get_param: TenantNetworkVlanID
-                  device: br-ex
+                  device: br-dpdk
                   addresses:
                   - ip_netmask:
                       get_param: TenantIpSubnet
@@ -296,6 +266,43 @@ resources:
                     list_concat_unique:
                       - get_param: TenantInterfaceRoutes
 
+              - type: ovs_bridge
+                name: br-ex
+                use_dhcp: false
+                mtu: 9000
+                members:
+                  - type: interface
+                    name: eno1np0
+              - type: vlan
+                device: br-ex
+                mtu:
+                  get_param: ExternalMtu
+                vlan_id:
+                  get_param: ExternalNetworkVlanID
+              - type: vlan
+                mtu:
+                  get_param: InternalApiMtu
+                vlan_id:
+                  get_param: InternalApiNetworkVlanID
+                device: br-ex
+                addresses:
+                - ip_netmask:
+                    get_param: InternalApiIpSubnet
+                routes:
+                    list_concat_unique:
+                      - get_param: InternalApiInterfaceRoutes
+              - type: vlan
+                device: br-ex
+                mtu:
+                  get_param: StorageMtu
+                vlan_id:
+                  get_param: StorageNetworkVlanID
+                addresses:
+                - ip_netmask:
+                    get_param: StorageIpSubnet
+                routes:
+                  list_concat_unique:
+                    - get_param: StorageInterfaceRoutes
 outputs:
   OS::stack_id:
     description: The OsNetConfigImpl resource.
