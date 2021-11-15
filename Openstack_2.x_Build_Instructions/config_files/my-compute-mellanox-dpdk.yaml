@@ -238,18 +238,20 @@ resources:
                     # bonding maybe an issues as switch is set for lacp and ovs does not support lacp -- so if doesn't work look to modify switch settings
                     - set port dpdkbond0 bond_mode=balance-slb 
                     # lacp=off https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/8/html/director_installation_and_usage/appe-bonding_options
-                    #  - set interface dpdk0 mtu_request=$MTU
-                    #  - set interface dpdk1 mtu_request=$MTU
-                    #  - set interface dpdk0 options:n_rxq=2
-                    #  - set interface dpdk1 options:n_rxq=2               
+                    # - set interface dpdk0 options:n_rxq_desc=4096
+                    # - set interface dpdk1 options:n_rxq_desc=4096
+                    # - set interface dpdk0 options:n_txq_desc=4096
+                    # - set interface dpdk1 options:n_txq_desc=4096
                   members:
                     - type: ovs_dpdk_port
                       name: dpdk0
+                      driver: mlx5_core
                       members:
                         - type: interface
                           name: ens1f0
                     - type: ovs_dpdk_port
                       name: dpdk1
+                      driver: mlx5_core
                       members:
                         - type: interface
                           name: ens1f1
