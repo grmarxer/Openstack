@@ -531,6 +531,26 @@ By default, director deploys an overcloud with 1 Controller node and 1 Compute n
 
 <br/> 
 
+## Red Hat Container Registry Authentication  
+
+[Red Hat Container Registry Authentication Documentation](https://access.redhat.com/RegistryAuthentication)  
+
+
+In order for the deployment command to succeed in the next step you need to authenticate to Redhat's Container Registry using your Red Hat credentials  
+
+1.  Enter the following  
+    ```
+    podman login registry.redhat.io
+    ```
+2.  Enter Red Hat username and password when prompted  
+
+3.  If successful you will see  
+
+    ```
+    Login Succeeded!
+    ``` 
+<br/> 
+
 ## Deployment command  
 
 The final stage in creating your OpenStack environment is to run the openstack overcloud deploy command to create the overcloud.  
