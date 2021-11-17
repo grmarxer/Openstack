@@ -56,6 +56,9 @@ cat ansible-errors.json | jq .
 ##git pull  -- to retrieve latest updates
 
 
+##git checkout -b ts-changes
+
+
 
 
 
