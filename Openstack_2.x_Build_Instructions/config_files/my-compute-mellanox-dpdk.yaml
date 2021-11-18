@@ -268,7 +268,7 @@ resources:
                     list_concat_unique:
                       - get_param: TenantInterfaceRoutes
 
-              - type: ovs_bridge
+              - type: ovs_user_bridge  
                 name: br-ex
                 use_dhcp: false
                 mtu: 9000
