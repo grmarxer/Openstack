@@ -224,124 +224,87 @@ resources:
                   next_hop: {get_param: EC2MetadataIp}
                 - default: false
                   next_hop: {get_param: ControlPlaneDefaultRoute}
-                  
-              # NIC eno1np0 - Control Group TripleO
-              - type: ovs_user_bridge
-                name: br-control
-                use_dhcp: false
-                mtu: 9000
-                members:
-                  - type: interface
-                    name: eno1np0
-                  - type: vlan
-                    mtu:
-                      get_param: ExternalMtu
-                    vlan_id:
-                      get_param: ExternalNetworkVlanID
-                    addresses:
-                    - ip_netmask:
-                        get_param: ExternalIpSubnet
-                    routes:
-                      list_concat_unique:
-                        - get_param: ExternalInterfaceRoutes
-                        - - default: true
-                            next_hop:
-                              get_param: ExternalInterfaceDefaultRoute
-                  - type: vlan
-                    mtu:
-                      get_param: InternalApiMtu
-                    vlan_id:
-                      get_param: InternalApiNetworkVlanID
-                    device: br-control
-                    addresses:
-                    - ip_netmask:
-                        get_param: InternalApiIpSubnet
-                    routes:
-                        list_concat_unique:
-                          - get_param: InternalApiInterfaceRoutes
-                  - type: vlan
-                    device: br-control
-                    mtu:
-                      get_param: StorageMtu
-                    vlan_id:
-                      get_param: StorageNetworkVlanID
-                    addresses:
-                    - ip_netmask:
-                        get_param: StorageIpSubnet
-                    routes:
-                      list_concat_unique:
-                        - get_param: StorageInterfaceRoutes
-                  - type: vlan
-                    mtu:
-                      get_param: StorageMgmtMtu
-                    vlan_id:
-                      get_param: StorageMgmtNetworkVlanID
-                    device: br-control
-                    addresses:
-                    - ip_netmask:
-                        get_param: StorageMgmtIpSubnet
-                    routes:
-                      list_concat_unique:
-                        - get_param: StorageMgmtInterfaceRoutes
-              
 
-              
-
+              # NIC eno1np0 - br-ex Group TripleO
               - type: ovs_user_bridge
                 name: br-dpdk
                 use_dhcp: false
-              #  ovs_extra:
-              #   - str_replace:
-              #     template: set port br-tenant tag=_VLAN_TAG_
-              #     params:
-              #       _VLAN_TAG_:
-              #       get_param: TenantNetworkVlanID
-                addresses:
-                - ip_netmask:
-                  get_param: TenantIpSubnet
-                routes:
-                  list_concat_unique:
-                    - get_param: TenantInterfaceRoutes
+                mtu: 9000
                 members:
                 - type: ovs_dpdk_bond
                   name: dpdkbond0
                   mtu: 9000
                   ovs_extra:
-                  # bonding maybe an issues as switch is set for lacp and ovs does not support lacp -- so if doesn't work look to modify switch settings
-                    - set port dpdkbond0 bond_mode=balance-slb # lacp=off https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/8/html/director_installation_and_usage/appe-bonding_options
-                  #  - set interface dpdk0 mtu_request=$MTU
-                  #  - set interface dpdk1 mtu_request=$MTU
-                  #  - set interface dpdk0 options:n_rxq=2
-                  #  - set interface dpdk1 options:n_rxq=2               
+                    # bonding maybe an issues as switch is set for lacp and ovs does not support lacp -- so if doesn't work look to modify switch settings
+                    - set port dpdkbond0 bond_mode=balance-slb 
+                    # lacp=off https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/8/html/director_installation_and_usage/appe-bonding_options
+                    # - set interface dpdk0 options:n_rxq_desc=4096
+                    # - set interface dpdk1 options:n_rxq_desc=4096
+                    # - set interface dpdk0 options:n_txq_desc=4096
+                    # - set interface dpdk1 options:n_txq_desc=4096
                   members:
                     - type: ovs_dpdk_port
                       name: dpdk0
+                      driver: mlx5_core
                       members:
-                        - type: sriov_vf
-                          device: ens1f0
-                          vfid: 5
+                        - type: interface
+                          name: ens1f0
                     - type: ovs_dpdk_port
                       name: dpdk1
+                      driver: mlx5_core
                       members:
-                        - type: sriov_vf
-                          device: ens1f1
-                          vfid: 5
-              - type: sriov_pf
-                name: ens1f0
+                        - type: interface
+                          name: ens1f1
+                - type: vlan
+                  mtu:
+                    get_param: TenantMtu
+                  vlan_id:
+                    get_param: TenantNetworkVlanID
+                  device: br-dpdk
+                  addresses:
+                  - ip_netmask:
+                      get_param: TenantIpSubnet
+                  routes:
+                    list_concat_unique:
+                      - get_param: TenantInterfaceRoutes
+
+              - type: ovs_bridge
+                name: br-ex
                 use_dhcp: false
-                numvfs: 32
-                defroute: false
-                nm_controlled: true
-                hotplug: true
-                promisc: false
-              - type: sriov_pf
-                name: ens1f1
-                use_dhcp: false
-                numvfs: 32
-                defroute: false
-                nm_controlled: true
-                hotplug: true
-                promisc: false
+                mtu: 9000
+                members:
+                  - type: interface
+                    name: eno1np0
+              - type: vlan
+                device: br-ex
+                mtu:
+                  get_param: ExternalMtu
+                vlan_id:
+                  get_param: ExternalNetworkVlanID
+              - type: vlan
+                mtu:
+                  get_param: InternalApiMtu
+                vlan_id:
+                  get_param: InternalApiNetworkVlanID
+                device: br-ex
+                addresses:
+                - ip_netmask:
+                    get_param: InternalApiIpSubnet
+                routes:
+                    list_concat_unique:
+                      - get_param: InternalApiInterfaceRoutes
+              - type: vlan
+                device: br-ex
+                mtu:
+                  get_param: StorageMtu
+                vlan_id:
+                  get_param: StorageNetworkVlanID
+                addresses:
+                - ip_netmask:
+                    get_param: StorageIpSubnet
+                routes:
+                  list_concat_unique:
+                    - get_param: StorageInterfaceRoutes
 outputs:
   OS::stack_id:
     description: The OsNetConfigImpl resource.

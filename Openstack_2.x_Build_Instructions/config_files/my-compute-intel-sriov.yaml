@@ -234,91 +234,83 @@ resources:
                 members:
                   - type: interface
                     name: eno1np0
-                  - type: vlan
-                    mtu:
-                      get_param: ExternalMtu
-                    vlan_id:
-                      get_param: ExternalNetworkVlanID
-                    addresses:
-                    - ip_netmask:
-                        get_param: ExternalIpSubnet
-                    routes:
-                      list_concat_unique:
-                        - get_param: ExternalInterfaceRoutes
-                        - - default: true
-                            next_hop:
-                              get_param: ExternalInterfaceDefaultRoute
-                  - type: vlan
-                    mtu:
-                      get_param: InternalApiMtu
-                    vlan_id:
-                      get_param: InternalApiNetworkVlanID
-                    device: br-ex
-                    addresses:
-                    - ip_netmask:
-                        get_param: InternalApiIpSubnet
-                    routes:
-                        list_concat_unique:
-                          - get_param: InternalApiInterfaceRoutes
-                  - type: vlan
-                    device: br-ex
-                    mtu:
-                      get_param: StorageMtu
-                    vlan_id:
-                      get_param: StorageNetworkVlanID
-                    addresses:
-                    - ip_netmask:
-                        get_param: StorageIpSubnet
-                    routes:
-                      list_concat_unique:
-                        - get_param: StorageInterfaceRoutes
-                  - type: vlan
-                    mtu:
-                      get_param: StorageMgmtMtu
-                    vlan_id:
-                      get_param: StorageMgmtNetworkVlanID
-                    device: br-ex
-                    addresses:
-                    - ip_netmask:
-                        get_param: StorageMgmtIpSubnet
-                    routes:
-                      list_concat_unique:
-                        - get_param: StorageMgmtInterfaceRoutes
+              - type: vlan
+                device: br-ex
+                mtu:
+                  get_param: ExternalMtu
+                vlan_id:
+                  get_param: ExternalNetworkVlanID
+              - type: vlan
+                mtu:
+                  get_param: InternalApiMtu
+                vlan_id:
+                  get_param: InternalApiNetworkVlanID
+                device: br-ex
+                addresses:
+                - ip_netmask:
+                    get_param: InternalApiIpSubnet
+                routes:
+                    list_concat_unique:
+                      - get_param: InternalApiInterfaceRoutes
+              - type: vlan
+                device: br-ex
+                mtu:
+                  get_param: StorageMtu
+                vlan_id:
+                  get_param: StorageNetworkVlanID
+                addresses:
+                - ip_netmask:
+                    get_param: StorageIpSubnet
+                routes:
+                  list_concat_unique:
+                    - get_param: StorageInterfaceRoutes
+              - type: vlan
+                mtu:
+                  get_param: TenantMtu
+                vlan_id:
+                  get_param: TenantNetworkVlanID
+                device: br-ex
+                addresses:
+                - ip_netmask:
+                    get_param: TenantIpSubnet
+                routes:
+                  list_concat_unique:
+                    - get_param: TenantInterfaceRoutes
 
 
               # The NIC configs below are for SR-IOV   
-              - type: sriov_pf
+              - type: interface
                 name: ens1f0
                 use_dhcp: false
-                numvfs: 32
+                # numvfs: 32
                 defroute: false
                 nm_controlled: true
                 hotplug: true
-                promisc: false
-              - type: sriov_pf
+                # promisc: false
+              - type: interface
                 name: ens1f1
                 use_dhcp: false
-                numvfs: 32
+                # numvfs: 32
                 defroute: false
                 nm_controlled: true
                 hotplug: true
-                promisc: false
-              - type: sriov_pf
+                # promisc: false
+              - type: interface
                 name: ens2f0
                 use_dhcp: false
-                numvfs: 32
+                # numvfs: 32
                 defroute: false
                 nm_controlled: true
                 hotplug: true
-                promisc: false
-              - type: sriov_pf
+                # promisc: false
+              - type: interface
                 name: ens2f1
                 use_dhcp: false
-                numvfs: 32
+                # numvfs: 32
                 defroute: false
                 nm_controlled: true
                 hotplug: true
-                promisc: false
+                # promisc: false
                   
 #                - type: ovs_bridge
 #                  name: {get_input: bridge_name}
