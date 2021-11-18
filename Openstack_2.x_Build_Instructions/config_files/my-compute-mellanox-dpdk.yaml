@@ -246,29 +246,31 @@ resources:
                     - type: ovs_dpdk_port
                       name: dpdk0
                       driver: mlx5_core
+                      mtu: 9000
                       members:
                         - type: interface
                           name: ens1f0
                     - type: ovs_dpdk_port
                       name: dpdk1
                       driver: mlx5_core
+                      mtu: 9000
                       members:
                         - type: interface
                           name: ens1f1
-                - type: vlan
-                  mtu:
-                    get_param: TenantMtu
-                  vlan_id:
-                    get_param: TenantNetworkVlanID
-                  device: br-dpdk
-                  addresses:
-                  - ip_netmask:
-                      get_param: TenantIpSubnet
-                  routes:
-                    list_concat_unique:
-                      - get_param: TenantInterfaceRoutes
+                #- type: vlan
+                #  mtu:
+                #    get_param: TenantMtu
+                #  vlan_id:
+                #    get_param: TenantNetworkVlanID
+                #  device: br-dpdk
+                #  addresses:
+                #  - ip_netmask:
+                #      get_param: TenantIpSubnet
+                #  routes:
+                #    list_concat_unique:
+                #      - get_param: TenantInterfaceRoutes
 
-              - type: ovs_user_bridge  
+              - type: ovs_user_bridge
                 name: br-ex
                 use_dhcp: false
                 mtu: 9000
