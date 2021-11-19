@@ -26,13 +26,6 @@ resource_registry:
   OS::TripleO::Controller::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
   OS::TripleO::Controller::Ports::ManagementPort: /usr/share/openstack-tripleo-heat-templates/network/ports/management_from_pool.yaml
 
-  # Port assignments for the Compute
-  #OS::TripleO::Compute::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api_from_pool.yaml
-  #OS::TripleO::Compute::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
-  #OS::TripleO::Compute::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant_from_pool.yaml
-  #OS::TripleO::Compute::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
-  #OS::TripleO::Compute::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
-  #OS::TripleO::Compute::Ports::ManagementPort: /usr/share/openstack-tripleo-heat-templates/network/ports/management_from_pool.yaml
 
   # Port assignments for the ComputeSriov
   OS::TripleO::ComputeSriov::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api_from_pool.yaml
@@ -54,10 +47,10 @@ resource_registry:
   # These parameters should point to the nic config templates for each type of node
   # Network config for the Controller
   OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-controller.yaml
-  # Network config for the Compute
-  #OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/environments/osp16-lab/network/config/nic-configs/compute.yaml
+
   # Network config for the ComputeSriov
   OS::TripleO::ComputeSriov::Net::SoftwareConfig: /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-intel-sriov.yaml
+
   # Network config for the ComputeOvsDpdk
   OS::TripleO::ComputeOvsDpdk::Net::SoftwareConfig: /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-mellanox-dpdk.yaml
 
@@ -120,20 +113,16 @@ parameter_defaults:
   # Names of neutron flat networks, that is, networks without associated VLANs
   # This can overlap if you have networks that support both VLAN and flat ranges
   # SR-IOV should be in both
-  #NeutronFlatNetworks: ['sriovLinks','dpdkLinks']
   NeutronFlatNetworks: ['sriovLinks','dpdkLinks','sriov-public','sriov-private','sriov-mirror']
+  
+  
   ControllerParameters:
     NeutronBridgeMappings: ['sriovLinks:br-sriov','dpdkLinks:br-dpdk']
-  #ComputeParameters:
-  #  NeutronBridgeMappings: ['datacentre:br-ex','tenant:br-tenant']
   ComputeSriovParameters:
     NeutronBridgeMappings: ['sriovLinks:br-sriov','dpdkLinks:br-dpdk']
   ComputeOvsDpdkParameters:
     NeutronBridgeMappings: ['sriovLinks:br-sriov','dpdkLinks:br-dpdk']
-  #ComputeDCAParameters:
-  #  NeutronBridgeMappings: ['datacentre:br-ex','dca:br-dca']
-  #ComputeDCBParameters:
-  #  NeutronBridgeMappings: ['datacentre:br-ex','dcb:br-dcb']
+
 
   # Base MTU for neutron networks, this is reduced a bit in the actual
   # neutron network due to tunnel overhead
@@ -145,11 +134,10 @@ parameter_defaults:
 
   # Neutron Settings
   # Default type for neutron networks
-  #NeutronNetworkType: ['geneve', 'vlan','flat']
   NeutronNetworkType: ['vxlan','vlan','flat']
-  # NeutronNetworkType: ['vxlan', 'vlan','flat']  # errored on vxlan
-  # NeutronTypeDrivers: 'geneve,vlan,flat'
-  NeutronTypeDrivers: ['vxlan','vlan','flat']  
+  
+  NeutronTypeDrivers: ['vxlan','vlan','flat']
+  
   NeutronTunnelTypes: 'vxlan'
 
   #NeutronEnableDVR: false
