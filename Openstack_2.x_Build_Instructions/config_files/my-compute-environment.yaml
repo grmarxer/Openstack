@@ -62,6 +62,11 @@ parameter_defaults:
       - sriov-public:ens1f0
       - sriov-private:ens1f1
       - sriov-mirror:ens2f0
+    NeutronSriovNumVFs:
+      - ens1f0:16
+      - ens1f1:16
+      - ens2f0:16
+      - ens2f1:16
     # Need to edit per hardware confguration
     NovaPCIPassthrough:
       - devname: "ens1f0"
