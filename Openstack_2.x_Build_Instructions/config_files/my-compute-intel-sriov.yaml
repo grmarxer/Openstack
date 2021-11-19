@@ -226,7 +226,7 @@ resources:
                 - default: false
                   next_hop: {get_param: ControlPlaneDefaultRoute}
                   
-              # NIC eno1np0 - Control Group TripleO
+              # NIC eno1np0 - Control Group TripleO VLANs
               - type: ovs_bridge
                 name: br-ex
                 use_dhcp: false
