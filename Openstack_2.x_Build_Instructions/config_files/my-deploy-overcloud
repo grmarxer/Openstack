@@ -1,4 +1,5 @@
 cd ~
+sudo echo > /home/stack/.ssh/known_hosts
 source ~/stackrc
 openstack overcloud deploy --templates \
 -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs-dpdk.yaml \
