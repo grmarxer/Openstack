@@ -121,6 +121,7 @@ parameter_defaults:
   # This can overlap if you have networks that support both VLAN and flat ranges
   # SR-IOV should be in both
   NeutronFlatNetworks: ['sriovLinks','dpdkLinks']
+  #NeutronFlatNetworks: ['sriovLinks','dpdkLinks','sriov-public','sriov-private','sriov-mirror']
   ControllerParameters:
     NeutronBridgeMappings: ['sriovLinks:br-sriov','dpdkLinks:br-dpdk']
   #ComputeParameters:
@@ -144,10 +145,11 @@ parameter_defaults:
 
   # Neutron Settings
   # Default type for neutron networks
-  NeutronNetworkType: ['geneve', 'vlan','flat']
+  #NeutronNetworkType: ['geneve', 'vlan','flat']
+  NeutronNetworkType: ['vxlan','vlan','flat']
   # NeutronNetworkType: ['vxlan', 'vlan','flat']  # errored on vxlan
   # NeutronTypeDrivers: 'geneve,vlan,flat'
-  NeutronTypeDrivers: ['vxlan', 'vlan','flat']  
+  NeutronTypeDrivers: ['vxlan','vlan','flat']  
   NeutronTunnelTypes: 'vxlan'
 
   #NeutronEnableDVR: false
