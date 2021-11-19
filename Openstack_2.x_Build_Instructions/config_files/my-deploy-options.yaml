@@ -7,7 +7,7 @@ parameter_defaults:
 
   # This should be the domain name (same as above)
   # for the cloud
-  CloudDomain: '16.osp.consulting-services.lab'
+  CloudDomain: 'osp.16.customer.lab'
 
   # This should be the hostname pattern used for controllers
   #ControllerHostnameFormat: '%stackname%-ctrl-%index%'

@@ -120,8 +120,8 @@ parameter_defaults:
   # Names of neutron flat networks, that is, networks without associated VLANs
   # This can overlap if you have networks that support both VLAN and flat ranges
   # SR-IOV should be in both
-  NeutronFlatNetworks: ['sriovLinks','dpdkLinks']
-  #NeutronFlatNetworks: ['sriovLinks','dpdkLinks','sriov-public','sriov-private','sriov-mirror']
+  #NeutronFlatNetworks: ['sriovLinks','dpdkLinks']
+  NeutronFlatNetworks: ['sriovLinks','dpdkLinks','sriov-public','sriov-private','sriov-mirror']
   ControllerParameters:
     NeutronBridgeMappings: ['sriovLinks:br-sriov','dpdkLinks:br-dpdk']
   #ComputeParameters:
