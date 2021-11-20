@@ -182,6 +182,8 @@ parameter_defaults:
   #
   #ControlFixedIPs: [{'ip_address':'192.168.70.59'}]
   #InternalApiVirtualFixedIPs: [{'ip_address':'172.16.20.59'}]
+  
+  # This will set the IP on the external network that will be assigned to the Dashboard and Public API
   PublicVirtualFixedIPs: [{'ip_address':'10.255.240.16'}]
   #StorageVirtualFixedIPs: [{'ip_address':'172.16.30.59'}]
   #StorageMgmtVirtualFixedIPs: [{'ip_address':'172.16.40.59'}]
