@@ -108,7 +108,7 @@ parameter_defaults:
 
   # Network VLAN ranges, in the form of name:range, in the absence of range
   # the default is all VLANs allowed
-  NeutronNetworkVLANRanges: ['datacentre','tenant','dpdkLinks','management']
+  NeutronNetworkVLANRanges: ['datacentre','tenant','dpdkLinks','management:1150:1154']
 
   # Names of neutron flat networks, that is, networks without associated VLANs
   # This can overlap if you have networks that support both VLAN and flat ranges
