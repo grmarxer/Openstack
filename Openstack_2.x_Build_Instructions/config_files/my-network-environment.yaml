@@ -182,7 +182,7 @@ parameter_defaults:
   #
   #ControlFixedIPs: [{'ip_address':'192.168.70.59'}]
   #InternalApiVirtualFixedIPs: [{'ip_address':'172.16.20.59'}]
-  #PublicVirtualFixedIPs: [{'ip_address':'192.168.10.59'}]
+  PublicVirtualFixedIPs: [{'ip_address':'10.255.240.16'}]
   #StorageVirtualFixedIPs: [{'ip_address':'172.16.30.59'}]
   #StorageMgmtVirtualFixedIPs: [{'ip_address':'172.16.40.59'}]
   #RedisVirtualFixedIPs: [{'ip_address':'172.16.20.58'}]
