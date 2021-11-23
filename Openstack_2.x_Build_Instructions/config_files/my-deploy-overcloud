@@ -74,29 +74,3 @@ sudo grep -Ril "overcloud_endpoint" /home/stack/git_clone/Openstack/Openstack_2.
 
 
 
--e /usr/share/openstack-tripleo-heat-templates/environments/ssl/tls-endpoints-public-dns.yaml \
--e /usr/share/openstack-tripleo-heat-templates/environments/ssl/enable-tls.yaml \
-
-
-
-
-openstack overcloud deploy --templates \
--e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs-dpdk.yaml \
--e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-sriov.yaml \
--n /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-network_data.yaml \
--r /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-custom_roles_data.yaml \
--e /home/stack/containers-prepare-parameter.yaml \
---ntp-server 172.27.1.1 |& tee /home/stack/overcloud-deploy/logs/overcloud-deploy_$(date +"%m-%d-%Y__%I-%M_%p").log
-
-
-Fast-forward
- Openstack_2.x_Build_Instructions/config_files/containers-prepare-parameter.yaml       |   3 +-
- Openstack_2.x_Build_Instructions/config_files/my-compute-intel-sriov.yaml             | 116 +++++++++++++++++++++++++++++++++-------------------------------------
- Openstack_2.x_Build_Instructions/config_files/my-compute-mellanox-dpdk.yaml           | 165 +++++++++++++++++++++++++++++++++++++++-------------------------------------------------------------
- Openstack_2.x_Build_Instructions/config_files/my-controller.yaml                      |  86 +++++++++++++++++++++++++++-------------------------
- Openstack_2.x_Build_Instructions/config_files/my-deploy-overcloud                     |   4 +++
- Openstack_2.x_Build_Instructions/config_files/test.json                               |   0
- Openstack_2.x_Build_Instructions/procedures/3-Configuring_Overcloud_with_CLI_tools.md |   1 +
- 7 files changed, 170 insertions(+), 205 deletions(-)
- create mode 100644 Openstack_2.x_Build_Instructions/config_files/test.json
-
