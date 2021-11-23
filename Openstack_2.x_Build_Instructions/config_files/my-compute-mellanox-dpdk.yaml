@@ -268,14 +268,23 @@ resources:
               - type: ovs_user_bridge
                 name: br-dpdk
                 use_dhcp: false
-                mtu: 9000
+                ovs_extra:
+                  - str_replace:
+                    template: set port br-ex tag=_VLAN_TAG_
+                    params:
+                      _VLAN_TAG_:
+                        get_param: TenantNetworkVlanID
+                  addresses:
+                    - ip_netmask: {get_param: TenantIpSubnet}
+                #mtu: 9000
                 members:
                 - type: ovs_dpdk_bond
                   name: dpdkbond0
                   mtu: 9000
+                  ovs_options: "bond_mode=balance-slb lacp=active"
                   ovs_extra:
                     # bonding maybe an issues as switch is set for lacp and ovs does not support lacp -- so if doesn't work look to modify switch settings
-                    - set port dpdkbond0 bond_mode=balance-slb 
+                    #- set port dpdkbond0 bond_mode=balance-slb 
                     # lacp=off https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/8/html/director_installation_and_usage/appe-bonding_options
                     # - set interface dpdk0 options:n_rxq_desc=4096
                     # - set interface dpdk1 options:n_rxq_desc=4096
@@ -296,18 +305,6 @@ resources:
                       members:
                         - type: interface
                           name: ens1f1
-                - type: vlan
-                  mtu:
-                    get_param: TenantMtu
-                  vlan_id:
-                    get_param: TenantNetworkVlanID
-                  device: br-dpdk
-                  addresses:
-                  - ip_netmask:
-                      get_param: TenantIpSubnet
-                  routes:
-                    list_concat_unique:
-                      - get_param: TenantInterfaceRoutes
 outputs:
   OS::stack_id:
     description: The OsNetConfigImpl resource.

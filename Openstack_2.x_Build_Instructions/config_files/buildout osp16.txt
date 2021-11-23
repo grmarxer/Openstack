@@ -163,13 +163,13 @@ tmsh create net vlan vnic3 interfaces add { 1.3 }
 
 bigip.10
 
-tmsh create net self public-sriov address 10.20.255.250/24 vlan vnic1 allow-service default
+tmsh create net self public-sriov address 10.10.20.250/24 vlan vnic1 allow-service default
 tmsh create net self private-sriov address 10.10.30.252/24 vlan vnic2 allow-service default
 tmsh create net self mirror-sriov address 10.10.40.178/24 vlan vnic3 allow-service default
 tmsh save sys config
 
 bigip.20
-tmsh create net self public-sriov address 10.20.255.249/24 vlan vnic1 allow-service default
+tmsh create net self public-sriov address 10.10.20.249/24 vlan vnic1 allow-service default
 tmsh create net self private-sriov address 10.10.30.250/24 vlan vnic2 allow-service default
 tmsh create net self mirror-sriov address 10.10.40.35/24 vlan vnic3 allow-service default
 tmsh save sys config
