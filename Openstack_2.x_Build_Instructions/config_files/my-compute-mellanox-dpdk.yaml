@@ -273,10 +273,10 @@ resources:
                 - type: ovs_dpdk_bond
                   name: dpdkbond0
                   mtu: 9000
-                  ovs_options: "bond_mode=balance-slb lacp=active"
+                  #ovs_options: "bond_mode=balance-slb lacp=active"
                   ovs_extra:
                     # bonding maybe an issues as switch is set for lacp and ovs does not support lacp -- so if doesn't work look to modify switch settings
-                    #- set port dpdkbond0 bond_mode=balance-slb 
+                    - set port dpdkbond0 bond_mode=balance-slb 
                     # lacp=off https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/8/html/director_installation_and_usage/appe-bonding_options
                     # - set interface dpdk0 options:n_rxq_desc=4096
                     # - set interface dpdk1 options:n_rxq_desc=4096
