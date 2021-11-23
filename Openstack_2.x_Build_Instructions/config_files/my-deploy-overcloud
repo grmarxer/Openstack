@@ -1,4 +1,4 @@
-cd git_clone/Openstack/
+cd /home/stack/git_clone/Openstack/
 sudo git pull
 cd ~
 sudo echo > /home/stack/.ssh/known_hosts
