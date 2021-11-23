@@ -20,7 +20,7 @@ openstack network create --share --project admin --internal --provider-network-t
 openstack network create --share --project admin --internal --provider-network-type flat --provider-physical-network sriov-mirror sriov-mirror
 openstack network create --share --project admin --external --provider-network-type vlan --provider-physical-network management --provider-segment 1150 management 
 
-openstack network create --share --project admin --internal --provider-network-type vxlan  dpdk-net1
+openstack network create --share --project admin --internal --provider-network-type vxlan  --provider-physical-network dpdkLinks dpdk-net1
 openstack network create --share --project admin --internal --provider-network-type vxlan  dpdk-net2
 openstack network create --share --project admin --internal --provider-network-type vxlan  dpdk-net3
 
