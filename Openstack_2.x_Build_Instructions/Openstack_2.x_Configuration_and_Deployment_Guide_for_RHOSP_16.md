@@ -45,12 +45,14 @@
 
 <br/>  
 
-#### SRIOV NIC Card Switch Ports -- Intel XXV710   
+#### SRIOV NIC Card Switch Ports -- Intel XXV710 -- All connected to Access VLAN 1090
 
 | **Node**        | **Location** | **ens1f0**      | **ens1f1**      | **ens2f0**      |  **ens2f1**       |  
 | :---------:     | :----------: | :----------:    | :----------:    | :----------:    |  :----------:     |  
 | Compute Node 1  | L25-A15-U25  | CORE3/6/2/3     | CORE3/6/2/4     | CORE3/5/21/3    | CORE3/5/22/4      |  
-| Compute Node 2  | L25-A15-U27  | CORE3/5/21/1    | CORE3/5/21/2    | CORE3/6/2/1     | CORE3/10/1/3      |  
+| Compute Node 2  | L25-A15-U27  | CORE3/5/21/1    | CORE3/5/21/2    | CORE3/6/2/1     | **CORE3/10/1/3      |  
+
+** CORE3/10/1/3 is not configured with a 100G connection on the switch, it has a 40G broken out to 10G
 
 
 <br/> 
