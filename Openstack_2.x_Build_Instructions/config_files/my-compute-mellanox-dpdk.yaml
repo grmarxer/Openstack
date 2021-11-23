@@ -268,14 +268,6 @@ resources:
               - type: ovs_user_bridge
                 name: br-dpdk
                 use_dhcp: false
-                ovs_extra:
-                  - str_replace:
-                    template: set port br-ex tag=_VLAN_TAG_
-                    params:
-                      _VLAN_TAG_:
-                        get_param: TenantNetworkVlanID
-                  addresses:
-                    - ip_netmask: {get_param: TenantIpSubnet}
                 #mtu: 9000
                 members:
                 - type: ovs_dpdk_bond
