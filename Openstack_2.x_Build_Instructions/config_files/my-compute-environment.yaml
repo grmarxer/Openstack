@@ -45,8 +45,8 @@ parameter_defaults:
     NovaReservedHostMemory: 4096
     #NovaComputeCpuSharedSet: "13,15,17,19,21,23,25,27,29,31,33,35,37,39,53,55,57,59,61,63,65,67,69,71,73,75,77,79"  # NovaComputeCpuSharedSet -- Sets the cores to be used for emulator threads. This will define the value of the nova.conf parameter cpu_shared_set. The recommended value for this parameter matches the value set for OvsDpdkCoreList.
     #NovaComputeCpuDedicatedSet: "8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78"  # NovaComputeCpuDedicatedSet -- Sets the dedicated (pinned) CPUs
-    NovaComputeCpuSharedSet: "48-79"
-    NovaComputeCpuDedicatedSet: "8-39"    
+    NovaComputeCpuSharedSet: "40-79"
+    NovaComputeCpuDedicatedSet: "0-39"    
     # 0-0       0,1     12,13
     # 0-1       2,3     14,15
     # 0-2       4,5     16,17
@@ -54,7 +54,7 @@ parameter_defaults:
     # 0-9       8,9      20,21
     # 0-10      10,11   22,23
     #IsolCpusList: "8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78"
-    IsolCpusList: "8-39"
+    IsolCpusList: "0-39"
     OvsDpdkSocketMemory: "1024,4096"
 
   ComputeSriovParameters:
@@ -85,8 +85,8 @@ parameter_defaults:
     # Need to edit per hardware confguration
     #NovaComputeCpuSharedSet: "13,15,17,19,21,23,25,27,29,31,33,35,37,39,53,55,57,59,61,63,65,67,69,71,73,75,77,79" 
     #NovaComputeCpuDedicatedSet: "8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78"
-    NovaComputeCpuSharedSet: "48-79"
-    NovaComputeCpuDedicatedSet: "8-39"
+    NovaComputeCpuSharedSet: "40-79"
+    NovaComputeCpuDedicatedSet: "0-39"
     # 0-0       0,1     12,13
     # 0-1       2,3     14,15
     # 0-2       4,5     16,17
@@ -94,7 +94,7 @@ parameter_defaults:
     # 0-9       8,9      20,21
     # 0-10      10,11   22,23
     #IsolCpusList: "8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78"
-    IsolCpusList: "8-39"
+    IsolCpusList: "0-39"
 #https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/network_functions_virtualization_planning_and_configuration_guide/part-dpdk-configure
 #https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/configuring_the_compute_service_for_instance_creation/configuring-pci-passthrough#guidelines-for-configuring-novapcipassthrough-osp
 

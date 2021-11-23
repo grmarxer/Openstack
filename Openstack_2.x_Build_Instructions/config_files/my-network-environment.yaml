@@ -88,7 +88,7 @@ parameter_defaults:
   TenantAllocationPools: [{'start': '10.255.242.20', 'end': '10.255.242.250'}]
   StorageAllocationPools: [{'start': '10.255.243.20', 'end': '10.255.243.250'}]
   StorageMgmtAllocationPools: [{'start': '10.255.244.20', 'end': '10.255.244.250'}]
-  ExternalAllocationPools: [{'start': '10.255.240.21', 'end': '10.255.240.30'}]
+  ExternalAllocationPools: [{'start': '10.255.240.24', 'end': '10.255.240.31'}]
   ManagementAllocationPools: [{'start': '10.255.245.20', 'end': '10.255.245.250'}]
 
   # These should point to the gateway IP for the external interfaces
