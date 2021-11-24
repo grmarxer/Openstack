@@ -268,6 +268,7 @@ resources:
               - type: ovs_user_bridge
                 name: br-dpdk
                 use_dhcp: false
+                #https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/network_functions_virtualization_planning_and_configuration_guide/assembly_config-vxlan-dpdk-sriov-hybrid#p-vxlan-dpdk-sriov-hybrid-compute
                 #ovs_extra:
                 #- str_replace:
                 #    template: set port br-dpdk tag=_VLAN_TAG_
