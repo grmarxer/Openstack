@@ -171,7 +171,7 @@ parameter_defaults:
   
   # Add all of your different bonding options here -- Customize bonding options, e.g. "mode=4 lacp_rate=1 updelay=1000 miimon=100"
   # https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/advanced_overcloud_customization/overcloud-network-interface-bonding
-  BondInterfaceOvsOptions: "bond_mode=balance-slb lacp=active miimon=100"  #mode=1 
+  BondInterfaceOvsOptions: "bond_mode=balance-slb lacp=active miimon=100"  # mode=1 
   #LinuxBondInterfaceOptions: "mode=4 lacp_rate=0 updelay=1000 miimon=100 xmit_hash_policy=layer3+4"
   #LinuxBondInterfaceOptions: "mode=4 lacp_rate=1 updelay=1000 miimon=100"
 
