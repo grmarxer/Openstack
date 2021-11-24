@@ -171,8 +171,8 @@ parameter_defaults:
 
   # Customize bonding options, e.g. "mode=4 lacp_rate=1 updelay=1000 miimon=100"
   # for Linux bonds w/LACP, or "bond_mode=active-backup" for OVS active/backup.
-  #BondInterfaceOvsOptions: "mode=1 miimon=100"
-  #LinuxBondInterfaceOptions: "mode=4 lacp_rate=0 updelay=1000 miimon=100 xmit_hash_policy=layer3+4"
+  BondInterfaceOvsOptions: "bond_mode=balance-slb lacp=active miimon=100"  #mode=1 
+    #LinuxBondInterfaceOptions: "mode=4 lacp_rate=0 updelay=1000 miimon=100 xmit_hash_policy=layer3+4"
   #LinuxBondInterfaceOptions: "mode=4 lacp_rate=1 updelay=1000 miimon=100"
 
   # Predictable VIPs
