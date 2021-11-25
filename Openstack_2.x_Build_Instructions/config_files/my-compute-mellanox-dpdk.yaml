@@ -278,6 +278,9 @@ resources:
                 addresses:
                   - ip_netmask:
                       get_param: TenantIpSubnet
+                routes:
+                  list_concat_unique:
+                    - get_param: TenantInterfaceRoutes
                 members:
                   - type: ovs_dpdk_bond
                     name: dpdkbond0
