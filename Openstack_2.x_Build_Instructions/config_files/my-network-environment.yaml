@@ -171,23 +171,24 @@ parameter_defaults:
   
   # Add all of your different bonding options here -- Customize bonding options, e.g. "mode=4 lacp_rate=1 updelay=1000 miimon=100"
   # https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/advanced_overcloud_customization/overcloud-network-interface-bonding
-  BondInterfaceOvsOptions: "bond_mode=balance-slb lacp=active miimon=100"  # mode=1 
   #LinuxBondInterfaceOptions: "mode=4 lacp_rate=0 updelay=1000 miimon=100 xmit_hash_policy=layer3+4"
   #LinuxBondInterfaceOptions: "mode=4 lacp_rate=1 updelay=1000 miimon=100"
+  BondInterfaceOvsOptions: "bond_mode=balance-slb lacp=active miimon=100"  # mode=1 
+
 
   # Predictable VIPs
   # This is a set of parameters for fixed VIPs
-  #
   # Only required when you have multiple controllers
   #
   #ControlFixedIPs: [{'ip_address':'192.168.70.59'}]
   #InternalApiVirtualFixedIPs: [{'ip_address':'172.16.20.59'}]
-  
-  # This will set the IP on the external network that will be assigned to the Dashboard and Public API
-  PublicVirtualFixedIPs: [{'ip_address':'10.255.240.16'}]
   #StorageVirtualFixedIPs: [{'ip_address':'172.16.30.59'}]
   #StorageMgmtVirtualFixedIPs: [{'ip_address':'172.16.40.59'}]
   #RedisVirtualFixedIPs: [{'ip_address':'172.16.20.58'}]
+  
+  # This will set the IP on the external network that will be assigned to the Dashboard and Public API
+  PublicVirtualFixedIPs: [{'ip_address':'10.255.240.16'}]
+
 
   # Predictable IPs
   # This contains (in order) the IPs that every node will
