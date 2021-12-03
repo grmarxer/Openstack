@@ -25,7 +25,9 @@ cd /home/stack/git_clone/Openstack/
 sudo git pull
 cd ~
 sudo echo > /home/stack/.ssh/known_hosts
+sudo su -
 sudo echo > /root/.ssh/known_hosts
+exit
 source ~/stackrc
 openstack overcloud deploy --templates \
 -r /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-custom_roles_data.yaml \
