@@ -19,10 +19,10 @@
 | :---------:         | :----------:  |:----------:          | :----------:               | :----------:    | :----------:            |    
 | Undercloud Director | L25-A08-U13   |N/A                   | N/A                        | 10.144.20.6     | root / calvin           |  
 | Controller          | L25-A08-U14   |N/A                   | N/A                        | 10.144.22.13    | root / calvin           |  
-| Compute Node 1      | L25-A15-U25   |Intel XXV710          | SRIOV                      | 10.144.19.235   | root / calvin           |
-| Compute Node 2      | L25-A15-U27   |Intel XXV710          | SRIOV                      | 10.144.19.231   | root / calvin           |  
-| Compute Node 3      | L25-A15-U24   |Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.237   | root / calvin           |  
-| Compute Node 4      | L25-A15-U26   |Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.233   | root / calvin           |  
+| compute1-intel      | L25-A15-U25   |Intel XXV710          | SRIOV                      | 10.144.19.235   | root / calvin           |
+| compute2-intel      | L25-A15-U27   |Intel XXV710          | SRIOV                      | 10.144.19.231   | root / calvin           |  
+| compute3-mellanox   | L25-A15-U24   |Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.237   | root / calvin           |  
+| compute4-mellanox   | L25-A15-U26   |Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.233   | root / calvin           |  
 
 <br/>  
 
@@ -34,10 +34,10 @@
 | :---------:         | :----------: | :----------:    | :----------:       | :----------:    |  :----------:       |  
 | Undercloud Director | L25-A08-U13  | Arista1G-P46    | N/A                | Arista1G-P48    | N/A                 |  
 | Controller          | L25-A08-U14  | Arista1G-P45    | N/A                | Arista1G-P47    | N/A                 |  
-| Compute Node 1      | L25-A15-U25  | N/A             | CORE5/6/25/2       | N/A             | CORE3/10/12/3       |  
-| Compute Node 2      | L25-A15-U27  | N/A             | CORE5/6/25/4       | N/A             | CORE3/10/12/4       |  
-| Compute Node 3      | L25-A15-U24  | N/A             | CORE5/6/25/1       | N/A             | CORE3/10/12/2       |  
-| Compute Node 4      | L25-A15-U26  | N/A             | CORE5/6/25/3       | N/A             | CORE3/10/12/1       |  
+| compute1-intel      | L25-A15-U25  | N/A             | CORE5/6/25/2       | N/A             | CORE3/10/12/3       |  
+| compute2-intel      | L25-A15-U27  | N/A             | CORE5/6/25/4       | N/A             | CORE3/10/12/4       |  
+| compute3-mellanox   | L25-A15-U24  | N/A             | CORE5/6/25/1       | N/A             | CORE3/10/12/2       |  
+| compute4-mellanox   | L25-A15-U26  | N/A             | CORE5/6/25/3       | N/A             | CORE3/10/12/1       |  
 
 <br/> 
 
@@ -49,8 +49,8 @@
 
 | **Node**        | **Location** | **ens1f0**      | **ens1f1**      | **ens2f0**      |  **ens2f1**       |  
 | :---------:     | :----------: | :----------:    | :----------:    | :----------:    |  :----------:     |  
-| Compute Node 1  | L25-A15-U25  | CORE3/6/2/3     | CORE3/6/2/4     | CORE3/5/21/3    | CORE3/5/22/4      |  
-| Compute Node 2  | L25-A15-U27  | CORE3/5/21/1    | CORE3/5/21/2    | CORE3/6/2/1     | **CORE3/10/1/3      |  
+| compute1-intel  | L25-A15-U25  | CORE3/6/2/3     | CORE3/6/2/4     | CORE3/5/21/3    | CORE3/5/22/4      |  
+| compute2-intel  | L25-A15-U27  | CORE3/5/21/1    | CORE3/5/21/2    | CORE3/6/2/1     | **CORE3/10/1/3      |  
 
 ** CORE3/10/1/3 is not configured with a 100G connection on the switch, it has a 40G broken out to 10G
 
@@ -59,10 +59,10 @@
 
 #### OVS-DPDK NIC Card Switch Ports -- Mellanox MCX512A-ACAT  
 
-| **Node**        | **Location** | **ens1f0**    | **ens1f1**    | **ens2f0**    |  **ens2f1**   |
-| :---------:     | :----------: | :----------:  | :----------:  | :----------:  |  :----------: |  
-| Compute Node 3  | L25-A15-U24  | CORE3/5/22/1  | CORE3/5/22/2  | CORE3/5/22/3  | CORE3/6/2/2   |  
-| Compute Node 4  | L25-A15-U26  | CORE3/6/1/1   | CORE3/6/1/2   | CORE3/6/1/3   | CORE3/6/1/4   |  
+| **Node**          | **Location** | **ens1f0**    | **ens1f1**    | **ens2f0**    |  **ens2f1**   |
+| :---------:       | :----------: | :----------:  | :----------:  | :----------:  |  :----------: |  
+| compute3-mellanox | L25-A15-U24  | CORE3/5/22/1  | CORE3/5/22/2  | CORE3/5/22/3  | CORE3/6/2/2   |  
+| compute4-mellanox | L25-A15-U26  | CORE3/6/1/1   | CORE3/6/1/2   | CORE3/6/1/3   | CORE3/6/1/4   |  
 
 __NOTE:__  ens1f0 and ens1f1 are in a bond -- LACP trunk with miimon=100  
 
@@ -95,10 +95,10 @@ Note: Management is only included for backward compatibility -- it is not used i
 | :---------:         | :------: | :----------:         | :----------:                 | :----------: |  :--------:  |  
 | Undercloud Director | eno3     | 10.144.16.59/20      | 10.255.240.10                |              |              |  
 | Controller          | en03     | 10.144.22.12/20      | 10.255.240.11                |              |              |  
-| Compute Node 1      | eno1np0  | 10.144.19.234/20     | 10.255.240.12                |              |              |
-| Compute Node 2      | eno1np0  | 10.144.19.230/20     | 10.255.240.13                |              |              |  
-| Compute Node 3      | eno1np0  | 10.144.19.236/20     | 10.255.240.14                |              |              |  
-| Compute Node 4      | eno1np0  | 10.144.19.232/20     | 10.255.240.15                |              |              |  
+| compute1-intel      | eno1np0  | 10.144.19.234/20     | 10.255.240.12                |              |              |
+| compute2-intel      | eno1np0  | 10.144.19.230/20     | 10.255.240.13                |              |              |  
+| compute3-mellanox   | eno1np0  | 10.144.19.236/20     | 10.255.240.14                |              |              |  
+| compute4-mellanox   | eno1np0  | 10.144.19.232/20     | 10.255.240.15                |              |              |  
 
 <br/>  
 
