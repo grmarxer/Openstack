@@ -64,7 +64,7 @@ sudo su -
 cd /var/lib/mistral/overcloud
 cat ansible-errors.json | jq .
 
-
+ovs-vsctl show
 
 #sudo netstat -anup | grep :67
 
@@ -74,6 +74,11 @@ cat ansible-errors.json | jq .
 
 #openstack overcloud status
 #openstack overcloud delete overcloud
+
+Did you try to delete the containers and deploy?
+$ openstack container list
+$ openstack container delete <sriovcompute...> --recursive
+
 
 
 #how to use grep to find a pattern of text in a directory
