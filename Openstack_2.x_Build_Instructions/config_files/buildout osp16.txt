@@ -1,3 +1,5 @@
+cd
+source overcloudrc
 openstack user create --password default admin-backup
 openstack role add --user admin-backup --project admin admin
 
@@ -18,9 +20,9 @@ openstack security group rule create --ingress --ethertype IPv4 --protocol udp p
 openstack network create --share --project admin --external --provider-network-type flat --provider-physical-network sriov-public sriov-public
 openstack network create --share --project admin --internal --provider-network-type flat --provider-physical-network sriov-private sriov-private
 openstack network create --share --project admin --internal --provider-network-type flat --provider-physical-network sriov-mirror sriov-mirror
-openstack network create --share --project admin --external --provider-network-type vlan --provider-physical-network management --provider-segment 1150 management 
+openstack network create --share --project admin --external --provider-network-type vlan --provider-physical-network management --provider-segment 1150 management
 
-openstack network create --share --project admin --internal --provider-network-type vxlan  --provider-physical-network dpdkLinks dpdk-net1
+openstack network create --share --project admin --internal --provider-network-type vxlan  dpdk-net1
 openstack network create --share --project admin --internal --provider-network-type vxlan  dpdk-net2
 openstack network create --share --project admin --internal --provider-network-type vxlan  dpdk-net3
 

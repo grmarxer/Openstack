@@ -269,18 +269,18 @@ resources:
                 name: br-dpdk
                 use_dhcp: false
                 #https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/network_functions_virtualization_planning_and_configuration_guide/assembly_config-vxlan-dpdk-sriov-hybrid#p-vxlan-dpdk-sriov-hybrid-compute
-                ovs_extra:
-                  - str_replace:
-                      template: set port br-dpdk tag=_VLAN_TAG_
-                      params:
-                        _VLAN_TAG_:
-                          get_param: TenantNetworkVlanID
-                addresses:
-                  - ip_netmask:
-                      get_param: TenantIpSubnet
-                routes:
-                  list_concat_unique:
-                    - get_param: TenantInterfaceRoutes
+                #ovs_extra:
+                  #- str_replace:
+                      #template: set port br-dpdk tag=_VLAN_TAG_
+                      #params:
+                        #_VLAN_TAG_:
+                          #get_param: TenantNetworkVlanID
+                #addresses:
+                  #- ip_netmask:
+                      #get_param: TenantIpSubnet
+                #routes:
+                  #list_concat_unique:
+                    #- get_param: TenantInterfaceRoutes
                 members:
                   - type: ovs_dpdk_bond
                     name: dpdkbond0

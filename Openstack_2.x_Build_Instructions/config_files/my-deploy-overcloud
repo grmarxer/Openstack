@@ -45,6 +45,14 @@ cat ansible-errors.json | jq .
 
 watch ip a | grep 242
 
+
+ssh heat-admin@192.168.255.14
+ssh heat-admin@192.168.255.15
+
+
+ping 10.255.242.14
+ping 10.255.242.15
+
 sudo ifdown br-dpdk
 sudo ifup br-dpdk
 sudo ifdown dpdkbond0
