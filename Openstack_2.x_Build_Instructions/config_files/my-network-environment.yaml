@@ -119,10 +119,10 @@ parameter_defaults:
   
   ControllerParameters:
     #NeutronBridgeMappings: ['sriovLinks:br-sriov','dpdkLinks:br-dpdk','management:br-ex']
-    NeutronBridgeMappings: ['dpdkLinks:br-dpdk','management:br-ex']
+    NeutronBridgeMappings: ['management:br-ex']
   ComputeSriovParameters:
     #NeutronBridgeMappings: ['sriovLinks:br-sriov','dpdkLinks:br-dpdk','management:br-ex']
-    NeutronBridgeMappings: ['dpdkLinks:br-dpdk','management:br-ex']
+    NeutronBridgeMappings: ['management:br-ex']
   ComputeOvsDpdkParameters:
     #NeutronBridgeMappings: ['sriovLinks:br-sriov','dpdkLinks:br-dpdk','management:br-ex']
     NeutronBridgeMappings: ['dpdkLinks:br-dpdk','management:br-ex']

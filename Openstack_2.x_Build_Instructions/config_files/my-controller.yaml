@@ -230,7 +230,7 @@ resources:
               - type: ovs_bridge
                 name: br-ex
                 use_dhcp: false
-                mtu: 9000
+                mtu: 10178 #default on Arista is 10178, originally set to 9000
                 members:
                   - type: interface
                     name: eno3
