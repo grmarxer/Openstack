@@ -227,7 +227,7 @@ resources:
 
 
               # NIC eno3 - Control Group TripleO
-              - type: ovs_bridge
+              - type: ovs_user_bridge
                 name: br-ex
                 use_dhcp: false
                 mtu: 10178 #default on Arista is 10178, originally set to 9000
