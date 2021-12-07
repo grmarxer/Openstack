@@ -42,6 +42,13 @@ sudo su -
 cd /var/lib/mistral/overcloud
 cat ansible-errors.json | jq .
 
+vi /home/stack/.bashrc
+alias c0="ssh heat-admin@192.168.255.11"
+alias s0="ssh heat-admin@192.168.255.12"
+alias s1="ssh heat-admin@192.168.255.13"
+alias d0="ssh heat-admin@192.168.255.14"
+alias d1="ssh heat-admin@192.168.255.15"
+
 
 watch ip a | grep 242
 
@@ -59,7 +66,7 @@ sudo ifdown dpdkbond0
 sudo ifup dpdkbond0
 ping 10.255.242.12
 
-ovs-vsctl show
+sudo ovs-vsctl show
 
 #sudo netstat -anup | grep :67
 
