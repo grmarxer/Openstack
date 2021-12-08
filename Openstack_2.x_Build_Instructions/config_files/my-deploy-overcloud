@@ -68,11 +68,12 @@ ping 10.255.242.12
 
 sudo ovs-vsctl show
 
-#sudo netstat -anup | grep :67
 
-#sudo systemctl restart tripleo_ironic_inspector_dnsmasq.service
+sudo netstat -anup | grep :67
+sudo systemctl restart tripleo_ironic_inspector_dnsmasq.service
+sudo systemctl status tripleo_ironic_inspector_dnsmasq.service
 
-#sudo systemctl status tripleo_ironic_inspector_dnsmasq.service
+
 
 #openstack overcloud status
 #openstack overcloud delete overcloud
@@ -81,7 +82,7 @@ Did you try to delete the containers and deploy?
 $ openstack container list
 $ openstack container delete <sriovcompute...> --recursive
 
-
+sosreport --all-logs -e podman -e openvswitch -e networking
 
 #how to use grep to find a pattern of text in a directory
 #sudo grep -Ril "dpdk" /usr/share/openstack-tripleo-heat-templates/
@@ -106,4 +107,9 @@ sudo grep -Ril "overcloud_endpoint" /home/stack/git_clone/Openstack/Openstack_2.
 
 
 
+ovs_user_bridge bridge set the datapath to Netdev which will put the vswitch into user space mode for DPDK processing.
 
+ovs_bridge will just create a standard ovs bridge using the kernel datapath.
+
+So basically you would use ovs_user_bridge on a compute node where you wanted the instances to use OVS-DPDK
+And ovs_bridge on compute nodes where you wanted to run instance using just standard OVS networking.
