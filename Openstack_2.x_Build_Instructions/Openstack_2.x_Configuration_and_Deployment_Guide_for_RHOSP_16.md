@@ -39,6 +39,9 @@
 | compute3-mellanox   | L25-A15-U24  | N/A             | CORE5/6/25/1       | N/A             | CORE3/10/12/2       |  
 | compute4-mellanox   | L25-A15-U26  | N/A             | CORE5/6/25/3       | N/A             | CORE3/10/12/1       |  
 
+
+#### On eno1np0 for both mellanox compute nodes only trunk vlans 1150,1151 and 1153.  If you include 1152 in this mix you will get a layer 2 loop on the OVS bridge on the DPDK nodes  
+
 <br/> 
 
 ## Openstack 2.x Node -- Switch Port assignments for SRIOV and DPDK
@@ -64,7 +67,7 @@
 | compute3-mellanox | L25-A15-U24  | CORE3/5/22/1  | CORE3/5/22/2  | CORE3/5/22/3  | CORE3/6/2/2   |  
 | compute4-mellanox | L25-A15-U26  | CORE3/6/1/1   | CORE3/6/1/2   | CORE3/6/1/3   | CORE3/6/1/4   |  
 
-__NOTE:__  ens1f0 and ens1f1 are in a bond -- LACP trunk with miimon=100  
+__NOTE:__  ens1f0 and ens1f1 are in a bond -- LACP trunk with miimon=100  (But you do not include miimon setting in tripleo)  --  also only trunk vlan 1152 on the bonded interface  
 
 <br/> 
 
