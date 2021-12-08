@@ -42,6 +42,7 @@
 
 #### On eno1np0 for both mellanox compute nodes only trunk vlans 1150,1151 and 1153.  If you include 1152 in this mix you will get a layer 2 loop on the OVS bridge on the DPDK nodes  
 
+#### add spiel on how important switch port configuration is for successful overcloud deployment   
 <br/> 
 
 ## Openstack 2.x Node -- Switch Port assignments for SRIOV and DPDK
