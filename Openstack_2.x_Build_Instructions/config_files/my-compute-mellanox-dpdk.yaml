@@ -226,6 +226,20 @@ resources:
                   next_hop: {get_param: ControlPlaneDefaultRoute}
 
               # NIC eno1np0 - - Control Group TripleO VLANs (Tagged VLANs 1150, 1151, and 1153 only on switch config)
+                  # DPDK DRIVERS
+                  # https://access.redhat.com/articles/3538141
+                  # Driver "vfio-pci" for the following NIC Families:
+                  #  - Intel:
+                  #    - Niantic: 82598, 82599, X520, X540, X550
+                  #    - Fortville: X710, XL710, XXV710, X722
+                  #  - Broadcom: NetXtreme-C, NetXtreme-E, StrataGX, 573xxm 574xx
+                  #  - Marvell / Cavium: FastLinQ QL4xxxx
+                  #  - Netronome: Agilio CX Series
+                  #  - Cisco: VIC 1340, VIC 1400
+                  # Driver "mlx5_core" to be used for:
+                  #  - Mellanox: ConnectX-4, ConnectX-4 Lx, ConnectX-5, ConnectX-6
+                  # Driver "mlx4_core" to be used for:
+                  #  - Mellanox: ConnectX-3, ConnectX-3 Pro (RHEL7-only)     
               - type: ovs_user_bridge
                 name: br-ex
                 use_dhcp: false
@@ -233,7 +247,7 @@ resources:
                 members:
                   - type: ovs_dpdk_port #interface was original value told to make ovs_dpdk_port by Redhat case 03099145
                     name: dpdk2
-                    driver: bnxt
+                    driver: vfio-pci
                     mtu: 9000
                     members:
                       - type: interface
