@@ -233,6 +233,7 @@ resources:
                 members:
                   - type: ovs_dpdk_port #interface was original value told to make ovs_dpdk_port by Redhat case 03099145
                     name: dpdk2
+                    driver: bnxt
                     mtu: 9000
                     members:
                       - type: interface
