@@ -208,8 +208,28 @@ resources:
             $network_config:
               network_config:
               # NIC eno2np1 - Provisioning
-              - type: interface
-                name: eno2np1
+              #- type: interface
+                #name: eno2np1
+                #use_dhcp: false
+                #dns_servers: {get_param: DnsServers}
+                #domain: {get_param: DnsSearchDomains}
+                #addresses:
+                #- ip_netmask:
+                    #list_join:
+                      #- /
+                      #- - get_param: ControlPlaneIp
+                        #- get_param: ControlPlaneSubnetCidr
+                #routes:
+                #- ip_netmask: 169.254.169.254/32
+                  #next_hop: {get_param: EC2MetadataIp}
+                #- default: false
+                  #next_hop: {get_param: ControlPlaneDefaultRoute}
+              # NIC eno2np1 - Provisioning
+              - type: ovs_dpdk_port
+                name: dpdk-prov
+                members:
+                  - type: interface
+                    name: eno1np0
                 use_dhcp: false
                 dns_servers: {get_param: DnsServers}
                 domain: {get_param: DnsSearchDomains}
@@ -224,7 +244,6 @@ resources:
                   next_hop: {get_param: EC2MetadataIp}
                 - default: false
                   next_hop: {get_param: ControlPlaneDefaultRoute}
-
               # NIC eno1np0 - - Control Group TripleO VLANs (Tagged VLANs 1150, 1151, and 1153 only on switch config)
                   # DPDK DRIVERS
                   # https://access.redhat.com/articles/3538141
@@ -246,7 +265,7 @@ resources:
                 mtu: 9000
                 members:
                   - type: ovs_dpdk_port #interface was original value told to make ovs_dpdk_port by Redhat case 03099145
-                    name: dpdk2
+                    name: dpdk-mgmt
                     #driver: vfio-pci
                     mtu: 9000
                     members:
