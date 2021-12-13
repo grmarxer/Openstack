@@ -37,10 +37,13 @@ There are four nodes in this deployment, the Undercloud Director, the Controller
     nmcli con add type vlan dev eno3 con-name vlan-1152 id 1152 ip4 10.255.242.10/24 gw4 10.255.242.1
     ```  
     ```
-    [root@osp16-undercloud ~]# nmcli conn show
+    [stack@osp16-undercloud ~]$ nmcli conn show
     NAME       UUID                                  TYPE      DEVICE
     vlan-1150  ce17e7e4-5b78-4a7d-bf2e-c3634450d4c2  vlan      eno3.1150
+    vlan-1151  d60cddad-6b73-4479-b7bc-cb9143e8a04d  vlan      eno3.1151
+    vlan-1152  266a6774-2d21-4754-b3e2-47ef5bbc18e4  vlan      eno3.1152
     ```  
+    
 5. The Undercloud director will be accessed from the otuside world via a BIG-IP proxy'ing 10.144.x.x addresses to the 10.255.240.x network.   
 
 <br/>  
