@@ -208,11 +208,14 @@ resources:
             $network_config:
               network_config:
               # NIC eno2np1 - Provisioning
-              - type: ovs_dpdk_port
-                name: dpdk-prov
+              - type: ovs_user_bridge
+                name: br-provisioning
                 members:
-                  - type: interface
-                    name: eno2np1
+                  - type: ovs_dpdk_port
+                    name: dpdk-mgmt
+                    members:
+                      - type: interface
+                        name: eno2np1
                 use_dhcp: false
                 dns_servers: {get_param: DnsServers}
                 domain: {get_param: DnsSearchDomains}
