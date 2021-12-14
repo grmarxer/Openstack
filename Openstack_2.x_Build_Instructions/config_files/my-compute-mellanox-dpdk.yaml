@@ -213,7 +213,7 @@ resources:
                 use_dhcp: false
                 members:
                   - type: ovs_dpdk_port
-                    name: dpdk3
+                    name: dpdk3-prov
                     members:
                       - type: interface
                         name: eno2np1
@@ -251,7 +251,7 @@ resources:
                 mtu: 9000
                 members:
                   - type: ovs_dpdk_port #interface was original value told to make ovs_dpdk_port by Redhat case 03099145
-                    name: dpdk2
+                    name: dpdk2-mgmt
                     #driver: vfio-pci
                     mtu: 9000
                     members:
@@ -307,19 +307,19 @@ resources:
                     - get_param: TenantInterfaceRoutes
                 members:
                   - type: ovs_dpdk_bond
-                    name: dpdkbond0
+                    name: dpdkbond-tenant
                     mtu: 9000
                     ovs_options: "bond_mode=balance-slb lacp=active"
                     members:
                       - type: ovs_dpdk_port
-                        name: dpdk0
+                        name: dpdk0-bond
                         driver: mlx5_core
                         mtu: 9000
                         members:
                           - type: interface
                             name: ens1f0
                       - type: ovs_dpdk_port
-                        name: dpdk1
+                        name: dpdk1-bond
                         driver: mlx5_core
                         mtu: 9000
                         members:
