@@ -208,9 +208,15 @@ resources:
             $network_config:
               network_config:
               # NIC eno2np1 - Provisioning
-              - type: interface
-                name: eno2np1
+              - type: ovs_user_bridge
+                name: br-prov
                 use_dhcp: false
+                members:
+                  - type: ovs_dpdk_port
+                    name: dpdk3-prov
+                    members:
+                      - type: interface
+                        name: eno2np1
                 dns_servers: {get_param: DnsServers}
                 domain: {get_param: DnsSearchDomains}
                 addresses:
@@ -246,11 +252,11 @@ resources:
                 members:
                   - type: ovs_dpdk_port #interface was original value told to make ovs_dpdk_port by Redhat case 03099145
                     name: dpdk2-mgmt
-                    driver: mlx5_core
+                    #driver: vfio-pci
                     mtu: 9000
                     members:
                       - type: interface
-                        name: ens2f0
+                        name: eno1np0
               - type: vlan
                 device: br-ex
                 mtu:
