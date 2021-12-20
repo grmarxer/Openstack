@@ -92,10 +92,10 @@ parameter_defaults:
   
   
   # Node Root Password (through CloudInit)
-  NodeRootPassword: 'f5@default'
+  NodeRootPassword: 'f5default'
 
   # Admin Keystone user password
-  AdminPassword: 'f5@default'
+  AdminPassword: 'f5default'
 
   # Custom SSH Config to allow password and Root login
   SshServerOptions:
