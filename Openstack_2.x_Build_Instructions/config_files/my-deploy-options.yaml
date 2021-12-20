@@ -92,7 +92,7 @@ parameter_defaults:
   
   
   # Node Root Password (through CloudInit)
-  NodeRootPassword: 'f5@default'
+  NodeRootPassword: 'f5@default!@3'
 
   # Admin Keystone user password
-  AdminPassword: 'f5@default'
+  AdminPassword: 'f5@default!@3'
