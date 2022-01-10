@@ -53,7 +53,9 @@ resource_registry:
 
   # Network config for the ComputeOvsDpdk
   OS::TripleO::ComputeOvsDpdk::Net::SoftwareConfig: /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-mellanox-dpdk.yaml
-  
+
+  ########################################
+  # This is to pass passwords for login to each of the nodes
   # Template File to create root passwords -- password value in my-deploy-options.yaml
   OS::TripleO::NodeUserData: /usr/share/openstack-tripleo-heat-templates/firstboot/userdata_root_password.yaml
 #
