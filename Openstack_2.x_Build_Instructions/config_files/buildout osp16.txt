@@ -1,0 +1,188 @@
+
+adduser grmarxer
+passwd grmarxer
+
+cd
+source overcloudrc
+openstack user create --password default admin-backup
+openstack role add --user admin-backup --project admin admin
+
+openstack quota set --cores 80 admin
+openstack quota set --ram 196608 admin
+
+
+openstack security group create permit.all
+openstack security group rule create --ingress --ethertype IPv4 --protocol icmp permit.all
+openstack security group rule create --ingress --ethertype IPv4 --protocol tcp permit.all  
+openstack security group rule create --ingress --ethertype IPv4 --protocol udp permit.all
+
+
+#openstack security group list
+#openstack security group show permit.all
+
+
+openstack network create --share --project admin --external --provider-network-type flat --provider-physical-network sriov-public sriov-public
+openstack network create --share --project admin --internal --provider-network-type flat --provider-physical-network sriov-private sriov-private
+openstack network create --share --project admin --internal --provider-network-type flat --provider-physical-network sriov-mirror sriov-mirror
+openstack network create --share --project admin --external --provider-network-type vlan --provider-physical-network management --provider-segment 1150 management
+
+openstack network create --share --project admin --internal  dpdk-net1
+openstack network create --share --project admin --internal  dpdk-net2
+openstack network create --share --project admin --internal  dpdk-net3
+
+openstack subnet create --project admin --subnet-range 10.10.20.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.20.200,end=10.10.20.250 --dns-nameserver 8.8.8.8 --network sriov-public sriov-public-subnet
+openstack subnet create --project admin --subnet-range 10.10.30.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.30.200,end=10.10.30.250 --dns-nameserver 8.8.8.8 --network sriov-private sriov-private-subnet
+openstack subnet create --project admin --subnet-range 10.10.40.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.40.200,end=10.10.40.250 --dns-nameserver 8.8.8.8 --network sriov-mirror sriov-mirroring-subnet
+openstack subnet create --project admin --subnet-range 10.255.240.0/24 --dhcp --ip-version 4 --allocation-pool start=10.255.240.24,end=10.255.240.31 --dns-nameserver 8.8.8.8 --gateway 10.255.240.1 --network management management-subnet
+
+
+openstack subnet create --project admin --subnet-range 10.10.100.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.100.230,end=10.10.100.250 --dns-nameserver 8.8.8.8 --network dpdk-net1 dpdk-net1-subnet
+openstack subnet create --project admin --subnet-range 10.10.110.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.110.230,end=10.10.110.250 --dns-nameserver 8.8.8.8 --network dpdk-net2 dpdk-net2-subnet
+openstack subnet create --project admin --subnet-range 10.10.120.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.120.230,end=10.10.120.250 --dns-nameserver 8.8.8.8 --network dpdk-net3 dpdk-net3-subnet
+
+
+openstack port create --network sriov-public --vnic-type direct public-sriov-p1
+openstack port create --network sriov-public --vnic-type direct public-sriov-p2
+openstack port create --network sriov-private --vnic-type direct private-sriov-p1
+openstack port create --network sriov-private --vnic-type direct private-sriov-p2
+openstack port create --network sriov-mirror --vnic-type direct mirror-sriov-p1
+openstack port create --network sriov-mirror  --vnic-type direct mirror-sriov-p2
+
+
+openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
+openstack flavor create small --ram 2048 --disk 25 --vcpus 1
+
+
+
+openstack image create "bigip.all.15.1.3.1" \
+  --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-all.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+  
+  
+openstack image create "bigip.ltm.1-slot.15.1.3.1" \
+  --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-ltm_1slot.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+
+
+openstack image create "centos.stream.8" \
+  --file /home/stack/images/CentOS-Stream-GenericCloud-8-20210603.0.x86_64.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+
+
+qemu-img convert -f qcow2 -O raw /home/stack/images/cirros-0.5.2-x86_64-disk.img /home/stack/images/cirros-0.5.2-x86_64-disk.raw
+openstack image create --public --protected --disk-format raw --file /home/stack/images/cirros-0.5.2-x86_64-disk.raw cirros-0.5.2-x86_64
+
+
+
+  
+(overcloud) [stack@osp16-undercloud images]$ openstack hypervisor list
++--------------------------------------+-------------------------------------------+-----------------+---------------+-------+
+| ID                                   | Hypervisor Hostname                       | Hypervisor Type | Host IP       | State |
++--------------------------------------+-------------------------------------------+-----------------+---------------+-------+
+| 09af93fc-5d99-4d1e-8dff-5ae66c030e69 | vz-osp-computesriov-1.osp.16.customer.lab | QEMU            | 10.255.241.13 | up    |
+| e54365fa-165a-4ec9-9ee6-9732d47eb8fb | vz-osp-computesriov-0.osp.16.customer.lab | QEMU            | 10.255.241.12 | up    |
+| 4b02ea34-4147-4e54-8314-8667d7a85257 | vz-osp-computedpdk-1.osp.16.customer.lab  | QEMU            | 10.255.241.15 | up    |
+| 5e2814a0-1a29-4145-863d-7d9f5419cc30 | vz-osp-computedpdk-0.osp.16.customer.lab  | QEMU            | 10.255.241.14 | up    |
++--------------------------------------+-------------------------------------------+-----------------+---------------+-------+
+
+  
+  
+nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic port-id=923f9dd4-0fc9-4656-8e3a-8e62727d7804 \
+  --nic port-id=1f1ed90f-e78f-4da5-ab1a-f69ae413d89d --nic port-id=b0cd7526-6fa7-4beb-b001-e75abe68766c \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-0.osp.16.customer.lab bigip.10
+  
+  
+  
+nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic port-id=7beeb8cb-0d63-49e8-a11b-b9de94ca7a73 \
+  --nic port-id=080e4074-e41b-44e7-a820-dc985871f2f0 --nic port-id=668d221d-1bf0-44dd-ad6c-3edd1d3edd7f \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab bigip.20
+  
+  
+
+
+  
+  
+
+nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 \
+  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.3
+  
+nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.3
+  
+nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 \
+  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab   bigip.4
+  
+  
+nova boot --flavor small --image cirros-0.5.2-x86_64 \
+  --nic net-name=management  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab  cirros.3
+  
+nova boot --flavor small --image cirros-0.5.2-x86_64 \
+  --nic net-name=management --nic net-name=dpdk-net1 \
+  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab   cirros.3
+
+
+
+####################################################################################
+#
+#
+#  Download Cirros
+#
+#################################################################################### 
+wget http://download.cirros-cloud.net/0.5.2/cirros-0.5.2-x86_64-disk.img
+qemu-img convert -f qcow2 -O raw /home/stack/images/cirros-0.5.2-x86_64-disk.img /home/stack/images/cirros-0.5.2-x86_64-disk.raw
+
+openstack image create --public --protected --disk-format raw --file /home/stack/images/cirros-0.5.2-x86_64-disk.raw cirros-0.5.2-x86_64
+
+  
+  
+####################################################################################
+#
+#
+#  BIG-IP Config
+#
+####################################################################################  
+
+tmsh modify auth password-policy policy-enforcement disabled
+tmsh modify auth password root
+tmsh modify auth password admin
+tmsh modify sys global-settings gui-setup disabled
+ 
+tmsh modify sys global-settings hostname bigip-10.com
+tmsh mv cm device bigip1 bigip-10
+
+tmsh modify sys global-settings hostname bigip-20.com
+tmsh mv cm device bigip1 bigip-20
+
+
+ 
+tmsh create net vlan vnic1 interfaces add { 1.1 }
+tmsh create net vlan vnic2 interfaces add { 1.2 }
+tmsh create net vlan vnic3 interfaces add { 1.3 }
+
+
+bigip.10
+
+tmsh create net self public-sriov address 10.10.20.250/24 vlan vnic1 allow-service default
+tmsh create net self private-sriov address 10.10.30.252/24 vlan vnic2 allow-service default
+tmsh create net self mirror-sriov address 10.10.40.178/24 vlan vnic3 allow-service default
+tmsh save sys config
+
+bigip.20
+tmsh create net self public-sriov address 10.10.20.249/24 vlan vnic1 allow-service default
+tmsh create net self private-sriov address 10.10.30.250/24 vlan vnic2 allow-service default
+tmsh create net self mirror-sriov address 10.10.40.35/24 vlan vnic3 allow-service default
+tmsh save sys config
+
+
+
