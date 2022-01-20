@@ -115,12 +115,34 @@ nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
   
 nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1 \
+  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab   bigip.4
+  
+#################################  
+  
+nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 \
   --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.3
   
 nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1 \
-  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab   bigip.4
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.4
+  
+#################################  
+
+nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-0.osp.16.customer.lab  bigip.5
+  
+nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-0.osp.16.customer.lab  bigip.6
+  
+nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab  bigip.7
+  
+
   
   
 nova boot --flavor small --image cirros-0.5.2-x86_64 \
@@ -158,6 +180,15 @@ tmsh modify auth password root
 tmsh modify auth password admin
 tmsh modify sys global-settings gui-setup disabled
  
+tmsh modify sys global-settings hostname bigip-5.com
+tmsh mv cm device bigip1 bigip-5
+
+tmsh modify sys global-settings hostname bigip-6.com
+tmsh mv cm device bigip1 bigip-6
+
+tmsh modify sys global-settings hostname bigip-7.com
+tmsh mv cm device bigip1 bigip-7
+
 tmsh modify sys global-settings hostname bigip-10.com
 tmsh mv cm device bigip1 bigip-10
 
@@ -170,6 +201,20 @@ tmsh create net vlan vnic1 interfaces add { 1.1 }
 tmsh create net vlan vnic2 interfaces add { 1.2 }
 tmsh create net vlan vnic3 interfaces add { 1.3 }
 
+bigip.5
+
+tmsh create net self dpdk-net1 address 10.10.100.246/24 vlan vnic1 allow-service default
+tmsh save sys config
+
+bigip.6
+
+tmsh create net self dpdk-net1 address 10.10.100.232/24 vlan vnic1 allow-service default
+tmsh save sys config
+
+bigip.7
+
+tmsh create net self dpdk-net1 address 10.10.100.242/24 vlan vnic1 allow-service default
+tmsh save sys config
 
 bigip.10
 
