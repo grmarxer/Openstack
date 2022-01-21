@@ -30,7 +30,6 @@ openstack overcloud deploy --templates \
 #																							  #
 ###############################################################################################
 
-openstack port set --no-security-group  --disable-port-security ${PORT}
 
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-enable-tls.yaml \
 -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-ironic-environment.yaml \
