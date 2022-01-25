@@ -49,10 +49,26 @@ openstack port create --network sriov-mirror --vnic-type direct mirror-sriov-p1
 openstack port create --network sriov-mirror  --vnic-type direct mirror-sriov-p2
 
 
+| flavor                              | disk='40', ephemeral='0', extra_specs.aggregate_instance_extra_specs:dpdk='true', extra_specs.hw:cpu_policy='dedicated', extra_specs.hw:cpu_thread_policy='require',                                 |
+|                                     | extra_specs.hw:emulator_threads_policy='share', extra_specs.hw:mem_page_size='1GB', original_name='dpdk.small', ram='2048', swap='0', vcpus='4'                                                      |
+
+
+openstack flavor create m3.xlarge.sriov --ram 16384 --disk 160 --vcpus 8
+
+ --property aggregate_instance_extra_specs:sriov=true --property hw:cpu_policy=dedicated --property hw:cpu_thread_policy=prefer --property hw:mem_page_size=any --property hw:numa_nodes=1 m3.xlarge.sriov
+
+openstack flavor create bigip.1G --ram 4096 --disk 100 --vcpus 2
 openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
-openstack flavor create small --ram 2048 --disk 25 --vcpus 1
+openstack flavor create dpdk-small --ram 2048 --disk 25 --vcpus 1 
 
+openstack flavor create bigip.10G.dpdk --ram 16384 --disk 100 --vcpus 8
+openstack flavor set --property hw:mem_page_size=1GB bigip.10G.dpdk
 
+openstack flavor create bigip.1G.dpdk --ram 4096 --disk 100 --vcpus 2
+openstack flavor set --property hw:mem_page_size=1GB bigip.1G.dpdk
+
+openstack flavor create m4.xlarge.dpdk --ram 16384 --disk 160 --vcpus 8
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=large m4.xlarge.dpdk
 
 openstack image create "bigip.all.15.1.3.1" \
   --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-all.qcow2 \
@@ -66,10 +82,19 @@ openstack image create "bigip.ltm.1-slot.15.1.3.1" \
   --public
 
 
+openstack image create "rhel-8.5" \
+  --file /home/stack/images/rhel-8.5-x86_64-kvm.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+
+
+
 openstack image create "centos.stream.8" \
   --file /home/stack/images/CentOS-Stream-GenericCloud-8-20210603.0.x86_64.qcow2 \
   --disk-format qcow2 --container-format bare \
   --public
+
+
 
 
 qemu-img convert -f qcow2 -O raw /home/stack/images/cirros-0.5.2-x86_64-disk.img /home/stack/images/cirros-0.5.2-x86_64-disk.raw
@@ -120,13 +145,21 @@ nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
   
 #################################  
   
-nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
-  --nic net-name=management --nic net-name=dpdk-net1 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.3
+nova boot --flavor bigip.10G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.3.dpdk
   
-nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
+nova boot --flavor bigip.10G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab   bigip.4.dpdk
+  
+nova boot --flavor bigip.1G --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.4
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.9
+  
+nova boot --flavor bigip.1G --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab   bigip.10
   
 #################################  
 
@@ -143,10 +176,26 @@ nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
   --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab  bigip.7
   
 
+#################################  
+#
+# Linux Images
+#
+#################################  
+
+nova boot --flavor dpdk-small --image rhel-8.5 \
+  --nic net-name=management --nic net-name=dpdk-net1 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   rhel-OS.5
+  
+
+nova boot --flavor small --image rhel-8.5 \
+  --nic net-name=management --nic net-name=dpdk-net1 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   rhel-OS.6  
+
   
   
 nova boot --flavor small --image cirros-0.5.2-x86_64 \
   --nic net-name=management  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab  cirros.3
+  
   
 nova boot --flavor small --image cirros-0.5.2-x86_64 \
   --nic net-name=management --nic net-name=dpdk-net1 \
@@ -189,6 +238,9 @@ tmsh mv cm device bigip1 bigip-6
 tmsh modify sys global-settings hostname bigip-7.com
 tmsh mv cm device bigip1 bigip-7
 
+tmsh modify sys global-settings hostname bigip-9.com
+tmsh mv cm device bigip1 bigip-9
+
 tmsh modify sys global-settings hostname bigip-10.com
 tmsh mv cm device bigip1 bigip-10
 
@@ -215,6 +267,19 @@ bigip.7
 
 tmsh create net self dpdk-net1 address 10.10.100.242/24 vlan vnic1 allow-service default
 tmsh save sys config
+
+
+bigip.9
+
+tmsh create net self dpdk-net1 address 10.10.100.248/24 vlan vnic1 allow-service default
+tmsh save sys config
+
+
+bigip.10
+
+tmsh create net self dpdk-net1 address 10.10.100.245/24 vlan vnic1 allow-service default
+tmsh save sys config
+
 
 bigip.10
 
