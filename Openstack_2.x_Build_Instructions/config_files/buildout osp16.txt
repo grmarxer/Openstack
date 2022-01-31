@@ -299,9 +299,21 @@ openstack image create --public --protected --disk-format raw --file /home/stack
 ####################################################################################  
 
 
-+--------------------------------------+--------------------+--------+------------+-------------+-----------------------------------------------------------------------------------------------------+
-| b868825d-2801-4fea-a453-ee11c6ae87be | bigip.4-dpdk-64.n1 | ACTIVE | -          | Running     | dpdk-net1=10.10.100.234; dpdk-net2=10.10.110.242; dpdk-net3=10.10.120.231; management=10.255.240.28 |
-| 998ad7e3-16cc-4de2-8988-be0e66c9a8e3 | bigip.5-dpdk.n0    | ACTIVE | -          | Running     | dpdk-net1=10.10.100.248; dpdk-net2=10.10.110.235; dpdk-net3=10.10.120.243; management=10.255.240.27 |
++--------------------------------------+-----------------+--------+------------+-------------+-----------------------------------------------------------------------------------------------------+
+| ID                                   | Name            | Status | Task State | Power State | Networks                                                                                            |
++--------------------------------------+-----------------+--------+------------+-------------+-----------------------------------------------------------------------------------------------------+
+| 4bd1a621-e02c-4f7e-8856-a6664f04ce93 | bigip.3-dpdk.n0 | ACTIVE | -          | Running     | dpdk-net1=10.10.100.233; dpdk-net2=10.10.110.241; dpdk-net3=10.10.120.249; management=10.255.240.26 |
+| b717f8f2-a3c0-4dda-8923-7ac915bdc18b | bigip.4-dpdk.n1 | ACTIVE | -          | Running     | dpdk-net1=10.10.100.238; dpdk-net2=10.10.110.245; dpdk-net3=10.10.120.238; management=10.255.240.27 |
+| a115cb9e-152b-42f0-8fc5-672f9279eddd | bigip.5-dpdk.n0 | ACTIVE | -          | Running     | dpdk-net1=10.10.100.240; dpdk-net2=10.10.110.233; dpdk-net3=10.10.120.236; management=10.255.240.30 |
+| a092195a-d6a0-44d8-b3d2-40376701c36a | bigip.6-dpdk.n1 | ACTIVE | -          | Running     | dpdk-net1=10.10.100.237; dpdk-net2=10.10.110.238; dpdk-net3=10.10.120.244; management=10.255.240.25 |
++--------------------------------------+-----------------+--------+------------+-------------+-----------------------------------------------------------------------------------------------------+
+
+
+
+tmsh create net self dpdk-net1 address 10.10.100.237/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net2 address 10.10.110.238/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net3 address 10.10.120.244/24 vlan vnic1 allow-service default
+tmsh save sys config
 
 
 tmsh modify auth password-policy policy-enforcement disabled
@@ -309,11 +321,15 @@ tmsh modify auth password root
 tmsh modify auth password admin
 tmsh modify sys global-settings gui-setup disabled
 
+tmsh modify sys global-settings hostname bigip-3.com
+tmsh mv cm device bigip1 bigip-3
+
+
 tmsh modify sys global-settings hostname bigip-4.com
 tmsh mv cm device bigip1 bigip-4
  
 tmsh modify sys global-settings hostname bigip-5.com
-tmsh mv cm device bigip1 bigip-5
+tmsh mv cm device bigip-3 bigip-5
 
 tmsh modify sys global-settings hostname bigip-6.com
 tmsh mv cm device bigip1 bigip-6
@@ -330,11 +346,19 @@ tmsh mv cm device bigip1 bigip-10
 tmsh modify sys global-settings hostname bigip-20.com
 tmsh mv cm device bigip1 bigip-20
 
-
  
 tmsh create net vlan vnic1 interfaces add { 1.1 }
 tmsh create net vlan vnic2 interfaces add { 1.2 }
 tmsh create net vlan vnic3 interfaces add { 1.3 }
+
+
+bigip.3
+
+tmsh create net self dpdk-net1 address 10.10.100.233/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net2 address 10.10.110.241/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net3 address 10.10.120.249/24 vlan vnic1 allow-service default
+tmsh save sys config
+
 
 bigip.4
 
@@ -345,9 +369,9 @@ tmsh save sys config
 
 bigip.5
 
-tmsh create net self dpdk-net1 address 10.10.100.248/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net2 address 10.10.110.235/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net3 address 10.10.120.243/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net1 address 10.10.100.240/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net2 address 10.10.110.233/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net3 address 10.10.120.236/24 vlan vnic1 allow-service default
 tmsh save sys config
 
 bigip.6
