@@ -225,7 +225,7 @@ resources:
                   next_hop: {get_param: EC2MetadataIp}
                 - default: false
                   #next_hop: {get_param: ControlPlaneDefaultRoute}
-                  next_hop: 192.168.255.1
+                  next_hop: 192.168.255.1/32
                   
               # NIC eno1np0 - Control Group TripleO VLANs
               - type: ovs_bridge
