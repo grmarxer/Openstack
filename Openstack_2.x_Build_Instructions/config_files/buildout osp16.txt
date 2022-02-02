@@ -6,6 +6,9 @@ sudo systemctl restart chronyd
 sudo ip route add 0.0.0.0/0 via 192.168.255.1 dev br-prov
 sudo systemctl restart chronyd
 
+to list namespaces for vxlan on the controller
+sudo ip net
+sudo ip net exec qdhcp-a0e2509f-af26-4511-b1d0-06d78901cf05 ping 10.10.100.232
 
 
 
@@ -18,7 +21,7 @@ openstack role add --user admin-backup --project admin admin
 
 openstack quota set --cores 80 admin
 openstack quota set --ram 196608 admin
-
+openstack quota set --instances 20 admin
 
 openstack security group create permit.all
 openstack security group rule create --ingress --ethertype IPv4 --protocol icmp permit.all
@@ -35,20 +38,10 @@ openstack network create --share --project admin --internal --provider-network-t
 openstack network create --share --project admin --internal --provider-network-type flat --provider-physical-network sriov-mirror sriov-mirror
 openstack network create --share --project admin --external --provider-network-type vlan --provider-physical-network management --provider-segment 1150 management
 
-openstack network create --share --project admin --internal  dpdk-net1
-openstack network create --share --project admin --internal  dpdk-net2
-openstack network create --share --project admin --internal  dpdk-net3
-
 openstack subnet create --project admin --subnet-range 10.10.20.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.20.200,end=10.10.20.250 --dns-nameserver 8.8.8.8 --network sriov-public sriov-public-subnet
 openstack subnet create --project admin --subnet-range 10.10.30.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.30.200,end=10.10.30.250 --dns-nameserver 8.8.8.8 --network sriov-private sriov-private-subnet
 openstack subnet create --project admin --subnet-range 10.10.40.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.40.200,end=10.10.40.250 --dns-nameserver 8.8.8.8 --network sriov-mirror sriov-mirroring-subnet
 openstack subnet create --project admin --subnet-range 10.255.240.0/24 --dhcp --ip-version 4 --allocation-pool start=10.255.240.24,end=10.255.240.31 --dns-nameserver 8.8.8.8 --gateway 10.255.240.1 --network management management-subnet
-
-
-openstack subnet create --project admin --subnet-range 10.10.100.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.100.230,end=10.10.100.250 --dns-nameserver 8.8.8.8 --network dpdk-net1 dpdk-net1-subnet
-openstack subnet create --project admin --subnet-range 10.10.110.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.110.230,end=10.10.110.250 --dns-nameserver 8.8.8.8 --network dpdk-net2 dpdk-net2-subnet
-openstack subnet create --project admin --subnet-range 10.10.120.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.120.230,end=10.10.120.250 --dns-nameserver 8.8.8.8 --network dpdk-net3 dpdk-net3-subnet
-
 
 openstack port create --network sriov-public --vnic-type direct public-sriov-p1
 openstack port create --network sriov-public --vnic-type direct public-sriov-p2
@@ -56,6 +49,19 @@ openstack port create --network sriov-private --vnic-type direct private-sriov-p
 openstack port create --network sriov-private --vnic-type direct private-sriov-p2
 openstack port create --network sriov-mirror --vnic-type direct mirror-sriov-p1
 openstack port create --network sriov-mirror  --vnic-type direct mirror-sriov-p2
+
+
+
+openstack network create --share --project admin --internal  dpdk-net1
+openstack network create --share --project admin --internal  dpdk-net2
+openstack network create --share --project admin --internal  dpdk-net3
+
+openstack subnet create --project admin --subnet-range 10.10.100.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.100.230,end=10.10.100.250 --dns-nameserver 8.8.8.8 --network dpdk-net1 dpdk-net1-subnet
+openstack subnet create --project admin --subnet-range 10.10.110.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.110.230,end=10.10.110.250 --dns-nameserver 8.8.8.8 --network dpdk-net2 dpdk-net2-subnet
+openstack subnet create --project admin --subnet-range 10.10.120.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.120.230,end=10.10.120.250 --dns-nameserver 8.8.8.8 --network dpdk-net3 dpdk-net3-subnet
+
+
+
 
 
 
@@ -72,6 +78,9 @@ openstack flavor set --property hw:mem_page_size=1GB bigip.1G.dpdk
 
 openstack flavor create bigip.10G.dpdk-64gb --ram 65536 --disk 100 --vcpus 8
 openstack flavor set --property hw:mem_page_size=1GB bigip.10G.dpdk-64gb 
+
+openstack flavor create bigip.1G.dpdk.extra --ram 4096 --disk 100 --vcpus 2
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.1G.dpdk.extra    
 
 
 ############################################################
@@ -186,9 +195,13 @@ nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1 \
   --security-group permit.all --hypervisor-hostname vz-osp-computesriov-0.osp.16.customer.lab  bigip.6
   
-nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
-  --nic net-name=management --nic net-name=dpdk-net1 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab  bigip.7  
+nova boot --flavor bigip.1G.dpdk.extra --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-0.osp.16.customer.lab  bigip.3.sriov.n0  
+  
+nova boot --flavor bigip.1G.dpdk.extra --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab  bigip.5.sriov.n1  
   
 
 #################################  
@@ -200,30 +213,34 @@ DPDK
   
 
  
-nova boot --flavor bigip.1G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+nova boot --flavor bigip.1G.dpdk.extra --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
   --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.3-dpdk.n0
   
   
-nova boot --flavor bigip.1G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+nova boot --flavor bigip.1G.dpdk.extra --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
   --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.5-dpdk.n0
   
-nova boot --flavor bigip.10G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+nova boot --flavor bigip.1G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.7-dpdk.n0
+  
+nova boot --flavor bigip.1G.dpdk.extra --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
   --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.7-dpdk.n0
   
   
-nova boot --flavor bigip.1G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+nova boot --flavor bigip.1G.dpdk.extra --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.9-dpdk.n0
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.9-dpdk.n0.extra
   
 nova boot --flavor bigip.10G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
   --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.11-dpdk.n0
   
   
-nova boot --flavor bigip.1G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+nova boot --flavor bigip.1G.dpdk.extra --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
   --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab   bigip.4-dpdk.n1
   
@@ -299,20 +316,26 @@ openstack image create --public --protected --disk-format raw --file /home/stack
 ####################################################################################  
 
 
+(overcloud) [stack@osp16-undercloud ~]$ nova list
 +--------------------------------------+-----------------+--------+------------+-------------+-----------------------------------------------------------------------------------------------------+
 | ID                                   | Name            | Status | Task State | Power State | Networks                                                                                            |
 +--------------------------------------+-----------------+--------+------------+-------------+-----------------------------------------------------------------------------------------------------+
-| 4bd1a621-e02c-4f7e-8856-a6664f04ce93 | bigip.3-dpdk.n0 | ACTIVE | -          | Running     | dpdk-net1=10.10.100.233; dpdk-net2=10.10.110.241; dpdk-net3=10.10.120.249; management=10.255.240.26 |
-| b717f8f2-a3c0-4dda-8923-7ac915bdc18b | bigip.4-dpdk.n1 | ACTIVE | -          | Running     | dpdk-net1=10.10.100.238; dpdk-net2=10.10.110.245; dpdk-net3=10.10.120.238; management=10.255.240.27 |
-| a115cb9e-152b-42f0-8fc5-672f9279eddd | bigip.5-dpdk.n0 | ACTIVE | -          | Running     | dpdk-net1=10.10.100.240; dpdk-net2=10.10.110.233; dpdk-net3=10.10.120.236; management=10.255.240.30 |
-| a092195a-d6a0-44d8-b3d2-40376701c36a | bigip.6-dpdk.n1 | ACTIVE | -          | Running     | dpdk-net1=10.10.100.237; dpdk-net2=10.10.110.238; dpdk-net3=10.10.120.244; management=10.255.240.25 |
+| db1bddb7-025c-43c1-a3ba-775e323acb1f | bigip.5-dpdk.n0 | ACTIVE | -          | Running     | dpdk-net1=10.10.100.240; dpdk-net2=10.10.110.232; dpdk-net3=10.10.120.250; management=10.255.240.30 |
+| d33b572c-218e-4909-99a3-4790efe7ef86 | bigip.6-dpdk.n1 | ACTIVE | -          | Running     | dpdk-net1=10.10.100.233; dpdk-net2=10.10.110.237; dpdk-net3=10.10.120.243; management=10.255.240.26 |
+| 81405a0c-8d6d-4c48-9e5f-ceef7eac1a36 | bigip.7-dpdk.n0 | ACTIVE | -          | Running     | dpdk-net1=10.10.100.250; dpdk-net2=10.10.110.238; dpdk-net3=10.10.120.237; management=10.255.240.31 |
+| 0f36fe94-7337-4c28-bb4b-f724b1f16208 | bigip.8-dpdk.n1 | ACTIVE | -          | Running     | dpdk-net1=10.10.100.243; dpdk-net2=10.10.110.236; dpdk-net3=10.10.120.241; management=10.255.240.25 |
 +--------------------------------------+-----------------+--------+------------+-------------+-----------------------------------------------------------------------------------------------------+
+(overcloud) [stack@osp16-undercloud ~]$
 
 
+tmsh create net self dpdk-net1 address 10.10.100.247/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net2 address 10.10.110.248/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net3 address 10.10.120.239/24 vlan vnic1 allow-service default
+tmsh save sys config
 
-tmsh create net self dpdk-net1 address 10.10.100.237/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net2 address 10.10.110.238/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net3 address 10.10.120.244/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net1 address 10.10.100.238/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net2 address 10.10.110.231/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net3 address 10.10.120.234/24 vlan vnic1 allow-service default
 tmsh save sys config
 
 
@@ -324,12 +347,17 @@ tmsh modify sys global-settings gui-setup disabled
 tmsh modify sys global-settings hostname bigip-3.com
 tmsh mv cm device bigip1 bigip-3
 
+tmsh modify sys global-settings hostname bigip-3-sriov.com
+tmsh mv cm device bigip1 bigip-3-sriov
 
 tmsh modify sys global-settings hostname bigip-4.com
 tmsh mv cm device bigip1 bigip-4
  
 tmsh modify sys global-settings hostname bigip-5.com
-tmsh mv cm device bigip-3 bigip-5
+tmsh mv cm device bigip-1 bigip-5
+
+tmsh modify sys global-settings hostname bigip-5-sriov.com
+tmsh mv cm device bigip-1 bigip-5-sriov
 
 tmsh modify sys global-settings hostname bigip-6.com
 tmsh mv cm device bigip1 bigip-6
