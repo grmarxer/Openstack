@@ -2,9 +2,12 @@
 
 sudo ip route add 0.0.0.0/0 via 192.168.255.1 dev eno2np1
 sudo systemctl restart chronyd
+chronyc sources
+
 
 sudo ip route add 0.0.0.0/0 via 192.168.255.1 dev br-prov
 sudo systemctl restart chronyd
+chronyc sources
 
 to list namespaces for vxlan on the controller
 sudo ip net
