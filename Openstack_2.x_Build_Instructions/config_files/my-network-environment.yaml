@@ -43,6 +43,13 @@ resource_registry:
   OS::TripleO::ComputeOvsDpdk::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
   OS::TripleO::ComputeOvsDpdk::Ports::ManagementPort: /usr/share/openstack-tripleo-heat-templates/network/ports/management_from_pool.yaml
 
+  # Port assignments for the ComputeSriovN3000SmartNic
+  OS::TripleO::ComputeSriovN3000SmartNic::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api_from_pool.yaml
+  OS::TripleO::ComputeSriovN3000SmartNic::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
+  OS::TripleO::ComputeSriovN3000SmartNic::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant_from_pool.yaml
+  OS::TripleO::ComputeSriovN3000SmartNic::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
+  OS::TripleO::ComputeSriovN3000SmartNic::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
+  OS::TripleO::ComputeSriovN3000SmartNic::Ports::ManagementPort: /usr/share/openstack-tripleo-heat-templates/network/ports/management_from_pool.yaml
 
   # These parameters should point to the nic config templates for each type of node
   # Network config for the Controller
@@ -132,6 +139,8 @@ parameter_defaults:
   ComputeOvsDpdkParameters:
     #NeutronBridgeMappings: ['sriovLinks:br-sriov','dpdkLinks:br-dpdk','management:br-ex']
     NeutronBridgeMappings: ['dpdkLinks:br-dpdk','management:br-ex']
+  ComputeSriovN3000SmartNicParameters:
+    NeutronBridgeMappings: ['management:br-ex']
 
 
   # Base MTU for neutron networks, this is reduced a bit in the actual
@@ -254,6 +263,25 @@ parameter_defaults:
     storage_mgmt:
     - 10.255.244.14
     - 10.255.244.15
+  ComputeSriovN3000SmartNicIPs:
+    ctlplane:
+    - 192.168.255.16
+    - 192.168.255.17
+    external:
+    - 10.255.240.16
+    - 10.255.240.17
+    internal_api:
+    - 10.255.241.16
+    - 10.255.241.17
+    tenant:
+    - 10.255.242.16
+    - 10.255.242.17
+    storage:
+    - 10.255.243.16
+    - 10.255.243.17
+    storage_mgmt:
+    - 10.255.244.16
+    - 10.255.244.17
   ServiceNetMap:
     ApacheNetwork: internal_api
     NeutronTenantNetwork: tenant
