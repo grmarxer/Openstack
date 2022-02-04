@@ -449,55 +449,65 @@ tmsh create net self dpdk-net3 address 10.10.120.249/24 vlan vnic1 allow-service
 tmsh save sys config
 
 
-bigip.4
-
-tmsh create net self dpdk-net1 address 10.10.100.234/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net2 address 10.10.110.242/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net3 address 10.10.120.231/24 vlan vnic1 allow-service default
-tmsh save sys config
-
-bigip.5
-
-tmsh create net self dpdk-net1 address 10.10.100.240/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net2 address 10.10.110.233/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net3 address 10.10.120.236/24 vlan vnic1 allow-service default
-tmsh save sys config
-
-bigip.6
-
-tmsh create net self dpdk-net1 address 10.10.100.232/24 vlan vnic1 allow-service default
-tmsh save sys config
-
-bigip.7
-
-tmsh create net self dpdk-net1 address 10.10.100.242/24 vlan vnic1 allow-service default
-tmsh save sys config
 
 
-bigip.9
-
-tmsh create net self dpdk-net1 address 10.10.100.248/24 vlan vnic1 allow-service default
-tmsh save sys config
-
-
-bigip.10
-
-tmsh create net self dpdk-net1 address 10.10.100.245/24 vlan vnic1 allow-service default
-tmsh save sys config
+##############################################################################
+#Change Queues
+##############################################################################
 
 
-bigip.10
+lspci -nn | grep -i eth
 
-tmsh create net self public-sriov address 10.10.20.250/24 vlan vnic1 allow-service default
-tmsh create net self private-sriov address 10.10.30.252/24 vlan vnic2 allow-service default
-tmsh create net self mirror-sriov address 10.10.40.178/24 vlan vnic3 allow-service default
-tmsh save sys config
 
-bigip.20
-tmsh create net self public-sriov address 10.10.20.249/24 vlan vnic1 allow-service default
-tmsh create net self private-sriov address 10.10.30.250/24 vlan vnic2 allow-service default
-tmsh create net self mirror-sriov address 10.10.40.35/24 vlan vnic3 allow-service default
-tmsh save sys config
+ls /config/tmm*
+
+
+touch /config/tmm_init.tcl; echo -e "ndal tx_max_devq 4 1af4:1000" >> /config/tmm_init.tcl; echo -e "ndal rx_max_devq 4 1af4:1000" >> /config/tmm_init.tcl
+
+echo -e "ndal tx_max_devq 4 1af4:1000" >> /config/tmm_init.tcl; echo -e "ndal rx_max_devq 4 1af4:1000" >> /config/tmm_init.tcl
+
+reboot 
+
+
+
+vi /config/tmm_init.tcl
+ndal tx_max_devq 4 1af4:1000
+ndal rx_max_devq 4 1af4:1000 
+:wq!
+reboot 
+
+
+
+#This command will help determine the number of queues we’re now using
+tmctl -w 200 -id blade -i tmm/ndal_rx_stats
+tmctl -w 200 -id blade -i tmm/ndal_tx_stats
+
+
+
+
+##############################################################################
+#    Change Driver
+#
+#  When using the Mellanox Connect 5 use the mlxvf5 driver
+#  When using For edge (Intel x710) we can try ixlv to see if we can get better performance with native driver
+#
+#
+##############################################################################
+
+
+#Confirm Driver in use 
+tmctl -d blade tmm/device_probed
+
+
+
+echo -e "device driver vendor_dev 1af4:1000 xnet" >> /config/tmm_init.tcl; touch /config/xnet_init.tcl; echo "device driver vendor_dev 1af4:1000 mlxvf5" > /config/xnet_init.tcl
+
+
+#Then to view the drivers in use you would have to run both of these commands:
+
+tmctl -d blade tmm/device_probed
+tmctl -d blade tmm/xnet/device_probed
+
 
 
 
