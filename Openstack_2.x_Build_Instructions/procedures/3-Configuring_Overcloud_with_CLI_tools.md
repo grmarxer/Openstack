@@ -402,7 +402,7 @@ The steps to define your __custom roles__ configuration are:
 4. Create the `my-custom_roles_data.yaml` with the following specific roles Controller, ComputeSriov, and ComputeOvsDpdk  
 
     ```
-    openstack overcloud roles generate -o /home/stack/templates/my-custom_roles_data.yaml --roles-path /home/stack/copy-of-default-tripleo-heat-templates/roles Controller ComputeSriov ComputeOvsDpdk
+    openstack overcloud roles generate -o /home/stack/templates/my-custom_roles_data.yaml --roles-path /home/stack/copy-of-default-tripleo-heat-templates/roles Controller ComputeSriov ComputeOvsDpdk ComputeSriov:ComputeSriovN3000SmartNic  
     ```  
 
 5.  Verify that the `my-custom_roles_data.yaml` file was created with the specified roles outlined above  
@@ -425,8 +425,8 @@ openstack flavor create ComputeOvsDpdk --ram 6144 --disk 40 --vcpu 1
 openstack flavor set --property "cpu_arch"="x86_64" --property "capabilities:boot_option"="local" --property "capabilities:profile"="ComputeOvsDpdk" --property resources:CUSTOM_BAREMETAL='1' --property resources:DISK_GB='0' --property resources:MEMORY_MB='0' --property resources:VCPU='0' ComputeOvsDpdk
 
 
-openstack flavor create ComputeSmartNic --ram 6144 --disk 40 --vcpu 1
-openstack flavor set --property "cpu_arch"="x86_64" --property "capabilities:boot_option"="local" --property "capabilities:profile"="ComputeSmartNic" --property resources:CUSTOM_BAREMETAL='1' --property resources:DISK_GB='0' --property resources:MEMORY_MB='0' --property resources:VCPU='0' ComputeSmartNic
+openstack flavor create ComputeSriovN3000SmartNic --ram 6144 --disk 40 --vcpu 1
+openstack flavor set --property "cpu_arch"="x86_64" --property "capabilities:boot_option"="local" --property "capabilities:profile"="ComputeSriovN3000SmartNic" --property resources:CUSTOM_BAREMETAL='1' --property resources:DISK_GB='0' --property resources:MEMORY_MB='0' --property resources:VCPU='0' ComputeSriovN3000SmartNic
 ```  
 
 
