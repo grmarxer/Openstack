@@ -1,14 +1,9 @@
 
-
-sudo ip route add 0.0.0.0/0 via 192.168.255.1 dev eno2np1
-sudo systemctl restart chronyd
-chronyc sources
+cat /proc/meminfo  | egrep "Mem|Huge"
+numactl --hardware
 
 
-sudo ip route add 0.0.0.0/0 via 192.168.255.1 dev br-prov
-sudo systemctl restart chronyd
-chronyc sources
-
+############################################################################################################
 to list namespaces for vxlan on the controller
 sudo ip netns
 sudo ip netns exec qdhcp-a0e2509f-af26-4511-b1d0-06d78901cf05 ip a
@@ -30,6 +25,8 @@ qdhcp-1af0ec3c-c400-41c2-89ef-bede53668065 (id: 0)
 
 ip netns exec qdhcp-6d9a988d-535f-4fa4-af7e-e6ef0256d675 tcpdump -i tap5bfea021-51 -ne -vvv -w /var/tmp/ID1-trace.pcap
 ip netns exec qdhcp-0c8ad7a1-ace7-406f-bc5f-5ac780485fa1 tcpdump -i tap47b2b7d2-a9 -ne -vvv -w /var/tmp/ID3-trace.pcap
+
+############################################################################################################
 
 
 #Confirm Driver in use 
@@ -124,7 +121,11 @@ openstack flavor create bigip.1G.dpdk --ram 4096 --disk 100 --vcpus 2
 openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.1G.dpdk    
 
 
+openstack flavor create bigip.8cpu.16GB.dpdk --ram 16384 --disk 100 --vcpus 8
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.8cpu.16GB.dpdk
 
+openstack flavor create bigip.8cpu.32GB.dpdk --ram 32768 --disk 100 --vcpus 8
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.8cpu.32GB.dpdk
 
 
 ############################################################
@@ -272,11 +273,10 @@ nova boot --flavor bigip.10G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 \
   --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.5-dpdk.n0
   
-nova boot --flavor bigip.10G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+nova boot --flavor bigip.8cpu.32GB.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 \
   --nic net-name=dpdk-net6  --nic net-name=dpdk-net7 --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
-  --nic net-name=dpdk-net11  --nic net-name=dpdk-net12 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.11-dpdk.n0
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.9-dpdk.n0
   
 nova boot --flavor bigip.1G.dpdk.extra --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
