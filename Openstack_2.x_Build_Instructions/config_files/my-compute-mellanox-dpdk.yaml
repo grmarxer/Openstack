@@ -308,6 +308,7 @@ resources:
                 members:
                   - type: ovs_dpdk_bond
                     name: dpdkbond-tenant
+                    rx_queues: 4
                     mtu: 9000
                     ovs_options: "bond_mode=balance-slb lacp=active"
                     members:
