@@ -16,7 +16,7 @@ sudo ip netns exec qdhcp-a0e2509f-af26-4511-b1d0-06d78901cf05 ping 10.10.100.232
 
 From the controller, while the instance is booting, do the following tcpdump and provide the output:
 
-  ip netns exec qdhcp-<net_uuid> tcpdump -i <tapIF> -ne
+ip netns exec qdhcp-<net_uuid> tcpdump -i <tapIF> -ne
 
 note: use "ip netns exec qdhcp-<net_uuid> ip a" to find the tapIF for above.
 
@@ -29,8 +29,17 @@ qdhcp-1af0ec3c-c400-41c2-89ef-bede53668065 (id: 0)
 
 
 ip netns exec qdhcp-6d9a988d-535f-4fa4-af7e-e6ef0256d675 tcpdump -i tap5bfea021-51 -ne -vvv -w /var/tmp/ID1-trace.pcap
-
 ip netns exec qdhcp-0c8ad7a1-ace7-406f-bc5f-5ac780485fa1 tcpdump -i tap47b2b7d2-a9 -ne -vvv -w /var/tmp/ID3-trace.pcap
+
+
+#Confirm Driver in use 
+tmctl -d blade tmm/device_probed
+
+#This command will help determine the number of queues we’re now using
+tmctl -w 200 -id blade -i tmm/ndal_rx_stats
+tmctl -w 200 -id blade -i tmm/ndal_tx_stats
+
+
 
 cd
 source overcloudrc
@@ -73,10 +82,29 @@ openstack port create --network sriov-mirror  --vnic-type direct mirror-sriov-p2
 openstack network create --share --project admin --internal dpdk-net1
 openstack network create --share --project admin --internal dpdk-net2
 openstack network create --share --project admin --internal dpdk-net3
+openstack network create --share --project admin --internal dpdk-net4
+openstack network create --share --project admin --internal dpdk-net5
+openstack network create --share --project admin --internal dpdk-net6
+openstack network create --share --project admin --internal dpdk-net7
+openstack network create --share --project admin --internal dpdk-net8
+openstack network create --share --project admin --internal dpdk-net9
+openstack network create --share --project admin --internal dpdk-net10
+openstack network create --share --project admin --internal dpdk-net11
+openstack network create --share --project admin --internal dpdk-net12
 
-openstack subnet create --project admin --subnet-range 10.10.100.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.100.230,end=10.10.100.250 --dns-nameserver 8.8.8.8 --network dpdk-net1 dpdk-net1-subnet
-openstack subnet create --project admin --subnet-range 10.10.110.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.110.230,end=10.10.110.250 --dns-nameserver 8.8.8.8 --network dpdk-net2 dpdk-net2-subnet
-openstack subnet create --project admin --subnet-range 10.10.120.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.120.230,end=10.10.120.250 --dns-nameserver 8.8.8.8 --network dpdk-net3 dpdk-net3-subnet
+
+openstack subnet create --project admin --subnet-range 10.10.110.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.110.230,end=10.10.110.250 --dns-nameserver 8.8.8.8 --network dpdk-net1 dpdk-net1-subnet
+openstack subnet create --project admin --subnet-range 10.10.120.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.120.230,end=10.10.120.250 --dns-nameserver 8.8.8.8 --network dpdk-net2 dpdk-net2-subnet
+openstack subnet create --project admin --subnet-range 10.10.130.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.130.230,end=10.10.130.250 --dns-nameserver 8.8.8.8 --network dpdk-net3 dpdk-net3-subnet
+openstack subnet create --project admin --subnet-range 10.10.140.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.140.230,end=10.10.140.250 --dns-nameserver 8.8.8.8 --network dpdk-net4 dpdk-net4-subnet
+openstack subnet create --project admin --subnet-range 10.10.150.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.150.230,end=10.10.150.250 --dns-nameserver 8.8.8.8 --network dpdk-net5 dpdk-net5-subnet
+openstack subnet create --project admin --subnet-range 10.10.160.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.160.230,end=10.10.160.250 --dns-nameserver 8.8.8.8 --network dpdk-net6 dpdk-net6-subnet
+openstack subnet create --project admin --subnet-range 10.10.170.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.170.230,end=10.10.170.250 --dns-nameserver 8.8.8.8 --network dpdk-net7 dpdk-net7-subnet
+openstack subnet create --project admin --subnet-range 10.10.180.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.180.230,end=10.10.180.250 --dns-nameserver 8.8.8.8 --network dpdk-net8 dpdk-net8-subnet
+openstack subnet create --project admin --subnet-range 10.10.190.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.190.230,end=10.10.190.250 --dns-nameserver 8.8.8.8 --network dpdk-net9 dpdk-net9-subnet
+openstack subnet create --project admin --subnet-range 10.10.200.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.200.230,end=10.10.200.250 --dns-nameserver 8.8.8.8 --network dpdk-net10 dpdk-net10-subnet
+openstack subnet create --project admin --subnet-range 10.10.210.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.210.230,end=10.10.210.250 --dns-nameserver 8.8.8.8 --network dpdk-net11 dpdk-net11-subnet
+openstack subnet create --project admin --subnet-range 10.10.220.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.220.230,end=10.10.220.250 --dns-nameserver 8.8.8.8 --network dpdk-net12 dpdk-net12-subnet
 
 
 
@@ -89,16 +117,14 @@ openstack subnet create --project admin --subnet-range 10.10.120.0/24 --dhcp --i
 openstack flavor create bigip.1G --ram 4096 --disk 100 --vcpus 2
 openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
 openstack flavor create small --ram 2048 --disk 30 --vcpus 1
+
 openstack flavor create bigip.10G.dpdk --ram 16384 --disk 100 --vcpus 8
-openstack flavor set --property hw:mem_page_size=1GB bigip.10G.dpdk 
-openstack flavor create bigip.1G.dpdk --ram 4096 --disk 100 --vcpus 2
-openstack flavor set --property hw:mem_page_size=1GB bigip.1G.dpdk 
-
-openstack flavor create bigip.10G.dpdk-64gb --ram 65536 --disk 100 --vcpus 8
-openstack flavor set --property hw:mem_page_size=1GB bigip.10G.dpdk-64gb 
-
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.10G.dpdk 
 openstack flavor create bigip.1G.dpdk --ram 4096 --disk 100 --vcpus 2
 openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.1G.dpdk    
+
+
+
 
 
 ############################################################
@@ -137,6 +163,11 @@ openstack flavor set --property hw:mem_page_size=1GB bigip.dpdk.8GB
 
 openstack flavor create bigip.dpdk.6GB --ram 6144 --disk 100 --vcpus 8
 openstack flavor set --property hw:mem_page_size=1GB bigip.dpdk.6GB
+
+openstack flavor create bigip.1G.dpdk --ram 4096 --disk 100 --vcpus 2
+openstack flavor set --property hw:mem_page_size=1GB bigip.1G.dpdk
+openstack flavor create bigip.10G.dpdk-64gb --ram 65536 --disk 100 --vcpus 8
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.10G.dpdk-64gb 
 #
 ############################################################
 ############################################################
@@ -153,6 +184,7 @@ openstack image create "bigip.ltm.1-slot.15.1.3.1" \
   --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-ltm_1slot.qcow2 \
   --disk-format qcow2 --container-format bare \
   --public
+openstack image set --property hw_vif_multiqueue_enabled=true bigip.ltm.1-slot.15.1.3.1
 
 
 openstack image create "rhel-8.5" \
@@ -231,18 +263,20 @@ DPDK
   
 
  
-nova boot --flavor bigip.1G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+nova boot --flavor bigip.10G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1  \
   --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.3-dpdk.n0
   
   
-nova boot --flavor bigip.1G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+nova boot --flavor bigip.10G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 \
   --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.5-dpdk.n0
   
-nova boot --flavor bigip.1G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
-  --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.7-dpdk.n0
+nova boot --flavor bigip.10G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 \
+  --nic net-name=dpdk-net6  --nic net-name=dpdk-net7 --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
+  --nic net-name=dpdk-net11  --nic net-name=dpdk-net12 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.11-dpdk.n0
   
 nova boot --flavor bigip.1G.dpdk.extra --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
@@ -346,16 +380,10 @@ openstack image create --public --protected --disk-format raw --file /home/stack
 (overcloud) [stack@osp16-undercloud ~]$
 
 
-tmsh create net self dpdk-net1 address 10.10.100.250/24 vlan vnic1 allow-service default
-tmsh save sys config
 
-tmsh create net self dpdk-net1 address 10.10.100.241/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net2 address 10.10.110.250/24 vlan vnic1 allow-service default
-tmsh save sys config
-
-tmsh create net self dpdk-net1 address 10.10.100.250/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net2 address 10.10.110.240/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net3 address 10.10.120.236/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net1 address 10.10.110.248/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net2 address 10.10.120.244/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net3 address 10.10.130.244/24 vlan vnic1 allow-service default
 tmsh save sys config
 
 
@@ -402,7 +430,8 @@ tmsh create net vlan vnic3 interfaces add { 1.3 }
 tmsh create net vlan vnic1 interfaces add { 1.1 } mtu 1450
 tmsh create net vlan vnic2 interfaces add { 1.2 } mtu 1450
 tmsh create net vlan vnic3 interfaces add { 1.3 } mtu 1450
-
+tmsh create net vlan vnic4 interfaces add { 1.4 } mtu 1450
+tmsh create net vlan vnic5 interfaces add { 1.5 } mtu 1450
 
 bigip.3
 
