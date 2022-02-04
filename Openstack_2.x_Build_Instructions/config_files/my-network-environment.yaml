@@ -62,7 +62,7 @@ resource_registry:
   OS::TripleO::ComputeOvsDpdk::Net::SoftwareConfig: /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-mellanox-dpdk.yaml
   
   # Network config for the ComputeSriovN3000SmartNic
-  OS::TripleO::ComputeSriov::Net::SoftwareConfig: /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-intel-sriov-N3000.yaml
+  OS::TripleO::ComputeSriovN3000SmartNic::Net::SoftwareConfig: /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-intel-sriov-N3000.yaml
 
   ########################################
   # This is to pass passwords for login to each of the nodes
