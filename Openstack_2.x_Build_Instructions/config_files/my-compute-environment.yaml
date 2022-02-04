@@ -42,6 +42,7 @@ parameter_defaults:
     nova::compute::allow_resize_to_same_host: true
     nova::compute::resume_guests_state_on_host_boot: true
     nova::compute::resize_confirm_window: 1
+    
   ComputeParameters:
     #KernelArgs: "default_hugepagesz=1G hugepagesz=1G"
     NovaReservedHostMemory: 4096

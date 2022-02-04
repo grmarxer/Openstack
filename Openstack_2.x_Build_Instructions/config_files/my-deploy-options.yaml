@@ -91,7 +91,7 @@ parameter_defaults:
   
   #####################################
   #
-  #  Added based on China Lab
+  #  Set default Passwords for both Openstack and root
   #
   #####################################
   
