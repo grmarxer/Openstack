@@ -58,8 +58,9 @@ parameter_defaults:
     NovaReservedHostMemory: 8192
     #OvsDpdkSocketMemory: "3072,1024"
     #OvsDpdkSocketMemory: "4096,1024"
-    OvsDpdkSocketMemory: "8192,8192"
     #OvsDpdkSocketMemory: "10240,10240"
+    OvsDpdkSocketMemory: "8192,8192"
+    #
     OvsDpdkMemoryChannels: "4"  #"4" Customer specific
     OvsDpdkCoreList: "0,40,1,41,2,42"
     OvsPmdCoreList: "6,46,7,47,8,48"   #"3,5,43,45" Customer specifc PMD on same NUMA as NIC and NIC both ports bonded
