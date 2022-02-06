@@ -37,6 +37,12 @@ tmctl -w 200 -id blade -i tmm/ndal_rx_stats
 tmctl -w 200 -id blade -i tmm/ndal_tx_stats
 
 
+############################################################################################################
+############################################################################################################
+############################################################################################################
+############################################################################################################
+############################################################################################################
+
 
 cd
 source overcloudrc
@@ -126,6 +132,9 @@ openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --prope
 
 openstack flavor create bigip.8cpu.32GB.dpdk --ram 32768 --disk 100 --vcpus 8
 openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.8cpu.32GB.dpdk
+
+openstack flavor create bigip.8cpu.64GB.dpdk --ram 65536 --disk 100 --vcpus 8
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.8cpu.64GB.dpdk
 
 
 ############################################################
@@ -307,15 +316,11 @@ nova boot --flavor bigip.1G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
 nova boot --flavor bigip.1G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
   --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab   bigip.10-dpdk.n1
-  
-nova boot --flavor bigip.1G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
-  --nic net-name=management --nic net-name=dpdk-net1 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.9
-  
-nova boot --flavor bigip.1G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
-  --nic net-name=management --nic net-name=dpdk-net1 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab   bigip.10
-  
+
+nova boot --flavor bigip.8cpu.64GB.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 \
+  --nic net-name=dpdk-net6  --nic net-name=dpdk-net7 --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab   bigip.14-dpdk.n1.64GB
 
 
 
@@ -449,11 +454,13 @@ tmsh create net self dpdk-net3 address 10.10.120.249/24 vlan vnic1 allow-service
 tmsh save sys config
 
 
-
-
+############################################################################################################
+############################################################################################################
 ##############################################################################
 #Change Queues
 ##############################################################################
+############################################################################################################
+############################################################################################################
 
 
 lspci -nn | grep -i eth

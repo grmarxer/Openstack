@@ -15,7 +15,7 @@ parameter_defaults:
 
   # This should be the hostname pattern used for computes
   #ComputeHostnameFormat: '%stackname%-comp-%index%'
-  ComputeHostnameFormat: 'vz-osp-comp-%index%'
+  #ComputeHostnameFormat: 'vz-osp-comp-%index%'
 
   # This should be the hostname pattern used for computes
   #ComputeHostnameFormat: '%stackname%-comp-%index%'
@@ -37,7 +37,7 @@ parameter_defaults:
   # This should be the scheduler hint set on the baremetal node to designate
   # to be provisioned as a compute
   #ComputeSchedulerHints: {'capabilities:node': 'compute-%index%'}
-  ComputeSchedulerHints: {'capabilities:node': 'vz-osp-comp-%index%'}
+  #ComputeSchedulerHints: {'capabilities:node': 'vz-osp-comp-%index%'}
 
   # This should be the scheduler hint set on the baremetal node to designate
   # to be provisioned as a compute
