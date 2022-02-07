@@ -574,40 +574,45 @@ This is the output of a deployment that completed successfully
 
 ```
 PLAY RECAP *********************************************************************
-overcloud-controller-0     : ok=335  changed=204  unreachable=0    failed=0    skipped=165  rescued=0    ignored=0
-overcloud-novacompute-0    : ok=272  changed=160  unreachable=0    failed=0    skipped=166  rescued=0    ignored=0
-overcloud-novacompute-1    : ok=269  changed=160  unreachable=0    failed=0    skipped=166  rescued=0    ignored=0
-undercloud                 : ok=95   changed=39   unreachable=0    failed=0    skipped=9    rescued=0    ignored=0
+undercloud                 : ok=95   changed=38   unreachable=0    failed=0    skipped=9    rescued=0    ignored=0
+vz-osp-computedpdk-0       : ok=304  changed=179  unreachable=0    failed=0    skipped=142  rescued=0    ignored=0
+vz-osp-computedpdk-1       : ok=301  changed=179  unreachable=0    failed=0    skipped=142  rescued=0    ignored=0
+vz-osp-computesriov-0      : ok=295  changed=177  unreachable=0    failed=0    skipped=136  rescued=0    ignored=0
+vz-osp-computesriov-1      : ok=295  changed=177  unreachable=0    failed=0    skipped=136  rescued=0    ignored=0
+vz-osp-controller-0        : ok=353  changed=215  unreachable=0    failed=0    skipped=161  rescued=0    ignored=0
 
-Friday 02 July 2021  13:44:22 -0700 (0:00:00.056)       0:22:21.912 ***********
+Sunday 06 February 2022  13:21:03 -0800 (0:00:00.057)       1:04:07.011 *******
 ===============================================================================
-Wait for containers to start for step 2 using paunch ------------------ 203.69s
-Wait for containers to start for step 3 using paunch ------------------ 110.22s
-Pre-fetch all the containers ------------------------------------------ 106.00s
-Pre-fetch all the containers ------------------------------------------- 97.49s
-Wait for containers to start for step 4 using paunch ------------------- 81.88s
-Wait for container-puppet tasks (generate config) to finish ------------ 55.55s
-Wait for puppet host configuration to finish --------------------------- 42.62s
-Run tripleo-container-image-prepare logged to: /var/log/tripleo-container-image-prepare.log -- 39.32s
-Wait for containers to start for step 5 using paunch ------------------- 35.96s
-tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-cinder-volume:16.1 image -- 23.88s
-Run puppet on the host to apply IPtables rules ------------------------- 23.63s
-Wait for puppet host configuration to finish --------------------------- 19.81s
-Wait for container-puppet tasks (bootstrap tasks) for step 4 to finish -- 16.60s
-Wait for containers to start for step 1 using paunch ------------------- 16.53s
-tripleo-network-config : Run NetworkConfig script ---------------------- 13.86s
-Wait for puppet host configuration to finish --------------------------- 13.38s
-Wait for puppet host configuration to finish --------------------------- 13.27s
-Wait for puppet host configuration to finish --------------------------- 13.27s
-Wait for container-puppet tasks (bootstrap tasks) for step 3 to finish -- 10.06s
-Manage Cinder Volume Type ----------------------------------------------- 9.17s
+Wait for containers to start for step 3 using paunch ------------------ 939.20s
+Pre-fetch all the containers ------------------------------------------ 441.16s
+Wait for containers to start for step 2 using paunch ------------------ 376.87s
+tripleo-kernel : Reboot after kernel args update ---------------------- 287.02s
+tripleo-kernel : Reboot after kernel args update ---------------------- 274.27s
+Wait for container-puppet tasks (generate config) to finish ----------- 163.72s
+Pre-fetch all the containers ------------------------------------------ 108.57s
+Wait for containers to start for step 4 using paunch ------------------ 107.25s
+Pre-fetch all the containers ------------------------------------------ 102.50s
+tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-cinder-volume:16.1 image -- 98.05s
+Wait for containers to start for step 5 using paunch ------------------- 55.35s
+tripleo-network-config : Run NetworkConfig script ---------------------- 51.77s
+Wait for puppet host configuration to finish --------------------------- 42.24s
+tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-haproxy:16.1 image -- 38.51s
+tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-rabbitmq:16.1 image -- 26.91s
+tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-mariadb:16.1 image -- 26.60s
+Wait for containers to start for step 1 using paunch ------------------- 25.89s
+Run puppet on the host to apply IPtables rules ------------------------- 24.39s
+Wait for container-puppet tasks (bootstrap tasks) for step 4 to finish -- 22.89s
+Wait for puppet host configuration to finish --------------------------- 19.62s
+Host 10.255.240.16 not found in /home/stack/.ssh/known_hosts
 
 Ansible passed.
 Overcloud configuration completed.
-Overcloud Endpoint: http://192.168.255.24:5000
-Overcloud Horizon Dashboard URL: http://192.168.255.24:80/dashboard
-Overcloud rc file: /home/stack/templates/overcloudrc
+Overcloud Endpoint: http://10.255.240.16:5000
+Overcloud Horizon Dashboard URL: http://10.255.240.16:80/dashboard
+Overcloud rc file: /home/stack/overcloudrc
 Overcloud Deployed without error
+(overcloud) [stack@osp16-undercloud logs]$
+
 ```  
 
 
