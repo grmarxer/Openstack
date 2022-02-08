@@ -173,7 +173,7 @@ openstack image create "rhel-8.5" \
 
 1.  There are several fields inside the NOVA boot command that you will need to manipulate depending on what you are attempting to achieve, this includes the image, networks, flavor, DPDK, SRIOV, etc.  Below is only an example.  You will need to modify based on your needs.  
 
- -  DPDK Example - 1 mgmt network, 10 TMM networks, booting on hypervisor vz-osp-computedpdk-0.osp.16.customer.lab, named bigip.5-dpdk.n0.8cpu.16GB  
+ -  __DPDK Example__ - 1 mgmt network, 10 TMM networks, booting on hypervisor vz-osp-computedpdk-0.osp.16.customer.lab, named bigip.5-dpdk.n0.8cpu.16GB  
 
     ```
     nova boot --flavor bigip.8cpu.16GB.dpdk --image bigip.all.1-slot.15.1.3.1.multiqueue-enabled \
@@ -183,7 +183,7 @@ openstack image create "rhel-8.5" \
       --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.5-dpdk.n0.8cpu.16GB
     ```
 
--  SRIOV Example - Each NIC has to be the UUID for the neutron port your created mapping the SRIOV VF
+-  __SRIOV Example__ - Each NIC has to be the UUID for the neutron port your created mapping the SRIOV VF
 
    ```
    nova boot --flavor bigip.8cpu.16GB --image bigip.all.1-slot.15.1.3.1 \
@@ -192,4 +192,4 @@ openstack image create "rhel-8.5" \
     --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab bigip.6-sriov.s1.8cpu.16GB
    ```  
 
-   
+
