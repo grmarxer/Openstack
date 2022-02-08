@@ -103,6 +103,8 @@ Note: Management is only included for backward compatibility -- it is not used i
 | compute2-intel      | eno1np0  | 10.144.19.230/20     | 10.255.240.13                |              |              |  
 | compute3-mellanox   | eno1np0  | 10.144.19.236/20     | 10.255.240.14                |              |              |  
 | compute4-mellanox   | eno1np0  | 10.144.19.232/20     | 10.255.240.15                |              |              |  
+| compute5-N3000      | eno1np0  | 10.144.22.55 20      | 10.255.240.16                |              |              |  
+| compute6-N3000      | eno1np0  | 10.144.22.53/20      | 10.255.240.17                |              |              |    
 
 <br/>  
 
