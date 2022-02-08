@@ -3,7 +3,7 @@
 
 <br/> 
 
-#### Accessing overcloud nodes through SSH
+### Accessing overcloud nodes through SSH
 
 You can access each overcloud node through the SSH protocol from the undercloud director
 
@@ -31,7 +31,7 @@ You can access each overcloud node through the SSH protocol from the undercloud 
 
 <br/>  
 
-##### Build out Openstack flavors, networks, etc.
+### Build out Openstack flavors, networks, etc.
 
 1. Log in to the undercloud as the stack user.  
 
