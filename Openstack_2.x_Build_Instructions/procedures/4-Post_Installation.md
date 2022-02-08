@@ -121,10 +121,6 @@ openstack image create "bigip.all.15.1.3.1.multiqueue-enabled" \
   --public
 openstack image set --property hw_vif_multiqueue_enabled=true bigip.all.15.1.3.1.multiqueue-enabled
 
-openstack image create "bigip.all.15.1.3.1" \
-  --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-all.qcow2 \
-  --disk-format qcow2 --container-format bare \
-  --public
 
 openstack image create "bigip.all.1-slot.15.1.3.1.multiqueue-enabled" \
   --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-all-1slot.qcow2 \
@@ -132,16 +128,25 @@ openstack image create "bigip.all.1-slot.15.1.3.1.multiqueue-enabled" \
   --public
 openstack image set --property hw_vif_multiqueue_enabled=true bigip.all.1-slot.15.1.3.1.multiqueue-enabled
 
-openstack image create "bigip.all.1-slot.15.1.3.1" \
-  --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-all-1slot.qcow2 \
-  --disk-format qcow2 --container-format bare \
-  --public
 
 openstack image create "rhel-8.5.multiqueue-enabled" \
   --file /home/stack/images/rhel-8.5-x86_64-kvm.qcow2 \
   --disk-format qcow2 --container-format bare \
   --public
 openstack image set --property hw_vif_multiqueue_enabled=true rhel-8.5.multiqueue-enabled
+
+
+openstack image create "bigip.all.15.1.3.1" \
+  --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-all.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+
+
+openstack image create "bigip.all.1-slot.15.1.3.1" \
+  --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-all-1slot.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+
 
 openstack image create "rhel-8.5" \
   --file /home/stack/images/rhel-8.5-x86_64-kvm.qcow2 \
