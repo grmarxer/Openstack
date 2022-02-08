@@ -567,7 +567,26 @@ To modify the overcloud configuration at a later stage, perform the following ac
 Do not edit the overcloud configuration directly because director overrides any manual configuration when you update the overcloud stack.
 
 ```
-(undercloud) $ openstack overcloud deploy --templates -e /home/stack/templates/node-info.yaml  -e /home/stack/containers-prepare-parameter.yaml
+cd /home/stack/git_clone/Openstack/
+sudo git pull
+cd 
+sudo echo > /home/stack/.ssh/known_hosts
+sudo su -
+sudo echo > /root/.ssh/known_hosts
+exit
+source ~/stackrc
+openstack overcloud deploy --templates \
+-r /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-custom_roles_data.yaml \
+-e /home/stack/containers-prepare-parameter.yaml \
+-n /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-network_data.yaml \
+-e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-control-environment.yaml \
+-e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-environment.yaml \
+-e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-deploy-options.yaml \
+-e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-network-environment.yaml \
+-e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs.yaml \
+-e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-sriov.yaml \
+-e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs-dpdk.yaml \
+--ntp-server 172.27.1.1 |& tee /home/stack/overcloud-deploy/logs/overcloud-deploy_$(date +"%m-%d-%Y__%I-%M_%p").log
 ```  
 
 This is the output of a deployment that completed successfully
