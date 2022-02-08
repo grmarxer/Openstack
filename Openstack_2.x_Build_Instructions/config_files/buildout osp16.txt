@@ -56,35 +56,39 @@ tmctl -w 200 -id blade -i tmm/ndal_tx_stats
 ############################################################################################################
 
 
+# Source the overcloud credentials to configure the Openstack instance
 cd
 source overcloudrc
+
+# Create a backup user, admin-backup, and set the admin-backup password
 openstack user create --password default admin-backup
 openstack role add --user admin-backup --project admin admin
 
+# Set the quotas for the numbers of cores, RAM, and instances inside the admin project
 openstack quota set --cores 80 admin
 openstack quota set --ram 196608 admin
 openstack quota set --instances 20 admin
 
+# Create the security groups that we will assign to the instances.  These allow all traffic
 openstack security group create permit.all
 openstack security group rule create --ingress --ethertype IPv4 --protocol icmp permit.all
 openstack security group rule create --ingress --ethertype IPv4 --protocol tcp permit.all  
 openstack security group rule create --ingress --ethertype IPv4 --protocol udp permit.all
 
+# Create the management network and subnet.  This network attaches to vlan 1150 which has external connectivity.
+# this is the network that you will use for the BIG-IP management ports
+openstack network create --share --project admin --external --provider-network-type vlan --provider-physical-network management --provider-segment 1150 management
+openstack subnet create --project admin --subnet-range 10.255.240.0/24 --dhcp --ip-version 4 --allocation-pool start=10.255.240.24,end=10.255.240.31 --dns-nameserver 8.8.8.8 --gateway 10.255.240.1 --network management management-subnet
 
-#openstack security group list
-#openstack security group show permit.all
-
-
+# Create the SRIOV networks and subnets.  There are 3 SRIOV networks sriov-public, sriov-private, and sriov-mirror
 openstack network create --share --project admin --external --provider-network-type flat --provider-physical-network sriov-public sriov-public
 openstack network create --share --project admin --internal --provider-network-type flat --provider-physical-network sriov-private sriov-private
 openstack network create --share --project admin --internal --provider-network-type flat --provider-physical-network sriov-mirror sriov-mirror
-openstack network create --share --project admin --external --provider-network-type vlan --provider-physical-network management --provider-segment 1150 management
-
 openstack subnet create --project admin --subnet-range 10.10.20.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.20.200,end=10.10.20.250 --dns-nameserver 8.8.8.8 --network sriov-public sriov-public-subnet
 openstack subnet create --project admin --subnet-range 10.10.30.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.30.200,end=10.10.30.250 --dns-nameserver 8.8.8.8 --network sriov-private sriov-private-subnet
 openstack subnet create --project admin --subnet-range 10.10.40.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.40.200,end=10.10.40.250 --dns-nameserver 8.8.8.8 --network sriov-mirror sriov-mirroring-subnet
-openstack subnet create --project admin --subnet-range 10.255.240.0/24 --dhcp --ip-version 4 --allocation-pool start=10.255.240.24,end=10.255.240.31 --dns-nameserver 8.8.8.8 --gateway 10.255.240.1 --network management management-subnet
 
+# Create the SRIOV ports, this maps a SRIOV VF to a neutron port
 openstack port create --network sriov-public --vnic-type direct public-sriov-p1
 openstack port create --network sriov-public --vnic-type direct public-sriov-p2
 openstack port create --network sriov-private --vnic-type direct private-sriov-p1
@@ -93,7 +97,7 @@ openstack port create --network sriov-mirror --vnic-type direct mirror-sriov-p1
 openstack port create --network sriov-mirror  --vnic-type direct mirror-sriov-p2
 
 
-
+# Create the DPDK networks and subets
 openstack network create --share --project admin --internal dpdk-net1
 openstack network create --share --project admin --internal dpdk-net2
 openstack network create --share --project admin --internal dpdk-net3
@@ -106,8 +110,6 @@ openstack network create --share --project admin --internal dpdk-net9
 openstack network create --share --project admin --internal dpdk-net10
 openstack network create --share --project admin --internal dpdk-net11
 openstack network create --share --project admin --internal dpdk-net12
-
-
 openstack subnet create --project admin --subnet-range 10.10.110.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.110.230,end=10.10.110.250 --dns-nameserver 8.8.8.8 --network dpdk-net1 dpdk-net1-subnet
 openstack subnet create --project admin --subnet-range 10.10.120.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.120.230,end=10.10.120.250 --dns-nameserver 8.8.8.8 --network dpdk-net2 dpdk-net2-subnet
 openstack subnet create --project admin --subnet-range 10.10.130.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.130.230,end=10.10.130.250 --dns-nameserver 8.8.8.8 --network dpdk-net3 dpdk-net3-subnet
@@ -122,13 +124,7 @@ openstack subnet create --project admin --subnet-range 10.10.210.0/24 --dhcp --i
 openstack subnet create --project admin --subnet-range 10.10.220.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.220.230,end=10.10.220.250 --dns-nameserver 8.8.8.8 --network dpdk-net12 dpdk-net12-subnet
 
 
-
-
-
-
-
-
-
+# Create the following openstack flavors
 openstack flavor create bigip.1G --ram 4096 --disk 100 --vcpus 2
 openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
 openstack flavor create small --ram 2048 --disk 30 --vcpus 1
@@ -137,8 +133,8 @@ openstack flavor create small.dpdk --ram 2048 --disk 30 --vcpus 1
 openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB small.dpdk
 
 
-openstack flavor create bigip.1G.dpdk --ram 4096 --disk 100 --vcpus 2
-openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.1G.dpdk
+openstack flavor create bigip.2cpu.4GB.dpdk --ram 4096 --disk 100 --vcpus 2
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.2cpu.4GB.dpdk
 
 openstack flavor create bigip.8cpu.16GB.dpdk --ram 16384 --disk 100 --vcpus 8
 openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.8cpu.16GB.dpdk
@@ -164,7 +160,7 @@ openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --prope
 
 
 
-openstack image create "bigip.all.15.1.3.1" \
+openstack image create "bigip.all.15.1.3.1.multiqueue-enabled" \
   --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-all.qcow2 \
   --disk-format qcow2 --container-format bare \
   --public
@@ -280,7 +276,7 @@ nova boot --flavor bigip.8cpu.64GB.dpdk --image bigip.all.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
   --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 --nic net-name=dpdk-net6  --nic net-name=dpdk-net7  \
   --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab  bigip.4-dpdk.n1.64gb
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab  bigip.16-dpdk.n1.64GB
 
 
 nova boot --flavor bigip.1G.dpdk --image bigip.all.1-slot.15.1.3.1 \

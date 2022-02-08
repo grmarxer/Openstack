@@ -33,7 +33,7 @@ You can access each overcloud node through the SSH protocol from the undercloud 
 
 ### Build out Openstack flavors, networks, etc.
 
-1. Log in to the undercloud as the stack user.  
+1. Log in to the undercloud director as the stack user.  
 
 2. Cut and paste the following:  
 
@@ -166,3 +166,19 @@ openstack image create "rhel-8.5" \
   --disk-format qcow2 --container-format bare \
   --public
 ```  
+
+<br/>  
+
+### Boot an Openstack Instance  
+
+1.  There are several fields inside the NOVA boot command that you will need to manipulate depending on what you are attempting to achieve, this includes the image, networks, flavor, DPDK, SRIOV, etc.  Below is only an example.  You will need to modify based on your needs.  
+
+ -  DPDK Example - 1 mgmt network, 10 TMM networks, booting on hypervisor vz-osp-computedpdk-0.osp.16.customer.lab, named bigip.5-dpdk.n0.8cpu.16GB  
+
+    ```
+    nova boot --flavor bigip.8cpu.16GB.dpdk --image bigip.all.1-slot.15.1.3.1 \
+      --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+      --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 --nic net-name=dpdk-net6  --nic net-name=dpdk-net7  \
+      --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
+      --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.5-dpdk.n0.8cpu.16GB
+    ```
