@@ -1,24 +1,37 @@
 
-## Source the overcloudrc file  
-
-```
-$ source ~/overcloudrc
-```
+## Building out the Openstack Environment now that the OpenStack cluster has been deployed  
 
 <br/> 
 
-## Accessing overcloud nodes through SSH
+#### Accessing overcloud nodes through SSH
 
-You can access each overcloud node through the SSH protocol.  
+You can access each overcloud node through the SSH protocol from the undercloud director
 
 - Each overcloud node contains a heat-admin user.  
 
 - The stack user on the undercloud has key-based SSH access to the heat-admin user on each overcloud node.  
 
-- All overcloud nodes have a short hostname that the undercloud resolves to an IP address on the control plane network. Each short hostname uses a .ctlplane suffix. For example, the short name for overcloud-controller-0 is overcloud-controller-0.ctlplane  
+- The simpliest way to do this is create alias's on the undercloud director for each node in the openstack cluster
+
+1. Create the following alias's by editing the /home/stack/.bashrc file
+
+    ```
+    vi /home/stack/.bashrc
+    ```
+    ```
+    alias c0="ssh heat-admin@192.168.255.11"
+    alias s0="ssh heat-admin@192.168.255.12"
+    alias s1="ssh heat-admin@192.168.255.13"
+    alias d0="ssh heat-admin@192.168.255.14"
+    alias d1="ssh heat-admin@192.168.255.15"
+    ```  
+
+2.  SSH to a particular node by entering d0 for example.  This will SSH you into DPDK node 0
 
 
-##### Procedure
+<br/>  
+
+##### Build out Openstack flavors, networks, etc.
 
 1. Log in to the undercloud as the stack user.  
 
