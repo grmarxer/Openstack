@@ -17,14 +17,26 @@ note: use "ip netns exec qdhcp-<net_uuid> ip a" to find the tapIF for above.
 
 
 [root@vz-osp-controller-0 ~]# ip netns
-qdhcp-0c8ad7a1-ace7-406f-bc5f-5ac780485fa1 (id: 3)
-qdhcp-3ef12ba3-eafd-421c-a1cb-cbd3480d3582 (id: 2)
-qdhcp-6d9a988d-535f-4fa4-af7e-e6ef0256d675 (id: 1)
-qdhcp-1af0ec3c-c400-41c2-89ef-bede53668065 (id: 0)
+qdhcp-a0b65358-6298-4bd3-b2e8-152f690276a0 (id: 12)
+qdhcp-c1d34bef-80b6-4785-87be-521a1b057ccc (id: 11)
+qdhcp-5b1a83db-c3d0-402a-af31-18c24f38b707 (id: 10)
+qdhcp-70f080f0-6c80-4475-b4d5-4382e7c00825 (id: 9)
+qdhcp-60426b61-f775-4150-b8dd-74dee29c876e (id: 8)
+qdhcp-4af0a4f5-044a-4d6e-8914-17d8e917f14f (id: 7)
+qdhcp-ae99ad7e-9966-4371-a8a0-6723e8b8682e (id: 6)
+qdhcp-c9ab8934-985d-4e7e-b575-8ee4b88dd2b8 (id: 5)
+qdhcp-a6e9b633-cda5-4882-8e84-91545563eb5a (id: 4)
+qdhcp-828bc9e0-b532-4fb9-ac5e-f9a7364d999b (id: 3)
+qdhcp-2c197012-c074-4aaf-ae3b-75ad239257ba (id: 2)
+qdhcp-a4d28fd2-8dee-4b1d-a29f-d558c6091604 (id: 1)
+qdhcp-725b0190-ff26-43d8-890d-de8ded386604 (id: 0)
 
 
-ip netns exec qdhcp-6d9a988d-535f-4fa4-af7e-e6ef0256d675 tcpdump -i tap5bfea021-51 -ne -vvv -w /var/tmp/ID1-trace.pcap
-ip netns exec qdhcp-0c8ad7a1-ace7-406f-bc5f-5ac780485fa1 tcpdump -i tap47b2b7d2-a9 -ne -vvv -w /var/tmp/ID3-trace.pcap
+ID 0: 10.255.240.24  ip netns exec qdhcp-725b0190-ff26-43d8-890d-de8ded386604 tcpdump -i tapb1283661-00 -ne
+ID 1: 10.10.110.230  ip netns exec qdhcp-a4d28fd2-8dee-4b1d-a29f-d558c6091604 tcpdump -i tap5f01a7f4-ad -ne
+ID 2: 10.10.120.230  ip netns exec qdhcp-2c197012-c074-4aaf-ae3b-75ad239257ba tcpdump -i tap26278b4e-d5 -ne
+ID 3: 10.10.130.230  ip netns exec qdhcp-828bc9e0-b532-4fb9-ac5e-f9a7364d999b tcpdump -i tapddd90d4d-f2 -ne
+
 
 ############################################################################################################
 
@@ -121,6 +133,12 @@ openstack flavor create bigip.1G --ram 4096 --disk 100 --vcpus 2
 openstack flavor create bigip.10G --ram 16384 --disk 100 --vcpus 8
 openstack flavor create small --ram 2048 --disk 30 --vcpus 1
 
+openstack flavor create small.dpdk --ram 2048 --disk 30 --vcpus 1
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB small.dpdk
+
+
+openstack flavor create bigip.1G.dpdk --ram 4096 --disk 100 --vcpus 2
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.1G.dpdk
 
 openstack flavor create bigip.8cpu.16GB.dpdk --ram 16384 --disk 100 --vcpus 8
 openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.8cpu.16GB.dpdk
@@ -130,6 +148,9 @@ openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --prope
 
 openstack flavor create bigip.8cpu.64GB.dpdk --ram 65536 --disk 100 --vcpus 8
 openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.8cpu.64GB.dpdk
+
+openstack flavor create bigip.2cpu.8GB.dpdk --ram 8192 --disk 100 --vcpus 2
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.2cpu.8GB.dpdk
 
 
 ############################################################
@@ -156,11 +177,17 @@ openstack image create "bigip.ltm.1-slot.15.1.3.1" \
 openstack image set --property hw_vif_multiqueue_enabled=true bigip.ltm.1-slot.15.1.3.1
 
 
+openstack image create "bigip.all.1-slot.15.1.3.1" \
+  --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-all-1slot.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+openstack image set --property hw_vif_multiqueue_enabled=true bigip.all.1-slot.15.1.3.1
+
 openstack image create "rhel-8.5" \
   --file /home/stack/images/rhel-8.5-x86_64-kvm.qcow2 \
   --disk-format qcow2 --container-format bare \
   --public
-
+openstack image set --property hw_vif_multiqueue_enabled=true rhel-8.5
 
 
 openstack image create "centos.stream.8" \
@@ -237,21 +264,67 @@ nova boot --flavor bigip.10G.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
   --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.3-dpdk.n0
   
 
-nova boot --flavor bigip.8cpu.16GB.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
+nova boot --flavor bigip.8cpu.16GB.dpdk --image bigip.all.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 \
   --nic net-name=dpdk-net6  --nic net-name=dpdk-net7 --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.3-dpdk.n0.8cpu.16GB
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.5-dpdk.n0.8cpu.16GB
   
-nova boot --flavor bigip.8cpu.32GB.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
-  --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 \
-  --nic net-name=dpdk-net6  --nic net-name=dpdk-net7 --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.5-dpdk.n0.8cpu.32GB
+nova boot --flavor bigip.8cpu.32GB.dpdk --image bigip.all.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 --nic net-name=dpdk-net6  --nic net-name=dpdk-net7  \
+  --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.11-dpdk.n0.32GB
   
 
-nova boot --flavor bigip.8cpu.64GB.dpdk --image bigip.ltm.1-slot.15.1.3.1 \
-  --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 \
-  --nic net-name=dpdk-net6  --nic net-name=dpdk-net7 --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab   bigip.6-dpdk.n1.8cpu.64GB
+nova boot --flavor bigip.8cpu.64GB.dpdk --image bigip.all.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 --nic net-name=dpdk-net6  --nic net-name=dpdk-net7  \
+  --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab  bigip.4-dpdk.n1.64gb
+
+
+nova boot --flavor bigip.1G.dpdk --image bigip.all.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab  bigip.6.1G.dpdk
+  
+nova boot --flavor bigip.1G.dpdk --image bigip.all.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab  bigip.13.n0.1G.dpdk
+
+
+nova boot --flavor small --image rhel-8.5 --key-name marxer \
+  --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab  rhel-1.dpdk.n0
+  
+nova boot --flavor small --image cirros-0.5.2-x86_64 --key-name marxer \
+  --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab  cirros-1.dpdk.n0
+
+nova boot --flavor small --image rhel-8.5 --key-name marxer \
+  --nic net-name=management --nic net-name=dpdk-net2 --nic net-name=dpdk-net1 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-0.osp.16.customer.lab  rhel-3.sriov.n0
+  
+nova boot --flavor small.dpdk --image rhel-8.5 --key-name marxer \
+  --nic net-name=management --nic net-name=dpdk-net2 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab  rhel-5.dpdk.n1
+  
+nova boot --flavor small.dpdk --image rhel-8.5 --key-name marxer \
+   --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 --nic net-name=dpdk-net6  --nic net-name=dpdk-net7  \
+  --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab  rhel-8.dpdk.n0
+
+
+nova boot --flavor bigip.8cpu.64GB.dpdk --image rhel-8.5 --key-name marxer \
+   --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 --nic net-name=dpdk-net6  --nic net-name=dpdk-net7  \
+  --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab  rhel-11.dpdk.n1.8cpu.64gb
+  
+nova boot --flavor bigip.2cpu.8GB.dpdk --image bigip.ltm.1-slot.15.1.3.1 --key-name marxer \
+  --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab  bigip-13.dpdk.n1.2cpu.8gb
+
 
 
 
@@ -317,9 +390,16 @@ openstack image create --public --protected --disk-format raw --file /home/stack
 
 
 
-tmsh create net self dpdk-net1 address 10.10.110.248/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net2 address 10.10.120.244/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net3 address 10.10.130.244/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net1 address 10.10.110.233/24 vlan vnic1 allow-service default
+tmsh create net self dpdk-net2 address 10.10.120.249/24 vlan vnic2 allow-service default
+tmsh create net self dpdk-net3 address 10.10.130.238/24 vlan vnic3 allow-service default
+tmsh create net self dpdk-net4 address 10.10.140.241/24 vlan vnic4 allow-service default
+tmsh create net self dpdk-net5 address 10.10.150.233/24 vlan vnic5 allow-service default
+tmsh create net self dpdk-net6 address 10.10.160.233/24 vlan vnic6 allow-service default
+tmsh create net self dpdk-net7 address 10.10.170.248/24 vlan vnic7 allow-service default
+tmsh create net self dpdk-net8 address 10.10.180.247/24 vlan vnic8 allow-service default
+tmsh create net self dpdk-net9 address 10.10.190.250/24 vlan vnic9 allow-service default
+tmsh create net self dpdk-net10 address 10.10.200.237/24 vlan vnic10 allow-service default
 tmsh save sys config
 
 
@@ -327,6 +407,7 @@ tmsh modify auth password-policy policy-enforcement disabled
 tmsh modify auth password root
 tmsh modify auth password admin
 tmsh modify sys global-settings gui-setup disabled
+tmsh save sys config
 
 tmsh modify sys global-settings hostname bigip-3.com
 tmsh mv cm device bigip1 bigip-3
