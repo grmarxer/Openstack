@@ -176,9 +176,20 @@ openstack image create "rhel-8.5" \
  -  DPDK Example - 1 mgmt network, 10 TMM networks, booting on hypervisor vz-osp-computedpdk-0.osp.16.customer.lab, named bigip.5-dpdk.n0.8cpu.16GB  
 
     ```
-    nova boot --flavor bigip.8cpu.16GB.dpdk --image bigip.all.1-slot.15.1.3.1 \
+    nova boot --flavor bigip.8cpu.16GB.dpdk --image bigip.all.1-slot.15.1.3.1.multiqueue-enabled \
       --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
       --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 --nic net-name=dpdk-net6  --nic net-name=dpdk-net7  \
       --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
       --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.5-dpdk.n0.8cpu.16GB
     ```
+
+-  SRIOV Example - Each NIC has to be the UUID for the neutron port your created mapping the SRIOV VF
+
+   ```
+   nova boot --flavor bigip.8cpu.16GB --image bigip.all.1-slot.15.1.3.1 \
+    --nic net-name=management --nic port-id=7beeb8cb-0d63-49e8-a11b-b9de94ca7a73 \
+    --nic port-id=080e4074-e41b-44e7-a820-dc985871f2f0 --nic port-id=668d221d-1bf0-44dd-ad6c-3edd1d3edd7f \
+    --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab bigip.6-sriov.s1.8cpu.16GB
+   ```  
+
+   
