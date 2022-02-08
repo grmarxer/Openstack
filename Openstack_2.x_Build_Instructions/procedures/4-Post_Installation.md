@@ -22,46 +22,131 @@ You can access each overcloud node through the SSH protocol.
 
 1. Log in to the undercloud as the stack user.  
 
-2. Source the overcloudrc file:  
-    ```
-    $ source ~/stackrc
-    ```
-
-3. Find the name of the node that you want to access:  
-    ```
-    (undercloud) $ openstack server list
-    ```  
-
-    ```
-    (undercloud) [stack@osp16-undercloud ~]$ openstack server list
-    +--------------------------------------+-----------------------+--------+-------------------------+----------------+-----------+
-    | ID                                   | Name                  | Status | Networks                | Image          | Flavor    |
-    +--------------------------------------+-----------------------+--------+-------------------------+----------------+-----------+
-    | 1df68cc2-fce9-48c7-8976-e1404018051c | vz-osp-controller-0   | ACTIVE | ctlplane=192.168.255.24 | overcloud-full | baremetal |
-    | 429e1514-eecf-44b3-94d3-46485e5f4b22 | vz-osp-computedpdk-1  | ACTIVE | ctlplane=192.168.255.23 | overcloud-full | baremetal |
-    | 2a12ee7f-30a4-4234-b0d7-60657e8355d6 | vz-osp-computesriov-0 | ACTIVE | ctlplane=192.168.255.37 | overcloud-full | baremetal |
-    | 5ff529f6-8654-4c11-991f-3e09780577a9 | vz-osp-computedpdk-0  | ACTIVE | ctlplane=192.168.255.15 | overcloud-full | baremetal |
-    | 4daced04-6bb6-4d07-bf11-e32cad16e2bf | vz-osp-computesriov-1 | ACTIVE | ctlplane=192.168.255.31 | overcloud-full | baremetal |
-    +--------------------------------------+-----------------------+--------+-------------------------+----------------+-----------+
-    ```  
-
-4. Connect to the node as the heat-admin user and use the IP or short hostname of the node:  
-    ```
-    (undercloud) $ ssh heat-admin@192.168.255.24
-    ```  
-
-
-<br/> 
-
-<br/> 
-
-<br/> 
+2. Cut and paste the following:  
 
 ```
-(overcloud) [stack@osp16-undercloud ~]$ openstack user create --password default grmarxer
+# Source the overcloud credentials to configure the Openstack instance
+cd
+source overcloudrc
+
+
+# Create a backup user, admin-backup, and set the admin-backup password
+openstack user create --password default admin-backup
+openstack role add --user admin-backup --project admin admin
+
+
+# Set the quotas for the numbers of cores, RAM, and instances inside the admin project
+openstack quota set --cores 80 admin
+openstack quota set --ram 196608 admin
+openstack quota set --instances 20 admin
+
+
+# Create the security groups that we will assign to the instances.  These allow all traffic
+openstack security group create permit.all
+openstack security group rule create --ingress --ethertype IPv4 --protocol icmp permit.all
+openstack security group rule create --ingress --ethertype IPv4 --protocol tcp permit.all  
+openstack security group rule create --ingress --ethertype IPv4 --protocol udp permit.all
+
+
+# Create the management network and subnet.  This network attaches to vlan 1150 which has external connectivity.
+# this is the network that you will use for the BIG-IP management ports
+openstack network create --share --project admin --external --provider-network-type vlan --provider-physical-network management --provider-segment 1150 management
+openstack subnet create --project admin --subnet-range 10.255.240.0/24 --dhcp --ip-version 4 --allocation-pool start=10.255.240.24,end=10.255.240.31 --dns-nameserver 8.8.8.8 --gateway 10.255.240.1 --network management management-subnet
+
+
+# Create the SRIOV networks and subnets.  There are 3 SRIOV networks sriov-public, sriov-private, and sriov-mirror
+openstack network create --share --project admin --external --provider-network-type flat --provider-physical-network sriov-public sriov-public
+openstack network create --share --project admin --internal --provider-network-type flat --provider-physical-network sriov-private sriov-private
+openstack network create --share --project admin --internal --provider-network-type flat --provider-physical-network sriov-mirror sriov-mirror
+openstack subnet create --project admin --subnet-range 10.10.20.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.20.200,end=10.10.20.250 --dns-nameserver 8.8.8.8 --network sriov-public sriov-public-subnet
+openstack subnet create --project admin --subnet-range 10.10.30.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.30.200,end=10.10.30.250 --dns-nameserver 8.8.8.8 --network sriov-private sriov-private-subnet
+openstack subnet create --project admin --subnet-range 10.10.40.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.40.200,end=10.10.40.250 --dns-nameserver 8.8.8.8 --network sriov-mirror sriov-mirroring-subnet
+
+
+# Create the SRIOV ports, this maps a SRIOV VF to a neutron port
+openstack port create --network sriov-public --vnic-type direct public-sriov-p1
+openstack port create --network sriov-public --vnic-type direct public-sriov-p2
+openstack port create --network sriov-private --vnic-type direct private-sriov-p1
+openstack port create --network sriov-private --vnic-type direct private-sriov-p2
+openstack port create --network sriov-mirror --vnic-type direct mirror-sriov-p1
+openstack port create --network sriov-mirror  --vnic-type direct mirror-sriov-p2
+
+
+# Create the DPDK networks and subets
+openstack network create --share --project admin --internal dpdk-net1
+openstack network create --share --project admin --internal dpdk-net2
+openstack network create --share --project admin --internal dpdk-net3
+openstack network create --share --project admin --internal dpdk-net4
+openstack network create --share --project admin --internal dpdk-net5
+openstack network create --share --project admin --internal dpdk-net6
+openstack network create --share --project admin --internal dpdk-net7
+openstack network create --share --project admin --internal dpdk-net8
+openstack network create --share --project admin --internal dpdk-net9
+openstack network create --share --project admin --internal dpdk-net10
+openstack network create --share --project admin --internal dpdk-net11
+openstack network create --share --project admin --internal dpdk-net12
+openstack subnet create --project admin --subnet-range 10.10.110.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.110.230,end=10.10.110.250 --dns-nameserver 8.8.8.8 --network dpdk-net1 dpdk-net1-subnet
+openstack subnet create --project admin --subnet-range 10.10.120.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.120.230,end=10.10.120.250 --dns-nameserver 8.8.8.8 --network dpdk-net2 dpdk-net2-subnet
+openstack subnet create --project admin --subnet-range 10.10.130.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.130.230,end=10.10.130.250 --dns-nameserver 8.8.8.8 --network dpdk-net3 dpdk-net3-subnet
+openstack subnet create --project admin --subnet-range 10.10.140.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.140.230,end=10.10.140.250 --dns-nameserver 8.8.8.8 --network dpdk-net4 dpdk-net4-subnet
+openstack subnet create --project admin --subnet-range 10.10.150.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.150.230,end=10.10.150.250 --dns-nameserver 8.8.8.8 --network dpdk-net5 dpdk-net5-subnet
+openstack subnet create --project admin --subnet-range 10.10.160.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.160.230,end=10.10.160.250 --dns-nameserver 8.8.8.8 --network dpdk-net6 dpdk-net6-subnet
+openstack subnet create --project admin --subnet-range 10.10.170.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.170.230,end=10.10.170.250 --dns-nameserver 8.8.8.8 --network dpdk-net7 dpdk-net7-subnet
+openstack subnet create --project admin --subnet-range 10.10.180.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.180.230,end=10.10.180.250 --dns-nameserver 8.8.8.8 --network dpdk-net8 dpdk-net8-subnet
+openstack subnet create --project admin --subnet-range 10.10.190.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.190.230,end=10.10.190.250 --dns-nameserver 8.8.8.8 --network dpdk-net9 dpdk-net9-subnet
+openstack subnet create --project admin --subnet-range 10.10.200.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.200.230,end=10.10.200.250 --dns-nameserver 8.8.8.8 --network dpdk-net10 dpdk-net10-subnet
+openstack subnet create --project admin --subnet-range 10.10.210.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.210.230,end=10.10.210.250 --dns-nameserver 8.8.8.8 --network dpdk-net11 dpdk-net11-subnet
+openstack subnet create --project admin --subnet-range 10.10.220.0/24 --dhcp --ip-version 4 --allocation-pool start=10.10.220.230,end=10.10.220.250 --dns-nameserver 8.8.8.8 --network dpdk-net12 dpdk-net12-subnet
+
+
+# Create the following openstack flavors
+openstack flavor create bigip.2cpu.4GB --ram 4096 --disk 100 --vcpus 2
+openstack flavor create bigip.8cpu.16GB --ram 16384 --disk 100 --vcpus 8
+openstack flavor create bigip.2cpu.4GB.dpdk --ram 4096 --disk 100 --vcpus 2
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.2cpu.4GB.dpdk
+openstack flavor create bigip.8cpu.16GB.dpdk --ram 16384 --disk 100 --vcpus 8
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.8cpu.16GB.dpdk
+openstack flavor create bigip.8cpu.32GB.dpdk --ram 32768 --disk 100 --vcpus 8
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.8cpu.32GB.dpdk
+openstack flavor create bigip.8cpu.64GB.dpdk --ram 65536 --disk 100 --vcpus 8
+openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.8cpu.64GB.dpdk
+
+
+# Create the following images to use for guest instances, there are images with and with multiqueue enabled
+# best to cut and paste these one at a time, only proceeding after the previous completes
+
+openstack image create "bigip.all.15.1.3.1.multiqueue-enabled" \
+  --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-all.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+openstack image set --property hw_vif_multiqueue_enabled=true bigip.all.15.1.3.1.multiqueue-enabled
+
+openstack image create "bigip.all.15.1.3.1" \
+  --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-all.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+
+openstack image create "bigip.all.1-slot.15.1.3.1.multiqueue-enabled" \
+  --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-all-1slot.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+openstack image set --property hw_vif_multiqueue_enabled=true bigip.all.1-slot.15.1.3.1.multiqueue-enabled
+
+openstack image create "bigip.all.1-slot.15.1.3.1" \
+  --file /home/stack/images/BIGIP-15.1.3.1-0.0.18-all-1slot.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+openstack image set --property hw_vif_multiqueue_enabled=true bigip.all.1-slot.15.1.3.1
+
+openstack image create "rhel-8.5.multiqueue-enabled" \
+  --file /home/stack/images/rhel-8.5-x86_64-kvm.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+openstack image set --property hw_vif_multiqueue_enabled=true rhel-8.5.multiqueue-enabled
+
+openstack image create "rhel-8.5" \
+  --file /home/stack/images/rhel-8.5-x86_64-kvm.qcow2 \
+  --disk-format qcow2 --container-format bare \
+  --public
+openstack image set --property hw_vif_multiqueue_enabled=true rhel-8.5
 ```  
-
-```
-openstack role add --user grmarxer --project admin admin
-```
-
