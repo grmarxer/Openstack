@@ -40,32 +40,35 @@ Director requires a node definition template, which you create manually. This te
     (undercloud) $ openstack baremetal node list
     ```  
     ```
-    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal node list
     +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
     | UUID                                 | Name              | Instance UUID | Power State | Provisioning State | Maintenance |
     +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
-    | 3dcdfc03-2209-4b39-95ed-c3f5aa83f4b3 | compute1-intel    | None          | power on    | manageable         | False       |
-    | fd8cb86e-1b85-44a1-84bc-bf144de71481 | compute2-intel    | None          | power on    | manageable         | False       |
-    | a464f58c-2af3-4d9b-a10e-66eadf9e085a | compute3-mellanox | None          | power on    | manageable         | False       |
-    | 6fd40403-fd4f-41c0-811a-7f94a5cc1d7f | compute4-mellanox | None          | power on    | manageable         | False       |
-    | a753d67e-072d-4500-bc14-965822fa4089 | controller        | None          | power on    | manageable         | False       |
+    | d9c7b888-e8cb-4138-8d96-01622404083b | compute1-intel    | None          | power off   | manageable         | False       |
+    | 33289e93-a5d2-42c5-8b56-77d9b81bfe63 | compute2-intel    | None          | power off   | manageable         | False       |
+    | a1413665-f552-4432-9a9f-e1421e0752e6 | compute3-mellanox | None          | power off   | manageable         | False       |
+    | 44c66422-e932-4946-b2e4-a8819fa1429a | compute4-mellanox | None          | power off   | manageable         | False       |
+    | 4c81f8f2-22ef-4481-b621-57d485988007 | controller        | None          | power off   | manageable         | False       |
+    | 36290595-cebb-4181-b9bc-98733af3c2ea | compute5-N3000    | None          | power on    | manageable         | False       |
+    | 5bfbb52f-b187-4477-9df8-0b1ee154a872 | compute6-N3000    | None          | power on    | manageable         | False       |
     +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
     ```  
 
 5.  Also confirm that the MAC addresses are correct for each node.  This is the MAC of the provisioning network.  
 
-    __NOTE:__ The physical_network must be `ctlplane` and not the name of the interface found in ifconfig  
+    __NOTE:__ The physical_network must be `ctlplane` and not the name of the interface found in ifconfig.    
     
     ```
     (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port list
     +--------------------------------------+-------------------+
     | UUID                                 | Address           |
     +--------------------------------------+-------------------+
-    | fee46fa9-1b6d-4070-9bd1-22d991a26fe0 | b0:26:28:3e:73:11 |
-    | 567bc2b0-1ace-4d86-8be3-7eccd69b0db7 | b0:26:28:3b:71:a1 |
-    | 769c785e-a6a0-421c-b3cd-0de6f77ce969 | b0:26:28:44:91:41 |
-    | 9c7f2ae4-9afb-4402-a971-a90149e2f938 | b0:26:28:45:fd:81 |
-    | 4b3f1224-eda5-4c29-a91d-28afe08f0f93 | 14:18:77:70:0c:fa |
+    | 20e64261-fd5a-4fe7-bc8c-59327eec2247 | b0:26:28:3e:73:11 |
+    | cc15de27-32be-4978-9f24-fe95fd881606 | b0:26:28:3b:71:a1 |
+    | bc4a0a6c-7e83-4a9a-a9f5-707ab67c7410 | b0:26:28:44:91:41 |
+    | db2bda8e-221f-4bc0-b26b-6c265e93d117 | b0:26:28:45:fd:81 |
+    | 44b4c240-24a0-49dd-96c0-a983d49ea0f0 | 14:18:77:70:0c:fa |
+    | a9228f08-a8b1-43c9-b759-560dd59f1593 | b4:05:5d:b8:38:93 |
+    | e1ec07a4-b832-4a02-b95c-bcca18b6a358 | b4:05:5d:b8:38:af |
     +--------------------------------------+-------------------+
     (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show fee46fa9-1b6d-4070-9bd1-22d991a26fe0
     +-----------------------+--------------------------------------+
@@ -85,73 +88,6 @@ Director requires a node definition template, which you create manually. This te
     | uuid                  | fee46fa9-1b6d-4070-9bd1-22d991a26fe0 |
     +-----------------------+--------------------------------------+
     (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show 567bc2b0-1ace-4d86-8be3-7eccd69b0db7
-    +-----------------------+--------------------------------------+
-    | Field                 | Value                                |
-    +-----------------------+--------------------------------------+
-    | address               | b0:26:28:3b:71:a1                    |
-    | created_at            | 2021-10-12T18:14:04+00:00            |
-    | extra                 | {}                                   |
-    | internal_info         | {}                                   |
-    | is_smartnic           | False                                |
-    | local_link_connection | {}                                   |
-    | node_uuid             | fd8cb86e-1b85-44a1-84bc-bf144de71481 |
-    | physical_network      | ctlplane                             |
-    | portgroup_uuid        | None                                 |
-    | pxe_enabled           | True                                 |
-    | updated_at            | None                                 |
-    | uuid                  | 567bc2b0-1ace-4d86-8be3-7eccd69b0db7 |
-    +-----------------------+--------------------------------------+
-    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show 769c785e-a6a0-421c-b3cd-0de6f77ce969
-    +-----------------------+--------------------------------------+
-    | Field                 | Value                                |
-    +-----------------------+--------------------------------------+
-    | address               | b0:26:28:44:91:41                    |
-    | created_at            | 2021-10-12T18:14:05+00:00            |
-    | extra                 | {}                                   |
-    | internal_info         | {}                                   |
-    | is_smartnic           | False                                |
-    | local_link_connection | {}                                   |
-    | node_uuid             | a464f58c-2af3-4d9b-a10e-66eadf9e085a |
-    | physical_network      | ctlplane                             |
-    | portgroup_uuid        | None                                 |
-    | pxe_enabled           | True                                 |
-    | updated_at            | None                                 |
-    | uuid                  | 769c785e-a6a0-421c-b3cd-0de6f77ce969 |
-    +-----------------------+--------------------------------------+
-    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show 9c7f2ae4-9afb-4402-a971-a90149e2f938
-    +-----------------------+--------------------------------------+
-    | Field                 | Value                                |
-    +-----------------------+--------------------------------------+
-    | address               | b0:26:28:45:fd:81                    |
-    | created_at            | 2021-10-12T18:14:06+00:00            |
-    | extra                 | {}                                   |
-    | internal_info         | {}                                   |
-    | is_smartnic           | False                                |
-    | local_link_connection | {}                                   |
-    | node_uuid             | 6fd40403-fd4f-41c0-811a-7f94a5cc1d7f |
-    | physical_network      | ctlplane                             |
-    | portgroup_uuid        | None                                 |
-    | pxe_enabled           | True                                 |
-    | updated_at            | None                                 |
-    | uuid                  | 9c7f2ae4-9afb-4402-a971-a90149e2f938 |
-    +-----------------------+--------------------------------------+
-    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show 4b3f1224-eda5-4c29-a91d-28afe08f0f93
-    +-----------------------+--------------------------------------+
-    | Field                 | Value                                |
-    +-----------------------+--------------------------------------+
-    | address               | 14:18:77:70:0c:fa                    |
-    | created_at            | 2021-10-12T18:14:06+00:00            |
-    | extra                 | {}                                   |
-    | internal_info         | {}                                   |
-    | is_smartnic           | False                                |
-    | local_link_connection | {}                                   |
-    | node_uuid             | a753d67e-072d-4500-bc14-965822fa4089 |
-    | physical_network      | ctlplane                             |
-    | portgroup_uuid        | None                                 |
-    | pxe_enabled           | True                                 |
-    | updated_at            | None                                 |
-    | uuid                  | 4b3f1224-eda5-4c29-a91d-28afe08f0f93 |
-    +-----------------------+--------------------------------------+
     ```  
 
 
@@ -212,15 +148,18 @@ The undercloud director can run an introspection process on each node. This proc
 
     ```
     (undercloud) [stack@osp16-undercloud ~]$ openstack baremetal node list
-    +--------------------------------------+----------------+---------------+-------------+--------------------+-------------+
-    | UUID                                 | Name           | Instance UUID | Power State | Provisioning State | Maintenance |
-    +--------------------------------------+----------------+---------------+-------------+--------------------+-------------+
-    | 199a6ae0-c39a-4bfa-ad23-54280a3bac38 | compute1-intel | None          | power on    | manageable         | False       |
-    | 5115e19f-9b81-44ca-8423-b3b1949807e5 | compute2-intel | None          | power on    | manageable         | False       |
-    | e2645014-ebed-4184-ae01-c782823b100a | compute3-mel   | None          | power on    | manageable         | False       |
-    | 10e49aaa-fdd2-49dc-b009-0da398b4f5d7 | compute4-mel   | None          | power on    | manageable         | False       |
-    | 3d19a65f-6699-484a-9298-c63c5d9068fe | controller     | None          | power on    | manageable         | False       |
-    +--------------------------------------+----------------+---------------+-------------+--------------------+-------------+
+    +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
+    | UUID                                 | Name              | Instance UUID | Power State | Provisioning State | Maintenance |
+    +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
+    | d9c7b888-e8cb-4138-8d96-01622404083b | compute1-intel    | None          | power off   | manageable         | False       |
+    | 33289e93-a5d2-42c5-8b56-77d9b81bfe63 | compute2-intel    | None          | power off   | manageable         | False       |
+    | a1413665-f552-4432-9a9f-e1421e0752e6 | compute3-mellanox | None          | power off   | manageable         | False       |
+    | 44c66422-e932-4946-b2e4-a8819fa1429a | compute4-mellanox | None          | power off   | manageable         | False       |
+    | 4c81f8f2-22ef-4481-b621-57d485988007 | controller        | None          | power off   | manageable         | False       |
+    | 36290595-cebb-4181-b9bc-98733af3c2ea | compute5-N3000    | None          | power on    | manageable         | False       |
+    | 5bfbb52f-b187-4477-9df8-0b1ee154a872 | compute6-N3000    | None          | power on    | manageable         | False       |
+    +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
+
     ```  
     <br/> 
 
@@ -340,16 +279,18 @@ The undercloud director can run an introspection process on each node. This proc
     (undercloud) [stack@osp16-undercloud ~]$ openstack overcloud node introspect --all-manageable --provide
     Waiting for introspection to finish...
     Waiting for messages on queue 'tripleo' with no timeout.
-    Introspection of node completed:3dcdfc03-2209-4b39-95ed-c3f5aa83f4b3. Status:SUCCESS. Errors:None
-    Introspection of node completed:fd8cb86e-1b85-44a1-84bc-bf144de71481. Status:SUCCESS. Errors:None
-    Introspection of node completed:a464f58c-2af3-4d9b-a10e-66eadf9e085a. Status:SUCCESS. Errors:None
-    Introspection of node completed:6fd40403-fd4f-41c0-811a-7f94a5cc1d7f. Status:SUCCESS. Errors:None
-    Introspection of node completed:a753d67e-072d-4500-bc14-965822fa4089. Status:SUCCESS. Errors:None
-    Successfully introspected 5 node(s).
+    Introspection of node completed:4c81f8f2-22ef-4481-b621-57d485988007. Status:SUCCESS. Errors:None
+    Introspection of node completed:5bfbb52f-b187-4477-9df8-0b1ee154a872. Status:SUCCESS. Errors:None
+    Introspection of node completed:44c66422-e932-4946-b2e4-a8819fa1429a. Status:SUCCESS. Errors:None
+    Introspection of node completed:a1413665-f552-4432-9a9f-e1421e0752e6. Status:SUCCESS. Errors:None
+    Introspection of node completed:36290595-cebb-4181-b9bc-98733af3c2ea. Status:SUCCESS. Errors:None
+    Introspection of node completed:d9c7b888-e8cb-4138-8d96-01622404083b. Status:SUCCESS. Errors:None
+    Introspection of node completed:33289e93-a5d2-42c5-8b56-77d9b81bfe63. Status:SUCCESS. Errors:None
+    Successfully introspected 7 node(s).
 
     Introspection completed.
     Waiting for messages on queue 'tripleo' with no timeout.
-    5 node(s) successfully moved to the "available" state.
+    7 node(s) successfully moved to the "available" state.
     ```  
 
 7.  Issue the `openstack baremetal node list` command again.  This is the desired result.  Provisioning state will transition to `available` and the nodes will be powered off.  
@@ -359,11 +300,13 @@ The undercloud director can run an introspection process on each node. This proc
     +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
     | UUID                                 | Name              | Instance UUID | Power State | Provisioning State | Maintenance |
     +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
-    | 3dcdfc03-2209-4b39-95ed-c3f5aa83f4b3 | compute1-intel    | None          | power off   | available          | False       |
-    | fd8cb86e-1b85-44a1-84bc-bf144de71481 | compute2-intel    | None          | power off   | available          | False       |
-    | a464f58c-2af3-4d9b-a10e-66eadf9e085a | compute3-mellanox | None          | power off   | available          | False       |
-    | 6fd40403-fd4f-41c0-811a-7f94a5cc1d7f | compute4-mellanox | None          | power off   | available          | False       |
-    | a753d67e-072d-4500-bc14-965822fa4089 | controller        | None          | power off   | available          | False       |
+    | d9c7b888-e8cb-4138-8d96-01622404083b | compute1-intel    | None          | power off   | available          | False       |
+    | 33289e93-a5d2-42c5-8b56-77d9b81bfe63 | compute2-intel    | None          | power off   | available          | False       |
+    | a1413665-f552-4432-9a9f-e1421e0752e6 | compute3-mellanox | None          | power off   | available          | False       |
+    | 44c66422-e932-4946-b2e4-a8819fa1429a | compute4-mellanox | None          | power off   | available          | False       |
+    | 4c81f8f2-22ef-4481-b621-57d485988007 | controller        | None          | power off   | available          | False       |
+    | 36290595-cebb-4181-b9bc-98733af3c2ea | compute5-N3000    | None          | power off   | available          | False       |
+    | 5bfbb52f-b187-4477-9df8-0b1ee154a872 | compute6-N3000    | None          | power off   | available          | False       |
     +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
     ```  
 
