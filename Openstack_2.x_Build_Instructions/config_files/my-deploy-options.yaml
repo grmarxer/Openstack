@@ -27,7 +27,7 @@ parameter_defaults:
   
   # This should be the hostname pattern used for computes
   #ComputeHostnameFormat: '%stackname%-comp-%index%'
-  ComputeSriovN3000SmartNicHostnameFormat: 'vz-osp-computeN3000-%index%'
+  ComputeSriovN3000SmartNicHostnameFormat: 'vz-osp-compute-N3000-%index%'
 
   # This should be the scheduler hint set on the baremetal node to designate
   # to be provisioned as a controller
@@ -52,7 +52,7 @@ parameter_defaults:
   # This should be the scheduler hint set on the baremetal node to designate
   # to be provisioned as a compute
   #ComputeSchedulerHints: {'capabilities:node': 'compute-%index%'}
-  ComputeSriovN3000SmartNicSchedulerHints: {'capabilities:node': 'vz-osp-computeN3000-%index%'}
+  ComputeSriovN3000SmartNicSchedulerHints: {'capabilities:node': 'vz-osp-compute-N3000-%index%'}
 
   # Using scheduler hints not flavors
   # Undercloud nova flavor used for controllers

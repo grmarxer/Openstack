@@ -393,8 +393,8 @@ However in some circumstances, you may wish to control node placement more direc
     openstack baremetal node set --property capabilities="node:vz-osp-computesriov-1,boot_option:local" compute2-intel
     openstack baremetal node set --property capabilities="node:vz-osp-computedpdk-0,boot_option:local" compute3-mellanox
     openstack baremetal node set --property capabilities="node:vz-osp-computedpdk-1,boot_option:local" compute4-mellanox
-    openstack baremetal node set --property capabilities="node:vz-osp-computeN3000-0,boot_option:local" compute5-N3000
-    openstack baremetal node set --property capabilities="node:vz-osp-computeN3000-1,boot_option:local" compute6-N3000
+    openstack baremetal node set --property capabilities="node:vz-osp-compute-N3000-0,boot_option:local" compute5-N3000
+    openstack baremetal node set --property capabilities="node:vz-osp-compute-N3000-1,boot_option:local" compute6-N3000
     ```  
 
 2.   After you assign the per-node capability to each node, verify it was set properly.  Example below for the controller  
