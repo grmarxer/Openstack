@@ -55,7 +55,7 @@ Director requires a node definition template, which you create manually. This te
 
 5.  Also confirm that the MAC addresses are correct for each node.  This is the MAC of the provisioning network.  
 
-    __NOTE:__ The physical_network must be `ctlplane` and not the name of the interface found in ifconfig.    
+    __NOTE:__ The physical_network must be `ctlplane` and not the name of the interface found in ifconfig.  Single example below `openstack baremetal port show 20e64261-fd5a-4fe7-bc8c-59327eec2247`
     
     ```
     (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port list
@@ -70,7 +70,7 @@ Director requires a node definition template, which you create manually. This te
     | a9228f08-a8b1-43c9-b759-560dd59f1593 | b4:05:5d:b8:38:93 |
     | e1ec07a4-b832-4a02-b95c-bcca18b6a358 | b4:05:5d:b8:38:af |
     +--------------------------------------+-------------------+
-    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show fee46fa9-1b6d-4070-9bd1-22d991a26fe0
+    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show 20e64261-fd5a-4fe7-bc8c-59327eec2247
     +-----------------------+--------------------------------------+
     | Field                 | Value                                |
     +-----------------------+--------------------------------------+
@@ -80,14 +80,13 @@ Director requires a node definition template, which you create manually. This te
     | internal_info         | {}                                   |
     | is_smartnic           | False                                |
     | local_link_connection | {}                                   |
-    | node_uuid             | 3dcdfc03-2209-4b39-95ed-c3f5aa83f4b3 |
+    | node_uuid             | d9c7b888-e8cb-4138-8d96-01622404083b |
     | physical_network      | ctlplane                             |
     | portgroup_uuid        | None                                 |
     | pxe_enabled           | True                                 |
     | updated_at            | None                                 |
-    | uuid                  | fee46fa9-1b6d-4070-9bd1-22d991a26fe0 |
+    | uuid                  | 20e64261-fd5a-4fe7-bc8c-59327eec2247 |
     +-----------------------+--------------------------------------+
-    (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show 567bc2b0-1ace-4d86-8be3-7eccd69b0db7
     ```  
 
 
