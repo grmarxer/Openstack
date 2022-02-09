@@ -28,6 +28,10 @@ You can access each overcloud node through the SSH protocol from the undercloud 
     alias n1="ssh heat-admin@192.168.255.17"
     ```  
 
+    ```
+    exec bash
+    ```  
+
 2.  SSH to a particular node by entering d0 for example.  This will SSH you into DPDK node 0
 
 

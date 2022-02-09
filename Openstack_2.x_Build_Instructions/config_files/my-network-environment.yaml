@@ -208,7 +208,7 @@ parameter_defaults:
   #RedisVirtualFixedIPs: [{'ip_address':'172.16.20.58'}]
   
   # This will set the IP on the external network that will be assigned to the Dashboard and Public API
-  PublicVirtualFixedIPs: [{'ip_address':'10.255.240.16'}]
+  PublicVirtualFixedIPs: [{'ip_address':'10.255.240.200'}]
 
 
   # Predictable IPs
