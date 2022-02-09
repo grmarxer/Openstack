@@ -23,6 +23,8 @@
 | compute2-intel      | L25-A15-U27   |Intel XXV710          | SRIOV                      | 10.144.19.231   | root / calvin           |  
 | compute3-mellanox   | L25-A15-U24   |Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.237   | root / calvin           |  
 | compute4-mellanox   | L25-A15-U26   |Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.233   | root / calvin           |  
+| compute5-N3000      | A06-16        |Intel N3000           |  ??                        | 10.144.22.56    | admin / admin           |  
+| compute6-N3000      | A06-15        |Intel N3000           |  ??                        | 10.144.22.54    | admin / admin           |
 
 <br/>  
 
@@ -30,14 +32,25 @@
 
 <br/>  
 
-| **Node**            | **Location** | **eno3 (mgmt)** | **eno1np0 (mgmt)** | **eno4 (prov)** |  **eno2np1 (prov)** |
-| :---------:         | :----------: | :----------:    | :----------:       | :----------:    |  :----------:       |  
-| Undercloud Director | L25-A08-U13  | Arista1G-P46    | N/A                | Arista1G-P48    | N/A                 |  
-| Controller          | L25-A08-U14  | Arista1G-P45    | N/A                | Arista1G-P47    | N/A                 |  
-| compute1-intel      | L25-A15-U25  | N/A             | CORE5/6/25/2       | N/A             | CORE3/10/12/3       |  
-| compute2-intel      | L25-A15-U27  | N/A             | CORE5/6/25/4       | N/A             | CORE3/10/12/4       |  
-| compute3-mellanox   | L25-A15-U24  | N/A             | CORE5/6/25/1       | N/A             | CORE3/10/12/2       |  
-| compute4-mellanox   | L25-A15-U26  | N/A             | CORE5/6/25/3       | N/A             | CORE3/10/12/1       |  
+| **Node**            | **Location** | **eno3 (mgmt)** | **eno4 (prov)** |  
+| :---------:         | :----------: | :----------:    | :----------:    |    
+| Undercloud Director | L25-A08-U13  | Arista1G-P46    |  Arista1G-P48   |     
+| Controller          | L25-A08-U14  | Arista1G-P45    |  Arista1G-P47   |     
+<br/> 
+
+| **Node**            | **Location** | **eno1np0 (mgmt)** |  **eno2np1 (prov)** |
+| :---------:         | :----------: | :----------:       | :----------:        | 
+| compute1-intel      | L25-A15-U25  | CORE5/6/25/2       | CORE3/10/12/3       |  
+| compute2-intel      | L25-A15-U27  | CORE5/6/25/4       | CORE3/10/12/4       |  
+| compute3-mellanox   | L25-A15-U24  | CORE5/6/25/1       | CORE3/10/12/2       |  
+| compute4-mellanox   | L25-A15-U26  | CORE5/6/25/3       | CORE3/10/12/1       | 
+<br/> 
+
+
+| **Node**            | **Location** | **ens1f1 (mgmt)**    | **ens1f0 (prov)**    |  
+| :---------:         | :----------: | :----------:         | :----------:         |  
+| compute5-N3000      | A06-16       | (A08) CORE2 10/28/1  | (A08) CORE2 10/28/2  |  
+| compute6-N3000      | A06-15       | (A08) CORE2 10/28/3  | (A08) CORE2 10/28/4  |  
 
 
 #### On eno1np0 for both mellanox compute nodes only trunk vlans 1150,1151 and 1153.  If you include 1152 in this mix you will get a layer 2 loop on the OVS bridge on the DPDK nodes  
@@ -71,6 +84,15 @@
 __NOTE:__  ens1f0 and ens1f1 are in a bond -- LACP trunk with miimon=100  (But you do not include miimon setting in tripleo)  --  also only trunk vlan 1152 on the bonded interface  
 
 <br/> 
+
+#### Intel N3000 NIC Card Switch Ports
+
+| **Node**        | **Location** | **N3000-P1**      |   
+| :---------:     | :----------: | :----------:      |   
+| compute5-N3000  | A06-16       | Core2 10/27/1     |   
+| compute6-N3000  | A06-15       | Core2 10/26/1     |   
+
+
 
 ## Openstack 2.x Mandated VLANs
 
