@@ -210,7 +210,7 @@ resources:
 
               # NIC eno2np1 - Provisioning
               - type: interface
-                name: eno2np1
+                name: ens1f1
                 use_dhcp: false
                 dns_servers: {get_param: DnsServers}
                 domain: {get_param: DnsSearchDomains}
@@ -234,7 +234,7 @@ resources:
                 mtu: 9000
                 members:
                   - type: interface
-                    name: eno1np0
+                    name: ens1f0
               - type: vlan
                 device: br-ex
                 mtu:
