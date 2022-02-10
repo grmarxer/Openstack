@@ -80,7 +80,7 @@ parameter_defaults:
   # Number of computes to provision
   ComputeSriovCount: 2
   ComputeOvsDpdkCount: 2
-  ComputeSriovN3000SmartNicCount: 2
+  ComputeSriovN3000SmartNicCount: 0
 
   MysqlMaxConnections: 8192
   RabbitFDLimit: 16384
