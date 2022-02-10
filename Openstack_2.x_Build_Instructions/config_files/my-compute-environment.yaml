@@ -100,11 +100,6 @@ parameter_defaults:
     OvsHwOffload: false
     TunedProfileName: "cpu-partitioning"
     #NeutronPhysicalDevMappings: 
-    NeutronSriovNumVFs:
-      - ens1f0:16
-      - ens1f1:16
-      - ens2f0:16
-      - ens2f1:16
     # Need to edit per hardware confguration
     #NovaPCIPassthrough:
     NovaReservedHostMemory: 4096
