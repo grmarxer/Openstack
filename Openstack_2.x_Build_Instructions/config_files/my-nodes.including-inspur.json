@@ -48,6 +48,26 @@
                         "pm_user": "root",
                         "pm_password": "calvin",
                         "pm_addr": "10.144.22.13"
-                }	
+                },
+                {
+                        "ports": [{
+                                "address": "b4:05:5d:b8:38:93"
+                        }],
+                        "name": "compute5-N3000",
+                        "pm_type": "ipmi",
+                        "pm_user": "admin",
+                        "pm_password": "admin",
+                        "pm_addr": "10.144.22.56"
+                },
+                {
+                        "ports": [{
+                                "address": "B4:05:5D:B8:38:AF"
+                        }],
+                        "name": "compute6-N3000",
+                        "pm_type": "ipmi",
+                        "pm_user": "admin",
+                        "pm_password": "admin",
+                        "pm_addr": "10.144.22.54"
+                }					
         ]
 }
