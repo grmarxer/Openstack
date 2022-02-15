@@ -89,6 +89,18 @@ openstack port create --network sriov-private --vnic-type direct private-sriov-p
 openstack port create --network sriov-private --vnic-type direct private-sriov-p2
 openstack port create --network sriov-mirror --vnic-type direct mirror-sriov-p1
 openstack port create --network sriov-mirror  --vnic-type direct mirror-sriov-p2
+openstack port create --network sriov-public --vnic-type direct public-sriov-p3
+openstack port create --network sriov-public --vnic-type direct public-sriov-p4
+openstack port create --network sriov-private --vnic-type direct private-sriov-p3
+openstack port create --network sriov-private --vnic-type direct private-sriov-p4
+openstack port create --network sriov-mirror --vnic-type direct mirror-sriov-p3
+openstack port create --network sriov-mirror  --vnic-type direct mirror-sriov-p4
+openstack port create --network sriov-public --vnic-type direct public-sriov-p5
+openstack port create --network sriov-public --vnic-type direct public-sriov-p6
+openstack port create --network sriov-private --vnic-type direct private-sriov-p5
+openstack port create --network sriov-private --vnic-type direct private-sriov-p6
+openstack port create --network sriov-mirror --vnic-type direct mirror-sriov-p5
+openstack port create --network sriov-mirror  --vnic-type direct mirror-sriov-p6
 
 
 # Create the DPDK networks and subets
