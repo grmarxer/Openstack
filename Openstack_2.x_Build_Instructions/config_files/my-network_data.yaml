@@ -121,6 +121,16 @@
   allocation_pools: [{'start': '10.255.242.20', 'end': '10.255.242.250'}]
   #ipv6_subnet: 'fd00:10:255:242::/64'
   #ipv6_allocation_pools: [{'start': 'fd00:10:255:242::20', 'end': 'fd00:10:255:242::250'}]
+  #
+  #
+  #
+  #MTU of the underlying physical network. Neutron uses this value to
+  #calculate MTU for all virtual network components. For flat and VLAN
+  #networks, neutron uses this value without modification. For overlay
+  #networks such as VXLAN, neutron automatically subtracts the overlay
+  #protocol overhead from this value.
+  #(The mtu setting of the Tenant network in network_data.yaml
+  #control's this parameter.)
   mtu: 1500
 - name: External
   vip: true

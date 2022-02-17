@@ -1,7 +1,46 @@
 
+
+ /etc/libvirt/qemu/
+
+openstack port set --binding-profile "trusted=True" WTXDNSvSLB1-F5-OSP16-01_1.1
+
+
+
 cat /proc/meminfo  | egrep "Mem|Huge"
 numactl --hardware
 
+############################################################################################################
+
+commands to set number queues BIG-IP
+
+############################################################################################################
+
+
+vi /config/tmm_init.tcl
+ndal tx_max_devq 1 1af4:1000
+ndal rx_max_devq 1 1af4:1000 
+
+:wq! 
+reboot 
+
+The above sets the max queue count to 1 for tx and rx
+
+############################################################################################################
+
+
+#Confirm Driver in use 
+tmctl -d blade tmm/device_probed
+
+#This command will help determine the number of queues we’re now using
+tmctl -w 200 -id blade -i tmm/ndal_rx_stats
+tmctl -w 200 -id blade -i tmm/ndal_tx_stats
+
+
+############################################################################################################
+############################################################################################################
+############################################################################################################
+############################################################################################################
+############################################################################################################
 
 ############################################################################################################
 to list namespaces for vxlan on the controller
@@ -38,24 +77,9 @@ ID 2: 10.10.120.230  ip netns exec qdhcp-2c197012-c074-4aaf-ae3b-75ad239257ba tc
 ID 3: 10.10.130.230  ip netns exec qdhcp-828bc9e0-b532-4fb9-ac5e-f9a7364d999b tcpdump -i tapddd90d4d-f2 -ne
 
 
-############################################################################################################
 
 
-#Confirm Driver in use 
-tmctl -d blade tmm/device_probed
-
-#This command will help determine the number of queues we’re now using
-tmctl -w 200 -id blade -i tmm/ndal_rx_stats
-tmctl -w 200 -id blade -i tmm/ndal_tx_stats
-
-
-############################################################################################################
-############################################################################################################
-############################################################################################################
-############################################################################################################
-############################################################################################################
-
-
+openstack flavor create bigip.8cpu.32GB --ram 32768 --disk 100 --vcpus 8
 
 ############################################################
 ############################################################
@@ -75,6 +99,11 @@ openstack image create "centos.stream.8" \
   --disk-format qcow2 --container-format bare \
   --public
 
+openstack image create "ubuntu-18.04-LTS.multiqueue-enabled" \
+  --file /home/stack/images/bionic-server-cloudimg-amd64.img \
+  --disk-format qcow2 --container-format bare \
+  --public
+openstack image set --property hw_vif_multiqueue_enabled=true ubuntu-18.04-LTS.multiqueue-enabled
 
 
 
@@ -99,18 +128,47 @@ openstack image create --public --protected --disk-format raw --file /home/stack
 SRIOV
 
 #################################   
+
+
+overcloud) [stack@osp16-undercloud ~]$ openstack port list | grep sriov
+| 079f94c6-6f01-40ce-a74d-e6f356510fbf | private-sriov-p4 | fa:16:3e:21:d5:f9 | ip_address='10.10.30.237', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'  | DOWN   |
+| 0de23ce8-09a9-4201-89dc-849249a2314a | private-sriov-p3 | fa:16:3e:e7:33:a4 | ip_address='10.10.30.226', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'  | DOWN   |
+| 10046b5a-a59d-4073-83b5-c7ae58fbb27f | mirror-sriov-p4  | fa:16:3e:8e:e8:e9 | ip_address='10.10.40.205', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'  | DOWN   |
+| 19ec5736-a06f-4022-b78c-52b8a8489ec8 | public-sriov-p4  | fa:16:3e:f5:d4:e2 | ip_address='10.10.20.204', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'  | DOWN   |
+| 1b94aa2e-384c-4d17-99be-d4723c620e08 | mirror-sriov-p5  | fa:16:3e:db:b1:7f | ip_address='10.10.40.241', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'  | DOWN   |
+| 27435d73-5dea-45fc-8e84-849455f96ead | public-sriov-p3  | fa:16:3e:32:33:6e | ip_address='10.10.20.223', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'  | DOWN   |
+| 278997c3-483b-4297-898e-e7a7b2f70a95 | private-sriov-p5 | fa:16:3e:d7:ee:d5 | ip_address='10.10.30.228', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'  | DOWN   |
+| 3ac93872-5404-4007-916a-aeba985b0630 | mirror-sriov-p1  | fa:16:3e:17:e6:63 | ip_address='10.10.40.233', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'  | ACTIVE |
+| 57afb559-e9cb-4970-94ce-2fddaf40c8e3 | mirror-sriov-p2  | fa:16:3e:1c:fd:c6 | ip_address='10.10.40.250', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'  | ACTIVE |
+| 5dd42144-8a3f-4094-b3a2-c17a489be658 | mirror-sriov-p3  | fa:16:3e:c0:3f:67 | ip_address='10.10.40.217', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'  | DOWN   |
+| 5de8a929-14f8-4bac-8511-80de47430a54 | public-sriov-p1  | fa:16:3e:73:6b:dd | ip_address='10.10.20.249', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'  | ACTIVE |
+| 7868c273-196c-4753-a7fe-b8c2b3230d2f | public-sriov-p2  | fa:16:3e:6b:ea:d0 | ip_address='10.10.20.224', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'  | ACTIVE |
+| 931a388f-9fa5-48c1-8873-ed15a87dcf42 | public-sriov-p6  | fa:16:3e:9e:47:6d | ip_address='10.10.20.225', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'  | DOWN   |
+| 974ea30a-21e5-439e-9171-a0f15ccfa6ca | mirror-sriov-p6  | fa:16:3e:43:90:7a | ip_address='10.10.40.247', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'  | DOWN   |
+| abddfc7f-ecae-4677-8854-69260cbc893e | private-sriov-p6 | fa:16:3e:06:b6:8e | ip_address='10.10.30.217', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'  | DOWN   |
+| b1ce7576-98fb-4de8-aab6-d984315e1571 | private-sriov-p1 | fa:16:3e:f1:5d:b4 | ip_address='10.10.30.214', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'  | ACTIVE |
+| bc4f5f42-c484-433d-b1aa-55999f8e3f93 | public-sriov-p5  | fa:16:3e:aa:7a:a2 | ip_address='10.10.20.242', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'  | DOWN   |
+| da82983d-f5da-4e18-8fde-7b97200a6084 | private-sriov-p2 | fa:16:3e:29:6c:c2 | ip_address='10.10.30.250', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'  | ACTIVE |
+
+
+
+
+public, private, mirroring
+
+
   
-nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
-  --nic net-name=management --nic port-id=923f9dd4-0fc9-4656-8e3a-8e62727d7804 \
-  --nic port-id=1f1ed90f-e78f-4da5-ab1a-f69ae413d89d --nic port-id=b0cd7526-6fa7-4beb-b001-e75abe68766c \
-  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-0.osp.16.customer.lab bigip.10
+nova boot --flavor bigip.8cpu.32GB --image bigip.all.1-slot.15.1.3.1 \
+  --nic net-name=management --nic port-id=27435d73-5dea-45fc-8e84-849455f96ead \
+  --nic port-id=0de23ce8-09a9-4201-89dc-849249a2314a --nic port-id=5dd42144-8a3f-4094-b3a2-c17a489be658 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-0.osp.16.customer.lab bigip.20.s0.8cpu.32gb
+  
+nova boot --flavor bigip.8cpu.32GB --image bigip.all.1-slot.15.1.3.1 \
+  --nic net-name=management --nic port-id=19ec5736-a06f-4022-b78c-52b8a8489ec8 \
+  --nic port-id=079f94c6-6f01-40ce-a74d-e6f356510fbf --nic port-id=10046b5a-a59d-4073-83b5-c7ae58fbb27f \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab bigip.21.s1.8cpu.32gb
   
   
-  
-nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
-  --nic net-name=management --nic port-id=7beeb8cb-0d63-49e8-a11b-b9de94ca7a73 \
-  --nic port-id=080e4074-e41b-44e7-a820-dc985871f2f0 --nic port-id=668d221d-1bf0-44dd-ad6c-3edd1d3edd7f \
-  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab bigip.20
+
 
 
 
@@ -121,16 +179,28 @@ nova boot --flavor bigip.10G --image bigip.ltm.1-slot.15.1.3.1 \
 DPDK
 
 ################################# 
-  
-  
 
+
+  
+  
+#################################  
+
+SRIOV DPDK test box
+
+################################# 
  
-nova boot --flavor bigip.8cpu.32GB.dpdk --image bigip.all.1-slot.15.1.3.1.multiqueue-enabled \
+nova boot --flavor bigip.8cpu.16GB.dpdk --image bigip.all.1-slot.15.1.3.1.multiqueue-enabled \
+  --nic net-name=management  --nic port-id=27435d73-5dea-45fc-8e84-849455f96ead --nic port-id=0de23ce8-09a9-4201-89dc-849249a2314a \
+  --nic net-name=dpdk-net5 --nic net-name=dpdk-net10  \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab   bigip.50-sriov-tenant.s1.8cpu.16GB
+
+
+
+nova boot --flavor bigip.8cpu.16GB.dpdk --image ubuntu-18.04-LTS.multiqueue-enabled --key-name marxer \
   --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
   --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 --nic net-name=dpdk-net6  --nic net-name=dpdk-net7  \
   --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
-  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   bigip.7-dpdk.n0.8cpu.32GB
-
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab   ubuntu-1.d0.8cpu.16GB
 
 
 
@@ -168,20 +238,6 @@ openstack image create --public --protected --disk-format raw --file /home/stack
 (overcloud) [stack@osp16-undercloud ~]$
 
 
-
-tmsh create net self dpdk-net1 address 10.10.110.248/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net2 address 10.10.120.233/24 vlan vnic2 allow-service default
-tmsh create net self dpdk-net3 address 10.10.130.236/24 vlan vnic3 allow-service default
-tmsh create net self dpdk-net4 address 10.10.140.248/24 vlan vnic4 allow-service default
-tmsh create net self dpdk-net5 address 10.10.150.250/24 vlan vnic5 allow-service default
-tmsh create net self dpdk-net6 address 10.10.160.237/24 vlan vnic6 allow-service default
-tmsh create net self dpdk-net7 address 10.10.170.243/24 vlan vnic7 allow-service default
-tmsh create net self dpdk-net8 address 10.10.180.248/24 vlan vnic8 allow-service default
-tmsh create net self dpdk-net9 address 10.10.190.234/24 vlan vnic9 allow-service default
-tmsh create net self dpdk-net10 address 10.10.200.237/24 vlan vnic10 allow-service default
-tmsh save sys config
-
-
 tmsh modify auth password-policy policy-enforcement disabled
 tmsh modify auth password root
 tmsh modify auth password admin
@@ -191,58 +247,64 @@ tmsh save sys config
 tmsh modify sys global-settings hostname bigip-3.com
 tmsh mv cm device bigip1 bigip-3
 
-tmsh modify sys global-settings hostname bigip-3-sriov.com
-tmsh mv cm device bigip1 bigip-3-sriov
-
-tmsh modify sys global-settings hostname bigip-4.com
-tmsh mv cm device bigip1 bigip-4
- 
-tmsh modify sys global-settings hostname bigip-5.com
-tmsh mv cm device bigip-1 bigip-5
-
-tmsh modify sys global-settings hostname bigip-5-sriov.com
-tmsh mv cm device bigip-1 bigip-5-sriov
-
-tmsh modify sys global-settings hostname bigip-6.com
-tmsh mv cm device bigip1 bigip-6
-
-tmsh modify sys global-settings hostname bigip-7.com
-tmsh mv cm device bigip1 bigip-7
-
-tmsh modify sys global-settings hostname bigip-9.com
-tmsh mv cm device bigip1 bigip-9
-
-tmsh modify sys global-settings hostname bigip-10.com
-tmsh mv cm device bigip1 bigip-10
-
 tmsh modify sys global-settings hostname bigip-20.com
 tmsh mv cm device bigip1 bigip-20
+
+tmsh modify sys global-settings hostname bigip-50.com
+tmsh mv cm device bigip1 bigip-50
+
 
  
 tmsh create net vlan vnic1 interfaces add { 1.1 }
 tmsh create net vlan vnic2 interfaces add { 1.2 }
 tmsh create net vlan vnic3 interfaces add { 1.3 }
 
-tmsh create net vlan vnic1 interfaces add { 1.1 } mtu 1450
-tmsh create net vlan vnic2 interfaces add { 1.2 } mtu 1450
-tmsh create net vlan vnic3 interfaces add { 1.3 } mtu 1450
-tmsh create net vlan vnic4 interfaces add { 1.4 } mtu 1450
-tmsh create net vlan vnic5 interfaces add { 1.5 } mtu 1450
-tmsh create net vlan vnic6 interfaces add { 1.6 } mtu 1450
-tmsh create net vlan vnic7 interfaces add { 1.7 } mtu 1450
-tmsh create net vlan vnic8 interfaces add { 1.8 } mtu 1450
-tmsh create net vlan vnic9 interfaces add { 1.9 } mtu 1450
-tmsh create net vlan vnic10 interfaces add { 1.10 } mtu 1450
-tmsh create net vlan vnic11 nterfaces add { 1.11 } mtu 1450
-tmsh create net vlan vnic12 interfaces add { 1.12 } mtu 1450
+tmsh create net vlan dpdk-net5 interfaces add { 1.1 }
+tmsh create net vlan dpdk-net10 interfaces add { 1.2 }
+tmsh create net vlan public interfaces add { 1.3 }
+tmsh create net vlan private interfaces add { 1.4 }
 
 
-bigip.3
+dpdk-net10=10.10.200.243; dpdk-net5=10.10.150.246; management=10.255.240.31; sriov-private=10.10.30.226; sriov-public=10.10.20.223                                                                                
 
-tmsh create net self dpdk-net1 address 10.10.100.233/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net2 address 10.10.110.241/24 vlan vnic1 allow-service default
-tmsh create net self dpdk-net3 address 10.10.120.249/24 vlan vnic1 allow-service default
+                                           
+
+tmsh create net self sriov-public address 10.10.20.223/24 vlan public allow-service default
+tmsh create net self sriov-private address 10.10.30.226/24 vlan private allow-service default
+tmsh create net self dpdk-net5 address 10.10.150.246/24 vlan dpdk-net5 allow-service default
+tmsh create net self dpdk-net10 address 10.10.200.243/24 vlan dpdk-net10 allow-service default
+
+
+
+
+
+
+
+tmsh create net vlan dpdk-net1 interfaces add { 1.1 } mtu 1450
+tmsh create net vlan dpdk-net2 interfaces add { 1.2 } mtu 1450
+tmsh create net vlan dpdk-net3 interfaces add { 1.3 } mtu 1450
+tmsh create net vlan dpdk-net4 interfaces add { 1.4 } mtu 1450
+tmsh create net vlan dpdk-net5 interfaces add { 1.5 } mtu 1450
+tmsh create net vlan dpdk-net6 interfaces add { 1.6 } mtu 1450
+tmsh create net vlan dpdk-net7 interfaces add { 1.7 } mtu 1450
+tmsh create net vlan dpdk-net8 interfaces add { 1.8 } mtu 1450
+tmsh create net vlan dpdk-net9 interfaces add { 1.9 } mtu 1450
+tmsh create net vlan dpdk-net10 interfaces add { 1.10 } mtu 1450
+tmsh create net vlan dpdk-net11 nterfaces add { 1.11 } mtu 1450
+tmsh create net vlan dpdk-net12 interfaces add { 1.12 } mtu 1450
+
+tmsh create net self dpdk-net1 address 10.10.110.248/24 vlan dpdk-net1 allow-service default
+tmsh create net self dpdk-net2 address 10.10.120.233/24 vlan dpdk-net2 allow-service default
+tmsh create net self dpdk-net3 address 10.10.130.236/24 vlan dpdk-net3 allow-service default
+tmsh create net self dpdk-net4 address 10.10.140.248/24 vlan dpdk-net4 allow-service default
+tmsh create net self dpdk-net5 address 10.10.150.250/24 vlan dpdk-net5 allow-service default
+tmsh create net self dpdk-net6 address 10.10.160.237/24 vlan dpdk-net6 allow-service default
+tmsh create net self dpdk-net7 address 10.10.170.243/24 vlan dpdk-net7 allow-service default
+tmsh create net self dpdk-net8 address 10.10.180.248/24 vlan dpdk-net8 allow-service default
+tmsh create net self dpdk-net9 address 10.10.190.234/24 vlan dpdk-net9 allow-service default
+tmsh create net self dpdk-net10 address 10.10.200.237/24 vlan dpdk-net10 allow-service default
 tmsh save sys config
+
 
 
 ############################################################################################################
