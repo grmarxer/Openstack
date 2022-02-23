@@ -117,14 +117,14 @@ Note: Management is only included for backward compatibility -- it is not used i
 <br/>  
 
 
-| **Node**            |  **NIC** | **Proxy IP address** | **IP Address Proxy Maps to** |**blank**     |  **blank**   |
-| :---------:         | :------: | :----------:         | :----------:                 | :----------: |  :--------:  |  
-| Undercloud Director | eno3     | 10.144.16.59/20      | 10.255.240.10                |              |              |  
-| Controller          | en03     | 10.144.22.12/20      | 10.255.240.11                |              |              |  
-| compute1-intel      | eno1np0  | 10.144.19.234/20     | IP used for mgmt DHCP        |              |              |
-| compute2-intel      | eno1np0  | 10.144.19.230/20     | IP used for mgmt DHCP        |              |              |  
-| compute3-mellanox   | eno1np0  | 10.144.19.236/20     | IP used for mgmt DHCP        |              |              |  
-| compute4-mellanox   | eno1np0  | 10.144.19.232/20     | IP used for mgmt DHCP        |              |              |  
+| **Node**            |  **NIC** | **Proxy IP address** | **IP Address Proxy Maps to** |  
+| :---------:         | :------: | :----------:         | :----------:                 |  
+| Undercloud Director | eno3     | 10.144.16.59/20      | 10.255.240.10                |  
+| Controller          | en03     | 10.144.22.12/20      | IP used for OSP 16 GUI       |  
+| compute1-intel      | eno1np0  | 10.144.19.234/20     | IP used for mgmt DHCP        |  
+| compute2-intel      | eno1np0  | 10.144.19.230/20     | IP used for mgmt DHCP        |    
+| compute3-mellanox   | eno1np0  | 10.144.19.236/20     | IP used for mgmt DHCP        |    
+| compute4-mellanox   | eno1np0  | 10.144.19.232/20     | IP used for mgmt DHCP        |    
 
 
 <br/>  
