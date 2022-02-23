@@ -121,12 +121,11 @@ Note: Management is only included for backward compatibility -- it is not used i
 | :---------:         | :------: | :----------:         | :----------:                 | :----------: |  :--------:  |  
 | Undercloud Director | eno3     | 10.144.16.59/20      | 10.255.240.10                |              |              |  
 | Controller          | en03     | 10.144.22.12/20      | 10.255.240.11                |              |              |  
-| compute1-intel      | eno1np0  | 10.144.19.234/20     | 10.255.240.12                |              |              |
-| compute2-intel      | eno1np0  | 10.144.19.230/20     | 10.255.240.13                |              |              |  
-| compute3-mellanox   | eno1np0  | 10.144.19.236/20     | 10.255.240.14                |              |              |  
-| compute4-mellanox   | eno1np0  | 10.144.19.232/20     | 10.255.240.15                |              |              |  
-| compute5-N3000      | eno1np0  | 10.144.22.55 20      | 10.255.240.16                |              |              |  
-| compute6-N3000      | eno1np0  | 10.144.22.53/20      | 10.255.240.17                |              |              |    
+| compute1-intel      | eno1np0  | 10.144.19.234/20     | IP used for mgmt DHCP        |              |              |
+| compute2-intel      | eno1np0  | 10.144.19.230/20     | IP used for mgmt DHCP        |              |              |  
+| compute3-mellanox   | eno1np0  | 10.144.19.236/20     | IP used for mgmt DHCP        |              |              |  
+| compute4-mellanox   | eno1np0  | 10.144.19.232/20     | IP used for mgmt DHCP        |              |              |  
+
 
 <br/>  
 
@@ -156,6 +155,10 @@ These are the only routable IP addresses we have for Guest mgmt access.  Thus th
 
 | **Internal Openstack Mgmt Network IP** |  **Routable IP Address** |  
 | :---------:                            | :------:                 |  
+| 10.255.240.230                         | 10.144.19.230            |
+| 10.255.240.232                         | 10.144.19.232            |
+| 10.255.240.234                         | 10.144.19.234            |
+| 10.255.240.236                         | 10.144.19.236            |
 | 10.255.240.24                          | 10.144.22.24             |    
 | 10.255.240.25                          | 10.144.22.25             |    
 | 10.255.240.26                          | 10.144.22.26             |  
