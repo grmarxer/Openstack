@@ -1,20 +1,167 @@
 
+turn on l2 pop
 
- /etc/libvirt/qemu/
+controller
+find / -name openvswitch_agent.ini -print
 
-openstack port set --binding-profile "trusted=True" WTXDNSvSLB1-F5-OSP16-01_1.1
+ vi /var/lib/config-data/neutron/etc/neutron/plugins/ml2/openvswitch_agent.ini
 
+
+DPDK nodes
+ vi /var/lib/config-data/neutron/etc/neutron/plugins/ml2/openvswitch_agent.ini
+
+
+
+############################################################################################################
+############################################################################################################
+
+To see sriov queue number on SRIOV XXV710
+
+############################################################################################################
+############################################################################################################
+
+
+
+
+
+It will presumably be a setting on the hypervisor, not the BIG-IP.
+
+A previous customer of mine had some form of Intel 710 on Openstack (Nova I think), which started at 4 queues for the VF and was configurable to 16:
+
+'The way we’ve configured 16 queues on the compute node was with the following command:
+[root@oxxxxxx ~]# 
+
+for i in {0..15}; do echo 16 > /sys/class/net/sriov0/device/sriov/$i/num_queues; done 
+
+The compute node needs to be restarted after this change.'
+
+That's all I have!
+
+
+
+
+
+############################################################################################################
+############################################################################################################
+
+How to use Virsh inside OSP 16.1 container
+
+############################################################################################################
+############################################################################################################
+
+https://docs.nvidia.com/networking/pages/releaseview.action?pageId=43714870
+
+location of xml data for instances /etc/libvirt/qemu/
+
+SSH to compute node
+log into nova_compute container via the following command
+podman exec -it -u root nova_compute bash
+
+once inside issue virsh commands
+
+virsh list
+virsh vcpuinfo instance-00000079
+virsh vcpupin instance-00000079 0 0-79
+
+I was unable to set CPU in XML data.
+
+bigip.7-dpdk.d0.8cpu.32GB
+virsh vcpupin instance-00000002 0 10
+virsh vcpupin instance-00000002 1 12
+virsh vcpupin instance-00000002 2 14
+virsh vcpupin instance-00000002 3 16
+virsh vcpupin instance-00000002 4 18
+virsh vcpupin instance-00000002 5 20
+virsh vcpupin instance-00000002 6 22
+virsh vcpupin instance-00000002 7 24
+
+ubuntu-2.d0.8cpu.16GB
+virsh vcpupin instance-0000000b 0 4
+virsh vcpupin instance-0000000b 1 26
+virsh vcpupin instance-0000000b 2 28
+virsh vcpupin instance-0000000b 3 30
+virsh vcpupin instance-0000000b 4 32
+virsh vcpupin instance-0000000b 5 34
+virsh vcpupin instance-0000000b 6 36
+virsh vcpupin instance-0000000b 7 38
+
+ubuntu-1.d1.8cpu.16GB
+virsh vcpupin instance-0000000a 0 10
+virsh vcpupin instance-0000000a 1 12
+virsh vcpupin instance-0000000a 2 14
+virsh vcpupin instance-0000000a 3 16
+virsh vcpupin instance-0000000a 4 18
+virsh vcpupin instance-0000000a 5 20
+virsh vcpupin instance-0000000a 6 22
+virsh vcpupin instance-0000000a 7 24
+
+
+############################################################################################################
+############################################################################################################
+
+How to look at PMD stats on OVS bridge on DPDK nodes
+
+############################################################################################################
+############################################################################################################
+
+ovs-vsctl list bridge br-dpdk
+
+ovs-appctl dpif-netdev/pmd-stats-show
+
+ovs-appctl dpif-netdev/pmd-rxq-show
+
+ovs-appctl dpif-netdev/pmd-stats-show
+
+
+
+
+############################################################################################################
+
+To set trust mode
+
+############################################################################################################
+openstack port list --device-id <UUID of instance>
+
+(overcloud) [stack@osp16-undercloud ~]$ openstack port list --device-id e3e17898-645b-4fdd-9f86-05faf1bdc0ba
++--------------------------------------+------------------+-------------------+------------------------------------------------------------------------------+--------+
+| ID                                   | Name             | MAC Address       | Fixed IP Addresses                                                           | Status |
++--------------------------------------+------------------+-------------------+------------------------------------------------------------------------------+--------+
+| 1d35f1fc-6a88-4f91-a35d-dfd5fff6d357 |                  | fa:16:3e:2f:68:4b | ip_address='10.255.240.27', subnet_id='c6885a8b-767f-4144-b761-c523ef238bef' | ACTIVE |
+| 57afb559-e9cb-4970-94ce-2fddaf40c8e3 | mirror-sriov-p2  | fa:16:3e:1c:fd:c6 | ip_address='10.10.40.250', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'  | ACTIVE |
+| 7868c273-196c-4753-a7fe-b8c2b3230d2f | public-sriov-p2  | fa:16:3e:6b:ea:d0 | ip_address='10.10.20.224', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'  | ACTIVE |
+| da82983d-f5da-4e18-8fde-7b97200a6084 | private-sriov-p2 | fa:16:3e:29:6c:c2 | ip_address='10.10.30.250', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'  | ACTIVE |
++--------------------------------------+------------------+-------------------+------------------------------------------------------------------------------+--------+
+
+
+
+Binding Profile Commands
+openstack port set --binding-profile "trusted=True" mirror-sriov-p2
+openstack port set --binding-profile "trusted=false" mirror-sriov-p2
+
+
+
+
+
+############################################################################################################
+
+To see huge pages
+
+############################################################################################################
 
 
 cat /proc/meminfo  | egrep "Mem|Huge"
 numactl --hardware
+
+
+
 
 ############################################################################################################
 
 commands to set number queues BIG-IP
 
 ############################################################################################################
-
+lspci -nn | grep -i eth
+ls /config/tmm*
 
 vi /config/tmm_init.tcl
 ndal tx_max_devq 1 1af4:1000
@@ -25,8 +172,13 @@ reboot 
 
 The above sets the max queue count to 1 for tx and rx
 
+
+
 ############################################################################################################
 
+To look at driver and queue size 
+
+############################################################################################################
 
 #Confirm Driver in use 
 tmctl -d blade tmm/device_probed
@@ -34,6 +186,34 @@ tmctl -d blade tmm/device_probed
 #This command will help determine the number of queues we’re now using
 tmctl -w 200 -id blade -i tmm/ndal_rx_stats
 tmctl -w 200 -id blade -i tmm/ndal_tx_stats
+
+
+
+
+##############################################################################
+# Change Driver
+#
+#  When using the Mellanox Connect 5 use the mlxvf5 driver
+#  When using For edge (Intel x710) we can try ixlv to see if we can get better performance with native driver
+#
+#
+##############################################################################
+
+
+#Confirm Driver in use 
+tmctl -d blade tmm/device_probed
+
+
+
+echo -e "device driver vendor_dev 1af4:1000 xnet" >> /config/tmm_init.tcl; touch /config/xnet_init.tcl; echo "device driver vendor_dev 1af4:1000 mlxvf5" > /config/xnet_init.tcl
+
+
+#Then to view the drivers in use you would have to run both of these commands:
+
+tmctl -d blade tmm/device_probed
+tmctl -d blade tmm/xnet/device_probed
+
+
 
 
 ############################################################################################################
@@ -80,6 +260,17 @@ ID 3: 10.10.130.230  ip netns exec qdhcp-828bc9e0-b532-4fb9-ac5e-f9a7364d999b tc
 
 
 openstack flavor create bigip.8cpu.32GB --ram 32768 --disk 100 --vcpus 8
+
+openstack flavor create bigip.2cpu.32GB --ram 32768 --disk 100 --vcpus 2
+
+openstack flavor set m1.large --property hw:cpu_policy=dedicated  --property hw:cpu_thread_policy=isolate
+
+
+openstack image set [IMAGE_ID] \
+  --property hw_cpu_policy=dedicated \
+  --property hw_cpu_thread_policy=isolate
+  
+  https://docs.openstack.org/nova/pike/admin/cpu-topologies.html
 
 ############################################################
 ############################################################
@@ -168,6 +359,12 @@ nova boot --flavor bigip.8cpu.32GB --image bigip.all.1-slot.15.1.3.1 \
   --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab bigip.21.s1.8cpu.32gb
   
   
+  
+nova boot --flavor bigip.2cpu.32GB --image bigip.all.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab bigip.21.s1.2cpu.32gb
+  
+  
 
 
 
@@ -189,7 +386,7 @@ SRIOV DPDK test box
 
 ################################# 
  
-nova boot --flavor bigip.8cpu.16GB.dpdk --image bigip.all.1-slot.15.1.3.1.multiqueue-enabled \
+nova boot --flavor bigip.8cpu.16GB --image bigip.all.1-slot.15.1.3.1 \
   --nic net-name=management  --nic port-id=27435d73-5dea-45fc-8e84-849455f96ead --nic port-id=0de23ce8-09a9-4201-89dc-849249a2314a \
   --nic net-name=dpdk-net5 --nic net-name=dpdk-net10  \
   --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab   bigip.50-sriov-tenant.s1.8cpu.16GB
@@ -202,6 +399,12 @@ nova boot --flavor bigip.8cpu.16GB.dpdk --image ubuntu-18.04-LTS.multiqueue-enab
   --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
   --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-1.osp.16.customer.lab   ubuntu-1.d0.8cpu.16GB
 
+
+nova boot --flavor bigip.8cpu.16GB.dpdk --image ubuntu-18.04-LTS.multiqueue-enabled --key-name marxer \
+  --nic net-name=management --nic net-name=dpdk-net1  --nic net-name=dpdk-net2 --nic net-name=dpdk-net3 \
+  --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 --nic net-name=dpdk-net6  --nic net-name=dpdk-net7  \
+  --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   ubuntu-2.d0.8cpu.16GB
 
 
 
@@ -259,8 +462,8 @@ tmsh create net vlan vnic1 interfaces add { 1.1 }
 tmsh create net vlan vnic2 interfaces add { 1.2 }
 tmsh create net vlan vnic3 interfaces add { 1.3 }
 
-tmsh create net vlan dpdk-net5 interfaces add { 1.1 }
-tmsh create net vlan dpdk-net10 interfaces add { 1.2 }
+tmsh create net vlan dpdk-net5 interfaces add { 1.1 } mtu 1450
+tmsh create net vlan dpdk-net10 interfaces add { 1.2 } mtu 1450
 tmsh create net vlan public interfaces add { 1.3 }
 tmsh create net vlan private interfaces add { 1.4 }
 
@@ -271,8 +474,8 @@ dpdk-net10=10.10.200.243; dpdk-net5=10.10.150.246; management=10.255.240.31; sri
 
 tmsh create net self sriov-public address 10.10.20.223/24 vlan public allow-service default
 tmsh create net self sriov-private address 10.10.30.226/24 vlan private allow-service default
-tmsh create net self dpdk-net5 address 10.10.150.246/24 vlan dpdk-net5 allow-service default
-tmsh create net self dpdk-net10 address 10.10.200.243/24 vlan dpdk-net10 allow-service default
+tmsh create net self dpdk-net5 address 10.10.150.233/24 vlan dpdk-net5 allow-service default
+tmsh create net self dpdk-net10 address 10.10.200.234/24 vlan dpdk-net10 allow-service default
 
 
 
@@ -303,71 +506,218 @@ tmsh create net self dpdk-net7 address 10.10.170.243/24 vlan dpdk-net7 allow-ser
 tmsh create net self dpdk-net8 address 10.10.180.248/24 vlan dpdk-net8 allow-service default
 tmsh create net self dpdk-net9 address 10.10.190.234/24 vlan dpdk-net9 allow-service default
 tmsh create net self dpdk-net10 address 10.10.200.237/24 vlan dpdk-net10 allow-service default
+tmsh create net self dpdk-net11 address 10.10.210.234/24 vlan dpdk-net11 allow-service default
+tmsh create net self dpdk-net12 address 10.10.220.231/24 vlan dpdk-net12 allow-service default
+
 tmsh save sys config
 
 
 
-############################################################################################################
-############################################################################################################
-##############################################################################
-#Change Queues
-##############################################################################
-############################################################################################################
-############################################################################################################
-
-
-lspci -nn | grep -i eth
-
-
-ls /config/tmm*
-
-
-touch /config/tmm_init.tcl; echo -e "ndal tx_max_devq 4 1af4:1000" >> /config/tmm_init.tcl; echo -e "ndal rx_max_devq 4 1af4:1000" >> /config/tmm_init.tcl
-
-echo -e "ndal tx_max_devq 4 1af4:1000" >> /config/tmm_init.tcl; echo -e "ndal rx_max_devq 4 1af4:1000" >> /config/tmm_init.tcl
-
-reboot 
-
-
-
-vi /config/tmm_init.tcl
-ndal tx_max_devq 4 1af4:1000
-ndal rx_max_devq 4 1af4:1000 
-:wq!
-reboot 
-
-
-
-#This command will help determine the number of queues we’re now using
-tmctl -w 200 -id blade -i tmm/ndal_rx_stats
-tmctl -w 200 -id blade -i tmm/ndal_tx_stats
 
 
 
 
-##############################################################################
-#    Change Driver
-#
-#  When using the Mellanox Connect 5 use the mlxvf5 driver
-#  When using For edge (Intel x710) we can try ixlv to see if we can get better performance with native driver
-#
-#
-##############################################################################
 
-
-#Confirm Driver in use 
-tmctl -d blade tmm/device_probed
+#############################################################################################################################
+#############################################################################################################################
+#############################################################################################################################
+#############################################################################################################################
+#############################################################################################################################
+#############################################################################################################################
 
 
 
-echo -e "device driver vendor_dev 1af4:1000 xnet" >> /config/tmm_init.tcl; touch /config/xnet_init.tcl; echo "device driver vendor_dev 1af4:1000 mlxvf5" > /config/xnet_init.tcl
 
 
-#Then to view the drivers in use you would have to run both of these commands:
-
-tmctl -d blade tmm/device_probed
-tmctl -d blade tmm/xnet/device_probed
+To make OSLO work on DPDK
 
 
+#############################################################################################################################
+#############################################################################################################################
 
+You need to create additional fixed IP addresses to be used as secondary IP address on the OSLO nodes.  This will give the Oslo test
+tool the IPs it needs to run heavier traffic loads.  To do that you have to create openstack ports with fixed-IP's
+
+
+
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.130.10  --network dpdk-net3 ubuntu_2_SS_secondary_IP_10
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.130.11  --network dpdk-net3 ubuntu_2_SS_secondary_IP_11
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.130.12  --network dpdk-net3 ubuntu_2_SS_secondary_IP_12
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.130.13  --network dpdk-net3 ubuntu_2_SS_secondary_IP_13
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.130.14  --network dpdk-net3 ubuntu_2_SS_secondary_IP_14
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.130.15  --network dpdk-net3 ubuntu_2_SS_secondary_IP_15
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.130.16  --network dpdk-net3 ubuntu_2_SS_secondary_IP_16
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.130.17  --network dpdk-net3 ubuntu_2_SS_secondary_IP_17
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.130.18  --network dpdk-net3 ubuntu_2_SS_secondary_IP_18
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.130.19  --network dpdk-net3 ubuntu_2_SS_secondary_IP_19
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.130.20  --network dpdk-net3 ubuntu_2_SS_secondary_IP_20
+
+
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.140.10  --network dpdk-net4 ubuntu_2_SS_secondary_IP_10
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.140.11  --network dpdk-net4 ubuntu_2_SS_secondary_IP_11
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.140.12  --network dpdk-net4 ubuntu_2_SS_secondary_IP_12
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.140.13  --network dpdk-net4 ubuntu_2_SS_secondary_IP_13
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.140.14  --network dpdk-net4 ubuntu_2_SS_secondary_IP_14
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.140.15  --network dpdk-net4 ubuntu_2_SS_secondary_IP_15
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.140.16  --network dpdk-net4 ubuntu_2_SS_secondary_IP_16
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.140.17  --network dpdk-net4 ubuntu_2_SS_secondary_IP_17
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.140.18  --network dpdk-net4 ubuntu_2_SS_secondary_IP_18
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.140.19  --network dpdk-net4 ubuntu_2_SS_secondary_IP_19
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.140.20  --network dpdk-net4 ubuntu_2_SS_secondary_IP_20
+
+
+
+
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.120.21  --network dpdk-net2 ubuntu_2_SS_secondary_IP_21
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.120.22  --network dpdk-net2 ubuntu_2_SS_secondary_IP_22
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.120.23  --network dpdk-net2 ubuntu_2_SS_secondary_IP_23
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.120.24  --network dpdk-net2 ubuntu_2_SS_secondary_IP_24
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.120.25  --network dpdk-net2 ubuntu_2_SS_secondary_IP_25
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.120.26  --network dpdk-net2 ubuntu_2_SS_secondary_IP_26
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.120.27  --network dpdk-net2 ubuntu_2_SS_secondary_IP_27
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.120.28  --network dpdk-net2 ubuntu_2_SS_secondary_IP_28
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.120.29  --network dpdk-net2 ubuntu_2_SS_secondary_IP_29
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.120.30  --network dpdk-net2 ubuntu_2_SS_secondary_IP_30
+
+
+
+
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.110.20  --network dpdk-net1 ubuntu_1_CS_secondary_IP_20
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.110.21  --network dpdk-net1 ubuntu_1_CS_secondary_IP_21
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.110.22  --network dpdk-net1 ubuntu_1_CS_secondary_IP_22
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.110.23  --network dpdk-net1 ubuntu_1_CS_secondary_IP_23
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.110.24  --network dpdk-net1 ubuntu_1_CS_secondary_IP_24
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.110.25  --network dpdk-net1 ubuntu_1_CS_secondary_IP_25
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.110.26  --network dpdk-net1 ubuntu_1_CS_secondary_IP_26
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.110.27  --network dpdk-net1 ubuntu_1_CS_secondary_IP_27
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.110.28  --network dpdk-net1 ubuntu_1_CS_secondary_IP_28
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.110.29  --network dpdk-net1 ubuntu_1_CS_secondary_IP_29
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.110.30  --network dpdk-net1 ubuntu_1_CS_secondary_IP_30
+
+
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.110.101  --network dpdk-net1 BIG-IP_7_VIP_110-101
+
+
+#############################################################################################################################
+#############################################################################################################################
+
+Then you need to create allowed address pairs on the neutron port IP that was assigned during instantiation for the instance that you want to assign these 
+secondary IP's. When you have many IP's as secondary IP's like in the case with OSLO above that need to be assigned as an allowed address pairs
+it is much easier to just use 0.0.0.0/0.  This configures IP tables to allow any IP through the instantiated assigned IP.
+  
+It is much easier and faster to use the GUI to add the allowed address pairs to the neutron port.
+
+
+
+(overcloud) [stack@osp16-undercloud ~]$ openstack port list | grep 10.10.110
+| 6f3100fd-e6e1-448b-871a-dcd2b3af84c7 | ubuntu-2-OSLO_Self_IP       | fa:16:3e:b8:39:89 | ip_address='10.10.110.241', subnet_id='87f328c4-b9fe-4615-81db-e3a0e929ea74' | ACTIVE |
+
+
+(overcloud) [stack@osp16-undercloud ~]$ openstack port show 6f3100fd-e6e1-448b-871a-dcd2b3af84c7
++-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Field                   | Value                                                                                                                                                                                                    |
++-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| admin_state_up          | UP                                                                                                                                                                                                       |
+| allowed_address_pairs   | ip_address='0.0.0.0/0', mac_address='fa:16:3e:b8:39:89'                                                                                                                                                  |
+| binding_host_id         | vz-osp-computedpdk-0.osp.16.customer.lab                                                                                                                                                                 |
+| binding_profile         |                                                                                                                                                                                                          |
+| binding_vif_details     | bridge_name='br-int', datapath_type='netdev', ovs_hybrid_plug='False', port_filter='False', vhostuser_mode='server', vhostuser_ovs_plug='True', vhostuser_socket='/var/lib/vhost_sockets/vhu6f3100fd-e6' |
+| binding_vif_type        | vhostuser                                                                                                                                                                                                |
+| binding_vnic_type       | normal                                                                                                                                                                                                   |
+| created_at              | 2022-02-17T23:17:47Z                                                                                                                                                                                     |
+| data_plane_status       | None                                                                                                                                                                                                     |
+| description             |                                                                                                                                                                                                          |
+| device_id               | b5a7941a-99a8-45bf-a952-14d9735fdf8a                                                                                                                                                                     |
+| device_owner            | compute:nova                                                                                                                                                                                             |
+| dns_assignment          | None                                                                                                                                                                                                     |
+| dns_domain              | None                                                                                                                                                                                                     |
+| dns_name                | None                                                                                                                                                                                                     |
+| extra_dhcp_opts         |                                                                                                                                                                                                          |
+| fixed_ips               | ip_address='10.10.110.241', subnet_id='87f328c4-b9fe-4615-81db-e3a0e929ea74'                                                                                                                             |
+| id                      | 6f3100fd-e6e1-448b-871a-dcd2b3af84c7                                                                                                                                                                     |
+| location                | cloud='', project.domain_id=, project.domain_name='Default', project.id='0bf06728d67247279e07853170865540', project.name='admin', region_name='LAB', zone=                                               |
+| mac_address             | fa:16:3e:b8:39:89                                                                                                                                                                                        |
+| name                    | ubuntu-2-OSLO_Self_IP                                                                                                                                                                                    |
+| network_id              | 8cdccce9-a894-43a3-99c0-6016a277c048                                                                                                                                                                     |
+| port_security_enabled   | True                                                                                                                                                                                                     |
+| project_id              | 0bf06728d67247279e07853170865540                                                                                                                                                                         |
+| propagate_uplink_status | None                                                                                                                                                                                                     |
+| qos_policy_id           | None                                                                                                                                                                                                     |
+| resource_request        | None                                                                                                                                                                                                     |
+| revision_number         | 28                                                                                                                                                                                                       |
+| security_group_ids      | d71be53f-3682-41e6-b8aa-f6c97dc6b744                                                                                                                                                                     |
+| status                  | ACTIVE                                                                                                                                                                                                   |
+| tags                    |                                                                                                                                                                                                          |
+| trunk_details           | None                                                                                                                                                                                                     |
+| updated_at              | 2022-02-18T21:29:00Z                                                                                                                                                                                     |
++-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+#############################################################################################################################
+#############################################################################################################################
+#############################################################################################################################
+
+
+You also need to perform the same steps to create a IP address that will be used as a BIG-IP VIP
+
+In this case I will use 10.10.110.100 as the VIP IP
+
+
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.110.100  --network dpdk-net1 BIG-IP_7_VIP_100
+
+openstack port create --disable-port-security --fixed-ip ip-address=10.10.150.100  --network dpdk-net5 BIG-IP_7_VIP_150_100
+
+
+#############################################################################################################################
+#############################################################################################################################
+
+As you did above we need to create an allowed address pair on the IP address that was assigned as the BIG-IP Self IP.  Since we are only adding a single IP address
+as an allowed address pair, we will not use 0.0.0.0/0 this time but rather the VIP IP address itself as the allowed address pair.  The BIG-IP Self IP address in this example
+is 10.10.110.248.
+
+It is faster and easier to assign the allowed address pair using the GUI
+
+
+
+(overcloud) [stack@osp16-undercloud ~]$ openstack port list | grep 10.10.110
+| 341fdd69-1320-4a17-a3f8-21f46dc1b200 | BIG-IP_7_Self_IP            | fa:16:3e:f3:0a:4b | ip_address='10.10.110.248', subnet_id='87f328c4-b9fe-4615-81db-e3a0e929ea74' | ACTIVE |
+
+
+(overcloud) [stack@osp16-undercloud ~]$ openstack port show 341fdd69-1320-4a17-a3f8-21f46dc1b200
++-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Field                   | Value                                                                                                                                                                                                    |
++-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| admin_state_up          | UP                                                                                                                                                                                                       |
+| allowed_address_pairs   | ip_address='10.10.110.100', mac_address='fa:16:3e:f3:0a:4b'                                                                                                                                              |
+| binding_host_id         | vz-osp-computedpdk-0.osp.16.customer.lab                                                                                                                                                                 |
+| binding_profile         |                                                                                                                                                                                                          |
+| binding_vif_details     | bridge_name='br-int', datapath_type='netdev', ovs_hybrid_plug='False', port_filter='False', vhostuser_mode='server', vhostuser_ovs_plug='True', vhostuser_socket='/var/lib/vhost_sockets/vhu341fdd69-13' |
+| binding_vif_type        | vhostuser                                                                                                                                                                                                |
+| binding_vnic_type       | normal                                                                                                                                                                                                   |
+| created_at              | 2022-02-11T16:09:51Z                                                                                                                                                                                     |
+| data_plane_status       | None                                                                                                                                                                                                     |
+| description             |                                                                                                                                                                                                          |
+| device_id               | 293327b7-2fbd-4a75-9620-4a9e2b0c1723                                                                                                                                                                     |
+| device_owner            | compute:nova                                                                                                                                                                                             |
+| dns_assignment          | None                                                                                                                                                                                                     |
+| dns_domain              | None                                                                                                                                                                                                     |
+| dns_name                | None                                                                                                                                                                                                     |
+| extra_dhcp_opts         |                                                                                                                                                                                                          |
+| fixed_ips               | ip_address='10.10.110.248', subnet_id='87f328c4-b9fe-4615-81db-e3a0e929ea74'                                                                                                                             |
+| id                      | 341fdd69-1320-4a17-a3f8-21f46dc1b200                                                                                                                                                                     |
+| location                | cloud='', project.domain_id=, project.domain_name='Default', project.id='0bf06728d67247279e07853170865540', project.name='admin', region_name='LAB', zone=                                               |
+| mac_address             | fa:16:3e:f3:0a:4b                                                                                                                                                                                        |
+| name                    | BIG-IP_7_Self_IP                                                                                                                                                                                         |
+| network_id              | 8cdccce9-a894-43a3-99c0-6016a277c048                                                                                                                                                                     |
+| port_security_enabled   | True                                                                                                                                                                                                     |
+| project_id              | 0bf06728d67247279e07853170865540                                                                                                                                                                         |
+| propagate_uplink_status | None                                                                                                                                                                                                     |
+| qos_policy_id           | None                                                                                                                                                                                                     |
+| resource_request        | None                                                                                                                                                                                                     |
+| revision_number         | 13                                                                                                                                                                                                       |
+| security_group_ids      | 77bec17b-0ccf-44e9-a5ef-52c2ede9f551, d71be53f-3682-41e6-b8aa-f6c97dc6b744                                                                                                                               |
+| status                  | ACTIVE                                                                                                                                                                                                   |
+| tags                    |                                                                                                                                                                                                          |
+| trunk_details           | None                                                                                                                                                                                                     |
+| updated_at              | 2022-02-18T21:53:21Z                                                                                                                                                                                     |
++-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
