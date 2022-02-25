@@ -263,6 +263,10 @@ openstack flavor create bigip.8cpu.32GB --ram 32768 --disk 100 --vcpus 8
 
 openstack flavor create bigip.2cpu.32GB --ram 32768 --disk 100 --vcpus 2
 
+openstack flavor create bigip.2cpu.16GB --ram 16384 --disk 100 --vcpus 2
+
+openstack flavor create bigip.2cpu.8GB --ram 8192 --disk 100 --vcpus 2
+
 openstack flavor set m1.large --property hw:cpu_policy=dedicated  --property hw:cpu_thread_policy=isolate
 
 
@@ -364,6 +368,14 @@ nova boot --flavor bigip.2cpu.32GB --image bigip.all.1-slot.15.1.3.1 \
   --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 \
   --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab bigip.21.s1.2cpu.32gb
   
+nova boot --flavor bigip.2cpu.16GB --image bigip.all.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab bigip.23.s1.2cpu.16gb
+  
+  
+nova boot --flavor bigip.2cpu.8GB --image bigip.all.1-slot.15.1.3.1 \
+  --nic net-name=management --nic net-name=dpdk-net1 --nic net-name=dpdk-net2 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab bigip.25.s1.2cpu.8gb
   
 
 
