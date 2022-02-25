@@ -56,7 +56,7 @@ openstack role add --user admin-backup --project admin admin
 
 # Set the quotas for the numbers of cores, RAM, and instances inside the admin project
 openstack quota set --cores 80 admin
-openstack quota set --ram 196608 admin
+openstack quota set --ram 393216 admin
 openstack quota set --instances 20 admin
 
 
