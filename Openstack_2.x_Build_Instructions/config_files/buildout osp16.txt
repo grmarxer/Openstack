@@ -95,6 +95,90 @@ virsh vcpupin instance-0000000a 5 20
 virsh vcpupin instance-0000000a 6 22
 virsh vcpupin instance-0000000a 7 24
 
+bigip.10.s0.16cpu.32gb
+virsh vcpupin instance-00000003 0 10
+virsh vcpupin instance-00000003 1 12
+virsh vcpupin instance-00000003 2 14
+virsh vcpupin instance-00000003 3 16
+virsh vcpupin instance-00000003 4 18
+virsh vcpupin instance-00000003 5 20
+virsh vcpupin instance-00000003 6 22
+virsh vcpupin instance-00000003 7 24
+virsh vcpupin instance-00000003 8 26
+virsh vcpupin instance-00000003 9 28
+virsh vcpupin instance-00000003 10 30
+virsh vcpupin instance-00000003 11 32
+virsh vcpupin instance-00000003 12 34
+virsh vcpupin instance-00000003 13 36
+virsh vcpupin instance-00000003 14 38
+virsh vcpupin instance-00000003 15 40
+
+
+bigip.11.s1.16cpu.32gb
+virsh vcpupin instance-00000004 0 10
+virsh vcpupin instance-00000004 1 12
+virsh vcpupin instance-00000004 2 14
+virsh vcpupin instance-00000004 3 16
+virsh vcpupin instance-00000004 4 18
+virsh vcpupin instance-00000004 5 20
+virsh vcpupin instance-00000004 6 22
+virsh vcpupin instance-00000004 7 24
+virsh vcpupin instance-00000004 8 26
+virsh vcpupin instance-00000004 9 28
+virsh vcpupin instance-00000004 10 30
+virsh vcpupin instance-00000004 11 32
+virsh vcpupin instance-00000004 12 34
+virsh vcpupin instance-00000004 13 36
+virsh vcpupin instance-00000004 14 38
+virsh vcpupin instance-00000004 15 40
+
+************************************
+************************************
+
+If you just rebooted this BIG-IP GO PIN YOUR CPU's
+
+podman exec -it -u root nova_compute bash
+
+bigip.10.s0.16cpu.32gb
+virsh vcpupin instance-00000003 0 10
+virsh vcpupin instance-00000003 1 12
+virsh vcpupin instance-00000003 2 14
+virsh vcpupin instance-00000003 3 16
+virsh vcpupin instance-00000003 4 18
+virsh vcpupin instance-00000003 5 20
+virsh vcpupin instance-00000003 6 22
+virsh vcpupin instance-00000003 7 24
+virsh vcpupin instance-00000003 8 26
+virsh vcpupin instance-00000003 9 28
+virsh vcpupin instance-00000003 10 30
+virsh vcpupin instance-00000003 11 32
+virsh vcpupin instance-00000003 12 34
+virsh vcpupin instance-00000003 13 36
+virsh vcpupin instance-00000003 14 38
+virsh vcpupin instance-00000003 15 40
+
+
+bigip.11.s1.16cpu.32gb
+virsh vcpupin instance-00000004 0 10
+virsh vcpupin instance-00000004 1 12
+virsh vcpupin instance-00000004 2 14
+virsh vcpupin instance-00000004 3 16
+virsh vcpupin instance-00000004 4 18
+virsh vcpupin instance-00000004 5 20
+virsh vcpupin instance-00000004 6 22
+virsh vcpupin instance-00000004 7 24
+virsh vcpupin instance-00000004 8 26
+virsh vcpupin instance-00000004 9 28
+virsh vcpupin instance-00000004 10 30
+virsh vcpupin instance-00000004 11 32
+virsh vcpupin instance-00000004 12 34
+virsh vcpupin instance-00000004 13 36
+virsh vcpupin instance-00000004 14 38
+virsh vcpupin instance-00000004 15 40
+
+**************************************
+**************************************
+
 
 ############################################################################################################
 ############################################################################################################
@@ -135,7 +219,7 @@ openstack port list --device-id <UUID of instance>
 
 
 Binding Profile Commands
-openstack port set --binding-profile "trusted=True" mirror-sriov-p2
+openstack port set --binding-profile "trusted=True" private-sriov-p1
 openstack port set --binding-profile "trusted=false" mirror-sriov-p2
 
 
