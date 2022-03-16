@@ -71,6 +71,12 @@
 
 ** CORE3/10/1/3 is not configured with a 100G connection on the switch, it has a 40G broken out to 10G
 
+### ** For MAC Masquerade to work trust mode must be set to true (promiscuous mode on) on each port -- in order for the change to take effect you have to reboot, the instance and the compute node, or restart the NOVA containers using podman
+```
+openstack port set --binding-profile "trusted=true" public-sriov-p1
+```  
+
+
 
 <br/> 
 
