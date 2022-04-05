@@ -576,11 +576,8 @@ As of writing this document, all of the templates required for a successful over
 <br/> 
 <br/> 
 <br/> 
-<br/> 
-<br/> 
-<br/> 
 
-## Notes
+## Notes for Advanced Users  
 
 
 
