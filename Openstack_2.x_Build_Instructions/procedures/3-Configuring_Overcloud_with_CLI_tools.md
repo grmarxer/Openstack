@@ -570,7 +570,9 @@ As of writing this document, all of the templates required for a successful over
     ```  
 4. You have completed this procedure.  
 
+<br/> 
 
+#### [Proceed to Procedure 4 -- Building out the Openstack Environment now that the OpenStack cluster has been deployed](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/procedures/4-Post_Installation.md)  
 
 
 <br/> 
