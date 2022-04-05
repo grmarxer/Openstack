@@ -465,7 +465,9 @@ The environment file extension must be .yaml or .template, or it will not be tre
 
 The final stage in creating your OpenStack environment is to run the openstack overcloud deploy command to create the overcloud.  
 
-This command contains all of the following required and modified environmental files discussed above.  For this specific environment all of the necessary environmental files have been created.
+This command contains all of the following required and modified environmental files discussed above.  
+
+__NOTE:__ For this specific environment all of the necessary environmental files have been created.
 
 
 To modify the overcloud configuration at a later stage, perform the following actions:  
@@ -473,75 +475,95 @@ To modify the overcloud configuration at a later stage, perform the following ac
 - Modify parameters in the custom environment files and heat templates.  
 - Run the openstack overcloud deploy command again with the same environment files.  
 
-Do not edit the overcloud configuration directly because director overrides any manual configuration when you update the overcloud stack.
+Do not edit the overcloud configuration directly because director overrides any manual configuration when you update the overcloud stack.  
 
-```
-cd /home/stack/git_clone/Openstack/
-sudo git pull
-cd 
-sudo echo > /home/stack/.ssh/known_hosts
-sudo su -
-sudo echo > /root/.ssh/known_hosts
-exit
-source ~/stackrc
-openstack overcloud deploy --templates \
--r /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-custom_roles_data.yaml \
--e /home/stack/containers-prepare-parameter.yaml \
--n /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-network_data.yaml \
--e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-control-environment.yaml \
--e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-environment.yaml \
--e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-deploy-options.yaml \
--e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-network-environment.yaml \
--e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs.yaml \
--e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-sriov.yaml \
--e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs-dpdk.yaml \
---ntp-server 172.27.1.1 |& tee /home/stack/overcloud-deploy/logs/overcloud-deploy_$(date +"%m-%d-%Y__%I-%M_%p").log
-```  
+<br/> 
 
-This is the output of a deployment that completed successfully
+As of writing this all of the templates required for a successful overcloud deployment are stored in grmarxer PUBLIC GITHUB Openstack repository.  If this is the first time you are performing this sequence of commands do the following first.  
 
-```
-PLAY RECAP *********************************************************************
-undercloud                 : ok=95   changed=38   unreachable=0    failed=0    skipped=9    rescued=0    ignored=0
-vz-osp-computedpdk-0       : ok=304  changed=179  unreachable=0    failed=0    skipped=142  rescued=0    ignored=0
-vz-osp-computedpdk-1       : ok=301  changed=179  unreachable=0    failed=0    skipped=142  rescued=0    ignored=0
-vz-osp-computesriov-0      : ok=295  changed=177  unreachable=0    failed=0    skipped=136  rescued=0    ignored=0
-vz-osp-computesriov-1      : ok=295  changed=177  unreachable=0    failed=0    skipped=136  rescued=0    ignored=0
-vz-osp-controller-0        : ok=353  changed=215  unreachable=0    failed=0    skipped=161  rescued=0    ignored=0
+1. On the Undercloud Director create the directory to which we will clone the Openstack GITHUB repository above  
 
-Sunday 06 February 2022  13:21:03 -0800 (0:00:00.057)       1:04:07.011 *******
-===============================================================================
-Wait for containers to start for step 3 using paunch ------------------ 939.20s
-Pre-fetch all the containers ------------------------------------------ 441.16s
-Wait for containers to start for step 2 using paunch ------------------ 376.87s
-tripleo-kernel : Reboot after kernel args update ---------------------- 287.02s
-tripleo-kernel : Reboot after kernel args update ---------------------- 274.27s
-Wait for container-puppet tasks (generate config) to finish ----------- 163.72s
-Pre-fetch all the containers ------------------------------------------ 108.57s
-Wait for containers to start for step 4 using paunch ------------------ 107.25s
-Pre-fetch all the containers ------------------------------------------ 102.50s
-tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-cinder-volume:16.1 image -- 98.05s
-Wait for containers to start for step 5 using paunch ------------------- 55.35s
-tripleo-network-config : Run NetworkConfig script ---------------------- 51.77s
-Wait for puppet host configuration to finish --------------------------- 42.24s
-tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-haproxy:16.1 image -- 38.51s
-tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-rabbitmq:16.1 image -- 26.91s
-tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-mariadb:16.1 image -- 26.60s
-Wait for containers to start for step 1 using paunch ------------------- 25.89s
-Run puppet on the host to apply IPtables rules ------------------------- 24.39s
-Wait for container-puppet tasks (bootstrap tasks) for step 4 to finish -- 22.89s
-Wait for puppet host configuration to finish --------------------------- 19.62s
-Host 10.255.240.16 not found in /home/stack/.ssh/known_hosts
+    ```
+    [stack@osp16-undercloud ~]$ mkdir /home/stack/git_clone
+    ```  
 
-Ansible passed.
-Overcloud configuration completed.
-Overcloud Endpoint: http://10.255.240.16:5000
-Overcloud Horizon Dashboard URL: http://10.255.240.16:80/dashboard
-Overcloud rc file: /home/stack/overcloudrc
-Overcloud Deployed without error
-(overcloud) [stack@osp16-undercloud logs]$
+    ```
+    [stack@osp16-undercloud ~]$ cd git_clone
+    ``` 
 
-```  
+    ```
+    [stack@osp16-undercloud git_clone]$ git clone https://github.com/grmarxer/Openstack
+    ``` 
+
+2. Run the following to pull any changes from the GITHUB Repo,  remove known hosts from the undercloud director, source the stack users credentials, and run the overcloud deployment.  
+
+    ```
+    cd /home/stack/git_clone/Openstack/
+    sudo git pull
+    cd 
+    sudo echo > /home/stack/.ssh/known_hosts
+    sudo su -
+    sudo echo > /root/.ssh/known_hosts
+    exit
+    source ~/stackrc
+    openstack overcloud deploy --templates \
+    -r /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-custom_roles_data.yaml \
+    -e /home/stack/containers-prepare-parameter.yaml \
+    -n /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-network_data.yaml \
+    -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-control-environment.yaml \
+    -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-compute-environment.yaml \
+    -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-deploy-options.yaml \
+    -e /home/stack/git_clone/Openstack/Openstack_2.x_Build_Instructions/config_files/my-network-environment.yaml \
+    -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs.yaml \
+    -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-sriov.yaml \
+    -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs-dpdk.yaml \
+    --ntp-server 172.27.1.1 |& tee /home/stack/overcloud-deploy/logs/overcloud-deploy_$(date +"%m-%d-%Y__%I-%M_%p").log
+    ```  
+
+3. This is the output of a deployment that completed successfully
+
+    ```
+    PLAY RECAP *********************************************************************
+    undercloud                 : ok=95   changed=38   unreachable=0    failed=0    skipped=9    rescued=0    ignored=0
+    vz-osp-computedpdk-0       : ok=304  changed=179  unreachable=0    failed=0    skipped=142  rescued=0    ignored=0
+    vz-osp-computedpdk-1       : ok=301  changed=179  unreachable=0    failed=0    skipped=142  rescued=0    ignored=0
+    vz-osp-computesriov-0      : ok=295  changed=177  unreachable=0    failed=0    skipped=136  rescued=0    ignored=0
+    vz-osp-computesriov-1      : ok=295  changed=177  unreachable=0    failed=0    skipped=136  rescued=0    ignored=0
+    vz-osp-controller-0        : ok=353  changed=215  unreachable=0    failed=0    skipped=161  rescued=0    ignored=0
+
+    Sunday 06 February 2022  13:21:03 -0800 (0:00:00.057)       1:04:07.011 *******
+    ===============================================================================
+    Wait for containers to start for step 3 using paunch ------------------ 939.20s
+    Pre-fetch all the containers ------------------------------------------ 441.16s
+    Wait for containers to start for step 2 using paunch ------------------ 376.87s
+    tripleo-kernel : Reboot after kernel args update ---------------------- 287.02s
+    tripleo-kernel : Reboot after kernel args update ---------------------- 274.27s
+    Wait for container-puppet tasks (generate config) to finish ----------- 163.72s
+    Pre-fetch all the containers ------------------------------------------ 108.57s
+    Wait for containers to start for step 4 using paunch ------------------ 107.25s
+    Pre-fetch all the containers ------------------------------------------ 102.50s
+    tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-cinder-volume:16.1 image -- 98.05s
+    Wait for containers to start for step 5 using paunch ------------------- 55.35s
+    tripleo-network-config : Run NetworkConfig script ---------------------- 51.77s
+    Wait for puppet host configuration to finish --------------------------- 42.24s
+    tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-haproxy:16.1 image -- 38.51s
+    tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-rabbitmq:16.1 image -- 26.91s
+    tripleo-container-tag : Pull osp16-undercloud.ctlplane.localdomain:8787/rhosp-rhel8/openstack-mariadb:16.1 image -- 26.60s
+    Wait for containers to start for step 1 using paunch ------------------- 25.89s
+    Run puppet on the host to apply IPtables rules ------------------------- 24.39s
+    Wait for container-puppet tasks (bootstrap tasks) for step 4 to finish -- 22.89s
+    Wait for puppet host configuration to finish --------------------------- 19.62s
+    Host 10.255.240.16 not found in /home/stack/.ssh/known_hosts
+
+    Ansible passed.
+    Overcloud configuration completed.
+    Overcloud Endpoint: http://10.255.240.16:5000
+    Overcloud Horizon Dashboard URL: http://10.255.240.16:80/dashboard
+    Overcloud rc file: /home/stack/overcloudrc
+    Overcloud Deployed without error
+    (overcloud) [stack@osp16-undercloud logs]$
+
+    ```  
 
 
 
