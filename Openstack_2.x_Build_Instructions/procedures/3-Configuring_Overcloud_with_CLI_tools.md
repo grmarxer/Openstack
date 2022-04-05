@@ -430,19 +430,20 @@ Use the following list as an example of the environment file order:
 - The number of nodes and the flavors for each role. It is vital to include this information for overcloud creation.  
 - The location of the container images for containerized OpenStack services.  
 - Any network isolation files, starting with the initialization file (environments/network-isolation.yaml) from the heat template collection, then your custom NIC configuration file, and finally any additional network configurations.  
+- Any external load balancing environment files if you are using an external load balancer. For more information, see External Load Balancing for the Overcloud.  
+- Any storage environment files such as Ceph Storage, NFS, or iSCSI.  
+- Any environment files for Red Hat CDN or Satellite registration.  
+- Any other custom environment files.  
+
+__NOTE:__ Red Hat recommends that you organize your custom environment files in a separate directory, such as the templates directory.  
 
 For more information, see the following chapters in the Advanced Overcloud Customization guide:  
 
-"Basic network isolation"  
-"Custom composable networks"  
-"Custom network interface templates"  
-Any external load balancing environment files if you are using an external load balancer. For more information, see External Load Balancing for the Overcloud.  
-Any storage environment files such as Ceph Storage, NFS, or iSCSI.  
-Any environment files for Red Hat CDN or Satellite registration.  
-Any other custom environment files.  
-Red Hat recommends that you organize your custom environment files in a separate directory, such as the templates directory.  
+    "Basic network isolation"  
+    "Custom composable networks"  
+    "Custom network interface templates"  
+ 
 
-For more information about customizing advanced features for your overcloud, see the Advanced Overcloud Customization guide.
 
 IMPORTANT
 A basic overcloud uses local LVM storage for block storage, which is not a supported configuration. It is recommended to use an external storage solution, such as Red Hat Ceph Storage, for block storage.
