@@ -465,9 +465,9 @@ The environment file extension must be .yaml or .template, or it will not be tre
 
 The final stage in creating your OpenStack environment is to run the openstack overcloud deploy command to create the overcloud openstack environment.  
 
-This command contains all of the following required and modified environmental files discussed above.  
+The commands below contain all of the required and modified environmental files discussed above.  
 
-__NOTE:__ For this specific environment all of the necessary environmental files have been created.
+__NOTE:__ For this specific environment all of the necessary environmental files have been created for you.
 
 <br/> 
 
