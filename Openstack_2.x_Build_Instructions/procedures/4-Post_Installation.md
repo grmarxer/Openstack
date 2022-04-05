@@ -152,7 +152,8 @@ openstack flavor create bigip.8cpu.64GB.dpdk --ram 65536 --disk 100 --vcpus 8
 openstack flavor set --property aggregate_instance_extra_specs:dpdk=true --property hw:cpu_policy=dedicated --property hw:mem_page_size=1GB bigip.8cpu.64GB.dpdk
 
 
-# Create the following images to use for guest instances, there are images with and with multiqueue enabled
+# Create the following images to use for guest instances, this will create openstack images with and without multiqueue enabled
+# If you have not already done so you will need to download each of the necessary qcow images to the underloud director /home/stack/images folder.
 # best to cut and paste these one at a time, only proceeding after the previous completes
 
 openstack image create "bigip.all.15.1.3.1.multiqueue-enabled" \
