@@ -53,9 +53,10 @@
 | compute6-N3000      | A06-15       | (A08) CORE2 10/28/3  | (A08) CORE2 10/28/4  |  
 
 
-#### On eno1np0 for both mellanox compute nodes only trunk vlans 1150,1151 and 1153.  If you include 1152 in this mix you will get a layer 2 loop on the OVS bridge on the DPDK nodes  
+__NOTE:__ On both Mellanox compute nodes -- port eno1np0, only trunk vlans 1150, 1151 and 1153.  Do not trunk VLAN 1152 (TENANT VLAN)  
 
-#### add spiel on how important switch port configuration is for successful overcloud deployment   
+__NOTE:__ Switch port configuration is critical to the success of the `overcloud deployment` -- ensure it is correct   
+
 <br/> 
 
 ## Openstack 2.x Node -- Switch Port assignments for SRIOV and DPDK
@@ -69,12 +70,12 @@
 | compute1-intel  | L25-A15-U25  | CORE3/5/22/4    | CORE3/5/21/3    | CORE3/6/2/3     | CORE3/6/2/4       |  
 | compute2-intel  | L25-A15-U27  | CORE3/5/21/1    | CORE3/5/21/2    | CORE3/6/2/1     | **CORE3/10/1/3    |  
 
-** CORE3/10/1/3 is not configured with a 100G connection on the switch, it has a 40G broken out to 10G
+__INFO:__ CORE3/10/1/3 is not configured with a 100G connection on the switch, it has a 40G broken out to 10G  
 
-##### ** For MAC Masquerade to work trust mode must be set to true (promiscuous mode on) on each port -- in order for the change to take effect you have to reboot, the instance and the compute node, or restart the NOVA containers using podman
-```
-openstack port set --binding-profile "trusted=true" public-sriov-p1
-```  
+__NOTE:__ For MAC Masquerade to work properly, trust mode must be set to true (promiscuous mode on) on each SRIOV port -- in order for the change to take effect you have to reboot, the instance and the compute node, or restart the NOVA containers on the compute node using podman  
+    ```
+    openstack port set --binding-profile "trusted=true" public-sriov-p1
+    ```  
 
 
 
