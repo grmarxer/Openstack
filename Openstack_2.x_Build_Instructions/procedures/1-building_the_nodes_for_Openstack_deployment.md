@@ -188,3 +188,7 @@ __NOTE:__ The following steps must be completed on the controller and each of th
     ![Image](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/illustrations/exit-bios-4.png)    
 
 9.  You have completed this procedure, all further configuration work will be completed on the Undercloud Director __ONLY__  
+
+<br/> 
+
+### [Proceed to Procedure 2](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/procedures/2-preparing_the_undercloud_director_node_for_deployment.md)  
