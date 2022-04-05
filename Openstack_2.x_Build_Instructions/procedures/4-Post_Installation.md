@@ -32,7 +32,15 @@ You can access each overcloud node through the SSH protocol from the undercloud 
     exec bash
     ```  
 
-2.  SSH to a particular node by entering d0 for example.  This will SSH you into DPDK node 0
+2.  SSH to a particular node by entering `s0' for example -- from bash.  This will SSH you into SRIOV node 0  
+  ```
+  [stack@osp16-undercloud git_clone]$ s0
+  This system is not registered to Red Hat Insights. See https://cloud.redhat.com/
+  To register this system, run: insights-client --register
+
+  Last login: Thu Mar 17 11:06:06 2022 from 192.168.255.1
+  [heat-admin@vz-osp-computesriov-0 ~]$
+  ```
 
 
 <br/>  
