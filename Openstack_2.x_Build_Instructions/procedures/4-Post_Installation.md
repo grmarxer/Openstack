@@ -62,7 +62,7 @@ You can access each overcloud node through the SSH protocol from the undercloud 
 
 2. Cut and paste the following:  
 
-__NOTE:__ If you have not downloaded the qcow2 images you require for guest instances, and they do not exist in /home/stack/images on the undercloud director be sure to download them before proceeding.  
+    __NOTE:__ If you have not downloaded the qcow2 images you require for guest instances, and they do not exist in /home/stack/images on the undercloud director be sure to download them before proceeding.  
 
 ```
 # Source the overcloud credentials to configure the Openstack instance
