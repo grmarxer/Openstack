@@ -45,7 +45,7 @@ You can access each overcloud node through the SSH protocol from the undercloud 
 
 <br/>  
 
-### Access the Openstack Horizon GUI.  
+### Accessing the Openstack Horizon GUI.  
 
 1. Link and credentials -- Username admin, password f5default
 
