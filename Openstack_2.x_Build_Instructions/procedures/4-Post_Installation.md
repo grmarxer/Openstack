@@ -43,14 +43,26 @@ You can access each overcloud node through the SSH protocol from the undercloud 
     [heat-admin@vz-osp-computesriov-0 ~]$
     ```
 
+<br/>  
+
+### Access the Openstack Horizon GUI.  
+
+1. Link and credentials -- Username admin, password f5default
+
+  ```
+  http://10.144.22.12/dashboard/auth/login/?next=/dashboard/
+  ```  
+
 
 <br/>  
 
-### Build out Openstack flavors, networks, etc.
+### Build out Openstack flavors, networks, etc. using the Command Line.
 
 1. Log in to the undercloud director as the stack user.  
 
 2. Cut and paste the following:  
+
+__NOTE:__ If you have not downloaded the qcow2 images you require for guest instances, and they do not exist in /home/stack/images on the undercloud director be sure to download them before proceeding.  
 
 ```
 # Source the overcloud credentials to configure the Openstack instance
