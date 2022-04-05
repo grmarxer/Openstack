@@ -451,30 +451,6 @@ The next few sections contain information about creating some environment files 
 
 <br/> 
 
-##  Think this can be removed Creating an environment file that defines node counts and flavors  
-
-By default, director deploys an overcloud with 1 Controller node and 1 Compute node using the baremetal flavor. However, this is only suitable for a proof-of-concept deployment. You can override the default configuration by specifying different node counts and flavors. For a small-scale production environment, deploy at least 3 Controller nodes and 3 Compute nodes, and assign specific flavors to ensure that the nodes have the appropriate resource specifications. Complete the following steps to create an environment file named node-info.yaml that stores the node counts and flavor assignments.  
-
-#### Procedure  
-
-1.  Create a `node-info.yaml` file in the /home/stack/templates/ directory:  
-    ```
-    (undercloud) $ vi /home/stack/templates/node-info.yaml
-    ```  
-
-
-2. Edit the file to include the node counts and flavors that you need. This specific environment contains 1 Controller node and 2 Compute nodes:
-
-    ```yaml
-    parameter_defaults:
-      OvercloudControllerFlavor: control
-      OvercloudComputeFlavor: compute
-      ControllerCount: 1
-      ComputeCount: 2
-    ```  
-
-<br/> 
-
 
 ## Deployment command  
 
