@@ -116,7 +116,7 @@ __NOTE:__  ens1f0 and ens1f1 are in a bond -- LACP trunk with miimon=100  (But y
 | StorageMgmt             | 1154          | 10.255.244.0/24  | fd00:10:255:244::/64 |                 |                | 
 | Management (see note)   | 1155          | 10.255.245.0/24  | fd00:10:255:245::/64 |                 |                |   
 
-Note: Management is only included for backward compatibility -- it is not used in OSP 16 by default
+__Note:__ The Management VLAN is only included for backward compatibility -- it is not used in OSP 16 by default
 
 <br/> 
 
