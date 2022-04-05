@@ -451,9 +451,9 @@ For more information, see the following chapters in the Advanced Overcloud Custo
  
 <br/> 
 
-- A basic overcloud uses local LVM storage for block storage, which is not a supported configuration. It is recommended to use an external storage solution, such as Red Hat Ceph Storage, for block storage.  
+A basic overcloud uses local LVM storage for block storage, which is not a supported configuration. It is recommended to use an external storage solution, such as Red Hat Ceph Storage, for block storage.  
 
-- The environment file extension must be .yaml or .template, or it will not be treated as a custom template resource.  
+The environment file extension must be .yaml or .template, or it will not be treated as a custom template resource.  
 
 
 
