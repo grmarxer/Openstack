@@ -193,5 +193,5 @@ These are the only routable IP addresses we have for Guest mgmt access.  Thus th
 
 <br/> 
 
-### [Link to Procedures List for OSP 16 deployment](https://github.com/grmarxer/Openstack/tree/master/Openstack_2.x_Build_Instructions/procedures)
+### [Link to Procedures List for OSP 16 deployment, begin with Procedure 1 -- Building the Nodes for Openstack deployment](https://github.com/grmarxer/Openstack/tree/master/Openstack_2.x_Build_Instructions/procedures)
 
