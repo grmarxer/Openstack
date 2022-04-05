@@ -88,7 +88,7 @@ __NOTE:__ For MAC Masquerade to work properly, trust mode must be set to true (p
 | compute3-mellanox | L25-A15-U24  | CORE3/5/22/1  | CORE3/5/22/2  | CORE3/5/22/3  | CORE3/6/2/2   |  
 | compute4-mellanox | L25-A15-U26  | CORE3/6/1/1   | CORE3/6/1/2   | CORE3/6/1/3   | CORE3/6/1/4   |  
 
-__NOTE:__  ens1f0 and ens1f1 are in a bond -- LACP trunk with miimon=100  (But you do not include miimon setting in tripleo)  --  also only trunk vlan 1152 on the bonded interface  
+__NOTE:__  ens1f0 and ens1f1 are in a bond -- LACP trunk with miimon=100  (But you do not include miimon setting in tripleo)  --  also only trunk vlan 1152 (TENANT VLAN) on the bonded interface  
 
 <br/> 
 
@@ -99,6 +99,7 @@ __NOTE:__  ens1f0 and ens1f1 are in a bond -- LACP trunk with miimon=100  (But y
 | compute5-N3000  | A06-16       | Core2 10/27/1     |   
 | compute6-N3000  | A06-15       | Core2 10/26/1     |   
 
+<br/>  
 
 
 ## Openstack 2.x Mandated VLANs
