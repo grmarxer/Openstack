@@ -465,26 +465,8 @@ The environment file extension must be .yaml or .template, or it will not be tre
 
 The final stage in creating your OpenStack environment is to run the openstack overcloud deploy command to create the overcloud.  
 
-https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.1/html/director_installation_and_usage/creating-a-basic-overcloud-with-cli-tools#sect-Including_Environment_Files_in_Overcloud_Creation  
+This command contains all of the following required and modified environmental files discussed above.  For this specific environment all of the necessary environmental files have been created.
 
-This command contains the following additional options:
-
---templates  
-Creates the overcloud using the heat template collection in /usr/share/openstack-tripleo-heat-templates as a foundation.  
-
--e /home/stack/templates/node-info.yaml  
-Adds an environment file to define how many nodes and which flavors to use for each role.  
-
--e /home/stack/containers-prepare-parameter.yaml  
-Adds the container image preparation environment file. You generated this file during the undercloud installation and can use the same file for your overcloud creation.  
-
--e /home/stack/inject-trust-anchor-hiera.yaml  
-Adds an environment file to install a custom certificate in the undercloud.  
-
--r /home/stack/templates/roles_data.yaml  
-(Optional) The generated roles data if you use custom roles or want to enable a multi architecture cloud. For more information, see Section 7.10, “Creating architecture specific roles”.  
-
-Director requires these environment files for re-deployment and post-deployment functions. Failure to include these files can result in damage to your overcloud.  
 
 To modify the overcloud configuration at a later stage, perform the following actions:  
 
