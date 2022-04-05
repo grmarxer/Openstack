@@ -423,6 +423,10 @@ However in some circumstances, you may wish to control node placement more direc
 
 ##  Environment files  
 
+__Note:__ This section is meant for educational purposes only.  For this specific environment all of the environment files have been created and modified.  
+
+<br/> 
+
 The undercloud includes a set of heat templates that form the plan for your overcloud creation. You can customize aspects of the overcloud with environment files, which are YAML-formatted files that override parameters and resources in the core heat template collection. You can include as many environment files as necessary. However, the order of the environment files is important because the parameters and resources that you define in subsequent environment files take precedence.  
 
 Use the following list as an example of the environment file order:
