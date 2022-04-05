@@ -567,9 +567,8 @@ As of writing this document, all of the templates required for a successful over
     Overcloud rc file: /home/stack/overcloudrc
     Overcloud Deployed without error
     (overcloud) [stack@osp16-undercloud logs]$
-
     ```  
-
+4. You have completed this procedure.  
 
 
 
