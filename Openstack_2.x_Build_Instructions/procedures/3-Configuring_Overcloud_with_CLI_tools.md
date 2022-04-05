@@ -482,7 +482,7 @@ Do not edit the overcloud configuration directly because director overrides any 
 
 ### Procedure  
 
-As of writing this all of the templates required for a successful overcloud deployment are stored in grmarxer PUBLIC GITHUB Openstack repository.  If this is the first time you are performing this sequence of commands do the following first.  
+As of writing this document, all of the templates required for a successful overcloud deployment are stored in grmarxer PUBLIC GITHUB Openstack repository.  If this is the first time you are performing this sequence of commands do the following first.  
 
 1. On the Undercloud Director create the directory to which we will clone the Openstack GITHUB repository above  
 
