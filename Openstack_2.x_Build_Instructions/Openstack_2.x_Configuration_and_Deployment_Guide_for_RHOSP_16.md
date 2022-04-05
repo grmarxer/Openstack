@@ -73,7 +73,7 @@ __NOTE:__ Switch port configuration is critical to the success of the `overcloud
 __INFO:__ CORE3/10/1/3 is not configured with a 100G connection on the switch, it has a 40G broken out to 10G  
 
 __NOTE:__ For MAC Masquerade to work properly, trust mode must be set to true (promiscuous mode on) on each SRIOV port -- in order for the change to take effect you have to reboot, the instance and the compute node, or restart the NOVA containers on the compute node using podman  
-
+<br/>  
     ```
     openstack port set --binding-profile "trusted=true" public-sriov-p1
     ```  
