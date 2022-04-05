@@ -425,18 +425,18 @@ However in some circumstances, you may wish to control node placement more direc
 
 The undercloud includes a set of heat templates that form the plan for your overcloud creation. You can customize aspects of the overcloud with environment files, which are YAML-formatted files that override parameters and resources in the core heat template collection. You can include as many environment files as necessary. However, the order of the environment files is important because the parameters and resources that you define in subsequent environment files take precedence. Use the following list as an example of the environment file order:
 
-The number of nodes and the flavors for each role. It is vital to include this information for overcloud creation.
-The location of the container images for containerized OpenStack services.
-Any network isolation files, starting with the initialization file (environments/network-isolation.yaml) from the heat template collection, then your custom NIC configuration file, and finally any additional network configurations. For more information, see the following chapters in the Advanced Overcloud Customization guide:
+The number of nodes and the flavors for each role. It is vital to include this information for overcloud creation.  
+The location of the container images for containerized OpenStack services.  
+Any network isolation files, starting with the initialization file (environments/network-isolation.yaml) from the heat template collection, then your custom NIC configuration file, and finally any additional network configurations. For more information, see the following chapters in the Advanced Overcloud Customization guide:  
 
-"Basic network isolation"
-"Custom composable networks"
-"Custom network interface templates"
-Any external load balancing environment files if you are using an external load balancer. For more information, see External Load Balancing for the Overcloud.
-Any storage environment files such as Ceph Storage, NFS, or iSCSI.
-Any environment files for Red Hat CDN or Satellite registration.
-Any other custom environment files.
-Red Hat recommends that you organize your custom environment files in a separate directory, such as the templates directory.
+"Basic network isolation"  
+"Custom composable networks"  
+"Custom network interface templates"  
+Any external load balancing environment files if you are using an external load balancer. For more information, see External Load Balancing for the Overcloud.  
+Any storage environment files such as Ceph Storage, NFS, or iSCSI.  
+Any environment files for Red Hat CDN or Satellite registration.  
+Any other custom environment files.  
+Red Hat recommends that you organize your custom environment files in a separate directory, such as the templates directory.  
 
 For more information about customizing advanced features for your overcloud, see the Advanced Overcloud Customization guide.
 
