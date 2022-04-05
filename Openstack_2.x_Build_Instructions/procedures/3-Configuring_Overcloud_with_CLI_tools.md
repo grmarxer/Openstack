@@ -247,7 +247,7 @@ The undercloud director can run an introspection process on each node. This proc
     This process regularly fails between step 3 and step 4, you will know this by monitoring the iDRAC console.  If you see the PXE start but then fail, the server will try to boot from `disk` which is the next option in the boot sequence.  If this occurs it is best to use iDRAC to reboot the node immediately and kickoff the PXE boot again.  This can be done by selecting `PXE` from boot option inside iDRAC or from the BIOS.  
     You do not want a failed PXE boot on a Openstack Node to linger as the introspect command has a time limit.  So if it fails a Openstack Node and the entire process times-out you will need to start the process again for all nodes.  
 
-    __The take home message here is if the PXE boot fails for a Openstack Node kick it off again manually as quickly as possible.__  
+    __** The take home message here is if the PXE boot fails for a Openstack Node, kick it off again manually as quickly as possible.__  
 
     <br/>
 
