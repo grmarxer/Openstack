@@ -437,11 +437,13 @@ Use the following list as an example of the environment file order:
 
 __NOTE:__ Red Hat recommends that you organize your custom environment files in a separate directory, such as the templates directory.  
 
+<br/> 
+
 For more information, see the following chapters in the Advanced Overcloud Customization guide:  
 
-    "Basic network isolation"  
-    "Custom composable networks"  
-    "Custom network interface templates"  
+- "Basic network isolation"  
+- "Custom composable networks"  
+- "Custom network interface templates"  
  
 
 
