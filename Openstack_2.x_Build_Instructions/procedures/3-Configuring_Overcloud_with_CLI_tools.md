@@ -500,6 +500,8 @@ As of writing this document, all of the templates required for a successful over
 
 2. Run the following to pull any changes from the GITHUB Repo,  remove known hosts from the undercloud director, source the stack users credentials, and run the overcloud deployment.  
 
+    __Note:__ A log of the overcloud deployment will be written to `/home/stack/overcloud-deploy/logs`  
+
     ```
     cd /home/stack/git_clone/Openstack/
     sudo git pull
