@@ -191,4 +191,4 @@ __NOTE:__ The following steps must be completed on the controller and each of th
 
 <br/> 
 
-### [Proceed to Procedure 2 -- Preparing the OSP 16.1 UnderCloud Director Node for Openstack Deployment](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/procedures/2-preparing_the_undercloud_director_node_for_deployment.md)  
+#### [Proceed to Procedure 2 -- Preparing the OSP 16.1 UnderCloud Director Node for Openstack Deployment](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/procedures/2-preparing_the_undercloud_director_node_for_deployment.md)  

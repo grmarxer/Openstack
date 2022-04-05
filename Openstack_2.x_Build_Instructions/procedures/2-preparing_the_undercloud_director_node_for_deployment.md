@@ -424,3 +424,6 @@ You can find the container registry logs in the following locations:
 
 The image content is served from /var/lib/image-serve. This location uses a specific directory layout and apache configuration to implement the pull function of the registry REST API.  
 
+<br/> 
+
+#### [Proceed to Procedure 3 -- Configuring the Overcloud with CLI Tools](https://github.com/grmarxer/Openstack/blob/master/Openstack_2.x_Build_Instructions/procedures/3-Configuring_Overcloud_with_CLI_tools.md)  
