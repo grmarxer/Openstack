@@ -219,7 +219,13 @@ openstack port list --device-id <UUID of instance>
 
 
 Binding Profile Commands
-openstack port set --binding-profile "trusted=True" private-sriov-p1
+
+openstack port set --binding-profile "trusted=true" public-sriov-p1
+openstack port set --binding-profile "trusted=true" private-sriov-p1
+openstack port set --binding-profile "trusted=true" public-sriov-p2
+openstack port set --binding-profile "trusted=true" private-sriov-p2
+openstack port set --binding-profile "trusted=true" mirror-sriov-p1
+openstack port set --binding-profile "trusted=true" mirror-sriov-p2
 openstack port set --binding-profile "trusted=false" mirror-sriov-p2
 
 
