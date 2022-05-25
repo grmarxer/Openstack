@@ -229,6 +229,10 @@ openstack port set --binding-profile "trusted=true" mirror-sriov-p2
 openstack port set --binding-profile "trusted=false" mirror-sriov-p2
 
 
+openstack port set --binding-profile "trusted=true" public-sriov-p4
+openstack port set --binding-profile "trusted=true" public-sriov-p5
+
+
 
 
 
@@ -416,29 +420,50 @@ SRIOV
 
 
 overcloud) [stack@osp16-undercloud ~]$ openstack port list | grep sriov
-| 079f94c6-6f01-40ce-a74d-e6f356510fbf | private-sriov-p4 | fa:16:3e:21:d5:f9 | ip_address='10.10.30.237', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'  | DOWN   |
-| 0de23ce8-09a9-4201-89dc-849249a2314a | private-sriov-p3 | fa:16:3e:e7:33:a4 | ip_address='10.10.30.226', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'  | DOWN   |
-| 10046b5a-a59d-4073-83b5-c7ae58fbb27f | mirror-sriov-p4  | fa:16:3e:8e:e8:e9 | ip_address='10.10.40.205', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'  | DOWN   |
-| 19ec5736-a06f-4022-b78c-52b8a8489ec8 | public-sriov-p4  | fa:16:3e:f5:d4:e2 | ip_address='10.10.20.204', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'  | DOWN   |
-| 1b94aa2e-384c-4d17-99be-d4723c620e08 | mirror-sriov-p5  | fa:16:3e:db:b1:7f | ip_address='10.10.40.241', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'  | DOWN   |
-| 27435d73-5dea-45fc-8e84-849455f96ead | public-sriov-p3  | fa:16:3e:32:33:6e | ip_address='10.10.20.223', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'  | DOWN   |
-| 278997c3-483b-4297-898e-e7a7b2f70a95 | private-sriov-p5 | fa:16:3e:d7:ee:d5 | ip_address='10.10.30.228', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'  | DOWN   |
-| 3ac93872-5404-4007-916a-aeba985b0630 | mirror-sriov-p1  | fa:16:3e:17:e6:63 | ip_address='10.10.40.233', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'  | ACTIVE |
-| 57afb559-e9cb-4970-94ce-2fddaf40c8e3 | mirror-sriov-p2  | fa:16:3e:1c:fd:c6 | ip_address='10.10.40.250', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'  | ACTIVE |
-| 5dd42144-8a3f-4094-b3a2-c17a489be658 | mirror-sriov-p3  | fa:16:3e:c0:3f:67 | ip_address='10.10.40.217', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'  | DOWN   |
-| 5de8a929-14f8-4bac-8511-80de47430a54 | public-sriov-p1  | fa:16:3e:73:6b:dd | ip_address='10.10.20.249', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'  | ACTIVE |
-| 7868c273-196c-4753-a7fe-b8c2b3230d2f | public-sriov-p2  | fa:16:3e:6b:ea:d0 | ip_address='10.10.20.224', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'  | ACTIVE |
-| 931a388f-9fa5-48c1-8873-ed15a87dcf42 | public-sriov-p6  | fa:16:3e:9e:47:6d | ip_address='10.10.20.225', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'  | DOWN   |
-| 974ea30a-21e5-439e-9171-a0f15ccfa6ca | mirror-sriov-p6  | fa:16:3e:43:90:7a | ip_address='10.10.40.247', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'  | DOWN   |
-| abddfc7f-ecae-4677-8854-69260cbc893e | private-sriov-p6 | fa:16:3e:06:b6:8e | ip_address='10.10.30.217', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'  | DOWN   |
-| b1ce7576-98fb-4de8-aab6-d984315e1571 | private-sriov-p1 | fa:16:3e:f1:5d:b4 | ip_address='10.10.30.214', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'  | ACTIVE |
-| bc4f5f42-c484-433d-b1aa-55999f8e3f93 | public-sriov-p5  | fa:16:3e:aa:7a:a2 | ip_address='10.10.20.242', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'  | DOWN   |
-| da82983d-f5da-4e18-8fde-7b97200a6084 | private-sriov-p2 | fa:16:3e:29:6c:c2 | ip_address='10.10.30.250', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'  | ACTIVE |
+| 5de8a929-14f8-4bac-8511-80de47430a54 | public-sriov-p1             | fa:16:3e:73:6b:dd | ip_address='10.10.20.249', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'   | DOWN   |
+| 7868c273-196c-4753-a7fe-b8c2b3230d2f | public-sriov-p2             | fa:16:3e:6b:ea:d0 | ip_address='10.10.20.224', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'   | DOWN   |
+| 19ec5736-a06f-4022-b78c-52b8a8489ec8 | public-sriov-p4             | fa:16:3e:f5:d4:e2 | ip_address='10.10.20.204', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'   | DOWN   |
+| 27435d73-5dea-45fc-8e84-849455f96ead | public-sriov-p3             | fa:16:3e:32:33:6e | ip_address='10.10.20.223', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'   | ACTIVE |
+| 80531dc4-335d-4b0c-a73d-3d50cc59ef42 | public-sriov-p5             | fa:16:3e:c1:2f:91 | ip_address='10.10.20.234', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'   | ACTIVE |
+| 931a388f-9fa5-48c1-8873-ed15a87dcf42 | public-sriov-p6             | fa:16:3e:9e:47:6d | ip_address='10.10.20.225', subnet_id='efb71b64-de64-4123-b3a3-5dc0dde09e02'   | ACTIVE |
+
+| 3ac93872-5404-4007-916a-aeba985b0630 | mirror-sriov-p1             | fa:16:3e:17:e6:63 | ip_address='10.10.40.233', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'   | DOWN   |
+| 57afb559-e9cb-4970-94ce-2fddaf40c8e3 | mirror-sriov-p2             | fa:16:3e:1c:fd:c6 | ip_address='10.10.40.250', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'   | DOWN   |
+| 5dd42144-8a3f-4094-b3a2-c17a489be658 | mirror-sriov-p3             | fa:16:3e:c0:3f:67 | ip_address='10.10.40.217', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'   | DOWN   |
+| 10046b5a-a59d-4073-83b5-c7ae58fbb27f | mirror-sriov-p4             | fa:16:3e:8e:e8:e9 | ip_address='10.10.40.205', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'   | DOWN   |
+| 1b94aa2e-384c-4d17-99be-d4723c620e08 | mirror-sriov-p5             | fa:16:3e:db:b1:7f | ip_address='10.10.40.241', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'   | DOWN   |
+| fa9175ed-0212-43d2-b4d1-6a75a3dea29c | mirror-sriov-p6             | fa:16:3e:83:37:d0 | ip_address='10.10.40.248', subnet_id='e6eeab33-1286-4780-839a-093f7688a5da'   | DOWN   |
+
+| b1ce7576-98fb-4de8-aab6-d984315e1571 | private-sriov-p1            | fa:16:3e:f1:5d:b4 | ip_address='10.10.30.214', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'   | DOWN   |
+| da82983d-f5da-4e18-8fde-7b97200a6084 | private-sriov-p2            | fa:16:3e:29:6c:c2 | ip_address='10.10.30.250', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'   | DOWN   |
+| 0de23ce8-09a9-4201-89dc-849249a2314a | private-sriov-p3            | fa:16:3e:e7:33:a4 | ip_address='10.10.30.226', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'   | DOWN   |
+| 079f94c6-6f01-40ce-a74d-e6f356510fbf | private-sriov-p4            | fa:16:3e:21:d5:f9 | ip_address='10.10.30.237', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'   | DOWN   |
+| 278997c3-483b-4297-898e-e7a7b2f70a95 | private-sriov-p5            | fa:16:3e:d7:ee:d5 | ip_address='10.10.30.228', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'   | DOWN   |
+| 9ad02f2b-306c-449b-9ac8-34c4b28a78c0 | private-sriov-p6            | fa:16:3e:64:0d:68 | ip_address='10.10.30.243', subnet_id='2b88c1ce-2b5b-485a-81ca-c6b0c8bbc1ef'   | DOWN   |
 
 
 
 
 public, private, mirroring
+
+
+nova boot --flavor bigip.8cpu.16GB --image bigip.all.1-slot.15.1.3.1 \
+  --nic net-name=management --nic port-id=27435d73-5dea-45fc-8e84-849455f96ead  --nic port-id=bc4f5f42-c484-433d-b1aa-55999f8e3f93 \
+  --nic port-id=abddfc7f-ecae-4677-8854-69260cbc893e \
+  --nic port-id=974ea30a-21e5-439e-9171-a0f15ccfa6ca \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-0.osp.16.customer.lab bigip.100.sriov-bond.s0.8cpu.16gb
+  
+  
+nova boot --flavor bigip.2cpu.4GB --image bigip.all.1-slot.15.1.3.1 \
+  --nic net-name=management --nic port-id=27435d73-5dea-45fc-8e84-849455f96ead \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab bigip.99.pub-sriov-p3.s1.2cpu.4gb
+  
+  
+  
+nova boot --flavor bigip.2cpu.4GB --image bigip.all.1-slot.15.1.3.1 \
+  --nic net-name=management --nic port-id=80531dc4-335d-4b0c-a73d-3d50cc59ef42 --nic port-id=931a388f-9fa5-48c1-8873-ed15a87dcf42 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-0.osp.16.customer.lab bigip.102.pub-sriov-p6.s0.2cpu.4gb
+
 
 
   
@@ -559,10 +584,31 @@ tmsh modify sys global-settings hostname VE91-BIG-IP_15-1-3-1.com
 tmsh mv cm device bigip1 VE91-BIG-IP_15-1-3-1
 
 
+tmsh modify sys global-settings hostname bigip-BFD-4.com
+tmsh mv cm device bigip1 bigip-BFD-4
+
+
+tmsh create net vlan public interfaces add { 1.1 }
+tmsh create net vlan private interfaces add { 1.2 }
+tmsh create net vlan mirroring interfaces add { 1.3 }
+tmsh create net vlan mirror interfaces add { 1.4 }
+tmsh create net vlan vnic5 interfaces add { 1.5 }
+tmsh save sys config
+
+tmsh create net vlan vf1 interfaces add { 1.1 }
+tmsh create net vlan vf2 interfaces add { 1.2 }
+tmsh create net vlan private interfaces add { 1.3 }
+tmsh create net vlan mirror interfaces add { 1.4 }
+tmsh create net vlan vnic5 interfaces add { 1.5 }
+tmsh save sys config
+
  
 tmsh create net vlan vnic1 interfaces add { 1.1 }
 tmsh create net vlan vnic2 interfaces add { 1.2 }
 tmsh create net vlan vnic3 interfaces add { 1.3 }
+tmsh create net vlan vnic4 interfaces add { 1.4 }
+tmsh create net vlan vnic5 interfaces add { 1.5 }
+tmsh save sys config
 
 tmsh create net vlan dpdk-net5 interfaces add { 1.1 } mtu 1450
 tmsh create net vlan dpdk-net10 interfaces add { 1.2 } mtu 1450
