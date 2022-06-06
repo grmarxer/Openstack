@@ -23,8 +23,7 @@
 | compute2-intel      | L25-A15-U27   |Intel XXV710          | SRIOV                      | 10.144.19.231   | root / calvin           |  
 | compute3-mellanox   | L25-A15-U24   |Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.237   | root / calvin           |  
 | compute4-mellanox   | L25-A15-U26   |Mellanox MCX512A-ACAT | OVS-DPDK Host              | 10.144.19.233   | root / calvin           |  
-| compute5-N3000      | A06-16        |Intel N3000           |  ??                        | 10.144.22.56    | admin / admin           |  
-| compute6-N3000      | A06-15        |Intel N3000           |  ??                        | 10.144.22.54    | admin / admin           |
+
 
 <br/>  
 
@@ -45,12 +44,6 @@
 | compute3-mellanox   | L25-A15-U24  | CORE5/6/25/1       | CORE3/10/12/2       |  
 | compute4-mellanox   | L25-A15-U26  | CORE5/6/25/3       | CORE3/10/12/1       | 
 <br/> 
-
-
-| **Node**            | **Location** | **ens1f1 (mgmt)**    | **ens1f0 (prov)**    |  
-| :---------:         | :----------: | :----------:         | :----------:         |  
-| compute5-N3000      | A06-16       | (A08) CORE2 10/28/1  | (A08) CORE2 10/28/2  |  
-| compute6-N3000      | A06-15       | (A08) CORE2 10/28/3  | (A08) CORE2 10/28/4  |  
 
 
 __NOTE:__ On both Mellanox compute nodes -- port eno1np0, only trunk vlans 1150, 1151 and 1153.  Do not trunk VLAN 1152 (TENANT VLAN)  
@@ -92,14 +85,6 @@ __NOTE:__  ens1f0 and ens1f1 are in a bond -- LACP trunk with miimon=100  (But y
 
 <br/> 
 
-#### Intel N3000 NIC Card Switch Ports
-
-| **Node**        | **Location** | **N3000-P1**      |   
-| :---------:     | :----------: | :----------:      |   
-| compute5-N3000  | A06-16       | Core2 10/27/1     |   
-| compute6-N3000  | A06-15       | Core2 10/26/1     |   
-
-<br/>  
 
 
 ## Openstack 2.x Mandated VLANs

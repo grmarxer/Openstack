@@ -48,8 +48,6 @@ Director requires a node definition template, which you create manually. This te
     | a1413665-f552-4432-9a9f-e1421e0752e6 | compute3-mellanox | None          | power off   | manageable         | False       |
     | 44c66422-e932-4946-b2e4-a8819fa1429a | compute4-mellanox | None          | power off   | manageable         | False       |
     | 4c81f8f2-22ef-4481-b621-57d485988007 | controller        | None          | power off   | manageable         | False       |
-    | 36290595-cebb-4181-b9bc-98733af3c2ea | compute5-N3000    | None          | power on    | manageable         | False       |
-    | 5bfbb52f-b187-4477-9df8-0b1ee154a872 | compute6-N3000    | None          | power on    | manageable         | False       |
     +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
     ```  
 
@@ -155,8 +153,6 @@ The undercloud director can run an introspection process on each node. This proc
     | a1413665-f552-4432-9a9f-e1421e0752e6 | compute3-mellanox | None          | power off   | manageable         | False       |
     | 44c66422-e932-4946-b2e4-a8819fa1429a | compute4-mellanox | None          | power off   | manageable         | False       |
     | 4c81f8f2-22ef-4481-b621-57d485988007 | controller        | None          | power off   | manageable         | False       |
-    | 36290595-cebb-4181-b9bc-98733af3c2ea | compute5-N3000    | None          | power on    | manageable         | False       |
-    | 5bfbb52f-b187-4477-9df8-0b1ee154a872 | compute6-N3000    | None          | power on    | manageable         | False       |
     +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
 
     ```  
@@ -304,8 +300,6 @@ The undercloud director can run an introspection process on each node. This proc
     | a1413665-f552-4432-9a9f-e1421e0752e6 | compute3-mellanox | None          | power off   | available          | False       |
     | 44c66422-e932-4946-b2e4-a8819fa1429a | compute4-mellanox | None          | power off   | available          | False       |
     | 4c81f8f2-22ef-4481-b621-57d485988007 | controller        | None          | power off   | available          | False       |
-    | 36290595-cebb-4181-b9bc-98733af3c2ea | compute5-N3000    | None          | power off   | available          | False       |
-    | 5bfbb52f-b187-4477-9df8-0b1ee154a872 | compute6-N3000    | None          | power off   | available          | False       |
     +--------------------------------------+-------------------+---------------+-------------+--------------------+-------------+
     ```  
 
@@ -393,8 +387,6 @@ However in some circumstances, you may wish to control node placement more direc
     openstack baremetal node set --property capabilities="node:vz-osp-computesriov-1,boot_option:local" compute2-intel
     openstack baremetal node set --property capabilities="node:vz-osp-computedpdk-0,boot_option:local" compute3-mellanox
     openstack baremetal node set --property capabilities="node:vz-osp-computedpdk-1,boot_option:local" compute4-mellanox
-    openstack baremetal node set --property capabilities="node:vz-osp-compute-N3000-0,boot_option:local" compute5-N3000
-    openstack baremetal node set --property capabilities="node:vz-osp-compute-N3000-1,boot_option:local" compute6-N3000
     ```  
 
 2.   After you assign the per-node capability to each node, verify it was set properly.  Example below for the controller  
