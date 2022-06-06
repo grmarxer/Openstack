@@ -532,6 +532,15 @@ nova boot --flavor bigip.8cpu.16GB.dpdk --image ubuntu-18.04-LTS.multiqueue-enab
   --nic net-name=dpdk-net4 --nic net-name=dpdk-net5 --nic net-name=dpdk-net6  --nic net-name=dpdk-net7  \
   --nic net-name=dpdk-net8 --nic net-name=dpdk-net9 --nic net-name=dpdk-net10 \
   --security-group permit.all --hypervisor-hostname vz-osp-computedpdk-0.osp.16.customer.lab   ubuntu-2.d0.8cpu.16GB
+  
+  
+nova boot --flavor bigiq.8cpu.32GB.500G --image bigiq.large.8.2.0 \
+  --nic net-name=management --nic port-id=5de8a929-14f8-4bac-8511-80de47430a54 --nic port-id=b1ce7576-98fb-4de8-aab6-d984315e1571 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-0.osp.16.customer.lab   bigiq-1.s0
+  
+nova boot --flavor bigiq.8cpu.32GB.500G --image bigiq.large.8.2.0 \
+  --nic net-name=management --nic port-id=7868c273-196c-4753-a7fe-b8c2b3230d2f --nic port-id=da82983d-f5da-4e18-8fde-7b97200a6084 \
+  --security-group permit.all --hypervisor-hostname vz-osp-computesriov-1.osp.16.customer.lab   bigiq-2.s1
 
 
 
@@ -586,6 +595,9 @@ tmsh mv cm device bigip1 VE91-BIG-IP_15-1-3-1
 
 tmsh modify sys global-settings hostname bigip-BFD-4.com
 tmsh mv cm device bigip1 bigip-BFD-4
+
+tmsh modify sys global-settings hostname VE102_16-1-2-2_DOH.lab
+tmsh mv cm device bigip1 VE102_16-1-2-2_DOH
 
 
 tmsh create net vlan public interfaces add { 1.1 }
