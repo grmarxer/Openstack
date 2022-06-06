@@ -65,8 +65,6 @@ Director requires a node definition template, which you create manually. This te
     | bc4a0a6c-7e83-4a9a-a9f5-707ab67c7410 | b0:26:28:44:91:41 |
     | db2bda8e-221f-4bc0-b26b-6c265e93d117 | b0:26:28:45:fd:81 |
     | 44b4c240-24a0-49dd-96c0-a983d49ea0f0 | 14:18:77:70:0c:fa |
-    | a9228f08-a8b1-43c9-b759-560dd59f1593 | b4:05:5d:b8:38:93 |
-    | e1ec07a4-b832-4a02-b95c-bcca18b6a358 | b4:05:5d:b8:38:af |
     +--------------------------------------+-------------------+
     (undercloud) [stack@osp16-undercloud templates]$ openstack baremetal port show 20e64261-fd5a-4fe7-bc8c-59327eec2247
     +-----------------------+--------------------------------------+
@@ -279,9 +277,7 @@ The undercloud director can run an introspection process on each node. This proc
     Introspection of node completed:44c66422-e932-4946-b2e4-a8819fa1429a. Status:SUCCESS. Errors:None
     Introspection of node completed:a1413665-f552-4432-9a9f-e1421e0752e6. Status:SUCCESS. Errors:None
     Introspection of node completed:36290595-cebb-4181-b9bc-98733af3c2ea. Status:SUCCESS. Errors:None
-    Introspection of node completed:d9c7b888-e8cb-4138-8d96-01622404083b. Status:SUCCESS. Errors:None
-    Introspection of node completed:33289e93-a5d2-42c5-8b56-77d9b81bfe63. Status:SUCCESS. Errors:None
-    Successfully introspected 7 node(s).
+    Successfully introspected 5 node(s).
 
     Introspection completed.
     Waiting for messages on queue 'tripleo' with no timeout.
@@ -359,10 +355,6 @@ openstack flavor set --property "cpu_arch"="x86_64" --property "capabilities:boo
 
 openstack flavor create ComputeOvsDpdk --ram 6144 --disk 40 --vcpu 1
 openstack flavor set --property "cpu_arch"="x86_64" --property "capabilities:boot_option"="local" --property "capabilities:profile"="ComputeOvsDpdk" --property resources:CUSTOM_BAREMETAL='1' --property resources:DISK_GB='0' --property resources:MEMORY_MB='0' --property resources:VCPU='0' ComputeOvsDpdk
-
-
-openstack flavor create ComputeSriovN3000SmartNic --ram 6144 --disk 40 --vcpu 1
-openstack flavor set --property "cpu_arch"="x86_64" --property "capabilities:boot_option"="local" --property "capabilities:profile"="ComputeSriovN3000SmartNic" --property resources:CUSTOM_BAREMETAL='1' --property resources:DISK_GB='0' --property resources:MEMORY_MB='0' --property resources:VCPU='0' ComputeSriovN3000SmartNic
 ```  
 
 
