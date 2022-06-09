@@ -31,18 +31,18 @@
 
 <br/>  
 
-| **Node**            | **Location** | **eno3 (mgmt)** | **eno4 (prov)** |  
-| :---------:         | :----------: | :----------:    | :----------:    |    
-| Undercloud Director | L25-A08-U13  | Arista1G-P46    |  Arista1G-P48   |     
-| Controller          | L25-A08-U14  | Arista1G-P45    |  Arista1G-P47   |     
+| **Node**            | **Location** | **eno3 (mgmt)** | **eno4 (prov) VLAN 1067** |  
+| :---------:         | :----------: | :----------:    | :----------:              |    
+| Undercloud Director | L25-A08-U13  | Arista1G-P46    |  Arista1G-P48             |     
+| Controller          | L25-A08-U14  | Arista1G-P45    |  Arista1G-P47             |     
 <br/> 
 
-| **Node**            | **Location** | **eno1np0 (mgmt)** |  **eno2np1 (prov)** |
-| :---------:         | :----------: | :----------:       | :----------:        | 
-| compute1-intel      | L25-A15-U25  | CORE5/6/25/2       | CORE3/10/12/3       |  
-| compute2-intel      | L25-A15-U27  | CORE5/6/25/4       | CORE3/10/12/4       |  
-| compute3-mellanox   | L25-A15-U24  | CORE5/6/25/1       | CORE3/10/12/2       |  
-| compute4-mellanox   | L25-A15-U26  | CORE5/6/25/3       | CORE3/10/12/1       | 
+| **Node**            | **Location** | **eno1np0 (mgmt)** |  **eno2np1 (prov) VLAN 1067** |
+| :---------:         | :----------: | :----------:       | :----------:                  | 
+| compute1-intel      | L25-A15-U25  | CORE5/6/25/2       | CORE3/10/12/3                 |  
+| compute2-intel      | L25-A15-U27  | CORE5/6/25/4       | CORE3/10/12/4                 |  
+| compute3-mellanox   | L25-A15-U24  | CORE5/6/25/1       | CORE3/10/12/2                 |  
+| compute4-mellanox   | L25-A15-U26  | CORE5/6/25/3       | CORE3/10/12/1                 | 
 <br/> 
 
 
@@ -62,6 +62,9 @@ __NOTE:__ Switch port configuration is critical to the success of the `overcloud
 | :---------:     | :----------: | :----------:    | :----------:    | :----------:    |  :----------:     |  
 | compute1-intel  | L25-A15-U25  | CORE3/5/22/4    | CORE3/5/21/3    | CORE3/6/2/3     | CORE3/6/2/4       |  
 | compute2-intel  | L25-A15-U27  | CORE3/5/21/1    | CORE3/5/21/2    | CORE3/6/2/1     | **CORE3/10/1/3    |  
+
+__INFO:__ ens1f0 is SRIOV-Public VLAN 3029  
+__INFO:__ ens1f1 is SRIOV-Private VLAN 3030  
 
 __INFO:__ CORE3/10/1/3 is not configured with a 100G connection on the switch, it has a 40G broken out to 10G  
 
