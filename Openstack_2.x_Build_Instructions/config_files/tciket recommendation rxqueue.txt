@@ -1,0 +1,26 @@
+
+> 1.  Is it possible to increase the MTU to more than 1450 when creating a network that will use the tenant vlan/vxlan?
+openstack network create --share --project admin --internal dpdk-net1 -- MTU 1...???
+
+Here is the deployment config you are looking for:
+
+  TenantNetPhysnetMtu:
+    type: number
+    default: 1500
+    description: |
+        MTU of the underlying physical network. Neutron uses this value to
+        calculate MTU for all virtual network components. For flat and VLAN
+        networks, neutron uses this value without modification. For overlay
+        networks such as VXLAN, neutron automatically subtracts the overlay
+        protocol overhead from this value.
+        (The mtu setting of the Tenant network in network_data.yaml
+        control's this parameter.)
+
+
+> 2.  I do not understand how RX queues applies.  This has nothing to do with mulitqueue, correct?  Does this correlate to PMD's?  Thank you
+
+Yes, this would setup 4 receive queues for this dpdk interface or bond.  It would allow these rx queues to be spread across multiple PMDs if available.
+
+Hope this helps.
+
+Matt
