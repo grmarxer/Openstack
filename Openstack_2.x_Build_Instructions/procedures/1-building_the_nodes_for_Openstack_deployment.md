@@ -33,8 +33,8 @@ There are four nodes in this deployment, the Undercloud Director, the Controller
 4.  Use NMCLI to create vlan 1150, 1151, and 1152, tag it to eno3 and set the appropriate IP addressing
     ```
     nmcli con add type vlan dev eno3 con-name vlan-1150 id 1150 ip4 10.255.240.10/24 gw4 10.255.240.1 ipv4.dns "10.144.31.146 8.8.8.8"
-    nmcli con add type vlan dev eno3 con-name vlan-1151 id 1151 ip4 10.255.241.10/24 gw4 10.255.241.1
-    nmcli con add type vlan dev eno3 con-name vlan-1152 id 1152 ip4 10.255.242.10/24 gw4 10.255.242.1
+    nmcli con add type vlan dev eno3 con-name vlan-1151 id 1151 ip4 10.255.241.10/24 gw4 10.255.241.1 (is this needed?? added vlan but not ip)  
+    nmcli con add type vlan dev eno3 con-name vlan-1152 id 1152 ip4 10.255.242.10/24 gw4 10.255.242.1 (is this needed?? added vlan but not ip)  
     nmcli con up vlan-1150  
     nmcli con up vlan-1151  
     nmcli con up vlan-1152
