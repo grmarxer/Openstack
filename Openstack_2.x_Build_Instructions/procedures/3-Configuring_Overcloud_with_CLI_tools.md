@@ -87,13 +87,13 @@ Director requires a node definition template, which you create manually. This te
 
 6.  Use NMCLI to create vlan 1151 and 1152 on the undercloud director, tag it to eno3.  This is required for the overcloud deployment to be successful  
     ```
-    nmcli con add type vlan dev eno3 con-name vlan-1151 id 1151 ip4 10.255.241.10/24 gw4 10.255.241.1    
-    nmcli con add type vlan dev eno3 con-name vlan-1152 id 1152 ip4 10.255.242.10/24 gw4 10.255.242.1    
-    nmcli con up vlan-1151  
-    nmcli con up vlan-1152
+    sudo nmcli con add type vlan dev eno3 con-name vlan-1151 id 1151 ip4 10.255.241.10/24 gw4 10.255.241.1    
+    sudo nmcli con add type vlan dev eno3 con-name vlan-1152 id 1152 ip4 10.255.242.10/24 gw4 10.255.242.1    
+    sudo nmcli con up vlan-1151  
+    sudo nmcli con up vlan-1152
     ```  
     ```
-    [stack@osp16-undercloud ~]$ nmcli conn show
+    [stack@osp16-undercloud ~]$ sudo nmcli conn show
     NAME       UUID                                  TYPE      DEVICE
     vlan-1150  ce17e7e4-5b78-4a7d-bf2e-c3634450d4c2  vlan      eno3.1150
     vlan-1151  d60cddad-6b73-4479-b7bc-cb9143e8a04d  vlan      eno3.1151
