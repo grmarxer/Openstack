@@ -20,7 +20,7 @@ Before you can install director, you must complete some basic configuration on t
     [root@osp16-undercloud ~]# useradd stack
     ```  
 
-3. Set a password for the user:  
+3. Set a password for the user:  Recommend using `f5default` as the password  
     ```
     [root@osp16-undercloud ~]# passwd stack
     ```  
