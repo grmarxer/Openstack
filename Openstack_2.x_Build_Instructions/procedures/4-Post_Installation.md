@@ -3,6 +3,15 @@
 
 <br/> 
 
+### There is a bug in OSP 16 where you need to set any compute node processing DPDK traffic selinux to permissive -- only perform this action after successful deployment of the overcloud
+
+```
+sudo vi /etc/selinux/config  
+SELINUX=permissive  
+SELINUXTYPE=targeted  
+```
+<br/> 
+
 ### Accessing overcloud nodes through SSH
 
 You can access each overcloud node through the SSH protocol from the undercloud director
