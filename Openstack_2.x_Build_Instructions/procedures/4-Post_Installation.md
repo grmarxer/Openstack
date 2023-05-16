@@ -100,7 +100,7 @@ openstack security group rule create --ingress --ethertype IPv4 --protocol udp p
 # Create the management network and subnet.  This network attaches to vlan 1150 which has external connectivity.
 # this is the network that you will use for the BIG-IP management ports
 openstack network create --share --project admin --external --provider-network-type vlan --provider-physical-network management --provider-segment 1150 management
-openstack subnet create --project admin --subnet-range 10.255.240.0/24 --dhcp --ip-version 4 --allocation-pool start=10.255.240.23,end=10.255.240.31 --allocation-pool start=10.255.240.230,end=10.255.240.230 --allocation-pool start=10.255.240.232,end=10.255.240.232 --allocation-pool start=10.255.240.234,end=10.255.240.234 --allocation-pool start=10.255.240.236,end=10.255.240.236 --dns-nameserver 8.8.8.8 --gateway 10.255.240.1 --network management management-subnet
+openstack subnet create --project admin --subnet-range 10.255.240.0/24 --dhcp --ip-version 4 --allocation-pool start=10.255.240.24,end=10.255.240.31 --allocation-pool start=10.255.240.230,end=10.255.240.230 --allocation-pool start=10.255.240.232,end=10.255.240.232 --allocation-pool start=10.255.240.234,end=10.255.240.234 --allocation-pool start=10.255.240.236,end=10.255.240.236 --dns-nameserver 8.8.8.8 --gateway 10.255.240.1 --network management management-subnet
 
 
 # Create the SRIOV networks and subnets.  There are 3 SRIOV networks sriov-public, sriov-private, and sriov-mirror
